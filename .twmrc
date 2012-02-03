@@ -1,0 +1,393 @@
+#
+#	Tab window manager start up file
+#	~/.twmrc.sun for X11R4
+#
+#		Last edited: Mon Jun 11 04:40:13 JST 1990 by hirotsu
+#
+AutoRaise # which ones to autoraise!
+{
+	"Bitmap Editor"
+	"dayEditor"
+	"emacs"
+	"gnuplot"
+	"helpWindow"
+	"jxfig"
+	"kterm"
+	"nterm"
+	"oclock"
+	"wterm"
+	"xcalendar"
+	"xdvi"
+	"psxdvi"
+	"xdbx"
+	"xeyes"
+	"xfig"
+	"xneko"
+	"xterm"
+}
+#AutoRelativeResize
+
+BorderWidth 2 #default is 2
+#ButtonIndent 1 pixel is default
+#ClientBorderWidth
+
+Color { 
+	BorderColor "black" { 
+		"XTerm" "DarkOliveGreen" 
+		"xmh"     "green"
+	}	
+	BorderTileBackground "DarkOliveGreen" # [{ wincolorlist }]
+	BorderTileForeground "DarkOliveGreen" # [{ wincolorlist }]
+	BorderColor "rgb:5/2/2"
+	DefaultBackground "white"
+	DefaultForeground "black"
+#	IconBackground "white" [{ win-list }]
+#	IconBorderColor "black" [{ win-list }]
+#	IconForeground "black" [{ win-list }]
+	IconManagerForeground	"Black"
+	IconManagerBackground	"White"
+	IconManagerHighlight 	"DarkOliveGreen" 
+	MenuBackground      "bisque"
+	MenuForeground      "Black"
+	MenuShadowColor "black"
+	MenuTitleBackground "BlanchedAlmond"
+	MenuTitleForeground "DarkOliveGreen"
+	TitleBackground     "BlanchedAlmond"
+#	TitleBackground     "rgb:2/5/6"
+	TitleForeground     "black"
+}
+#ConstrainedMoveTime 400 milliseconds
+
+Cursors { 
+	Frame     "top_left_arrow"
+	Title     "top_left_arrow"
+	Icon      "top_left_arrow"
+	IconMgr   "top_left_arrow"
+	Move      "fleur"
+	Resize    "fleur"
+	Menu      "sb_left_arrow"
+	Button    "hand2"
+	Wait      "watch"
+	Select    "dot"
+	Destroy   "pirate"
+}
+
+DecorateTransients # transient windows should have titlebars
+DontIconifyByUnmapping {
+	"Xmh"
+}
+#DontMoveOff the screen
+#DontSqueezeTitle [{ win-list }]
+ForceIcons
+#FramePadding 2 is default
+IconDirectory	"~/lib/bitmaps"
+#IconFont "8x13"
+IconFont	"*-times-bold-r-*--14-*"
+IconifyByUnmapping
+#IconifyByUnmapping [{ win-list }]
+
+IconManagerDontShow
+{
+	"xbatt"
+	"xclock"
+	"xcnn"
+	"xload"
+	"xbaff"
+	"xbiff"
+	"xfaces"
+	"xname"
+	"XName"
+	"oclock"
+}
+
+#IconManagerFont "8x13"
+IconManagerFont		"*-times-medium-i-*-14-*"
+IconManagerGeometry	"=270x10-59+0" 2
+#IconManagerGeometry	"=1080x10-0+0" 8
+#IconManagerGeometry	"=135x10-153+0"
+#IconManagerGeometry string [1 ]
+#IconManagers { iconmgr-list }
+IconManagers
+{
+    "myhost"	"=400x5+800+0" 5
+}
+#IconManagers
+#{
+#     "XTerm"   "=300x5+800+5" 5
+#     "myhost"  "=400x5+100+5" 2
+#}
+IconManagerShow
+{
+    "kterm"
+    "xterm"
+}
+#IconRegion geomstring vgrav hgrav gridwidth gridheight
+Icons
+{
+#	"xfig"	"xfig.icon"
+	"xterm"	"xterm.icon"
+	"XTerm"	"xterm.icon"
+	"xfd"	"xfd_icon"
+}
+
+
+InterpolateMenuColors
+#Menu "mymenu"
+#{
+#     "Title"        ("black":"red")          f.title
+#     "entry1"                 f.nop
+#     "entry2"                 f.nop
+#     "entry3"  ("white":"green")   f.nop
+#     "entry4"                 f.nop
+#     "entry5"  ("red":"white")          f.nop
+#}
+
+#MakeTitle { win-list }
+#MaxWindowSize "30000x30000"
+#MenuFont "8x13"
+MenuFont	"*-new century schoolbook-medium-r-*--10-*"
+#Monochrome { colors }
+#MoveDelta 0 pixels
+#NoBackingStore
+#NoCaseSensitive
+#NoDefaults
+#NoGrabServer
+
+NoHighlight
+{
+	"xbatt"
+	"xclock"
+	"xload"
+	"xbaff"
+	"xbiff"
+	"xeyes"
+	"xfaces"
+	"xname"
+	"xneko"
+}
+
+#NoIconManagers
+#NoMenuShadows
+#NoRaiseOnDeiconify
+#NoRaiseOnMove
+#NoRaiseOnResize
+#NoRaiseOnWarp
+NoSaveUnders
+
+NoTitle
+{
+	"TWM"
+	"TWM Icon Manager"
+	"xbatt"
+	"xload"
+	"xclock"
+	"xbaff"
+	"xbiff"
+	"xeyes"
+	"xfaces"
+	"xcalendar"
+	"xname"
+	"xneko"
+}
+
+#NoTitleFocus
+#NoTitleHighlight [{ win-list }]
+OpaqueMove
+#Pixmaps { pixmaps }
+#Pixmaps
+#{
+#     TitleHighlight "gray1"
+#}
+#RandomPlacement
+ResizeFont	"*-courier-medium-r-*--14-*"
+#ResizeFont "fixed"
+RestartPreviousState
+ShowIconManager 
+SortIconManager
+#SqueezeTitle [{ squeeze-list }] control size of titlebar
+#SqueezeTitle
+#{
+#     "XTerm"   left      0    0
+#     "xterm1"  left      1    3
+#     "xterm2"  left      2    3
+#     "oclock"  center         0    0
+#     "emacs"   right          0    0
+#}
+#StartIconified [{ win-list }]
+#TitleButtonBorderWidth 1 pixels
+#TitleFont  "8x13"
+#TitleFont	"*-times-bold-i-*--14-*"
+TitleFont	"-*-times-medium-r-*-*-12-*-*-*-*-*-*-*"
+TitlePadding 8 # pixels
+#UnknownIcon string
+#UsePPosition string
+#WarpCursor [{ win-list }]
+#WindowRing { win-list }
+#WarpUnmapped
+#XorValue number
+#Zoom 8
+DefaultFunction f.menu "WindowOps"
+#WindowFunction f.function "blob"
+
+########################################################################
+#Button = KEYS : CONTEXT : FUNCTION
+########################################################################
+Button1 =	: root	: f.menu "Terminals"
+Button2 =	: root	: f.menu "HandyCommands"
+Button3 =	: root	: f.menu "WindowOps"
+Button3 = c	: root	: f.function "beep-beep"
+
+Button2 =	: iconmgr : f.menu "destroy"
+
+#Button1 =	: title	: f.iconify
+Button1 =	: title	: f.move
+Button2 =	: title	: f.menu "destroy"
+#Button3 =	: title	: f.move
+Button3 =	: title	: f.iconify
+
+Button1 =	: frame	: f.iconify
+Button2 =	: frame	: f.resize
+Button3 =	: frame	: f.move
+
+Button1 =	: icon	: f.iconify
+Button2 =	: icon	: f.menu "destroy"
+Button3 =	: icon	: f.move
+
+#Button1 = m	: window : f.iconify
+Button2 = m	: window : f.resize
+Button3 = m	: window : f.move
+
+"i"	= m	: all	: f.iconify
+"z"	= m	: all	: f.zoom
+"a"	= m	: all	: f.fullzoom
+
+"u"	= m	: all	: f.raiselower
+
+#"p"	= m	: all	: f.upiconmgr
+#"n"	= m	: all	: f.downiconmgr
+"p"	= m	: all	: f.backiconmgr
+"n"	= m	: all	: f.forwiconmgr
+
+"r"	= m	: all	: f.refresh
+
+"c"	= m	: all	: f.warpto "Console"
+"b"	= m	: all	: f.warpto "beretta"
+"d"	= m	: all	: f.warpto "idraw"
+"e"	= m	: all	: f.warpto "Edit Sheet"
+"f"	= m	: all	: f.warpto "frig"
+"g"	= m	: all	: f.warpto "glock"
+"k"	= m	: all	: f.warpto "kdraw"
+"l"	= m	: all	: f.warpto "local"
+"m"	= m	: all	: f.warpto "mogwai"
+"s"	= m	: all	: f.warpto "steyr"
+"w"	= m	: all	: f.warpto "Work Sheet"
+"x"	= m	: all	: f.warpto "xdvi"
+
+Function "beep-beep"
+{
+    f.beep
+    f.beep
+    f.beep
+    f.beep
+    f.beep
+}
+
+Function "de-raise-n-focus"
+{
+    f.deiconify
+    f.raise
+    f.focus
+}
+
+Function "raise-n-focus"
+{
+    f.raise
+    f.focus
+}
+
+menu "destroy"
+{
+"destroy ?"		f.title
+"yes"			f.destroy
+"no"			f.nop
+}
+
+menu "WindowOps"
+{
+"Icon Managers"		f.title
+"Show Icon Mgr"		f.showiconmgr
+"Hide Icon Mgr"		f.hideiconmgr
+"Refresh"		f.title
+"Refresh"		f.refresh
+"Refresh Window"	f.winrefresh
+"Restart"       	f.restart
+"Destroy"		f.title
+"Destroy Window"	f.destroy
+"Kill twm"		f.quit
+"Window Control"	f.title
+"(De)Iconify"		f.iconify
+"DeIconify"		f.deiconify
+"Move Window"		f.move
+"ForceMove Window"	f.forcemove
+"Resize Window"		f.resize
+"Raise Window"		f.raise
+"Lower Window"		f.lower
+"Raise or Lower"	f.raiselower
+"Focus on Window"	f.focus
+"Raise-n-Focus"		f.function "raise-n-focus"
+"Focus on Root"		f.unfocus
+"Zoom Window"		f.zoom
+"FullZoom Window"	f.fullzoom
+"Misc"			f.title
+"Toggle AutoRaise"	f.autoraise
+"Source .twmrc"		f.twmrc
+"Cut File"		f.cutfile
+"Change Win Mgr"	!"kill -TERM `cat .winmgr.pid`; tvtwm -f .tvtwmrc.sun & echo $! > .winmgr.pid"
+"twm Version"		f.version
+}
+
+menu "HandyCommands"
+{
+"Handy Commands"	f.title
+"idraw"			!"idraw &"
+"xsetroot"		f.menu "Xsetroot"
+"kinput2"		!"kinput2 &"
+"xcalendar"		!"xcalendar &"
+"xclock"		!"xclock &"
+"xbatt"			!"xbatt &"
+}
+
+menu "Xsetroot"
+{
+"Xsetroot"		f.title
+"grey"		!"xsetroot -display $DISPLAY -solid grey &"
+"grey40"		!"xsetroot -display $DISPLAY -solid grey40 &"
+"grainy"		f.title
+"escher knot"		!"xsetroot -display $DISPLAY -bitmap /usr/X11/include/X11/bitmaps/escherknot -fg SeaGreen -bg White &"
+"wingdogs"		!"xsetroot -display $DISPLAY -bitmap /usr/X11/include/X11/bitmaps/wingdogs -fg SeaGreen -bg White &"
+"black"			!"xsetroot -display $DISPLAY -bitmap /usr/X11/include/X11/bitmaps/black -fg SeaGreen -bg White &"
+"gray3"			!"xsetroot -display $DISPLAY -bitmap /usr/X11/include/X11/bitmaps/gray3 -fg SeaGreen -bg White &"
+}
+
+menu  "Terminals" 
+{
+"Kterm"			f.title
+"Default"		!"kterm -fg white -bg black -km euc -xim &"
+"Local"			!"kterm -fn a14 -fk k14 -ls -n local &"
+"local"			!"kterm -fn kaname12r -fr kaname12r -frb kaname12r -fk kaname12 -ls -n local &"
+"Eterm"			f.title
+"Local"			!"Eterm &"
+"Others"		f.title
+"Firefox"		!"firefox &"
+"Gaim"			!"gaim &"
+}
+
+Monochrome
+{
+    BorderColor "black"
+    BorderTileForeground "black"
+    BorderTileBackground "white"
+    TitleForeground "black"
+    TitleBackground "white"
+}
+
