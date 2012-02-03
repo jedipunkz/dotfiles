@@ -14,7 +14,7 @@ ln -s $HOME/dotfiles/.conkyrc $HOME/.conkyrc
 ln -s $HOME/dotfiles/.Xresources $HOME/.Xresources
 ln -s $HOME/dotfiles/.twmrc $HOME/.twmrc
 ln -s $HOME/dotfiles/.zshrc $HOME/.zshrc
-ln -s $HOME/dotfiles/.oh-my-zsh $HOME/.oh-my-zsh
+#ln -s $HOME/dotfiles/.oh-my-zsh $HOME/.oh-my-zsh
 ln -s $HOME/dotifles/.vimrc $HOME/.vimrc
 ln -s $HOME/dotifles/.vim $HOME/.vim
 ln -s $HOME/dotfiles/.screenrc $HOME/.screenrc
