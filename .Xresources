@@ -1,0 +1,5 @@
+URxvt.scrollBar_right:  True
+URxvt.scrollBar_floating: False
+URxvt.scrollstyle: plain
+URxvt.iconFile:
+URxvt.throughColor: #000000

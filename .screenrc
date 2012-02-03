@@ -1,0 +1,37 @@
+# $Id: .screenrc,v 1.10 2003/04/16 09:05:48 thirai Exp $
+
+# UTF-8 用
+#defkanji euc 			# 漢字コードは EUC
+defencoding utf-8
+encoding utf-8 utf-8
+
+escape                      # エスケープシーケンスは Ctrl+z 
+autodetach on                   # auto detach を有効に
+
+# ステータス表示
+hardstatus on
+#hardstatus alwayslastline "\033[42;30m %w \033[m" # ステータスを表示
+#hardstatus alwayslastline "%m/%d %D %c [%l] \033[42;30m %w \033[m" # ステータスを表示
+#hardstatus alwayslastline
+#hardstatus string "%{.Wb}.: %-w%{.RW}%n %t%{-}%+w :. %=[%Y-%m-%d %02c]"
+hardstatus alwayslastline "%m/%d [%02c] %`%-w%{=b bw}%n %t%{-}%+w"
+
+startup_message off # 起動を静かに
+multiuser on        # マルチユーザ
+bind s colon 'screen ssh ' # ssh 方面
+defhstatus "^En:^Et"       # タイトル表示
+markkeys 'h=:l=:=:$=' # コピーモードで emacs ライクのキーバインド
+defscrollback 10000             # コピーモードでの scroll buffer を設定
+
+
+# set login shell
+shell -$SHELL
+
+# set prompt
+#PROMPT='k%~\%~ '
+
+### KeyBinds
+# return window 0
+bind ' ' select 0
+# show window list
+bind w windowlist -b
