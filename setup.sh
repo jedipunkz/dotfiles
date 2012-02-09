@@ -6,7 +6,6 @@ git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 
 ln -s $HOME/dotfiles/.oh-my-zsh/custom/custom-aliases.zsh $HOME/.oh-my-zsh/custom/custom-aliases.zsh
 ln -s $HOME/dotfiles/.oh-my-zsh/custom/custom-env.zsh $HOME/.oh-my-zsh/custom/custom-env.zsh
-ln -s $HOME/dotfiles/.oh-my-zsh/custom/custom-path.zsh $HOME/.oh-my-zsh/custom/custom-path.zsh
 
 # download neobundle
 git clone git://github.com/Shougo/neobundle.vim.git $HOME/.vim/bundle/neobundle.vim
