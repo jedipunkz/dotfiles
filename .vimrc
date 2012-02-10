@@ -14,7 +14,7 @@ filetype plugin indent on
 set t_Co=256
 
 syntax enable
-colorscheme darkblue
+"colorscheme darkblue
 "colorscheme desert
 "set background=dark
 "colorscheme solarized
@@ -22,6 +22,8 @@ colorscheme darkblue
 "colorscheme wombat256
 "colorscheme wombat256mod
 "colorscheme molokai
+"colorscheme zenburn
+colorscheme molokai
 if &diff
         colorscheme leo
 endif
