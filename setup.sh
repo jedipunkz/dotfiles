@@ -14,9 +14,6 @@ git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 ln -s $HOME/dotfiles/.oh-my-zsh/custom/custom-aliases.zsh $HOME/.oh-my-zsh/custom/custom-aliases.zsh
 ln -s $HOME/dotfiles/.oh-my-zsh/custom/custom-env.zsh $HOME/.oh-my-zsh/custom/custom-env.zsh
 
-# download neobundle
-git clone git://github.com/Shougo/neobundle.vim.git $HOME/.vim/bundle/neobundle.vim
-
 # symlink to $HOME
 ln -s $HOME/dotfiles/.emacs $HOME/.emacs
 cp -Rp $HOME/dotfiles/.emacs.d $HOME/.emacs.d
@@ -31,3 +28,6 @@ ln -s $HOME/dotfiles/.screenrc $HOME/.screenrc
 ln -s $HOME/dotfiles/.xinitrc $HOME/.xinitrc
 ln -s $HOME/dotfiles/.gtkrc-2.0 $HOME/.gtkrc-2.0
 ln -s $HOME/dotfiles/.dir_colors $HOME/.dir_colors
+
+# download neobundle
+git clone git://github.com/Shougo/neobundle.vim.git $HOME/.vim/bundle/neobundle.vim
