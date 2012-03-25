@@ -62,7 +62,7 @@ system ("git clone $url_ohmyzsh ~/.oh-my-zsh");
 &link (".oh-my-zsh/custom/custom-aliases.zsh");
 &link (".oh-my-zsh/custom/custom-env.zsh");
 &link (".emacs");
-&link ("emacs.d");
+&link (".emacs.d");
 &link (".mew-theme.el");
 &link (".conkyrc");
 &link (".Xresources");

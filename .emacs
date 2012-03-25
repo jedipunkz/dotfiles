@@ -161,30 +161,29 @@
 ;(require 'color-theme)
 
 ;; 現在桁をハイライト
-(require 'col-highlight)
+;(require 'col-highlight)
 ; 1: 常にハイライト
-(column-highlight-mode 1) ; 1 or 2
+;(column-highlight-mode 1) ; 1 or 2
 ; 2: 何もしないで居るとハイライトを始めるようにする
-(toggle-highlight-column-when-idle 1)
-(col-highlight-set-interval 6)
+;(toggle-highlight-column-when-idle 1)
+;(col-highlight-set-interval 6)
 ; 色選択
-(custom-set-faces
- ;'(col-highlight ((t (:background "#222244")))))
- '(col-highlight ((t (:background "#222244")))))
+;(custom-set-faces
+; '(col-highlight ((t (:background "#222244")))))
 ; 現在行をハイライト
 ;(require 'crosshairs)
 ;(crosshairs-mode 1)
 ; hl-line は crosshairs.el で load されている
-(require 'hl-line)
-(custom-set-faces 
- '(hl-line
-   ((((class color)
-      (background dark))
-     (:background "#222244"))
-    (((class color)
-      (background light))
-     (:background "#222244")))))
-(global-hl-line-mode)
+;(require 'hl-line)
+;(custom-set-faces 
+; '(hl-line
+;   ((((class color)
+;      (background dark))
+;     (:background "#222244"))
+;    (((class color)
+;      (background light))
+;     (:background "#222244")))))
+;(global-hl-line-mode)
 
 ;; 日本語設定
 (set-language-environment 'Japanese)
