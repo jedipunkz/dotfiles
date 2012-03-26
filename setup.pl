@@ -56,6 +56,7 @@ system ("rm -rf $backupdir/.*");
 &chkbackup (".xinitrc");
 &chkbackup (".gtkrc-2.0");
 &chkbackup (".dir_colors");
+&chkbackup (".tmux.conf");
 
 system ("git clone $url_ohmyzsh ~/.oh-my-zsh");
 
@@ -74,5 +75,6 @@ system ("git clone $url_ohmyzsh ~/.oh-my-zsh");
 &link (".xinitrc");
 &link (".gtkrc-2.0");
 &link (".dir_colors");
+&link (".tmux.conf");
 
 system ("git clone $url_neobundle $homedir/.vim/bundle/neobundle.vim");
