@@ -201,7 +201,11 @@
 (setq frame-background-mode 'dark)
 
 ;; タブ長の設定
-(setq tab-width 2)
+(setq tab-width 4)
+
+;; 矩形選択
+(cua-mode t) ; cua-mode をオンにする
+(setq cua-enable-cua-keys nil) ; CUA キーバインドを無効にする
 
 ;; タブをスペースに置き換え
 ;(setq indent-tabs-mode nil)
