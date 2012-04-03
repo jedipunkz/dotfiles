@@ -1,7 +1,8 @@
 ;; $HOME の path 追加
 (setq load-path (cons "~/.emacs.d/lisp" load-path))
 (setq load-path (cons "~/.emacs.d/auto-install" load-path))
-(setq load-path (cons "/usr/share/emacs/site-lisp/mew" load-path))
+;(setq load-path (cons "/usr/share/emacs/site-lisp/mew" load-path))
+(setq load-path (cons "/usr/local/share/emacs/site-lisp/mew/" load-path))
 
 ;; 基本の auto-install.
 (setq load-path (cons "~/.emacs.d/auto-install" load-path))
@@ -20,10 +21,10 @@
   '(define-key anything-map (kbd "C-h") 'delete-backward-char))
 
 ; auto-complete.el
-(require 'auto-complete)
-(global-auto-complete-mode t)
-(define-key ac-complete-mode-map "\C-n" 'ac-next)     ; C-n で補完が打ち消されないよう
-(define-key ac-complete-mode-map "\C-p" 'ac-previous) ; C-n で補完が打ち消されないよう
+;(require 'auto-complete)
+;(global-auto-complete-mode t)
+;(define-key ac-complete-mode-map "\C-n" 'ac-next)     ; C-n で補完が打ち消されないよう
+;(define-key ac-complete-mode-map "\C-p" 'ac-previous) ; C-n で補完が打ち消されないよう
 
 
 ;; sudo alias
