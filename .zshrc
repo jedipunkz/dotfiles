@@ -34,11 +34,20 @@ plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games:/sbin:/usr/sbin:$HOME/usr/bin
 
+# set $PATH
+export PATH=$HOME/usr/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games:/sbin:/usr/sbin
+
+# for rvm and ruby
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 
-alias emacs="emacsclient -t"
-alias kill-emacs="emacsclient -e '(kill-emacs)'"
+case "${OSTYPE}" in
+freebsd*|darwin*)
+    ;;
+linux*)
+    alias emacs="emacsclient -t"
+    alias kill-emacs="emacsclient -e '(kill-emacs)'"
+    ;;
+esac
+
