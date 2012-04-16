@@ -26,6 +26,13 @@
 ;(define-key ac-complete-mode-map "\C-n" 'ac-next)     ; C-n で補完が打ち消されないよう
 ;(define-key ac-complete-mode-map "\C-p" 'ac-previous) ; C-n で補完が打ち消されないよう
 
+;; markdown mode
+(autoload 'markdown-mode "markdown-mode.el"
+	"Major mode for editing Markdown files" t)
+(setq auto-mode-alist 
+			(cons '("\\.md" . markdown-mode) auto-mode-alist))
+(setq auto-mode-alist 
+			(cons '("\\.markdown" . markdown-mode) auto-mode-alist))
 
 ;; sudo alias
 (require 'tramp)
