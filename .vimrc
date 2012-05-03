@@ -9,7 +9,7 @@ endif
 
 NeoBundle 'https://github.com/Lokaltog/vim-powerline.git'
 
-filetype plugin indent on
+"filetype plugin indent on
 
 set t_Co=256
 
