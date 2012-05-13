@@ -11,6 +11,10 @@
 (auto-install-update-emacswiki-package-name t)
 (auto-install-compatibility-setup) ; 互換性確保
 
+;; nav
+(add-to-list 'load-path "~/.emacs.d/nav/")
+(require 'nav)
+
 ;; powerline.el
 (require 'powerline)
 
