@@ -52,3 +52,6 @@ linux*)
 esac
 
 [[ -s "$HOME/aws/ec2-api-tools" ]] && . "$HOME/.zsh_aws"
+
+# alias
+alias la="ls -a"
