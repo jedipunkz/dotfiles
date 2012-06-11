@@ -37,6 +37,7 @@ source $ZSH/oh-my-zsh.sh
 
 # set $PATH
 export PATH=$HOME/usr/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games:/sbin:/usr/sbin
+export TERM=xterm-256color
 
 # for rvm and ruby
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
@@ -51,4 +52,11 @@ linux*)
     ;;
 esac
 
+# add PERL5LIB path for cpanm
+export PERL_CPANM_OPT="--local-lib=~/perl5"
+export PATH=$HOME/perl5/bin:$PATH;
+export PERL5LIB=$HOME/perl5/lib/perl5:$PERL5LIB;
+
 [[ -s "$HOME/aws/ec2-api-tools" ]] && . "$HOME/.zsh_aws"
+
+alias la="ls -a"
