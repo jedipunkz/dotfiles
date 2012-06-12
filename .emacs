@@ -312,7 +312,7 @@ static char * arrow_right[] = {
 
 ;;; 部分一致の補完機能を使う
 ;;; p-bでprint-bufferとか
-(partial-completion-mode t)
+;(partial-completion-mode t)
 
 ;;; 補完可能なものを随時表示
 ;;; 少しうるさい
@@ -331,8 +331,8 @@ static char * arrow_right[] = {
 (column-number-mode t)
 
 ;; Shift + カーソルキーで領域を選択する
-(setq pc-select-selection-keys-only t)
-(pc-selection-mode 1)
+;(setq pc-select-selection-keys-only t)
+;(pc-selection-mode 1)
 
 ;; color theme
 ;(require 'color-theme)
