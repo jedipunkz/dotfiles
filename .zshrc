@@ -65,10 +65,4 @@ export EDITOR=vim
 
 [[ -s "$HOME/aws/ec2-api-tools" ]] && . "$HOME/.zsh_aws"
 
-<<<<<<< HEAD
 alias la="ls -a"
-
-=======
-# alias
-alias la="ls -a"
->>>>>>> 7181116200ee803bb2f9fac6fda88d6fc9fe7d84
