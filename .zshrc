@@ -29,7 +29,7 @@ ZSH_THEME="pygmalion"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git)
+plugins=(git rake ruby vagrant osx)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -48,6 +48,7 @@ freebsd*|darwin*)
     ;;
 linux*)
     alias emacs="emacsclient -t"
+    #alias emacs="/usr/bin/emacsclient.emacs-snapshot -t"
     alias kill-emacs="emacsclient -e '(kill-emacs)'"
     ;;
 esac
@@ -57,6 +58,9 @@ export PERL_CPANM_OPT="--local-lib=~/perl5"
 export PATH=$HOME/perl5/bin:$PATH;
 export PERL5LIB=$HOME/perl5/lib/perl5:$PERL5LIB;
 
+export EDITOR=vim
+
 [[ -s "$HOME/aws/ec2-api-tools" ]] && . "$HOME/.zsh_aws"
 
 alias la="ls -a"
+
