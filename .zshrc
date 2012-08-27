@@ -40,8 +40,11 @@ export PATH=$HOME/usr/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games:/
 export TERM=xterm-256color
 
 # for rvm and ruby
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+#PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+#[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+# rbenv
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
 
 case "${OSTYPE}" in
 freebsd*|darwin*)
@@ -62,5 +65,10 @@ export EDITOR=vim
 
 [[ -s "$HOME/aws/ec2-api-tools" ]] && . "$HOME/.zsh_aws"
 
+<<<<<<< HEAD
 alias la="ls -a"
 
+=======
+# alias
+alias la="ls -a"
+>>>>>>> 7181116200ee803bb2f9fac6fda88d6fc9fe7d84
