@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: config.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu at gmail.com>
-" Last Modified: 24 Feb 2012.
+" Last Modified: 29 Aug 2012.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -30,21 +30,50 @@ set cpo&vim
 
 if !exists('s:neobundles')
   let s:neobundles = {}
+  let s:loaded_neobundles = {}
 endif
 
 function! neobundle#config#init()
   call s:rtp_rm_all_bundles()
-  let s:neobundles = {}
+
+  for bundle in values(s:neobundles)
+    if bundle.resettable
+      " Reset.
+      call remove(s:neobundles, bundle.path)
+      if neobundle#config#is_sourced(bundle.name)
+        call remove(s:loaded_neobundles, bundle.name)
+      endif
+    endif
+  endfor
+
+  " Load neobundle types.
+  let s:neobundle_types = {}
+  for define in map(split(globpath(&runtimepath,
+        \ 'autoload/neobundle/types/*.vim', 1), '\n'),
+        \ "neobundle#types#{fnamemodify(v:val, ':t:r')}#define()")
+    for dict in (type(define) == type([]) ? define : [define])
+      if !empty(dict) && !has_key(s:neobundle_types, dict.name)
+        let s:neobundle_types[dict.name] = dict
+      endif
+    endfor
+    unlet define
+  endfor
 endfunction
 
 function! neobundle#config#get_neobundles()
-  return values(s:neobundles)
+  return sort(values(s:neobundles), 's:compare_names')
+endfunction
+
+function! s:compare_names(a, b)
+  return (a:a.name >? a:b.name) ? 1 : -1
 endfunction
 
 function! neobundle#config#reload(bundles)
   if empty(a:bundles)
     return
   endif
+
+  call s:rtp_add_bundles(a:bundles)
 
   " Delete old g:loaded_xxx variables.
   for var_name in keys(g:)
@@ -53,6 +82,8 @@ function! neobundle#config#reload(bundles)
     endif
   endfor
 
+  silent! runtime! ftdetect/**/*.vim
+  silent! runtime! after/ftdetect/**/*.vim
   silent! runtime! plugin/**/*.vim
   silent! runtime! after/plugin/**/*.vim
 
@@ -67,49 +98,181 @@ function! neobundle#config#reload(bundles)
   endfor
 
   for script in scripts
-    for bundle in a:bundles
-      if stridx(script, bundle.path) >= 0
-        silent! execute 'source' script
-      endif
+    for bundle in filter(copy(a:bundles),
+          \ 'stridx(script, v:val.path) >= 0')
+      silent! execute source `=script`
     endfor
   endfor
 endfunction
 
 function! neobundle#config#bundle(arg)
-  sandbox let args = eval('[' . a:arg . ']')
-  if empty(args)
+  let bundle = s:parse_arg(a:arg)
+  if empty(bundle)
     return {}
   endif
 
-  let bundle = neobundle#config#init_bundle(args[0], args[1:])
   let path = bundle.path
   if has_key(s:neobundles, path)
     call s:rtp_rm(bundle.rtp)
   endif
 
   let s:neobundles[path] = bundle
+  let s:loaded_neobundles[bundle.name] = 1
   call s:rtp_add(bundle.rtp)
+  for depend in bundle.depends
+    if type(depend) == type('')
+      let depend = string(depend)
+    endif
+
+    call neobundle#config#bundle(depend)
+
+    unlet depend
+  endfor
+
   return bundle
 endfunction
 
-function! neobundle#config#external_bundle(arg, ...)
-  let bundle = neobundle#config#init_bundle(a:arg, a:000)
-  let path = bundle.path
-  if !has_key(s:neobundles, path)
-    let s:neobundles[path] = bundle
+function! neobundle#config#lazy_bundle(arg)
+  let bundle = s:parse_arg(a:arg)
+  if empty(bundle)
+    return {}
   endif
+
+  let path = bundle.path
+
+  let s:neobundles[path] = bundle
   return bundle
 endfunction
 
-function! neobundle#config#rm_bndle(path)
+function! neobundle#config#depends_bundle(arg)
+  let bundle = s:parse_arg(a:arg)
+
+  if empty(bundle) || has_key(s:neobundles, bundle.path)
+    " Ignore.
+    return {}
+  endif
+
+  let bundle = neobundle#config#bundle(a:arg)
+  let bundle.resettable = 0
+  let s:loaded_neobundles[bundle.name] = 0
+
+  " Install bundle automatically.
+  silent call neobundle#installer#install(0, bundle.name)
+
+  " Load scripts.
+  call neobundle#config#source(bundle.name)
+
+  return bundle
+endfunction
+
+function! s:parse_arg(arg)
+  let arg = type(a:arg) == type([]) ?
+   \ string(a:arg) : '[' . a:arg . ']'
+  sandbox let args = eval(arg)
+  if empty(args)
+    return {}
+  endif
+
+  let bundle = neobundle#config#init_bundle(
+        \ args[0], args[1:])
+  if empty(bundle)
+    return {}
+  endif
+
+  let bundle.orig_arg = a:arg
+
+  return bundle
+endfunction
+
+function! neobundle#config#source(...)
+  let bundles = empty(a:000) ?
+        \ neobundle#config#get_neobundles() :
+        \ neobundle#config#search(a:000)
+  let bundles = filter(bundles,
+        \ '!neobundle#config#is_sourced(v:val.name)')
+  if empty(bundles)
+    return
+  endif
+
+  filetype off
+
+  for bundle in bundles
+    if has_key(s:neobundles, bundle.path)
+      call s:rtp_rm(bundle.rtp)
+    endif
+    call s:rtp_add(bundle.rtp)
+
+    for depend in bundle.depends
+      if type(depend) == type('')
+        let depend = string(depend)
+      endif
+
+      call neobundle#config#bundle(depend)
+
+      unlet depend
+    endfor
+
+    for directory in
+          \ ['ftdetect', 'after/ftdetect', 'plugin', 'after/plugin']
+      for file in split(glob(bundle.rtp.'/'.directory.'/**/*.vim'), '\n')
+        source `=file`
+      endfor
+    endfor
+
+    if has_key(bundle, 'augroup') && exists('#'.bundle.augroup)
+      execute 'doautocmd' bundle.augroup 'VimEnter'
+
+      if has('gui_running')
+        execute 'doautocmd' bundle.augroup 'GUIEnter'
+      endif
+    endif
+
+    let s:loaded_neobundles[bundle.name] = 1
+  endfor
+
+  filetype plugin indent on
+
+  " Reload filetype plugins.
+  let &l:filetype = &l:filetype
+endfunction
+
+function! neobundle#config#is_sourced(name)
+  return get(s:loaded_neobundles, a:name, 0)
+endfunction
+
+function! neobundle#config#rm_bundle(path)
   if has_key(s:neobundles, a:path)
     call s:rtp_rm(s:neobundles[a:path].rtp)
     call remove(s:neobundles, a:path)
   endif
 endfunction
 
+function! neobundle#config#get_types()
+  return s:neobundle_types
+endfunction
+
+function! neobundle#config#parse_path(path, ...)
+  let opts = get(a:000, 0, {})
+  let site = get(opts, 'site', g:neobundle_default_site)
+  let path = a:path
+  if path !~ ':'
+    " Add default site.
+    let path = site . ':' . path
+  endif
+
+  for type in values(neobundle#config#get_types())
+    let detect = type.detect(path)
+    if !empty(detect)
+      return detect
+    endif
+  endfor
+
+  return {}
+endfunction
+
 function! s:rtp_rm_all_bundles()
-  call filter(values(s:neobundles), 's:rtp_rm(v:val.path)')
+  call filter(filter(values(s:neobundles),
+        \ "v:val.name !=# 'neobundle.vim'"), 's:rtp_rm(v:val.rtp)')
 endfunction
 
 function! s:rtp_rm(dir)
@@ -117,38 +280,66 @@ function! s:rtp_rm(dir)
   execute 'set rtp-='.fnameescape(neobundle#util#expand(a:dir.'/after'))
 endfunction
 
+function! s:rtp_add_bundles(bundles)
+  call filter(copy(a:bundles), 's:rtp_add(v:val.rtp)')
+endfunction
+
 function! s:rtp_add(dir) abort
-  execute 'set rtp^='.fnameescape(neobundle#util#expand(a:dir))
-  execute 'set rtp+='.fnameescape(neobundle#util#expand(a:dir.'/after'))
+  let rtp = neobundle#util#expand(a:dir)
+  if isdirectory(rtp)
+    execute 'set rtp^='.fnameescape(rtp)
+  endif
+  if isdirectory(rtp.'/after')
+    execute 'set rtp+='.fnameescape(rtp.'/after')
+  endif
 endfunction
 
 function! neobundle#config#init_bundle(name, opts)
-  let bundle = extend(s:parse_name(substitute(a:name,"['".'"]\+','','g')),
-        \ s:parse_options(a:opts))
-  let bundle.path = s:expand_path(neobundle#get_neobundle_dir().'/'.
+  let path = substitute(a:name, "['".'"]\+', '', 'g')
+  let opts = s:parse_options(a:opts)
+  let bundle = extend(neobundle#config#parse_path(
+        \ path, opts), opts)
+  if !has_key(bundle, 'uri')
+    let bundle.uri = path
+  endif
+  if !has_key(bundle, 'name')
+    let bundle.name =
+          \ substitute(split(path, '/')[-1], '\.git\s*$','','i')
+  endif
+
+  if !has_key(bundle, 'type')
+    call neobundle#installer#error(
+          \ printf('Failed parse name "%s" and args %s',
+          \   a:name, string(a:opts)))
+    return {}
+  endif
+
+  let bundle.base = s:expand_path(get(bundle, 'base',
+        \ neobundle#get_neobundle_dir()))
+  let bundle.path = s:expand_path(bundle.base.'/'.
         \ get(bundle, 'directory', bundle.name))
-  let bundle.rtp = s:expand_path(bundle.path.'/'.get(bundle, 'rtp', ''))
+  let bundle.rtp = s:expand_path(bundle.path.'/'.
+        \ get(bundle, 'rtp', ''))
   if bundle.rtp =~ '[/\\]$'
     " Chomp.
-    let bundle.rtp = bundle.rtp[: -2]
+    let bundle.rtp = substitute(bundle.rtp, '[/\\]\+$', '', '')
   endif
+
+  let depends = get(bundle, 'depends', [])
+  let bundle.depends = type(depends) == type('') ?
+        \ [depends] : depends
+
   let bundle.orig_name = a:name
   let bundle.orig_opts = a:opts
+  let bundle.resettable = 1
 
   return bundle
 endfunction
 
 function! neobundle#config#search(bundle_names)
-  let bundles = []
-  for bundle in neobundle#config#get_neobundles()
-    if index(a:bundle_names, bundle.name) >= 0
-      call add(bundles, bundle)
-    endif
-  endfor
-
-  return bundles
+  return filter(neobundle#config#get_neobundles(),
+        \ 'index(a:bundle_names, v:val.name) >= 0')
 endfunction
-
 
 function! s:parse_options(opts)
   " TODO: improve this
@@ -161,39 +352,6 @@ function! s:parse_options(opts)
   else
     return { 'rev': a:opts[0] }
   endif
-endfunction
-
-function! s:parse_name(arg)
-  if a:arg =~ '\<\(gh\|github\):\S\+\|^\w[[:alnum:]-]*/[^/]\+$'
-    let uri = 'git://github.com/'.split(a:arg, ':')[-1]
-    let name = substitute(split(uri, '/')[-1], '\.git\s*$','','i')
-    let type = 'git'
-  elseif a:arg =~ '\<\%(git@\|git://\)\S\+'
-        \ || a:arg =~ '\<\%(file\|https\?\|svn\)://'
-        \ || a:arg =~ '\.git\s*$'
-    let uri = a:arg
-    let name = split(substitute(uri, '/\?\.git\s*$','','i'), '/')[-1]
-
-    if uri =~? '^git://'
-      " Git protocol.
-      let type = 'git'
-    elseif uri =~? '/svn[/.]'
-      let type = 'svn'
-    elseif uri =~? '/hg[/.@]'
-          \ || uri =~? '\<https\?://bitbucket\.org/'
-          \ || uri =~? '\<https://code\.google\.com/'
-      let type = 'hg'
-    else
-      " Assume git(may not..).
-      let type = 'git'
-    endif
-  else
-    let name = a:arg
-    let uri  = 'git://github.com/vim-scripts/'.name.'.git'
-    let type = 'git'
-  endif
-
-  return { 'name': name, 'uri': uri, 'type' : type }
 endfunction
 
 function! s:expand_path(path)
