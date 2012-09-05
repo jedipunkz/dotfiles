@@ -43,7 +43,7 @@ export TERM=xterm-256color
 #PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 #[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 # rbenv
-if [ "$HOME/.rbenv/bin:$PATH" ] then
+if [ -d "$HOME/.rbenv/bin:$PATH" ]; then
     export PATH="$HOME/.rbenv/bin:$PATH"
     eval "$(rbenv init -)"
 fi
