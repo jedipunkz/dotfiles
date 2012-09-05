@@ -1,1 +1,0 @@
-/home/thirai/dotfiles/.emacs.d
