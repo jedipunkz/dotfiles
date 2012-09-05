@@ -43,8 +43,10 @@ export TERM=xterm-256color
 #PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 #[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 # rbenv
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+if [ "$HOME/.rbenv/bin:$PATH" ] then
+    export PATH="$HOME/.rbenv/bin:$PATH"
+    eval "$(rbenv init -)"
+fi
 
 case "${OSTYPE}" in
 freebsd*|darwin*)
