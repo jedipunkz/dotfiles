@@ -39,11 +39,8 @@ source $ZSH/oh-my-zsh.sh
 export PATH=$HOME/usr/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games:/sbin:/usr/sbin
 export TERM=xterm-256color
 
-# for rvm and ruby
-#PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-#[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 # rbenv
-if [ -d "$HOME/.rbenv/bin:$PATH" ]; then
+if [ -d "$HOME/.rbenv/bin" ]; then
     export PATH="$HOME/.rbenv/bin:$PATH"
     eval "$(rbenv init -)"
 fi
