@@ -43,7 +43,7 @@ unless (-d $backupdir) {
 system ("rm -rf $backupdir/.*");
 
 &chkbackup (".oh-my-zsh");
-&chkbackup (".emacs");
+#&chkbackup (".emacs");
 &chkbackup (".emacs.d");
 &chkbackup (".mew-theme.el");
 &chkbackup (".conkyrc");
