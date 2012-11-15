@@ -20,11 +20,11 @@
 (package-activate 'quickrun '(1 1 1))
 
 (require 'anything)
-(global-set-key (kbd "C-]") 'anything )
-(define-key anything-map (kbd "C-p") 'anything-previous-line)
-(define-key anything-map (kbd "C-n") 'anything-next-line)
-(define-key anything-map (kbd "C-v") 'anything-next-source)
-(define-key anything-map (kbd "M-v") 'anything-previous-source)
+(global-set-key (kbd "C-]") 'anything-for-files )
+;(define-key anything-map (kbd "C-p") 'anything-previous-line)
+;(define-key anything-map (kbd "C-n") 'anything-next-line)
+;(define-key anything-map (kbd "C-v") 'anything-next-source)
+;(define-key anything-map (kbd "M-v") 'anything-previous-source)
 (eval-after-load "anything"
     '(define-key anything-map (kbd "C-h") 'delete-backward-char))
 
@@ -50,25 +50,11 @@
 (simplenote-setup)
 
 ;; color theme
-
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-;(when load-file-name
-;  (add-to-list 'custom-theme-load-path
-;               (file-name-as-directory (file-name-directory load-file-name))))
 (load-theme 'solarized-dark t)
-
-;(require 'color-theme)
-;(color-theme-initialize)
-;(color-theme-thirai)
-;; color-theme
-;(when (require 'color-theme)
-;     (color-theme-initialize)
-;     (color-theme-hober))
-;; color-theme.el
-;(when (require 'color-theme)
-;  (color-theme-initialize)
-;  (when (require 'color-theme-solarized)
-;    (color-theme-solarized-dark)))
+;(load-theme 'pastels-on-dark t)
+;(load-theme 'tango-2 t)
+;(load-theme 'twilight t)
 
 ;;; カーソルの位置が何文字目かを表示する
 (column-number-mode t)
