@@ -70,3 +70,5 @@ set hidden
 set nocompatible " Disable vi-compatibility
 set laststatus=2 " Always show the statusline
 
+" file type plugins
+filetype plugin on
