@@ -40,6 +40,11 @@ unless (-d $backupdir) {
     mkdir ("$backupdir", 0755);
 }
 
+unless (-d "$backupdir/gitwork") {
+    umask (0);
+    mkdir ("$backupdir/gitwork", 0755);
+}
+
 system ("rm -rf $backupdir/.*");
 
 &chkbackup (".oh-my-zsh");
@@ -57,6 +62,9 @@ system ("rm -rf $backupdir/.*");
 &chkbackup (".gtkrc-2.0");
 &chkbackup (".dir_colors");
 &chkbackup (".tmux.conf");
+&chkbackup ("gitwork/tmux-colors-solarized.git");
+&chkbackup ("gitwork/tmux-powerline.git");
+
 
 system ("git clone $url_ohmyzsh ~/.oh-my-zsh");
 
