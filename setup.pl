@@ -63,7 +63,7 @@ system ("rm -rf $backupdir/.*");
 &chkbackup (".dir_colors");
 &chkbackup (".tmux.conf");
 &chkbackup ("gitwork/tmux-colors-solarized.git");
-&chkbackup ("gitwork/tmux-powerline.git");
+&chkbackup ("gitwork/tmux-powerline");
 
 
 system ("git clone $url_ohmyzsh ~/.oh-my-zsh");
@@ -88,4 +88,4 @@ system ("git clone $url_ohmyzsh ~/.oh-my-zsh");
 system ("git clone $url_neobundle $homedir/.vim/bundle/neobundle.vim");
 system ("mkdir ~/gitwork");
 system ("git clone https://github.com/seebi/tmux-colors-solarized.git ~/gitwork/tmux-colors-solarized.git");
-system ("git clone git://github.com/jedipunkz/tmux-powerline.git ~/gitwork/tmux-powerline.git");
+system ("git clone git://github.com/erikw/tmux-powerline.git ~/gitwork/tmux-powerline");
