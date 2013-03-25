@@ -12,6 +12,8 @@ NeoBundle 'https://github.com/Lokaltog/vim-powerline.git'
 "filetype plugin indent on
 
 set t_Co=256
+syntax enable
+set background=dark
 
 syntax enable
 "colorscheme darkblue
