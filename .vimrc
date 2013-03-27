@@ -57,6 +57,8 @@ set expandtab
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
+inoremap <C-k> <C-o>D
+inoremap <C-u> <C-o>d0
 
 "set autoindent
 "set cindent
