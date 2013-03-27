@@ -8,7 +8,7 @@ if has('vim_starting')
 endif
 
 NeoBundle 'https://github.com/Lokaltog/vim-powerline.git'
-eoBundle 'git://github.com/thinca/vim-quickrun.git'
+NeoBundle 'git://github.com/thinca/vim-quickrun.git'
 
 "filetype plugin indent on
 
