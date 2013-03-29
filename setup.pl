@@ -9,6 +9,8 @@ my $homedir         =   $ENV{'HOME'};
 my $backupdir       =   "$homedir/dotbackup";
 my $url_ohmyzsh     =   "git://github.com/robbyrussell/oh-my-zsh.git";
 my $url_neobundle   =   "git://github.com/Shougo/neobundle.vim.git";
+my $url_rbenv       =   "git://github.com/sstephenson/rbenv.git";
+my $url_ruby_build  =   "git://github.com/sstephenson/ruby-build.git";
 my $date            =   `date +%Y%m%d`;
 
 # check command
@@ -89,3 +91,8 @@ system ("git clone $url_neobundle $homedir/.vim/bundle/neobundle.vim");
 system ("mkdir ~/gitwork");
 system ("git clone https://github.com/seebi/tmux-colors-solarized.git ~/gitwork/tmux-colors-solarized.git");
 system ("git clone git://github.com/erikw/tmux-powerline.git ~/gitwork/tmux-powerline");
+
+unless (-d "$homedir/.rbenv") {
+    system ("git clone $url_rbenv $homedir/.rbenv");
+    system ("git clone $url_ruby_build $homedir/.rbenv/plugins/ruby-build");
+}
