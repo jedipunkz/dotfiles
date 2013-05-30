@@ -59,9 +59,10 @@ esac
 export PERL_CPANM_OPT="--local-lib=~/perl5"
 export PATH=$HOME/perl5/bin:$PATH;
 export PERL5LIB=$HOME/perl5/lib/perl5:$PERL5LIB;
-
 export EDITOR=vim
 
 [[ -s "$HOME/aws/ec2-api-tools" ]] && . "$HOME/.zsh_aws"
 
 alias la="ls -a"
+alias l="ls -alF"
+alias ssh="ssh -o UserKnownHostsFile=/dev/null -o 'StrictHostKeyChecking no'"
