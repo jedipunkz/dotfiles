@@ -9,6 +9,7 @@ endif
 
 NeoBundle 'https://github.com/Lokaltog/vim-powerline.git'
 NeoBundle 'git://github.com/thinca/vim-quickrun.git'
+NeoBundle 'git://github.com/vim-scripts/tComment'
 
 "filetype plugin indent on
 
