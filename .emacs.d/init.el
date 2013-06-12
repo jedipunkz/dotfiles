@@ -56,6 +56,9 @@
 ;(load-theme 'tango-2 t)
 ;(load-theme 'twilight t)
 
+;; コメント
+(global-set-key (kbd "C-c ;") 'comment-or-uncomment-region)
+
 ;;; カーソルの位置が何文字目かを表示する
 (column-number-mode t)
 ;;; カーソルの位置が何行目かを表示する
