@@ -27,7 +27,7 @@
 ;(define-key anything-map (kbd "M-v") 'anything-previous-source)
 (eval-after-load "anything"
     '(define-key anything-map (kbd "C-h") 'delete-backward-char))
-
+(define-key global-map (kbd "C-x b") 'anything-for-files)
 
 ; auto-complete.el
 (require 'auto-complete)
