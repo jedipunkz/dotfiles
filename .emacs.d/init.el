@@ -51,6 +51,7 @@
 
 ;; color theme
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/emacs-color-theme-solarized")
 (load-theme 'solarized-dark t)
 ;(load-theme 'pastels-on-dark t)
 ;(load-theme 'tango-2 t)
