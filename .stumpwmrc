@@ -1,0 +1,81 @@
+;; -*- lisp -*-
+(in-package :stumpwm)
+(setf *shell-program* "/usr/bin/zsh")
+; prefix key change
+(set-prefix-key (kbd "C-z"))
+;; 色
+;(set-fg-color "#000000")
+;(set-bg-color "#FFFFFF")
+;(set-border-color "#000000")
+;; フォーカスがあるウィンドウの色
+;; デフォルトは白ですが、何か自己主張が激しい（？）ので暗い赤に
+;(set-focus-color "#883333")
+;; フォーカスが無いのは暗い青に
+;(set-unfocus-color "#333388")
+;; フォント
+(set-font "-xos4-terminus-bold-r-normal--14-140-72-72-c-0-iso8859-7")
+;; あらかじめグループを作成しておく
+(run-commands "gnewbg 1")
+(run-commands "gnewbg 2")
+(run-commands "gnewbg 3")
+(run-commands "gnewbg 4")
+(run-commands "gnewbg 5")
+(run-commands "gnewbg 6")
+(run-commands "gnewbg 7")
+(run-commands "gnewbg 8")
+(run-commands "gnewbg 9")
+(run-commands "gnewbg 10")
+;; 1番を選択
+(run-commands "gselect 1")
+;; 以下、独自コマンド
+; urxvt起動
+(defcommand urxvt () ()  (run-shell-command "urxvt"))
+; term
+(define-key *root-map* (kbd "C-c") "urxvt")
+(define-key *root-map* (kbd "c") "urxvt")
+; colon
+; stumpwmのデフォルトはセミコロンなため、コロンに変更して置く
+;(define-key *root-map* (kbd "C-:") "colon")
+;(define-key *root-map* (kbd ":") "colon")
+;; group
+;; M-Fxで切り替え *top-map* とすることでシングルストロークで実行出来る
+(define-key *top-map* (kbd "M-F1") "gselect 1")
+(define-key *top-map* (kbd "M-F2") "gselect 2")
+(define-key *top-map* (kbd "M-F3") "gselect 3")
+(define-key *top-map* (kbd "M-F4") "gselect 4")
+(define-key *top-map* (kbd "M-F5") "gselect 5")
+(define-key *top-map* (kbd "M-F6") "gselect 6")
+(define-key *top-map* (kbd "M-F7") "gselect 7")
+(define-key *top-map* (kbd "M-F8") "gselect 8")
+(define-key *top-map* (kbd "M-F9") "gselect 9")
+(define-key *top-map* (kbd "M-F10") "gselect 10")
+(define-key *root-map* (kbd ",") "gmove")
+;; window
+;; 今いるウィンドウが分かりずらかったため書いてみた
+;; 慣れれば必要ない
+(defcommand sfnext () () (run-commands "fnext" "echo #########################################
+#########################################
+      C U R R E N T F R A M E
+#########################################
+#########################################
+"))
+(define-key *root-map* (kbd "C-b") "sfnext")
+(define-key *root-map* (kbd "b") "sfnext")
+; カーソルキーでフォーカス切り替え
+(define-key *top-map* (kbd "M-Left") "move-focus left")
+(define-key *top-map* (kbd "M-Right") "move-focus right")
+(define-key *top-map* (kbd "M-Up") "move-focus up")
+(define-key *top-map* (kbd "M-Down") "move-focus down")
+; vim風のキーバインドでフォーカス切り替え
+(define-key *top-map* (kbd "C-M-h") "move-focus left")
+(define-key *top-map* (kbd "C-M-l") "move-focus right")
+(define-key *top-map* (kbd "C-M-k") "move-focus up")
+(define-key *top-map* (kbd "C-M-j") "move-focus down")
+; FPS風(?)のキーバインドでフォーカス切り替え(左手だけで変更可能にするため）
+(define-key *top-map* (kbd "C-M-a") "move-focus left")
+(define-key *top-map* (kbd "C-M-d") "move-focus right")
+(define-key *top-map* (kbd "C-M-w") "move-focus up")
+(define-key *top-map* (kbd "C-M-s") "move-focus down")
+; トレイ
+;(run-shell-command "/usr/bin/trayer --SetDockType false --transparent true --expand false")
+(setf *mouse-focus-policy* :click) ;; :ignore :sloppy: click

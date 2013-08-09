@@ -64,6 +64,7 @@ system ("rm -rf $backupdir/.*");
 &chkbackup (".gtkrc-2.0");
 &chkbackup (".dir_colors");
 &chkbackup (".tmux.conf");
+&chkbackup (".stumpwmrc");
 &chkbackup ("gitwork/tmux-colors-solarized.git");
 &chkbackup ("gitwork/tmux-powerline");
 
@@ -86,6 +87,7 @@ system ("git clone $url_ohmyzsh ~/.oh-my-zsh");
 &link (".gtkrc-2.0");
 &link (".dir_colors");
 &link (".tmux.conf");
+&link (".stumpwmrc");
 
 system ("git clone $url_neobundle $homedir/.vim/bundle/neobundle.vim");
 system ("mkdir ~/gitwork");
