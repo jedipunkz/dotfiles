@@ -33,6 +33,11 @@
 ; term
 (define-key *root-map* (kbd "C-c") "urxvt")
 (define-key *root-map* (kbd "c") "urxvt")
+; browser
+;; Google-chrome
+(defcommand google-chrome () ()
+  "start google-chrome or switch to it if already running."
+  (run-or-raise "google-chrome" '(:class "Google-chrome")))
 ; colon
 ; stumpwmのデフォルトはセミコロンなため、コロンに変更して置く
 ;(define-key *root-map* (kbd "C-:") "colon")
@@ -76,6 +81,8 @@
 (define-key *top-map* (kbd "C-M-d") "move-focus right")
 (define-key *top-map* (kbd "C-M-w") "move-focus up")
 (define-key *top-map* (kbd "C-M-s") "move-focus down")
-; トレイ
+(define-key *root-map* (kbd "C-b") "open-www-browser")
+(define-key *root-map* (kbd "b") "google-chrome")
+;トレイ
 ;(run-shell-command "/usr/bin/trayer --SetDockType false --transparent true --expand false")
 (setf *mouse-focus-policy* :click) ;; :ignore :sloppy: click
