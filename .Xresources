@@ -77,46 +77,7 @@
 *color15:               S_base3
 
 !! font
-! URxvt.font: xft:ricty:pixelsize=12
-! URxvt.imFont: -*-medium-r-*-20-*
-URxvt.font: \
-       [codeset=ISO10646]x:-misc-fixed-medium-r-normal--14-*-*-*-*-*-iso10646-*, \
-       [codeset=ISO10646]xft:Luxi Serif:pixelsize=14, \
-       [codeset=JISX0208]x:-shinonome-mincho-medium-r-normal--14-*-*-*-*-*-*-*, \
-       k14, \
-       7x14
-
-
-URxvt.boldFont: 7x14b, \
-       [codeset=ISO10646]x:-misc-fixed-medium-r-*-*-14-*-*-*-*-*-iso10646-*, \
-       [codeset=JISX0208]x:-shinonome-mincho-bold-r-normal--14-*-*-*-*-*-*-*,\
-       7x14
-
-
-URxvt.boldItalicFont: \
-       [codeset=ASCII]x:-shinonome-gothic-bold-i-normal--14-*-*-*-*-*-iso8859-*, \
-       [codeset=ISO8859]x:-shinonome-gothic-bold-i-normal--14-*-*-*-*-*-iso8859-*, \
-       [codeset=ISO10646]x:-adobe-new century schoolbook-bold-i-normal-*-14-*-*-*-*-*-iso10646-*, \
-       [codeset=ISO10646]x:-b&h-*-bold-i-*--14-*-*-*-*-*-iso10646-*, \
-       [codeset=JISX0208]x:-shinonome-mincho-bold-i-normal--14-*-*-*-*-*-*-*, \
-       [codeset=ISO10646]xft:Bitstream Charter:pixelsize=14, \
-       7x14
-
-
-URxvt.italicFont: \
-       [codeset=ASCII]x:-shinonome-mincho-medium-i-normal--14-*-*-*-*-*-iso8859-*, \
-       [codeset=ISO10646]x:-adobe-new century schoolbook-medium-i-normal--14-*-*-*-*-*-iso10646-*, \
-       [codeset=JISX0208]x:-shinonome-mincho-medium-i-normal--14-*-*-*-*-*-*-*, \
-       [codeset=JISX0208]xft:Sazanami Mincho:pixelsize=14, \
-       [codeset=ISO10646]x:-adobe-times-medium-i-normal--14-*-*-*-*-*-iso10646-*, \
-       7x14
-
-
-Rxvt.imFont: \
-       [codeset=ISO10646]x:-misc-fixed-medium-r-*--14-*-*-*-*-*-iso10646-*, \
-       [codeset=JISX0208]x:-shinonome-mincho-medium-r-normal--14-*-*-*-*-*-*-*, \
-    xft:Sazanami Mincho:pixelsize=14, \
-    7x14
+URxvt.font: xft:ricty:pixelsize=14
 
 URxvt.lineSpace: 1
 cursorUnderline: true
