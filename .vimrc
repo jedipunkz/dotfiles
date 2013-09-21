@@ -7,9 +7,14 @@ if has('vim_starting')
   call neobundle#rc(expand('~/.vim/bundle'))
 endif
 
-NeoBundle 'https://github.com/Lokaltog/vim-powerline.git'
+NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'git://github.com/thinca/vim-quickrun.git'
 NeoBundle 'git://github.com/vim-scripts/tComment'
+
+" lightline theme
+let g:lightline = {
+      \ 'colorscheme': 'solarized',
+      \ }
 
 "filetype plugin indent on
 
