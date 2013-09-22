@@ -11,6 +11,9 @@ NeoBundle 'Shougo/unite.vim'
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'git://github.com/thinca/vim-quickrun.git'
 NeoBundle 'git://github.com/vim-scripts/tComment'
+NeoBundle 'git://github.com/kien/ctrlp.vim.git'
+NeoBundle 'git://github.com/scrooloose/nerdtree.git'
+NeoBundle 'git://github.com/scrooloose/syntastic.git'
 
 " lightline theme
 let g:lightline = {
