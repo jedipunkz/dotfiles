@@ -40,13 +40,13 @@ syntax enable
 "colorscheme darkblue
 "colorscheme desert
 "set background=dark
-"colorscheme solarized
+colorscheme solarized
 "let g:solarized_termcolors=256
 "colorscheme wombat256
 "colorscheme wombat256mod
 "colorscheme molokai
 "colorscheme zenburn
-colorscheme molokai
+" colorscheme molokai
 if &diff
         colorscheme leo
 endif

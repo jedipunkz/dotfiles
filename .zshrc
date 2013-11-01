@@ -66,3 +66,16 @@ export EDITOR=vim
 alias la="ls -a"
 alias l="ls -alF"
 alias ssh="ssh -o UserKnownHostsFile=/dev/null -o 'StrictHostKeyChecking no'"
+
+# emacs tramp
+case "$TERM" in
+"dumb")
+    PS1="> "
+    ;;
+xterm*|rxvt*|eterm*|screen*)
+    # PS1="my fancy multi-line prompt > "
+    ;;
+*)
+    PS1="> "
+    ;;
+esac
