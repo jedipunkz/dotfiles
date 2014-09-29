@@ -15,6 +15,38 @@ NeoBundle 'git://github.com/kien/ctrlp.vim.git'
 NeoBundle 'git://github.com/scrooloose/nerdtree.git'
 NeoBundle 'git://github.com/scrooloose/syntastic.git'
 
+NeoBundle 'Shougo/vimproc', {
+    \ 'build' : {
+    \     'windows' : 'make -f make_mingw32.mak',
+    \     'cygwin' : 'make -f make_cygwin.mak',
+    \     'mac' : 'make -f make_mac.mak',
+    \     'unix' : 'make -f make_unix.mak',
+    \    },
+    \ }
+NeoBundle 'kevinw/pyflakes-vim', {
+    \ 'build' : {
+    \     'mac' : 'git submodule update --init',
+    \     'unix' : 'git submodule update --init',
+    \    },
+    \ }
+NeoBundle 'davidhalter/jedi-vim', {
+    \ 'build' : {
+    \     'mac' : 'git submodule update --init',
+    \     'unix' : 'git submodule update --init',
+    \    },
+    \ }
+
+" jedi , quickrun conflict 
+command! -nargs=0 JediRename :call jedi#rename()
+let g:jedi#rename_command = ""
+
+" pyflake
+let g:syntastic_mode_map = {
+            \ 'mode': 'active',
+            \ 'active_filetypes': ['php', 'coffeescript', 'sh', 'vim'],
+            \ 'passive_filetypes': ['html', 'haskell', 'python']
+            \}
+
 " lightline theme
 let g:lightline = {
       \ 'colorscheme': 'solarized',
