@@ -3,9 +3,14 @@ set nocompatible
 filetype plugin indent off
 
 if has('vim_starting')
+  set nocompatible               " Be iMproved
+
+  " Required:
   set runtimepath+=~/.vim/bundle/neobundle.vim/
-  call neobundle#rc(expand('~/.vim/bundle'))
 endif
+
+" Required:
+ call neobundle#begin(expand('~/.vim/bundle/'))
 
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'itchyny/lightline.vim'
@@ -35,6 +40,15 @@ NeoBundle 'davidhalter/jedi-vim', {
     \     'unix' : 'git submodule update --init',
     \    },
     \ }
+
+call neobundle#end()
+
+" Required:
+filetype plugin indent on
+
+" If there are uninstalled bundles found on startup,
+" this will conveniently prompt you to install them.
+NeoBundleCheck
 
 " jedi , quickrun conflict 
 command! -nargs=0 JediRename :call jedi#rename()
