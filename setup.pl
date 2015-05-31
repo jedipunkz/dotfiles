@@ -89,6 +89,7 @@ system ("git clone $url_ohmyzsh ~/.oh-my-zsh");
 &link (".dir_colors");
 &link (".tmux.conf");
 &link (".stumpwmrc");
+%link (".i3")
 
 system ("git clone $url_neobundle $homedir/.vim/bundle/neobundle.vim");
 system ("mkdir ~/gitwork");
