@@ -14,11 +14,12 @@ endif
 
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'itchyny/lightline.vim'
-NeoBundle 'git://github.com/thinca/vim-quickrun.git'
-NeoBundle 'git://github.com/vim-scripts/tComment'
-NeoBundle 'git://github.com/kien/ctrlp.vim.git'
-NeoBundle 'git://github.com/scrooloose/nerdtree.git'
-NeoBundle 'git://github.com/scrooloose/syntastic.git'
+NeoBundle 'vim-quickrun.git'
+NeoBundle 'vim-scripts/tComment'
+NeoBundle 'kien/ctrlp.vim.git'
+NeoBundle 'scrooloose/nerdtree.git'
+NeoBundle 'scrooloose/syntastic.git'
+NeoBundle 'chase/vim-ansible-yaml'
 
 NeoBundle 'Shougo/vimproc', {
     \ 'build' : {
