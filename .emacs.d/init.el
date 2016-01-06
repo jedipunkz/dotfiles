@@ -63,34 +63,6 @@
 (el-get-bundle yaml-mode)
 (el-get-bundle coffee-mode)
 
-;
-; (unless (package-installed-p 'color-theme-solarized)
-;   (package-refresh-contents) (package-install 'color-theme-solarized))
-;
-; (unless (package-installed-p 'ace-jump-mode)
-;   (package-refresh-contents) (package-install 'ace-jump-mode))
-;
-; (unless (package-installed-p 'neotree)
-;   (package-refresh-contents) (package-install 'neotree))
-;
-; (unless (package-installed-p 'magit)
-;   (package-refresh-contents) (package-install 'magit))
-;
-; (unless (package-installed-p 'yasnippet)
-;   (package-refresh-contents) (package-install 'yasnippet))
-;
-; (unless (package-installed-p 'ruby-mode)
-;   (package-refresh-contents) (package-install 'ruby-mode))
-;
-; (unless (package-installed-p 'ruby-block)
-;   (package-refresh-contents) (package-install 'ruby-block))
-;
-; (unless (package-installed-p 'yaml-mode)
-;   (package-refresh-contents) (package-install 'yaml-mode))
-;
-; (unless (package-installed-p 'coffee-mode)
-;   (package-refresh-contents) (package-install 'coffee-mode))
-
 ;;theme
 (load-theme 'solarized t)
 ;(load-theme 'solarized-dark t)
