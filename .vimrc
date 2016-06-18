@@ -93,7 +93,6 @@ colorscheme solarized
 "colorscheme wombat256mod
 "colorscheme molokai
 "colorscheme zenburn
-" colorscheme molokai
 if &diff
         colorscheme leo
 endif
