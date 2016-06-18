@@ -14,7 +14,7 @@ endif
 
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'itchyny/lightline.vim'
-NeoBundle 'vim-quickrun.git'
+NeoBundle 'thinca/vim-quickrun.git'
 NeoBundle 'vim-scripts/tComment'
 NeoBundle 'kien/ctrlp.vim.git'
 NeoBundle 'scrooloose/nerdtree.git'
