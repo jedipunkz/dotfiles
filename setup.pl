@@ -91,6 +91,7 @@ system ("git clone $url_ohmyzsh ~/.oh-my-zsh");
 &link (".stumpwmrc");
 &link (".i3");
 
+system ("pip install powerline-status")
 system ("git clone $url_neobundle $homedir/.vim/bundle/neobundle.vim");
 system ("mkdir ~/gitwork");
 system ("git clone https://github.com/seebi/tmux-colors-solarized.git ~/gitwork/tmux-colors-solarized.git");
