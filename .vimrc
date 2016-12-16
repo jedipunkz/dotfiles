@@ -143,3 +143,12 @@ set laststatus=2 " Always show the statusline
 
 " file type plugins
 filetype plugin on
+
+" terraform syntax "
+au BufRead,BufNewFile *.tf setlocal filetype=terraform
+:autocmd FileType terraform set shiftwidth=2
+:autocmd FileType terraform set softtabstop=2
+:autocmd FileType terraform set autoindent
+:autocmd FileType terraform set smartindent
+:autocmd FileType terraform set expandtab
+:autocmd FileType terraform map <leader>k :w<CR>:Tabularize /=<CR>
