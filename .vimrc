@@ -13,13 +13,20 @@ endif
  call neobundle#begin(expand('~/.vim/bundle/'))
 
 NeoBundle 'Shougo/unite.vim'
-NeoBundle 'itchyny/lightline.vim'
+" NeoBundle 'itchyny/lightline.vim'
+NeoBundle 'vim-airline/vim-airline'
+NeoBundle 'vim-airline/vim-airline-themes'
 NeoBundle 'thinca/vim-quickrun.git'
 NeoBundle 'vim-scripts/tComment'
 NeoBundle 'kien/ctrlp.vim.git'
 NeoBundle 'scrooloose/nerdtree.git'
 NeoBundle 'scrooloose/syntastic.git'
 NeoBundle 'chase/vim-ansible-yaml'
+" NeoBundle 'Valloric/YouCompleteMe'
+NeoBundle 'Shougo/neocomplete.vim'
+NeoBundle 'hashivim/vim-terraform'
+NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'wsdjeg/FlyGrep.vim'
 
 NeoBundle 'Shougo/vimproc', {
     \ 'build' : {
@@ -29,12 +36,12 @@ NeoBundle 'Shougo/vimproc', {
     \     'unix' : 'make -f make_unix.mak',
     \    },
     \ }
-NeoBundle 'kevinw/pyflakes-vim', {
-    \ 'build' : {
-    \     'mac' : 'git submodule update --init',
-    \     'unix' : 'git submodule update --init',
-    \    },
-    \ }
+" NeoBundle 'kevinw/pyflakes-vim', {
+"     \ 'build' : {
+"     \     'mac' : 'git submodule update --init',
+"     \     'unix' : 'git submodule update --init',
+"     \    },
+"     \ }
 NeoBundle 'davidhalter/jedi-vim', {
     \ 'build' : {
     \     'mac' : 'git submodule update --init',
@@ -44,6 +51,26 @@ NeoBundle 'davidhalter/jedi-vim', {
 
 call neobundle#end()
 
+" NeoComplete
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+
 " Required:
 filetype plugin indent on
 
@@ -51,7 +78,7 @@ filetype plugin indent on
 " this will conveniently prompt you to install them.
 NeoBundleCheck
 
-" jedi , quickrun conflict 
+" jedi , quickrun conflict
 command! -nargs=0 JediRename :call jedi#rename()
 let g:jedi#rename_command = ""
 
@@ -63,9 +90,14 @@ let g:syntastic_mode_map = {
             \}
 
 " lightline theme
-let g:lightline = {
-      \ 'colorscheme': 'solarized',
-      \ }
+" let g:lightline = {
+"       \ 'colorscheme': 'solarized',
+"       \ }
+
+" airline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme='powerlineish'
+" let g:airline_solarized_bg='dark'
 
 " unite settings
 let g:unite_enable_start_insert=1
@@ -75,7 +107,18 @@ nnoremap <silent> ,uy :<C-u>Unite history/yank<CR>
 nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
 nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
-nnoremap <silent> ,uu :<C-u>Unite file_mru buffer<CR>
+" nnoremap <silent> ,uu :<C-u>Unite file_mru buffer<CR>
+nnoremap <silent> ,uu :<C-u>Unite file buffer<CR>
+autocmd FileType unite call s:unite_my_settings()
+function! s:unite_my_settings()"{{{
+    nmap <buffer> <ESC> <Plug>(unite_exit)
+endfunction"}}}
+
+" tab settings
+nnoremap st :<C-u>tabnew<CR>
+nnoremap sn gt
+nnoremap sp gT
+nnoremap sT :<C-u>Unite tab<CR>
 
 "filetype plugin indent on
 
@@ -91,7 +134,7 @@ colorscheme solarized
 "let g:solarized_termcolors=256
 "colorscheme wombat256
 "colorscheme wombat256mod
-"colorscheme molokai
+" colorscheme molokai
 "colorscheme zenburn
 if &diff
         colorscheme leo
@@ -130,7 +173,7 @@ inoremap <C-u> <C-o>d0
 "set cindent
 set backspace=indent,eol,start
 set showmatch
-set whichwrap=b,s,h,l,<,>,[,] 
+set whichwrap=b,s,h,l,<,>,[,]
 set showcmd
 set showmode
 
