@@ -95,6 +95,7 @@ let g:syntastic_mode_map = {
 "       \ }
 
 " airline
+" let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='powerlineish'
 " let g:airline_solarized_bg='dark'
@@ -115,10 +116,10 @@ function! s:unite_my_settings()"{{{
 endfunction"}}}
 
 " tab settings
-nnoremap st :<C-u>tabnew<CR>
-nnoremap sn gt
-nnoremap sp gT
-nnoremap sT :<C-u>Unite tab<CR>
+nnoremap ,tt :<C-u>tabnew<CR>
+nnoremap ,tn gt
+nnoremap ,tp gT
+nnoremap ,tT :<C-u>Unite tab<CR>
 
 "filetype plugin indent on
 
@@ -195,6 +196,14 @@ au BufRead,BufNewFile *.tf setlocal filetype=terraform
 :autocmd FileType terraform set smartindent
 :autocmd FileType terraform set expandtab
 :autocmd FileType terraform map <leader>k :w<CR>:Tabularize /=<CR>
+
+" powerline
+" python from powerline.vim import setup as powerline_setup
+" python powerline_setup()
+" python del powerline_setup
+" set laststatus=2 " Always display the statusline in all windows
+" set showtabline=2 " Always display the tabline, even if there is only one tab
+" set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 
 " IME Off
 " if has('mac')
