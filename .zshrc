@@ -93,3 +93,8 @@ esac
 # }
 # zle -N peco-select-history
 # bindkey '^r' peco-select-history
+
+# pyenv
+PYENV_ROOT="$HOME/.pyenv"
+PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"

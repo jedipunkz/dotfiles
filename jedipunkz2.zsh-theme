@@ -89,7 +89,7 @@ prompt_context() {
     # prompt_segment red black "%(!.%{%F{yellow}%}.)$USER@%m"
     # prompt_segment red black "%(!.%{%F{yellow}%}.)$USER@boo"
     # prompt_segment cyan black "%(!.%{%F{yellow}%}.)$USER@boo"
-    prompt_segment red black "%(!.%{%F{yellow}%}.)$USER"
+    prompt_segment magenta black "%(!.%{%F{yellow}%}.)$USER"
     prompt_segment cyan black "%(!.%{%F{yellow}%}.)${time}"
   fi
 }

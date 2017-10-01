@@ -26,28 +26,28 @@ NeoBundle 'chase/vim-ansible-yaml'
 NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'hashivim/vim-terraform'
 NeoBundle 'kchmck/vim-coffee-script'
-NeoBundle 'wsdjeg/FlyGrep.vim'
+" NeoBundle 'wsdjeg/FlyGrep.vim'
 
-NeoBundle 'Shougo/vimproc', {
-    \ 'build' : {
-    \     'windows' : 'make -f make_mingw32.mak',
-    \     'cygwin' : 'make -f make_cygwin.mak',
-    \     'mac' : 'make -f make_mac.mak',
-    \     'unix' : 'make -f make_unix.mak',
-    \    },
-    \ }
+" NeoBundle 'Shougo/vimproc', {
+"     \ 'build' : {
+"     \     'windows' : 'make -f make_mingw32.mak',
+"     \     'cygwin' : 'make -f make_cygwin.mak',
+"     \     'mac' : 'make -f make_mac.mak',
+"     \     'unix' : 'make -f make_unix.mak',
+"     \    },
+"     \ }
 " NeoBundle 'kevinw/pyflakes-vim', {
 "     \ 'build' : {
 "     \     'mac' : 'git submodule update --init',
 "     \     'unix' : 'git submodule update --init',
 "     \    },
 "     \ }
-NeoBundle 'davidhalter/jedi-vim', {
-    \ 'build' : {
-    \     'mac' : 'git submodule update --init',
-    \     'unix' : 'git submodule update --init',
-    \    },
-    \ }
+" NeoBundle 'davidhalter/jedi-vim', {
+"     \ 'build' : {
+"     \     'mac' : 'git submodule update --init',
+"     \     'unix' : 'git submodule update --init',
+"     \    },
+"     \ }
 
 call neobundle#end()
 
