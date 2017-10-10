@@ -81,7 +81,7 @@ prompt_end() {
 prompt_context() {
   # local time, color coded by last return code
   #time_enabled="%(?.%{$fg[black]%}.%{$fg[black]%})%*%{$reset_color%}"
-  time_enabled="%(?.%{$fg[black]%}.%{$fg[black]%})%*"
+  time_enabled="%(?.%{$fg[white]%}.%{$fg[white]%})%*"
   time_disabled="%{$fg[green]%}%*%{$reset_color%}"
   time=$time_enabled
   if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
@@ -89,8 +89,9 @@ prompt_context() {
     # prompt_segment red black "%(!.%{%F{yellow}%}.)$USER@%m"
     # prompt_segment red black "%(!.%{%F{yellow}%}.)$USER@boo"
     # prompt_segment cyan black "%(!.%{%F{yellow}%}.)$USER@boo"
-    prompt_segment magenta black "%(!.%{%F{yellow}%}.)$USER"
-    prompt_segment cyan black "%(!.%{%F{yellow}%}.)${time}"
+    # prompt_segment red black "%(!.%{%F{yellow}%}.)$USER"
+    prompt_segment magenta white "%(!.%{%F{yellow}%}.)$USER"
+    prompt_segment cyan white "%(!.%{%F{yellow}%}.)${time}"
   fi
 }
 
@@ -197,7 +198,8 @@ prompt_hg() {
 
 # Dir: current working directory
 prompt_dir() {
-  prompt_segment blue black '%~'
+  # prompt_segment blue black '%~'
+  prompt_segment blue white '%~'
 }
 
 # Virtualenv: current working virtualenv
