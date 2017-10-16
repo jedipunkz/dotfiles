@@ -69,6 +69,7 @@ system ("rm -rf $backupdir/.*");
 &chkbackup ("gitwork/tmux-powerline");
 &chkbackup ("jedipunkz.zsh-theme");
 &chkbackup ("jedipunkz2.zsh-theme");
+&chkbackup ("jedipunkz3.zsh-theme");
 
 
 system ("git clone $url_ohmyzsh ~/.oh-my-zsh");
@@ -99,6 +100,7 @@ system ("git clone https://github.com/seebi/tmux-colors-solarized.git ~/gitwork/
 system ("git clone git://github.com/erikw/tmux-powerline.git ~/gitwork/tmux-powerline");
 system ("ln -s ~/dotfiles/jedipunkz.zsh-theme ~/.oh-my-zsh/themes/jedipunkz.zsh-theme");
 system ("ln -s ~/dotfiles/jedipunkz2.zsh-theme ~/.oh-my-zsh/themes/jedipunkz2.zsh-theme");
+system ("ln -s ~/dotfiles/jedipunkz3.zsh-theme ~/.oh-my-zsh/themes/jedipunkz3.zsh-theme");
 
 unless (-d "$homedir/.rbenv") {
     system ("git clone $url_rbenv $homedir/.rbenv");
