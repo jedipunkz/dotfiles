@@ -11,6 +11,7 @@ my $url_ohmyzsh     =   "git://github.com/robbyrussell/oh-my-zsh.git";
 my $url_neobundle   =   "git://github.com/Shougo/neobundle.vim.git";
 my $url_rbenv       =   "git://github.com/sstephenson/rbenv.git";
 my $url_ruby_build  =   "git://github.com/sstephenson/ruby-build.git";
+my $url_pyenv       =   "git://github.com/pyenv/pyenv.git";
 my $date            =   `date +%Y%m%d`;
 
 # check command
@@ -105,4 +106,8 @@ system ("ln -s ~/dotfiles/jedipunkz3.zsh-theme ~/.oh-my-zsh/themes/jedipunkz3.zs
 unless (-d "$homedir/.rbenv") {
     system ("git clone $url_rbenv $homedir/.rbenv");
     system ("git clone $url_ruby_build $homedir/.rbenv/plugins/ruby-build");
+}
+
+unless (-d "$homedir/.pyenv") {
+    system ("git clone $url_pyenv $homedir/.pyenv");
 }
