@@ -12,7 +12,7 @@
 (set-buffer-file-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 ;; display line number
-(global-linum-mode t)
+;(global-linum-mode t)
 (setq linum-format "%d ")
 
 ;; display current line
@@ -52,7 +52,8 @@
 (el-get-bundle wgrep)
 (el-get-bundle elpa:flycheck)
 (el-get-bundle atom-dark-theme)
-(el-get-bundle elpa:color-theme-solarized)
+;(el-get-bundle elpa:color-theme-solarized)
+(el-get-bundle color-theme-solarized)
 (el-get-bundle elpa:color-theme)
 (el-get-bundle ace-jump-mode)
 (el-get-bundle neotree)
@@ -65,7 +66,7 @@
 
 ;;theme
 (load-theme 'solarized t)
-;(load-theme 'solarized-dark t)
+; (load-theme 'solarized-dark t)
 
 ;; for neotree
 (require 'neotree)
@@ -112,12 +113,12 @@
 (setenv "PATH" (concat "/usr/local/bin/scala:" (getenv "PATH")))
 
 ;; scala-mode2
-(require 'scala-mode2)
+;(require 'scala-mode2)
 
 ;; ensime
-(require 'ensime)
-(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
-(add-hook 'scala-mode-hook 'my-scala-mode-hook)
+;(require 'ensime)
+;(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+;(add-hook 'scala-mode-hook 'my-scala-mode-hook)
 
 (setq ensime-sem-high-faces
  '((var . (:foreground "#ff2222"))
@@ -131,9 +132,9 @@
    (object . (:foreground "#026DF7"))
    (package . font-lock-preprocessor-face)))
 
-(defun my-scala-mode-hook ()
-  (setq scala-indent:use-javadoc-style t)
-)
+;(defun my-scala-mode-hook ()
+;  (setq scala-indent:use-javadoc-style t)
+;)
 
 ;; helm-mini
 (progn
@@ -284,3 +285,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+;; scroll
+(setq scroll-conservatively 1)
