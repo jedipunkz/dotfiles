@@ -27,6 +27,7 @@ NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'hashivim/vim-terraform'
 NeoBundle 'kchmck/vim-coffee-script'
 " NeoBundle 'wsdjeg/FlyGrep.vim'
+NeoBundle 'morhetz/gruvbox'
 
 " NeoBundle 'Shougo/vimproc', {
 "     \ 'build' : {
@@ -131,7 +132,8 @@ syntax enable
 "colorscheme darkblue
 "colorscheme desert
 "set background=dark
-colorscheme solarized
+"colorschem solarized
+colorschem gruvbox
 "let g:solarized_termcolors=256
 "colorscheme wombat256
 "colorscheme wombat256mod
