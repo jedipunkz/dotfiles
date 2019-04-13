@@ -71,6 +71,8 @@ system ("rm -rf $backupdir/.*");
 &chkbackup ("jedipunkz.zsh-theme");
 &chkbackup ("jedipunkz2.zsh-theme");
 &chkbackup ("jedipunkz3.zsh-theme");
+&chkbackup ("jedipunkz4.zsh-theme");
+&chkbackup ("jedipunkz5.zsh-theme");
 
 
 system ("git clone $url_ohmyzsh ~/.oh-my-zsh");
@@ -102,6 +104,8 @@ system ("mkdir ~/gitwork");
 system ("ln -s ~/dotfiles/jedipunkz.zsh-theme ~/.oh-my-zsh/themes/jedipunkz.zsh-theme");
 system ("ln -s ~/dotfiles/jedipunkz2.zsh-theme ~/.oh-my-zsh/themes/jedipunkz2.zsh-theme");
 system ("ln -s ~/dotfiles/jedipunkz3.zsh-theme ~/.oh-my-zsh/themes/jedipunkz3.zsh-theme");
+system ("ln -s ~/dotfiles/jedipunkz4.zsh-theme ~/.oh-my-zsh/themes/jedipunkz4.zsh-theme");
+system ("ln -s ~/dotfiles/jedipunkz5.zsh-theme ~/.oh-my-zsh/themes/jedipunkz5.zsh-theme");
 
 unless (-d "$homedir/.rbenv") {
     system ("git clone $url_rbenv $homedir/.rbenv");
