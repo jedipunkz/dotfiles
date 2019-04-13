@@ -96,10 +96,12 @@ let g:syntastic_mode_map = {
 "       \ }
 
 " airline
-" let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='powerlineish'
-" let g:airline_solarized_bg='dark'
+let g:airline_theme='gruvbox'
+" カーソルキーでbuffer移動
+nnoremap <Left> :bp<CR>
+nnoremap <Right> :bn<CR>
 
 " unite settings
 let g:unite_enable_start_insert=1
