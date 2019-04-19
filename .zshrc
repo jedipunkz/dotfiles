@@ -80,6 +80,7 @@ xterm*|rxvt*|eterm*|screen*)
     ;;
 esac
 
+# peco
 # function peco-select-history() {
 #     local tac
 #     if which tac > /dev/null; then
@@ -94,7 +95,25 @@ esac
 # zle -N peco-select-history
 # bindkey '^r' peco-select-history
 
+# peco-ghq
+# function peco-src () {
+#   local selected_dir=$(ghq list -p | peco --query "$LBUFFER")
+#   if [ -n "$selected_dir" ]; then
+#     BUFFER="cd ${selected_dir}"
+#     zle accept-line
+#   fi
+#   zle clear-screen
+# }
+# zle -N peco-src
+# bindkey '^G' peco-src
+
 # pyenv
 PYENV_ROOT="$HOME/.pyenv"
 PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
+
+# golang
+if [ -x "`which go`" ]; then
+  export GOPATH=$HOME/go
+  export PATH="$GOPATH/bin:$PATH"
+fi
