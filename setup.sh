@@ -20,7 +20,7 @@ function chkcommand() {
 }
 
 function link() {
-    if [ ! -e $2 -o ! -d $2 ]; then
+    if [ ! -h $2 ]; then
         ln -s "$CONF_HOME/$1" $2 || return 1
     fi
     return 0
