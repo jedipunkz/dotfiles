@@ -27,7 +27,9 @@ function link() {
 }
 
 function gitclone() {
-    git clone $1 $2 || return 1
+    if [ ! -d $2 ]; then
+        git clone $1 $2 || return 1
+    fi
     return 0
 }
 
