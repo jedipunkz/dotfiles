@@ -25,9 +25,9 @@ function backup() {
 
 function link() {
     if [ $(uname) = 'Darwin' ]; then
-        gln -is "$CONF_HOME/$1" "$HOME/$2" || return 1
+        gln -is "$CONF_HOME/$1" $2 || return 1
     else
-        ln -is "$CONF_HOME/$1" "$HOME/$2" || return 1
+        ln -is "$CONF_HOME/$1" $2 || return 1
     fi
     return 0
 }
