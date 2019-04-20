@@ -20,7 +20,7 @@ function chkcommand() {
 }
 
 function backup() {
-    if [ -e $HOME/$1 -o  -d $HOME/$1 ]; then
+    if [ -e $HOME/$1 -o -d $HOME/$1 ]; then
         mv $HOME/$1 $BACKUPDIR/$1
     fi
 }
@@ -47,6 +47,7 @@ function makedir() {
 
 chkcommand git
 makedir $BACKUPDIR 0755
+makedir $BACKUPDIR/.config 0755
 rm -rf $BACKUPDIR/.*
 makedir $HOME/gitwork 0755
 
@@ -67,9 +68,7 @@ gitclone $URL_OHMYZSH $HOME/.oh-my-zsh
 link .oh-my-zsh/custom/custom-aliases.zsh $HOME/.oh-my-zsh/custom/custom-aliases.zsh
 link .oh-my-zsh/custom/custom-env.zsh $HOME/.oh-my-zsh/custom/custom-env.zsh
 link jedipunkz.zsh-theme $HOME/.oh-my-zsh/themes/jedipunkz.zsh-theme
-link jedipunkz2.zsh-theme $HOME/.oh-my-zsh/themes/jedipunkz2.zsh-theme
 link jedipunkz3.zsh-theme $HOME/.oh-my-zsh/themes/jedipunkz3.zsh-theme
-link jedipunkz4.zsh-theme $HOME/.oh-my-zsh/themes/jedipunkz4.zsh-theme
 link jedipunkz5.zsh-theme $HOME/.oh-my-zsh/themes/jedipunkz5.zsh-theme
 link .emacs.d $HOME/.emacs.d
 link .Xresources $HOME/.Xresources
