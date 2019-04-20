@@ -19,14 +19,10 @@ function chkcommand() {
     fi
 }
 
-function backup() {
-    if [ -e $HOME/$1 -o -d $HOME/$1 ]; then
-        mv $HOME/$1 $BACKUPDIR/$1
-    fi
-}
-
 function link() {
-    ln -s "$CONF_HOME/$1" $2 || return 1
+    if [ ! -e $2 -o ! -d $2 ]; then
+        ln -s "$CONF_HOME/$1" $2 || return 1
+    fi
     return 0
 }
 
@@ -43,21 +39,6 @@ function makedir() {
 
 chkcommand git
 makedir $HOME/gitwork 0755
-
-makedir $BACKUPDIR 0755
-rm -rf $BACKUPDIR/.*
-makedir $BACKUPDIR/.config 0755
-
-backup .oh-my-zsh
-backup .emacs.d
-backup .Xresources
-backup .zshrc
-backup .vimrc
-backup .vim
-backup .dir_colors
-backup .tmux.conf
-backup .config/powerline
-
 makedir $HOME/.config 0755
 
 gitclone $URL_OHMYZSH $HOME/.oh-my-zsh
