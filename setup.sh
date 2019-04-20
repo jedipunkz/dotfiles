@@ -26,11 +26,7 @@ function backup() {
 }
 
 function link() {
-    if [ $(uname) = 'Darwin' ]; then
-        gln -is "$CONF_HOME/$1" $2 || return 1
-    else
-        ln -is "$CONF_HOME/$1" $2 || return 1
-    fi
+    ln -s "$CONF_HOME/$1" $2 || return 1
     return 0
 }
 
@@ -46,10 +42,11 @@ function makedir() {
 }
 
 chkcommand git
-makedir $BACKUPDIR 0755
-makedir $BACKUPDIR/.config 0755
-rm -rf $BACKUPDIR/.*
 makedir $HOME/gitwork 0755
+
+makedir $BACKUPDIR 0755
+rm -rf $BACKUPDIR/.*
+makedir $BACKUPDIR/.config 0755
 
 backup .oh-my-zsh
 backup .emacs.d
