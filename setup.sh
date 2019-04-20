@@ -20,7 +20,9 @@ function chkcommand() {
 }
 
 function backup() {
-    mv $HOME/$1 $BACKUPDIR/$1
+    if [ -e $HOME/$1 -o  -d $HOME/$1 ]; then
+        mv $HOME/$1 $BACKUPDIR/$1
+    fi
 }
 
 function link() {
@@ -47,9 +49,6 @@ chkcommand git
 makedir $BACKUPDIR 0755
 rm -rf $BACKUPDIR/.*
 makedir $HOME/gitwork 0755
-makedir $HOME/.config
-
-gitclone $URL_OHMYZSH $HOME/.oh-my-zsh
 
 backup .oh-my-zsh
 backup .emacs.d
@@ -60,6 +59,10 @@ backup .vim
 backup .dir_colors
 backup .tmux.conf
 backup .config/powerline
+
+makedir $HOME/.config 0755
+
+gitclone $URL_OHMYZSH $HOME/.oh-my-zsh
 
 link .oh-my-zsh/custom/custom-aliases.zsh $HOME/.oh-my-zsh/custom/custom-aliases.zsh
 link .oh-my-zsh/custom/custom-env.zsh $HOME/.oh-my-zsh/custom/custom-env.zsh
