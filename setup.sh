@@ -52,6 +52,7 @@ link .oh-my-zsh/custom/custom-env.zsh $HOME/.oh-my-zsh/custom/custom-env.zsh
 link jedipunkz.zsh-theme $HOME/.oh-my-zsh/themes/jedipunkz.zsh-theme
 link jedipunkz3.zsh-theme $HOME/.oh-my-zsh/themes/jedipunkz3.zsh-theme
 link jedipunkz5.zsh-theme $HOME/.oh-my-zsh/themes/jedipunkz5.zsh-theme
+link .gtkrc-2.0 $HOME/.gtkrc-2.0
 link .emacs.d $HOME/.emacs.d
 link .Xresources $HOME/.Xresources
 link .zshrc $HOME/.zshrc
@@ -65,12 +66,6 @@ link .vimrc $HOME/.vimrc
 link .vimrc.lang $HOME/.vimrc.lang
 
 gitclone $URL_NEOBUNDLE $HOME/.vim/bundle/neobundle.vim
-
-if [ ! -d $HOME/.rbenv ]; then
-    gitclone $URL_RBENV $HOME/.rbenv
-    gitclone $URL_RUBY_BUILD $HOME/.rbenv/plugins/ruby-build
-fi
-
-if [ ! -d $HOME/.pyenv ]; then
-    gitclone $URL_PYENV $HOME/.pyenv
-fi
+gitclone $URL_RBENV $HOME/.rbenv
+gitclone $URL_RUBY_BUILD $HOME/.rbenv/plugins/ruby-build
+gitclone $URL_PYENV $HOME/.pyenv
