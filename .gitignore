@@ -1,3 +1,5 @@
 .AppleDouble
 auto-save-list
-/.vim/bundle
+.zshrc.local
+.vimrc.local
+.vim/bundle
