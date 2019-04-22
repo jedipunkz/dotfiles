@@ -42,10 +42,8 @@ function makedir() {
 
 chkcommand git
 makedir $HOME/gitwork 0755
-makedir $HOME/.config 0755
 
 gitclone $URL_OHMYZSH $HOME/.oh-my-zsh
-gitclone $URL_TPM ~/.tmux/plugins/tpm
 
 link .oh-my-zsh/custom/custom-aliases.zsh $HOME/.oh-my-zsh/custom/custom-aliases.zsh
 link .oh-my-zsh/custom/custom-env.zsh $HOME/.oh-my-zsh/custom/custom-env.zsh
@@ -60,11 +58,11 @@ link .dir_colors $HOME/.dir_colors
 link .tmux.conf $HOME/.tmux.conf
 link .tmux.conf.macos $HOME/.tmux.conf.macos
 link .tmux.conf.linux $HOME/.tmux.conf.linux
-# link .config/powerline $HOME/.config/powerline
 link .vim $HOME/.vim
 link .vimrc $HOME/.vimrc
 link .vimrc.lang $HOME/.vimrc.lang
 
+gitclone $URL_TPM ~/.tmux/plugins/tpm
 gitclone $URL_NEOBUNDLE $HOME/.vim/bundle/neobundle.vim
 gitclone $URL_RBENV $HOME/.rbenv
 gitclone $URL_RUBY_BUILD $HOME/.rbenv/plugins/ruby-build
