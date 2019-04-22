@@ -1,0 +1,4 @@
+bind C-q run-shell 'reattach-to-user-namespace tmux-pbcopy'
+set-window-option -g mode-keys emacs
+set -g default-shell $SHELL
+set -g default-command "reattach-to-user-namespace -l ${SHELL}"
