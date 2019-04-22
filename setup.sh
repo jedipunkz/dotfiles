@@ -60,7 +60,7 @@ link .dir_colors $HOME/.dir_colors
 link .tmux.conf $HOME/.tmux.conf
 link .tmux.conf.macos $HOME/.tmux.conf.macos
 link .tmux.conf.linux $HOME/.tmux.conf.linux
-link .config/powerline $HOME/.config/powerline
+# link .config/powerline $HOME/.config/powerline
 link .vim $HOME/.vim
 link .vimrc $HOME/.vimrc
 link .vimrc.lang $HOME/.vimrc.lang
