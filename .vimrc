@@ -3,17 +3,14 @@ set nocompatible
 filetype plugin indent off
 
 if has('vim_starting')
-  set nocompatible               " Be iMproved
-
-  " Required:
+  set nocompatible
   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
 " Required:
- call neobundle#begin(expand('~/.vim/bundle/'))
+call neobundle#begin(expand('~/.vim/bundle/'))
 
 NeoBundle 'Shougo/unite.vim'
-" NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'vim-airline/vim-airline'
 NeoBundle 'vim-airline/vim-airline-themes'
 NeoBundle 'thinca/vim-quickrun.git'
@@ -26,30 +23,8 @@ NeoBundle 'chase/vim-ansible-yaml'
 NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'hashivim/vim-terraform'
 NeoBundle 'kchmck/vim-coffee-script'
-" NeoBundle 'wsdjeg/FlyGrep.vim'
 NeoBundle 'othree/yajs.vim'
 NeoBundle 'morhetz/gruvbox'
-
-" NeoBundle 'Shougo/vimproc', {
-"     \ 'build' : {
-"     \     'windows' : 'make -f make_mingw32.mak',
-"     \     'cygwin' : 'make -f make_cygwin.mak',
-"     \     'mac' : 'make -f make_mac.mak',
-"     \     'unix' : 'make -f make_unix.mak',
-"     \    },
-"     \ }
-" NeoBundle 'kevinw/pyflakes-vim', {
-"     \ 'build' : {
-"     \     'mac' : 'git submodule update --init',
-"     \     'unix' : 'git submodule update --init',
-"     \    },
-"     \ }
-" NeoBundle 'davidhalter/jedi-vim', {
-"     \ 'build' : {
-"     \     'mac' : 'git submodule update --init',
-"     \     'unix' : 'git submodule update --init',
-"     \    },
-"     \ }
 
 call neobundle#end()
 
@@ -80,22 +55,6 @@ filetype plugin indent on
 " this will conveniently prompt you to install them.
 NeoBundleCheck
 
-" jedi , quickrun conflict
-command! -nargs=0 JediRename :call jedi#rename()
-let g:jedi#rename_command = ""
-
-" pyflake
-let g:syntastic_mode_map = {
-            \ 'mode': 'active',
-            \ 'active_filetypes': ['php', 'coffeescript', 'sh', 'vim'],
-            \ 'passive_filetypes': ['html', 'haskell', 'python']
-            \}
-
-" lightline theme
-" let g:lightline = {
-"       \ 'colorscheme': 'solarized',
-"       \ }
-
 " airline
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
@@ -125,13 +84,10 @@ nnoremap ,tn gt
 nnoremap ,tp gT
 nnoremap ,tT :<C-u>Unite tab<CR>
 
-"filetype plugin indent on
-
+" colors
 set t_Co=256
 syntax enable
 set background=dark
-
-syntax enable
 "colorscheme darkblue
 "colorscheme desert
 "set background=dark
@@ -142,9 +98,6 @@ colorschem gruvbox
 "colorscheme wombat256mod
 " colorscheme molokai
 "colorscheme zenburn
-if &diff
-        colorscheme leo
-endif
 
 "set number
 set ruler
