@@ -47,9 +47,9 @@ gitclone $URL_OHMYZSH $HOME/.oh-my-zsh
 
 link .oh-my-zsh/custom/custom-aliases.zsh $HOME/.oh-my-zsh/custom/custom-aliases.zsh
 link .oh-my-zsh/custom/custom-env.zsh $HOME/.oh-my-zsh/custom/custom-env.zsh
-link jedipunkz.zsh-theme $HOME/.oh-my-zsh/themes/jedipunkz.zsh-theme
-link jedipunkz3.zsh-theme $HOME/.oh-my-zsh/themes/jedipunkz3.zsh-theme
-link jedipunkz5.zsh-theme $HOME/.oh-my-zsh/themes/jedipunkz5.zsh-theme
+link .oh-my-zsh/custom/themes/jedipunkz.zsh-theme $HOME/.oh-my-zsh/custom/themes/jedipunkz.zsh-theme
+link .oh-my-zsh/custom/themes/jedipunkz-colorfull.zsh-theme $HOME/.oh-my-zsh/custom/themes/jedipunkz-colorfull.zsh-theme
+link .oh-my-zsh/custom/themes/jedipunkz-gruvbox.zsh-theme $HOME/.oh-my-zsh/custom/themes/jedipunkz-gruvbox.zsh-theme
 link .gtkrc-2.0 $HOME/.gtkrc-2.0
 link .emacs.d $HOME/.emacs.d
 link .Xresources $HOME/.Xresources
