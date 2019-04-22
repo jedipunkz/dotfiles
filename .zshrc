@@ -39,81 +39,82 @@ source $ZSH/oh-my-zsh.sh
 export PATH=$HOME/usr/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games:/sbin:/usr/sbin
 export TERM=xterm-256color
 
+case "${OSTYPE}" in
+freebsd*|darwin*)
+    ;;
+linux*)
+    ;;
+esac
+
+alias ls="ls --color"
+alias la="ls -a"
+alias l="ls -alF"
+alias ssh="ssh -o UserKnownHostsFile=/dev/null -o 'StrictHostKeyChecking no'"
+
+export EDITOR=vim
+
+# peco
+function peco-select-history() {
+    local tac
+    if which tac > /dev/null; then
+        tac="tac"
+    else
+        tac="tail -r"
+    fi
+    BUFFER=$(\history -n 1 | eval $tac | awk '!a[$0]++' | peco --query "$LBUFFER")
+    CURSOR=$#BUFFER
+    zle clear-screen
+}
+if [ -x "`which peco`" ]; then
+    zle -N peco-select-history
+    bindkey '^r' peco-select-history
+fi
+
+# peco-ghq
+function peco-src () {
+  local selected_dir=$(ghq list -p | peco --query "$LBUFFER")
+  if [ -n "$selected_dir" ]; then
+    BUFFER="cd ${selected_dir}"
+    zle accept-line
+  fi
+  zle clear-screen
+}
+if [ -x "`which ghq`" -a -x "`which peco`" ]; then
+    zle -N peco-src
+    bindkey '^G' peco-src
+fi
+
+# perl cpanm
+if [ -d "$HOME/perl5/bin" ]; then
+    export PERL_CPANM_OPT="--local-lib=~/perl5"
+    export PATH=$HOME/perl5/bin:$PATH;
+    export PERL5LIB=$HOME/perl5/lib/perl5:$PERL5LIB;
+fi
+
+# pyenv
+if [ -d "$HOME/.pyenv/bin" ]; then
+    PYENV_ROOT="$HOME/.pyenv"
+    PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init -)"
+fi
+
+# golang
+if [ -x "`which go`" ]; then
+    export GOPATH=$HOME/go
+    export PATH="$GOPATH/bin:$PATH"
+fi
+
 # rbenv
 if [ -d "$HOME/.rbenv/bin" ]; then
     export PATH="$HOME/.rbenv/bin:$PATH"
     eval "$(rbenv init -)"
 fi
 
-case "${OSTYPE}" in
-freebsd*|darwin*)
-    ;;
-linux*)
-    alias emacs="emacsclient -t"
-    #alias emacs="/usr/bin/emacsclient.emacs-snapshot -t"
-    alias kill-emacs="emacsclient -e '(kill-emacs)'"
-    ;;
-esac
-
-# add PERL5LIB path for cpanm
-export PERL_CPANM_OPT="--local-lib=~/perl5"
-export PATH=$HOME/perl5/bin:$PATH;
-export PERL5LIB=$HOME/perl5/lib/perl5:$PERL5LIB;
-export EDITOR=vim
-
-[[ -s "$HOME/aws/ec2-api-tools" ]] && . "$HOME/.zsh_aws"
-
-alias la="ls -a"
-alias l="ls -alF"
-alias ssh="ssh -o UserKnownHostsFile=/dev/null -o 'StrictHostKeyChecking no'"
-
-# emacs tramp
-case "$TERM" in
-"dumb")
-    PS1="> "
-    ;;
-xterm*|rxvt*|eterm*|screen*)
-    # PS1="my fancy multi-line prompt > "
-    ;;
-*)
-    PS1="> "
-    ;;
-esac
-
-# peco
-# function peco-select-history() {
-#     local tac
-#     if which tac > /dev/null; then
-#         tac="tac"
-#     else
-#         tac="tail -r"
-#     fi
-#     BUFFER=$(\history -n 1 | eval $tac | awk '!a[$0]++' | peco --query "$LBUFFER")
-#     CURSOR=$#BUFFER
-#     zle clear-screen
-# }
-# zle -N peco-select-history
-# bindkey '^r' peco-select-history
-
-# peco-ghq
-# function peco-src () {
-#   local selected_dir=$(ghq list -p | peco --query "$LBUFFER")
-#   if [ -n "$selected_dir" ]; then
-#     BUFFER="cd ${selected_dir}"
-#     zle accept-line
-#   fi
-#   zle clear-screen
-# }
-# zle -N peco-src
-# bindkey '^G' peco-src
-
-# pyenv
-PYENV_ROOT="$HOME/.pyenv"
-PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-
-# golang
-if [ -x "`which go`" ]; then
-  export GOPATH=$HOME/go
-  export PATH="$GOPATH/bin:$PATH"
+# .dir_colors
+export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+if [ -f ~/.dir_colors ]; then
+    eval `dircolors -b ~/.dir_colors`
+fi
+if [ -n "$LS_COLORS" ]; then
+    zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 fi
