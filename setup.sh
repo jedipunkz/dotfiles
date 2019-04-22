@@ -9,6 +9,7 @@ URL_NEOBUNDLE="git://github.com/Shougo/neobundle.vim.git"
 URL_RBENV="git://github.com/sstephenson/rbenv.git"
 URL_RUBY_BUILD="git://github.com/sstephenson/ruby-build.git"
 URL_PYENV="git://github.com/pyenv/pyenv.git"
+URL_TPM="https://github.com/tmux-plugins/tpm"
 
 function chkcommand() {
     if hash $1 2>/dev/null; then
@@ -44,6 +45,7 @@ makedir $HOME/gitwork 0755
 makedir $HOME/.config 0755
 
 gitclone $URL_OHMYZSH $HOME/.oh-my-zsh
+gitclone $URL_TPM ~/.tmux/plugins/tpm
 
 link .oh-my-zsh/custom/custom-aliases.zsh $HOME/.oh-my-zsh/custom/custom-aliases.zsh
 link .oh-my-zsh/custom/custom-env.zsh $HOME/.oh-my-zsh/custom/custom-env.zsh
