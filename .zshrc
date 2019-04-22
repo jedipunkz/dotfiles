@@ -1,16 +1,8 @@
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
 ZSH_THEME="gruvbox"
 SOLARIZED_THEME="dark"
-
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
@@ -36,7 +28,6 @@ source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 
-# set $PATH
 export PATH=$HOME/usr/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games:/sbin:/usr/sbin
 export TERM=xterm-256color
 
@@ -53,6 +44,32 @@ alias l="ls -alF"
 alias ssh="ssh -o UserKnownHostsFile=/dev/null -o 'StrictHostKeyChecking no'"
 
 export EDITOR=vim
+
+# perl cpanm
+if [ -d "$HOME/perl5/bin" ]; then
+    export PERL_CPANM_OPT="--local-lib=~/perl5"
+    export PATH=$HOME/perl5/bin:$PATH;
+    export PERL5LIB=$HOME/perl5/lib/perl5:$PERL5LIB;
+fi
+
+# pyenv
+if [ -d "$HOME/.pyenv/bin" ]; then
+    PYENV_ROOT="$HOME/.pyenv"
+    PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init -)"
+fi
+
+# golang
+if [ -x "`which go`" ]; then
+    export GOPATH=$HOME/go
+    export PATH="$GOPATH/bin:$PATH"
+fi
+
+# rbenv
+if [ -d "$HOME/.rbenv/bin" ]; then
+    export PATH="$HOME/.rbenv/bin:$PATH"
+    eval "$(rbenv init -)"
+fi
 
 # peco
 function peco-select-history() {
@@ -83,32 +100,6 @@ function peco-src () {
 if [ -x "`which ghq`" -a -x "`which peco`" ]; then
     zle -N peco-src
     bindkey '^G' peco-src
-fi
-
-# perl cpanm
-if [ -d "$HOME/perl5/bin" ]; then
-    export PERL_CPANM_OPT="--local-lib=~/perl5"
-    export PATH=$HOME/perl5/bin:$PATH;
-    export PERL5LIB=$HOME/perl5/lib/perl5:$PERL5LIB;
-fi
-
-# pyenv
-if [ -d "$HOME/.pyenv/bin" ]; then
-    PYENV_ROOT="$HOME/.pyenv"
-    PATH="$PYENV_ROOT/bin:$PATH"
-    eval "$(pyenv init -)"
-fi
-
-# golang
-if [ -x "`which go`" ]; then
-    export GOPATH=$HOME/go
-    export PATH="$GOPATH/bin:$PATH"
-fi
-
-# rbenv
-if [ -d "$HOME/.rbenv/bin" ]; then
-    export PATH="$HOME/.rbenv/bin:$PATH"
-    eval "$(rbenv init -)"
 fi
 
 # .dir_colors
