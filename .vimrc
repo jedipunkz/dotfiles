@@ -27,6 +27,7 @@ NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'hashivim/vim-terraform'
 NeoBundle 'kchmck/vim-coffee-script'
 " NeoBundle 'wsdjeg/FlyGrep.vim'
+NeoBundle 'othree/yajs.vim'
 NeoBundle 'morhetz/gruvbox'
 
 " NeoBundle 'Shougo/vimproc', {
@@ -98,7 +99,7 @@ let g:syntastic_mode_map = {
 " airline
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='gruvbox'
+let g:airline_theme='powerlineish'
 " カーソルキーでbuffer移動
 nnoremap <Left> :bp<CR>
 nnoremap <Right> :bn<CR>
@@ -192,30 +193,10 @@ set laststatus=2 " Always show the statusline
 " file type plugins
 filetype plugin on
 
-" terraform syntax "
-au BufRead,BufNewFile *.tf setlocal filetype=terraform
-:autocmd FileType terraform set shiftwidth=2
-:autocmd FileType terraform set softtabstop=2
-:autocmd FileType terraform set autoindent
-:autocmd FileType terraform set smartindent
-:autocmd FileType terraform set expandtab
-:autocmd FileType terraform map <leader>k :w<CR>:Tabularize /=<CR>
+" lang
+source ~/.vimrc.lang
 
-" powerline
-" python from powerline.vim import setup as powerline_setup
-" python powerline_setup()
-" python del powerline_setup
-" set laststatus=2 " Always display the statusline in all windows
-" set showtabline=2 " Always display the tabline, even if there is only one tab
-" set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
-
-" IME Off
-" if has('mac')
-"   set ttimeoutlen=1
-"   let g:imeoff = 'osascript -e "tell application \"System Events\" to key code 102"'
-"   augroup MyIMEGroup
-"     autocmd!
-"     autocmd InsertLeave * :call system(g:imeoff)
-"   augroup END
-"   noremap <silent> <ESC> <ESC>:call system(g:imeoff)<CR>
-" endif
+" local environment
+if filereadable(expand('~/.vimrc.local'))
+  source ~/.vimrc.local
+endif
