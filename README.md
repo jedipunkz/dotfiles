@@ -1,14 +1,36 @@
-dotfiles for @jedipunkz
-====
+# dotfiles for @jedipunkz
 
-Overview
-----
+## Overview
 
-This is dot files for @jedipunk. 
+Dotfiles repository for @jedipunkz
 
-How to use
-----
+## Requirement
 
-    % git clone git://github.com/jedipunkz/dotfiles.git
-    % perl dotfiles/setup.pl
+- peco
+- ghq
+- vim
+- zsh
+- tmux
+- git
 
+## Installation
+
+```bash
+git clone git://github.com/jedipunkz/dotfiles.git
+bash dotfiles/setup.sh
+```
+
+## Usage of local environment files
+
+If you need modify dotfiles for local environment, you can add such configuration to bellow files. 
+
+- .zshrc.local
+- .vimrc.local
+
+## Licence
+
+[MIT](https://github.com/tcnksm/tool/blob/master/LICENCE)
+
+## Author
+
+[jedipunkz](https://github.com/jedipunkz)
