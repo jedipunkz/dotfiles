@@ -62,6 +62,7 @@ link .tmux.conf.linux $HOME/.tmux.conf.linux
 link .config/powerline $HOME/.config/powerline
 link .vim $HOME/.vim
 link .vimrc $HOME/.vimrc
+link .vimrc.lang $HOME/.vimrc.lang
 
 gitclone $URL_NEOBUNDLE $HOME/.vim/bundle/neobundle.vim
 
