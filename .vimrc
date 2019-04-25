@@ -25,6 +25,7 @@ NeoBundle 'hashivim/vim-terraform'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'othree/yajs.vim'
 NeoBundle 'morhetz/gruvbox'
+NeoBundle 'davidhalter/jedi-vim'
 
 call neobundle#end()
 
