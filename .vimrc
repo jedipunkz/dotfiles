@@ -26,7 +26,10 @@ NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'othree/yajs.vim'
 NeoBundle 'morhetz/gruvbox'
 NeoBundle 'davidhalter/jedi-vim'
+NeoBundle 'nvie/vim-flake8'
 NeoBundle 'nathanaelkane/vim-indent-guides'
+NeoBundle 'SirVer/ultisnips'
+NeoBundle 'honza/vim-snippets'
 
 call neobundle#end()
 
@@ -165,6 +168,17 @@ set laststatus=2 " Always show the statusline
 
 " :IndentGuideDisable
 let g:indent_guides_enable_on_vim_startup = 0
+
+" call Flake8
+nnoremap  <leader>l :call Flake8()
+
+" UltiSnips
+let g:UltiSnipsUsePythonVersion = 3
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 
 " file type plugins
 filetype plugin on
