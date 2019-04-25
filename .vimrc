@@ -26,6 +26,7 @@ NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'othree/yajs.vim'
 NeoBundle 'morhetz/gruvbox'
 NeoBundle 'davidhalter/jedi-vim'
+NeoBundle 'nathanaelkane/vim-indent-guides'
 
 call neobundle#end()
 
@@ -161,6 +162,9 @@ set hidden
 " status line
 set nocompatible " Disable vi-compatibility
 set laststatus=2 " Always show the statusline
+
+" :IndentGuideDisable
+let g:indent_guides_enable_on_vim_startup = 0
 
 " file type plugins
 filetype plugin on
