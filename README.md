@@ -4,6 +4,10 @@
 
 Dotfiles repository for @jedipunkz
 
+## Screenshot
+
+<img src="https://raw.githubusercontent.com/jedipunkz/dotfiles/master/pix/dotfiles.png">
+
 ## Requirement
 
 - peco
