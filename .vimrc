@@ -114,7 +114,7 @@ set background=dark
 "colorscheme darkblue
 "colorscheme desert
 "set background=dark
-"colorschem solarized
+" colorschem solarized
 colorschem gruvbox
 "let g:solarized_termcolors=256
 "colorscheme wombat256
