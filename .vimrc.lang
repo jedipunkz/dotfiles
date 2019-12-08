@@ -32,3 +32,8 @@ if has("autocmd")
   autocmd FileType terraform  setlocal sw=2 sts=2 ts=2 et
 endif
 
+let g:go_bin_path = $GOPATH.'/bin'
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+

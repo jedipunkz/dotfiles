@@ -1,6 +1,6 @@
 " vundle settings
 set nocompatible
-filetype plugin indent off
+filetype plugin indent on
 
 if has('vim_starting')
   set nocompatible
@@ -30,6 +30,11 @@ NeoBundle 'nvie/vim-flake8'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'SirVer/ultisnips'
 NeoBundle 'honza/vim-snippets'
+NeoBundle 'fatih/vim-go'
+
+NeoBundleLazy 'fatih/vim-go', {
+            \ 'autoload' : { 'filetypes' : 'go'  }
+            \ }
 
 call neobundle#end()
 
@@ -52,6 +57,8 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 if !exists('g:neocomplete#sources#omni#input_patterns')
   let g:neocomplete#sources#omni#input_patterns = {}
 endif
+" golang omni completion
+let g:neocomplete#sources#omni#input_patterns.go = '\h\w\.\w*'
 
 " Required:
 filetype plugin indent on
