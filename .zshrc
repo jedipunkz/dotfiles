@@ -71,6 +71,9 @@ if [ -d "$HOME/.rbenv/bin" ]; then
     eval "$(rbenv init -)"
 fi
 
+# gvm
+[[ -s "/Users/thirai/.gvm/scripts/gvm" ]] && source "/Users/thirai/.gvm/scripts/gvm"
+
 # peco
 function peco-select-history() {
     local tac
@@ -113,3 +116,4 @@ fi
 
 # local environment
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
+
