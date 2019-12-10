@@ -69,3 +69,5 @@ gitclone $URL_NEOBUNDLE $HOME/.vim/bundle/neobundle.vim
 gitclone $URL_RBENV $HOME/.rbenv
 gitclone $URL_RUBY_BUILD $HOME/.rbenv/plugins/ruby-build
 gitclone $URL_PYENV $HOME/.pyenv
+
+bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
