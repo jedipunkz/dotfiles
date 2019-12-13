@@ -72,7 +72,7 @@ if [ -d "$HOME/.rbenv/bin" ]; then
 fi
 
 # gvm
-[[ -s "/Users/thirai/.gvm/scripts/gvm" ]] && source "/Users/thirai/.gvm/scripts/gvm"
+[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 
 # peco
 function peco-select-history() {
