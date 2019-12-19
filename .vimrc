@@ -187,6 +187,9 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 
+" Golang
+let g:go_fmt_command = "goimports"
+
 " file type plugins
 filetype plugin on
 
