@@ -4,13 +4,18 @@ ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="bullet-train"
 
 BULLETTRAIN_PROMPT_ORDER=(
-    time
     status
+    time
     dir
     go
-    aws
     git
 )
+BULLETTRAIN_TIME_BG=202
+BULLETTRAIN_TIME_FG=white
+BULLETTRAIN_DIR_BG=033
+BULLETTRAIN_DIR_FG=white
+BULLETTRAIN_GIT_BG=252
+BULLETTRAIN_GIT_FG=black
 
 SOLARIZED_THEME="dark"
 
