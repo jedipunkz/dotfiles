@@ -71,7 +71,7 @@ fi
 
 # golang
 if [ -x "`which go`" ]; then
-    export GOPATH=$HOME/go
+    # export GOPATH=$HOME/go
     export PATH="$GOPATH/bin:$PATH"
 fi
 
