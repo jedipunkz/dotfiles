@@ -3,3 +3,7 @@ auto-save-list
 .zshrc.local
 .vimrc.local
 .vim/bundle
+.emacs.d/ac-comphist.dat
+.emacs.d/el-get/
+.emacs.d/elpa/
+.emacs.d/network-security.data
