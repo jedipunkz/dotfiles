@@ -100,7 +100,7 @@ NeoBundleCheck
 " airline
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='sol'
+let g:airline_theme='base16'
 " カーソルキーでbuffer移動
 nnoremap <Left> :bp<CR>
 nnoremap <Right> :bn<CR>
