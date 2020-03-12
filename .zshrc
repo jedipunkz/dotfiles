@@ -135,3 +135,4 @@ fi
 # local environment
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
+if [ /usr/local/bin/kubectl ]; then source <(kubectl completion zsh); fi
