@@ -97,7 +97,7 @@ taged.style = "green"
 staged_count.enabled = true
 staged_count.style = "green"
 renamed = "👅"
-deleted = ""🌼
+deleted = "🌼"
 
 [golang]
 #symbol = "🏎💨 "
