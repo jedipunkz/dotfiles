@@ -78,4 +78,5 @@ gitclone $URL_RUBY_BUILD $HOME/.rbenv/plugins/ruby-build
 gitclone $URL_PYENV $HOME/.pyenv
 
 bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
-curl -fsSL https://starship.rs/install.sh | bash
+#curl -fsSL https://starship.rs/install.sh | bash
+echo 'install starship by manualy. https://starship.rs/guide/#%F0%9F%9A%80-installation'
