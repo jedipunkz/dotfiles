@@ -1,7 +1,7 @@
 add_newline = false
 
 [character]
-symbol = ">>"
+symbol = "::"
 error_symbol = "✗"
 style_success = "#adff2f"
 style_failure = "red"
@@ -11,13 +11,13 @@ use_symbol_for_status = true
 truncation_length = 3
 truncate_to_repo = false
 prefix = "in "
-style = "#87cefa"
+style = "#95DDD0"
 
 [time]
 disabled = false
 format = "[ %T ]"
 utc_time_offset = "+9"
-style = "#1e90ff"
+style = "#FFD1D0"
 
 [aws]
 style = "bold blue"
@@ -34,6 +34,7 @@ symbol = "🐋 "
 symbol = "🌱 "
 #truncation_length = 2
 #truncation_symbol = ""
+style = "#E74378"
 
 [git_state]
 progress_divider = " of "
