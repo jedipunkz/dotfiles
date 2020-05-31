@@ -9,10 +9,10 @@ prompt_order = [
     "git_state",
     "git_status",
     "hg_branch",
-    "aws",
     "env_var",
     "docker_context",
     "kubernetes",
+    "aws",
     "package",
     "dotnet",
     "elixir",
@@ -66,6 +66,7 @@ style = "#74d3ae"
 [aws]
 symbol = "☁️  "
 displayed_items = "all"
+style = "#ffffff"
 # [aws.region_aliases]
 # us-east-1 = "va"
 # ap-northeast-1 = "tokyo"
@@ -108,13 +109,6 @@ style = "#ffd31d"
 disabled = false
 [kubernetes.context_aliases]
 "dev.local.cluster.k8s" = "dev"
-
-[env_var]
-variable = "AWSPROFILE"
-#default = "None"
-style = "#FFFFFF"
-prefix = "☁️  "
-suffix = ""
 
 [nodejs]
 symbol = "🤖 "

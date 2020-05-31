@@ -215,5 +215,6 @@ fi
 
 if [ -x /usr/local/bin/kubectl ]; then source <(kubectl completion zsh); fi
 
-# for display AWSPROFILE on prompt via starship
-export AWSPROFILE=None
+# for display AWS_PROFILE on prompt via starship
+export AWS_PROFILE=none
+#export AWS_REGION=ap-northeast-1
