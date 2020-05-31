@@ -1,26 +1,26 @@
 # Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
-
-ZSH_THEME="bullet-train"
-
-BULLETTRAIN_PROMPT_ORDER=(
-    time
-    dir
-    go
-    git
-    status
-)
-BULLETTRAIN_TIME_BG=202
-BULLETTRAIN_TIME_FG=white
-BULLETTRAIN_DIR_BG=033
-BULLETTRAIN_DIR_FG=white
-BULLETTRAIN_GIT_BG=251
-BULLETTRAIN_GIT_FG=236
-BULLETTRAIN_PROMPT_SEPARATE_LINE=false
-BULLETTRAIN_PROMPT_ADD_NEWLINE=false
-BULLETTRAIN_PROMPT_CHAR=""
-
-SOLARIZED_THEME="dark"
+# ZSH=$HOME/.oh-my-zsh
+#
+# ZSH_THEME="bullet-train"
+#
+# BULLETTRAIN_PROMPT_ORDER=(
+#     time
+#     dir
+#     go
+#     git
+#     status
+# )
+# BULLETTRAIN_TIME_BG=202
+# BULLETTRAIN_TIME_FG=white
+# BULLETTRAIN_DIR_BG=033
+# BULLETTRAIN_DIR_FG=white
+# BULLETTRAIN_GIT_BG=251
+# BULLETTRAIN_GIT_FG=236
+# BULLETTRAIN_PROMPT_SEPARATE_LINE=false
+# BULLETTRAIN_PROMPT_ADD_NEWLINE=false
+# BULLETTRAIN_PROMPT_CHAR=""
+#
+# SOLARIZED_THEME="dark"
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
@@ -40,11 +40,43 @@ SOLARIZED_THEME="dark"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git rake ruby vagrant osx)
-
-source $ZSH/oh-my-zsh.sh
+# plugins=(git rake ruby vagrant osx)
+#
+# source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
+
+# starship
+eval "$(starship init zsh)"
+export STARSHIP_CONFIG=~/.starship
+# Ref: https://qiita.com/d-dai/items/d7f329b7d82e2165dab3
+export HISTSIZE=10000
+export SAVEHIST=10000
+export HISTFILE=~/.zsh_history
+setopt INC_APPEND_HISTORY
+setopt HIST_IGNORE_DUPS
+setopt EXTENDED_HISTORY
+autoload -Uz colors
+colors
+autoload -Uz compinit
+compinit
+bindkey -d  # いったんキーバインドをリセット
+bindkey -e
+setopt auto_cd
+setopt auto_pushd
+setopt pushd_ignore_dups
+autoload -Uz select-word-style
+select-word-style default
+zstyle ':zle:*' word-chars "_-./;@"
+zstyle ':zle:*' word-style unspecified
+autoload -Uz add-zsh-hook
+autoload -Uz chpwd_recent_dirs cdr
+add-zsh-hook chpwd chpwd_recent_dirs
+zstyle ":chpwd:*" recent-dirs-default true
+
+
+# コマンドミスを修正
+setopt correct
 
 export PATH=$HOME/usr/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games:/sbin:/usr/sbin
 export TERM=xterm-256color

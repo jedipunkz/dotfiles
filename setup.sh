@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if ! [ -x "$(command -v curl)" ]; then
+    echo "error: could not find curl command, install curl command." >&2
+    exit 1
+fi
+
 # set envs
 CONF_HOME=$(cd $(dirname "$0") && pwd)
 BACKUPDIR=$HOME/.dotbackup
@@ -64,6 +69,7 @@ link .vim $HOME/.vim
 link .vimrc $HOME/.vimrc
 link .vimrc.lang $HOME/.vimrc.lang
 link .imwheelrc $HOME/.imwheelrc
+link .starship $HOME/.starship
 
 gitclone $URL_TPM ~/.tmux/plugins/tpm
 gitclone $URL_NEOBUNDLE $HOME/.vim/bundle/neobundle.vim
@@ -72,3 +78,4 @@ gitclone $URL_RUBY_BUILD $HOME/.rbenv/plugins/ruby-build
 gitclone $URL_PYENV $HOME/.pyenv
 
 bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
+curl -fsSL https://starship.rs/install.sh | bash
