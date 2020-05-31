@@ -1,9 +1,53 @@
 add_newline = false
+scan_timeout = 10
+prompt_order = [
+    "username",
+    "hostname",
+    "directory",
+    "git_branch",
+    "git_commit",
+    "git_state",
+    "git_status",
+    "hg_branch",
+    "aws",
+    "env_var",
+    "docker_context",
+    "kubernetes",
+    "package",
+    "dotnet",
+    "elixir",
+    "elm",
+    "erlang",
+    "golang",
+    "haskell",
+    "java",
+    "julia",
+    "nodejs",
+    "ocaml",
+    "php",
+    "purescript",
+    "python",
+    "ruby",
+    "rust",
+    "terraform",
+    "zig",
+    "nix_shell",
+    "conda",
+    "memory_usage",
+    "crystal",
+    "cmd_duration",
+    "custom",
+    "line_break",
+    "jobs",
+    "battery",
+    "time",
+    "character",
+]
 
 [character]
 symbol = "::"
-error_symbol = "✗"
-style_success = "#35d0ba"
+error_symbol = "💥"
+style_success = "#dae1e7"
 style_failure = "red"
 use_symbol_for_status = true
 
@@ -20,9 +64,9 @@ utc_time_offset = "+9"
 style = "#40bad5"
 
 [aws]
-style = "bold blue"
-symbol = "🅰 "
-displayed_items = "region"
+#style = "orange"
+symbol = "☁️  "
+displayed_items = "all"
 # [aws.region_aliases]
 # ap-southeast-2 = "au"
 # us-east-1 = "va"
@@ -65,6 +109,13 @@ disabled = false
 [kubernetes.context_aliases]
 "dev.local.cluster.k8s" = "dev"
 
+[env_var]
+variable = "AWSPROFILE"
+#default = "None"
+style = "#FFFFFF"
+prefix = "☁️  "
+suffix = ""
+
 [nodejs]
 symbol = "🤖 "
 
@@ -77,8 +128,60 @@ pyenv_prefix = "foo "
 symbol = "🔺 "
 
 [terraform]
-symbol = "🏎💨 "
-show_version = true
+#symbol = "🏎💨 "
+#show_version = true
 
+[battery]
+disabled = true
 
+[conda]
+disabled = true
+
+[crystal]
+disabled = true
+
+[dotnet]
+disabled = true
+
+[elixir]
+disabled = true
+
+[elm]
+disabled = true
+
+[erlang]
+disabled = true
+
+[haskell]
+disabled = true
+
+[java]
+disabled = true
+
+[julia]
+disabled = true
+
+[hg_branch]
+disabled = true
+
+[nix_shell]
+disabled = true
+
+[ocaml]
+disabled = true
+
+[php]
+disabled = true
+
+[rust]
+disabled = true
+
+[singularity]
+disabled = true
+
+[zig]
+disabled = true
+
+[purescript]
+disabled = true
 
