@@ -47,7 +47,8 @@ prompt_order = [
 [character]
 symbol = "::"
 error_symbol = "💥"
-style_success = "#dae1e7"
+#style_success = "#dae1e7"
+style_success = "#eeef20"
 style_failure = "red"
 use_symbol_for_status = true
 
@@ -59,17 +60,21 @@ style = "#e4ff1a"
 
 [time]
 disabled = false
-format = "[ %T ]"
+format = "[%T]"
 utc_time_offset = "+9"
-style = "#74d3ae"
+style = "#adb5bd"
 
 [aws]
 symbol = "☁️  "
 displayed_items = "all"
-style = "#ffffff"
-# [aws.region_aliases]
-# us-east-1 = "va"
-# ap-northeast-1 = "tokyo"
+style = "#ff9900"
+[aws.region_aliases]
+ap-northeast-1 = "tokyo"
+ap-northeast-3 = "osaka"
+us-east-1 = "va"
+us-east-2 = "oh"
+us-west-1 = "ca"
+us-west-2 = "or"
 
 [docker_context]
 symbol = "🐋 "
