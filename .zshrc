@@ -83,9 +83,10 @@ zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
                              /usr/local/git/bin
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle ':completion:*' keep-prefix
-zstyle ':completion:*' completer _oldlist _complete _match _history _ignored _approximate _prefix
-zstyle ':completion:*' use-cache yes
-zstyle ':completion:*' cache-path ~/.zsh/cache
+#zstyle ':completion:*' completer _oldlist _complete _match _history _ignored _approximate _prefix
+zstyle ':completion:*' completer _oldlist _complete _match _ignored _approximate _prefix
+# zstyle ':completion:*' use-cache yes
+# zstyle ':completion:*' cache-path ~/.zsh/cache
 # zstyle ':completion:*' verbose no
 zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin
 setopt no_beep  # 補完候補がないときなどにビープ音を鳴らさない。
@@ -216,5 +217,5 @@ fi
 if [ -x /usr/local/bin/kubectl ]; then source <(kubectl completion zsh); fi
 
 # for display AWS_PROFILE on prompt via starship
-export AWS_PROFILE=none
+export AWS_PROFILE=default
 #export AWS_REGION=ap-northeast-1
