@@ -122,6 +122,7 @@ alias la="ls -a"
 alias l="ls -alF"
 alias ssh="ssh -o UserKnownHostsFile=/dev/null -o 'StrictHostKeyChecking no'"
 alias grep="grep --color"
+alias vim="nvim"
 
 export EDITOR=vim
 
