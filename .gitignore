@@ -3,8 +3,8 @@ auto-save-list
 .zshrc.local
 .vimrc.local
 .vim/bundle
-.vim/dein/repos
-.vim/dein/.cache
+.vim/dein/repos/
+.vim/dein/.cache/
 .emacs.d/ac-comphist.dat
 .emacs.d/el-get/
 .emacs.d/elpa/
