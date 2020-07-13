@@ -12,10 +12,11 @@ Dotfiles repository for @jedipunkz
 
 - peco
 - ghq
-- vim
+- neovim
 - zsh
 - tmux
 - git
+- [starship](https://starship.rs/)
 
 ## Installation
 
