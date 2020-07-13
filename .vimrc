@@ -218,9 +218,9 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsEditSplit="vertical"
 
 " Golang
-let g:go_fmt_command = "goimports"
-set rtp+=~/ghq/golang.org/x/lint/misc/vim
-autocmd BufWritePost,FileWritePost *.go execute 'Lint' | cwindow
+" let g:go_fmt_command = "goimports"
+" set rtp+=~/ghq/golang.org/x/lint/misc/vim
+" autocmd BufWritePost,FileWritePost *.go execute 'Lint' | cwindow
 
 " file type plugins
 filetype plugin on
