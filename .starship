@@ -80,7 +80,7 @@ us-west-2 = "or"
 symbol = "🐋 "
 
 [git_branch]
-symbol = "🌵 "
+symbol = "🚀 "
 #truncation_length = 2
 #truncation_symbol = ""
 style = "#68d8d6"
