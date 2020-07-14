@@ -175,6 +175,9 @@ set laststatus=2 " Always show the statusline
 " :IndentGuideDisable
 let g:indent_guides_enable_on_vim_startup = 0
 
+" cusor style
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 0
+
 " call Flake8
 nnoremap  <leader>l :call Flake8()
 
