@@ -66,7 +66,7 @@ autoload -Uz select-word-style
 select-word-style default
 zstyle ':zle:*' word-chars "_-./;@"
 zstyle ':zle:*' word-style unspecified
-export WORDCHARS='*?_.[]~-=&;!#$%^(){}<>|'
+export WORDCHARS='*?_.[]~=&;!#$%^(){}<>|'
 my-backward-delete-word() {
     local WORDCHARS=${WORDCHARS/\//}
     zle backward-delete-word
