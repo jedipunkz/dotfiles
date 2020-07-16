@@ -72,7 +72,7 @@ link .vimrc $HOME/.vimrc
 link .vimrc.lang $HOME/.vimrc.lang
 link .imwheelrc $HOME/.imwheelrc
 link .starship $HOME/.starship
-link .config $HOME/.config
+link .config/nvim $HOME/.config/nvim
 
 gitclone $URL_TPM ~/.tmux/plugins/tpm
 # gitclone $URL_NEOBUNDLE $HOME/.vim/bundle/neobundle.vim

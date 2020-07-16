@@ -4,3 +4,5 @@
 pip install jedi
 # nvie/vim-flake8
 pip install flake8
+# nvim
+pip install pynvim
