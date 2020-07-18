@@ -72,6 +72,10 @@ link .vimrc $HOME/.vimrc
 link .vimrc.lang $HOME/.vimrc.lang
 link .imwheelrc $HOME/.imwheelrc
 link .starship $HOME/.starship
+
+if [ ! -d $HOME/.config ]; then
+	mkdir $HOME/.config
+fi
 link .config/nvim $HOME/.config/nvim
 
 gitclone $URL_TPM ~/.tmux/plugins/tpm

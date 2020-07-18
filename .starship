@@ -52,6 +52,11 @@ style_success = "#eeef20"
 style_failure = "red"
 use_symbol_for_status = true
 
+[hostname]
+ssh_only = true
+disabled = false
+style = "#ffff3f"
+
 [directory]
 truncation_length = 3
 truncate_to_repo = false
