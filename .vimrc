@@ -1,44 +1,3 @@
-" vundle settings
-" set nocompatible
-" filetype plugin indent on
-"
-" if has('vim_starting')
-"   set nocompatible
-"   set runtimepath+=~/.vim/bundle/neobundle.vim/
-" endif
-"
-" " Required:
-" call neobundle#begin(expand('~/.vim/bundle/'))
-"
-" NeoBundle 'Shougo/unite.vim'
-" NeoBundle 'vim-airline/vim-airline'
-" NeoBundle 'vim-airline/vim-airline-themes'
-" NeoBundle 'thinca/vim-quickrun.git'
-" NeoBundle 'vim-scripts/tComment'
-" NeoBundle 'kien/ctrlp.vim.git'
-" NeoBundle 'scrooloose/nerdtree.git'
-" NeoBundle 'scrooloose/syntastic.git'
-" NeoBundle 'chase/vim-ansible-yaml'
-" " NeoBundle 'Valloric/YouCompleteMe'
-" NeoBundle 'Shougo/neocomplete.vim'
-" NeoBundle 'hashivim/vim-terraform'
-" NeoBundle 'juliosueiras/vim-terraform-completion'
-" NeoBundle 'kchmck/vim-coffee-script'
-" NeoBundle 'othree/yajs.vim'
-" NeoBundle 'morhetz/gruvbox'
-" NeoBundle 'davidhalter/jedi-vim'
-" NeoBundle 'nvie/vim-flake8'
-" NeoBundle 'nathanaelkane/vim-indent-guides'
-" NeoBundle 'SirVer/ultisnips'
-" NeoBundle 'honza/vim-snippets'
-" NeoBundle 'fatih/vim-go'
-"
-" NeoBundleLazy 'fatih/vim-go', {
-"             \ 'autoload' : { 'filetypes' : 'go'  }
-"             \ }
-"
-" call neobundle#end()
-
 " dein.vim
 if &compatible
   set nocompatible
@@ -49,7 +8,8 @@ call dein#begin(expand('~/.vim/dein'))
 
 call dein#add('Shougo/dein.vim')
 call dein#add('Shougo/unite.vim')
-call dein#add('Shougo/deoplete.nvim')
+" call dein#add('Shougo/deoplete.nvim')
+call dein#add('Shougo/neocomplete.vim')
 call dein#add('vim-airline/vim-airline')
 call dein#add('vim-airline/vim-airline-themes')
 call dein#add('thinca/vim-quickrun.git')
@@ -83,32 +43,32 @@ let g:syntastic_check_on_wq = 0
 set completeopt-=preview
 
 " deoplete.nvim
-let g:deoplete#enable_at_startup = 1
+" let g:deoplete#enable_at_startup = 1
 
 " NeoComplete
 " Disable AutoComplPop.
-" let g:acp_enableAtStartup = 0
-" " Use neocomplete.
-" let g:neocomplete#enable_at_startup = 1
-" " Use smartcase.
-" let g:neocomplete#enable_smart_case = 1
-" " Set minimum syntax keyword length.
-" let g:neocomplete#sources#syntax#min_keyword_length = 3
-" " Enable omni completion.
-" autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-" autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-" autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-" autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-" autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-" " Enable heavy omni completion.
-" if !exists('g:neocomplete#sources#omni#input_patterns')
-"   let g:neocomplete#sources#omni#input_patterns = {}
-" endif
-" " golang omni completion
-" let g:neocomplete#sources#omni#input_patterns.go = '\h\w\.\w*'
-" " Plugin key-mappings.
-" inoremap <expr><C-g>     neocomplcache#undo_completion()
-" inoremap <expr><C-l>     neocomplcache#complete_common_string()
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+" golang omni completion
+let g:neocomplete#sources#omni#input_patterns.go = '\h\w\.\w*'
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplcache#undo_completion()
+inoremap <expr><C-l>     neocomplcache#complete_common_string()
 
 " Recommended key-mappings.
 imap <C-f> <C-x><C-o>
@@ -130,7 +90,7 @@ filetype plugin indent on
 
 " If there are uninstalled bundles found on startup,
 " this will conveniently prompt you to install them.
-NeoBundleCheck
+" NeoBundleCheck
 
 " airline
 let g:airline_powerline_fonts = 1
