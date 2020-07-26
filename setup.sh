@@ -73,18 +73,25 @@ link .vimrc.lang $HOME/.vimrc.lang
 link .imwheelrc $HOME/.imwheelrc
 link .starship $HOME/.starship
 
-if [ ! -d $HOME/.config ]; then
-	mkdir $HOME/.config
+if [ ! -d $HOME/.config/nvim ]; then
+	mkdir -p $HOME/.config/nvim
 fi
-link .config/nvim $HOME/.config/nvim
+link .vimrc $HOME/.config/nvim/init.vim
 
 gitclone $URL_TPM ~/.tmux/plugins/tpm
-# gitclone $URL_NEOBUNDLE $HOME/.vim/bundle/neobundle.vim
-gitclone $URL_DEIN $HOME/.vim/dein/repos/github.com/Shougo/dein.vim
 gitclone $URL_RBENV $HOME/.rbenv
 gitclone $URL_RUBY_BUILD $HOME/.rbenv/plugins/ruby-build
 gitclone $URL_PYENV $HOME/.pyenv
 gitclone $URL_ZSHCOMP $HOME/.zsh-completions
+
+case "${OSTYPE}" in
+freebsd*|darwin*)
+    gitclone $URL_NEOBUNDLE $HOME/.vim/bundle/neobundle.vim
+    ;;
+linux*)
+    gitclone $URL_DEIN $HOME/.vim/dein/repos/github.com/Shougo/dein.vim
+    ;;
+esac
 
 if [ ! -d $HOME/.gvm ]; then
     bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
