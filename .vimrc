@@ -8,8 +8,6 @@ call dein#begin(expand('~/.vim/dein'))
 
 call dein#add('Shougo/dein.vim')
 call dein#add('Shougo/unite.vim')
-" call dein#add('Shougo/deoplete.nvim')
-call dein#add('Shougo/neocomplete.vim')
 call dein#add('vim-airline/vim-airline')
 call dein#add('vim-airline/vim-airline-themes')
 call dein#add('thinca/vim-quickrun.git')
@@ -28,6 +26,11 @@ call dein#add('nathanaelkane/vim-indent-guides')
 call dein#add('SirVer/ultisnips')
 call dein#add('honza/vim-snippets')
 call dein#add('fatih/vim-go')
+if has('nvim')
+  call dein#add('Shougo/deoplete.nvim')
+else
+  call dein#add('Shougo/neocomplete.vim')
+endif
 
 call dein#end()
 
@@ -42,33 +45,28 @@ let g:syntastic_check_on_wq = 0
 " (Optional)Remove Info(Preview) window
 set completeopt-=preview
 
-" deoplete.nvim
-" let g:deoplete#enable_at_startup = 1
-
-" NeoComplete
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
+" completion
+if has('nvim')
+  " NeoComplete
+  let g:acp_enableAtStartup = 0
+  let g:neocomplete#enable_at_startup = 1
+  let g:neocomplete#enable_smart_case = 1
+  let g:neocomplete#sources#syntax#min_keyword_length = 3
+  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+  if !exists('g:neocomplete#sources#omni#input_patterns')
+    let g:neocomplete#sources#omni#input_patterns = {}
+  endif
+  let g:neocomplete#sources#omni#input_patterns.go = '\h\w\.\w*'
+  inoremap <expr><C-g>     neocomplcache#undo_completion()
+  inoremap <expr><C-l>     neocomplcache#complete_common_string()
+else
+  " deoplete
+  let g:deoplete#enable_at_startup = 1
 endif
-" golang omni completion
-let g:neocomplete#sources#omni#input_patterns.go = '\h\w\.\w*'
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplcache#undo_completion()
-inoremap <expr><C-l>     neocomplcache#complete_common_string()
 
 " Recommended key-mappings.
 imap <C-f> <C-x><C-o>
