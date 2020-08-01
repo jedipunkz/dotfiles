@@ -47,6 +47,9 @@ set completeopt-=preview
 
 " completion
 if has('nvim')
+  " deoplete
+  let g:deoplete#enable_at_startup = 1
+else
   " NeoComplete
   let g:acp_enableAtStartup = 0
   let g:neocomplete#enable_at_startup = 1
@@ -63,9 +66,6 @@ if has('nvim')
   let g:neocomplete#sources#omni#input_patterns.go = '\h\w\.\w*'
   inoremap <expr><C-g>     neocomplcache#undo_completion()
   inoremap <expr><C-l>     neocomplcache#complete_common_string()
-else
-  " deoplete
-  let g:deoplete#enable_at_startup = 1
 endif
 
 " Recommended key-mappings.
