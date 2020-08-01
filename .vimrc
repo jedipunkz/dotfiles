@@ -56,6 +56,8 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+" golint
+let g:syntastic_go_checkers = ['golint','govet']
 " (Optional)Remove Info(Preview) window
 set completeopt-=preview
 
