@@ -25,7 +25,20 @@ call dein#add('nvie/vim-Flake8')
 call dein#add('nathanaelkane/vim-indent-guides')
 call dein#add('SirVer/ultisnips')
 call dein#add('honza/vim-snippets')
-call dein#add('fatih/vim-go')
+" call dein#add('fatih/vim-go')
+call dein#add('prabirshrestha/asyncomplete.vim')
+call dein#add('prabirshrestha/asyncomplete-lsp.vim')
+call dein#add('prabirshrestha/vim-lsp')
+call dein#add('mattn/vim-lsp-settings')
+call dein#add('thomasfaingnaert/vim-lsp-snippets')
+call dein#add('thomasfaingnaert/vim-lsp-ultisnips')
+call dein#add('hrsh7th/vim-vsnip')
+call dein#add('hrsh7th/vim-vsnip-integ')
+call dein#add('mattn/vim-goimports')
+call dein#add('sebdah/vim-delve')
+call dein#add('go-delve/delve')
+call dein#add('vim-test/vim-test')
+call dein#add('tpope/vim-dispatch')
 if has('nvim')
   call dein#add('Shougo/deoplete.nvim')
 else
@@ -89,6 +102,58 @@ filetype plugin indent on
 " If there are uninstalled bundles found on startup,
 " this will conveniently prompt you to install them.
 " NeoBundleCheck
+
+" language server
+function! s:on_lsp_buffer_enabled() abort
+  setlocal omnifunc=lsp#complete
+  setlocal signcolumn=yes
+  nmap <buffer> gd <plug>(lsp-definition)
+  nmap <buffer> <C-]> <plug>(lsp-definition)
+  nmap <buffer> <f2> <plug>(lsp-rename)
+  nmap <buffer> <Leader>d <plug>(lsp-type-definition)
+  nmap <buffer> <Leader>r <plug>(lsp-references)
+  nmap <buffer> <Leader>i <plug>(lsp-implementation)
+  inoremap <expr> <cr> pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
+endfunction
+
+augroup lsp_install
+  au!
+  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
+
+let g:lsp_diagnostics_enabled = 1
+let g:lsp_diagnostics_echo_cursor = 1
+" let g:asyncomplete_auto_popup = 1
+" let g:asyncomplete_auto_completeopt = 0
+let g:asyncomplete_popup_delay = 200
+let g:lsp_text_edit_enabled = 1
+let g:lsp_preview_float = 1
+let g:lsp_diagnostics_float_cursor = 1
+let g:lsp_settings_filetype_go = ['gopls', 'golangci-lint-langserver']
+
+let g:lsp_settings = {}
+let g:lsp_settings['gopls'] = {
+  \  'workspace_config': {
+  \    'usePlaceholders': v:true,
+  \    'analyses': {
+  \      'fillstruct': v:true,
+  \    },
+  \  },
+  \  'initialization_options': {
+  \    'usePlaceholders': v:true,
+  \    'analyses': {
+  \      'fillstruct': v:true,
+  \    },
+  \  },
+  \}
+
+" For snippets
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+set completeopt+=menuone
 
 " airline
 let g:airline_powerline_fonts = 1
