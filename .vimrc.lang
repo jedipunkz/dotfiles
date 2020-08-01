@@ -33,9 +33,22 @@ if has("autocmd")
 endif
 
 " Golang
-let g:go_fmt_command = "goimports"
-set rtp+=~/ghq/golang.org/x/lint/misc/vim
-autocmd BufWritePost,FileWritePost *.go execute 'GoLint' | cwindow
+" Test
+let test#strategy = "dispatch"
+let test#go#runner = 'gotest'
+
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
+nmap <silent> t<C-s> :TestSuite<CR>
+nmap <silent> t<C-l> :TestLast<CR>
+nmap <silent> t<C-g> :TestVisit<CR>
+" tのあとにCTRL+dでテストをデバッガ経由で実行する
+function! DebugNearest()
+  let g:test#go#runner = 'delve'
+  TestNearest
+  unlet g:test#go#runner
+endfunction
+nmap <silent> t<C-d> :call DebugNearest()<CR>
 
 au filetype go inoremap <buffer> . .<C-x><C-o>
 
@@ -48,7 +61,6 @@ let g:go_def_mode='gopls'
 let g:go_info_mode='gopls'
 
 " Terraform
-" 'hashivim/vim-terraform'
 let g:terraform_fmt_on_save=1
 
 " 'juliosueiras/vim-terraform-completion'
