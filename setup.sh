@@ -72,6 +72,7 @@ link .vimrc $HOME/.vimrc
 link .vimrc.lang $HOME/.vimrc.lang
 link .imwheelrc $HOME/.imwheelrc
 link .starship $HOME/.starship
+link .gitconfig $HOME/.gitconfig
 
 if [ ! -d $HOME/.config/nvim ]; then
 	mkdir -p $HOME/.config/nvim
@@ -88,5 +89,6 @@ gitclone $URL_DEIN $HOME/.vim/dein/repos/github.com/Shougo/dein.vim
 if [ ! -d $HOME/.gvm ]; then
     bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
 fi
-#curl -fsSL https://starship.rs/install.sh | bash
+link .gvm/environments/default $HOME/.gvm/environments/default
+
 echo 'install starship by manualy. https://starship.rs/guide/#%F0%9F%9A%80-installation'

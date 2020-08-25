@@ -143,10 +143,11 @@ if [ -d "$HOME/.pyenv/bin" ]; then
 fi
 
 # golang
-if [ -x "`which go`" ]; then
-    # export GOPATH=$HOME/go
-    export PATH="$GOPATH/bin:$PATH"
+if [ ! -d "$HOME/go" ]; then
+    mkdir $HOME/go
 fi
+# export GOPATH=$HOME/go
+export PATH="$GOPATH/bin:$PATH"
 
 # rbenv
 if [ -d "$HOME/.rbenv/bin" ]; then
