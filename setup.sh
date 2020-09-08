@@ -89,6 +89,16 @@ gitclone $URL_DEIN $HOME/.vim/dein/repos/github.com/Shougo/dein.vim
 if [ ! -d $HOME/.gvm ]; then
     bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
 fi
-link .gvm/environments/default $HOME/.gvm/environments/default
 
-echo 'install starship by manualy. https://starship.rs/guide/#%F0%9F%9A%80-installation'
+case "${OSTYPE}" in
+freebsd*|darwin*)
+    mv -f $HOME/.gvm/environments/default /tmp/
+    link .gvm/environments/default $HOME/.gvm/environments/default
+    echo "install starship.rs by homebrew."
+    ;;
+linux*)
+    mv -f $HOME/.gvm/environments/default /tmp/
+    link .gvm/environments/default.linux $HOME/.gvm/environments/default
+    echo 'install starship by manualy. https://starship.rs/guide/#%F0%9F%9A%80-installation'
+    ;;
+esac
