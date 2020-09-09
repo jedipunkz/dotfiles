@@ -1,1 +1,1 @@
-/Users/thirai/dotfiles/.vimrc
+/home/thirai/dotfiles/.vimrc
