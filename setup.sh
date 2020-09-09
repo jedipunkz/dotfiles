@@ -28,7 +28,10 @@ function chkcommand() {
 }
 
 function link() {
-    if [ ! -h $2 ]; then
+    if [ -e $2 ]; then
+        mv  $2 "$BACKUPDIR/"
+        ln -s "$CONF_HOME/$1" $2 || return 1
+    else
         ln -s "$CONF_HOME/$1" $2 || return 1
     fi
     return 0
@@ -49,6 +52,7 @@ function makedir() {
 
 chkcommand git
 makedir $HOME/gitwork 0755
+makedir $BACKUPDIR 0755
 
 gitclone $URL_OHMYZSH $HOME/.oh-my-zsh
 
