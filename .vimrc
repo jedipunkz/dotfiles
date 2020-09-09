@@ -278,10 +278,8 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 
-" Golang
-" let g:go_fmt_command = "goimports"
-" set rtp+=~/ghq/golang.org/x/lint/misc/vim
-" autocmd BufWritePost,FileWritePost *.go execute 'Lint' | cwindow
+" no wrap the next line for nvim
+set ww=<,>,[,]
 
 " file type plugins
 filetype plugin on
