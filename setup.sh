@@ -72,6 +72,7 @@ link .vimrc $HOME/.vimrc
 link .vimrc.lang $HOME/.vimrc.lang
 link .imwheelrc $HOME/.imwheelrc
 link .starship $HOME/.starship
+link .gitconfig $HOME/.gitconfig
 
 if [ ! -d $HOME/.config/nvim ]; then
 	mkdir -p $HOME/.config/nvim
@@ -83,18 +84,21 @@ gitclone $URL_RBENV $HOME/.rbenv
 gitclone $URL_RUBY_BUILD $HOME/.rbenv/plugins/ruby-build
 gitclone $URL_PYENV $HOME/.pyenv
 gitclone $URL_ZSHCOMP $HOME/.zsh-completions
-
-case "${OSTYPE}" in
-freebsd*|darwin*)
-    gitclone $URL_NEOBUNDLE $HOME/.vim/bundle/neobundle.vim
-    ;;
-linux*)
-    gitclone $URL_DEIN $HOME/.vim/dein/repos/github.com/Shougo/dein.vim
-    ;;
-esac
+gitclone $URL_DEIN $HOME/.vim/dein/repos/github.com/Shougo/dein.vim
 
 if [ ! -d $HOME/.gvm ]; then
     bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
 fi
-#curl -fsSL https://starship.rs/install.sh | bash
-echo 'install starship by manualy. https://starship.rs/guide/#%F0%9F%9A%80-installation'
+
+case "${OSTYPE}" in
+freebsd*|darwin*)
+    mv -f $HOME/.gvm/environments/default /tmp/
+    link .gvm/environments/default $HOME/.gvm/environments/default
+    echo "install starship.rs by homebrew."
+    ;;
+linux*)
+    mv -f $HOME/.gvm/environments/default /tmp/
+    link .gvm/environments/default.linux $HOME/.gvm/environments/default
+    echo 'install starship by manualy. https://starship.rs/guide/#%F0%9F%9A%80-installation'
+    ;;
+esac
