@@ -2,7 +2,16 @@
 if &compatible
   set nocompatible
 endif
-set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
+
+let s:dein_dir = expand('~/.cache/dein')
+let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+
+if &runtimepath !~# '/dein.vim'
+  if !isdirectory(s:dein_repo_dir)
+    execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
+  endif
+  execute 'set runtimepath^=' . s:dein_repo_dir
+endif
 
 call dein#begin(expand('~/.vim/dein'))
 
@@ -30,6 +39,7 @@ call dein#add('honza/vim-snippets')
 call dein#add('prabirshrestha/asyncomplete.vim')
 call dein#add('prabirshrestha/asyncomplete-lsp.vim')
 call dein#add('prabirshrestha/vim-lsp')
+" call dein#add('prabirshrestha/vim-lsp', { 'rev': 'v0.1.1' })
 call dein#add('mattn/vim-lsp-settings')
 call dein#add('thomasfaingnaert/vim-lsp-snippets')
 call dein#add('thomasfaingnaert/vim-lsp-ultisnips')
@@ -42,8 +52,8 @@ call dein#add('vim-test/vim-test')
 call dein#add('tpope/vim-dispatch')
 if has('nvim')
   call dein#add('Shougo/deoplete.nvim')
-else
-  call dein#add('Shougo/neocomplete.vim')
+" else
+"   call dein#add('Shougo/neocomplete.vim')
 endif
 
 call dein#end()
