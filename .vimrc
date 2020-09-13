@@ -72,10 +72,10 @@ let g:syntastic_go_checkers = ['golint','govet']
 set completeopt-=preview
 
 " completion
-if has('nvim')
+" if has('nvim')
   " deoplete
-  let g:deoplete#enable_at_startup = 1
-else
+  " let g:deoplete#enable_at_startup = 1
+" else
   " NeoComplete
   " let g:acp_enableAtStartup = 0
   " let g:neocomplete#enable_at_startup = 1
@@ -92,7 +92,7 @@ else
   " let g:neocomplete#sources#omni#input_patterns.go = '\h\w\.\w*'
   " inoremap <expr><C-g>     neocomplcache#undo_completion()
   " inoremap <expr><C-l>     neocomplcache#complete_common_string()
-endif
+" endif
 
 " Recommended key-mappings.
 imap <C-f> <C-x><C-o>
