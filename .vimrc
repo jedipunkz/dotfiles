@@ -50,11 +50,11 @@ call dein#add('sebdah/vim-delve')
 call dein#add('go-delve/delve')
 call dein#add('vim-test/vim-test')
 call dein#add('tpope/vim-dispatch')
-if has('nvim')
-  call dein#add('Shougo/deoplete.nvim')
+" if has('nvim')
+  " call dein#add('Shougo/deoplete.nvim')
 " else
 "   call dein#add('Shougo/neocomplete.vim')
-endif
+" endif
 
 call dein#end()
 

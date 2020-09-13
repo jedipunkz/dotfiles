@@ -112,7 +112,8 @@ export TERM=xterm-256color
 
 case "${OSTYPE}" in
 freebsd*|darwin*)
-    alias vim="mvim -v"
+    # alias vim="mvim -v"
+    alias vim="nvim"
     ;;
 linux*)
     alias vim="nvim"
