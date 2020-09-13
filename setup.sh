@@ -76,7 +76,6 @@ link .vimrc $HOME/.vimrc
 link .vimrc.lang $HOME/.vimrc.lang
 link .imwheelrc $HOME/.imwheelrc
 link .starship $HOME/.starship
-link .gitconfig $HOME/.gitconfig
 
 if [ ! -d $HOME/.config/nvim ]; then
 	mkdir -p $HOME/.config/nvim
