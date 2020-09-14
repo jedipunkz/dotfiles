@@ -30,16 +30,14 @@ call dein#add('hashivim/vim-terraform')
 call dein#add('juliosueiras/vim-terraform-completion')
 call dein#add('othree/yajs.vim')
 call dein#add('morhetz/gruvbox')
-call dein#add('davidhalter/jedi-vim')
 call dein#add('nvie/vim-Flake8')
 call dein#add('nathanaelkane/vim-indent-guides')
 call dein#add('SirVer/ultisnips')
 call dein#add('honza/vim-snippets')
-" call dein#add('fatih/vim-go')
 call dein#add('prabirshrestha/asyncomplete.vim')
 call dein#add('prabirshrestha/asyncomplete-lsp.vim')
 call dein#add('prabirshrestha/vim-lsp')
-" call dein#add('prabirshrestha/vim-lsp', { 'rev': 'v0.1.1' })
+call dein#add('prabirshrestha/async')
 call dein#add('mattn/vim-lsp-settings')
 call dein#add('thomasfaingnaert/vim-lsp-snippets')
 call dein#add('thomasfaingnaert/vim-lsp-ultisnips')
@@ -50,11 +48,6 @@ call dein#add('sebdah/vim-delve')
 call dein#add('go-delve/delve')
 call dein#add('vim-test/vim-test')
 call dein#add('tpope/vim-dispatch')
-" if has('nvim')
-  " call dein#add('Shougo/deoplete.nvim')
-" else
-"   call dein#add('Shougo/neocomplete.vim')
-" endif
 
 call dein#end()
 
@@ -70,29 +63,6 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_go_checkers = ['golint','govet']
 " (Optional)Remove Info(Preview) window
 set completeopt-=preview
-
-" completion
-" if has('nvim')
-  " deoplete
-  " let g:deoplete#enable_at_startup = 1
-" else
-  " NeoComplete
-  " let g:acp_enableAtStartup = 0
-  " let g:neocomplete#enable_at_startup = 1
-  " let g:neocomplete#enable_smart_case = 1
-  " let g:neocomplete#sources#syntax#min_keyword_length = 3
-  " autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-  " autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  " autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  " autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-  " autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-  " if !exists('g:neocomplete#sources#omni#input_patterns')
-  "   let g:neocomplete#sources#omni#input_patterns = {}
-  " endif
-  " let g:neocomplete#sources#omni#input_patterns.go = '\h\w\.\w*'
-  " inoremap <expr><C-g>     neocomplcache#undo_completion()
-  " inoremap <expr><C-l>     neocomplcache#complete_common_string()
-" endif
 
 " Recommended key-mappings.
 imap <C-f> <C-x><C-o>
@@ -111,55 +81,6 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " Required:
 filetype plugin indent on
-
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-" NeoBundleCheck
-
-" language server
-function! s:on_lsp_buffer_enabled() abort
-  setlocal omnifunc=lsp#complete
-  setlocal signcolumn=yes
-  nmap <buffer> gd <plug>(lsp-definition)
-  nmap <buffer> <C-]> <plug>(lsp-definition)
-  nmap <buffer> <f2> <plug>(lsp-rename)
-  nmap <buffer> <Leader>d <plug>(lsp-type-definition)
-  nmap <buffer> <Leader>r <plug>(lsp-references)
-  nmap <buffer> <Leader>i <plug>(lsp-implementation)
-  inoremap <expr> <cr> pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
-endfunction
-
-augroup lsp_install
-  au!
-  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-augroup END
-command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
-
-let g:lsp_diagnostics_enabled = 1
-let g:lsp_diagnostics_echo_cursor = 1
-" let g:asyncomplete_auto_popup = 1
-" let g:asyncomplete_auto_completeopt = 0
-let g:asyncomplete_popup_delay = 200
-let g:lsp_text_edit_enabled = 1
-let g:lsp_preview_float = 1
-let g:lsp_diagnostics_float_cursor = 1
-let g:lsp_settings_filetype_go = ['gopls', 'golangci-lint-langserver']
-
-let g:lsp_settings = {}
-let g:lsp_settings['gopls'] = {
-  \  'workspace_config': {
-  \    'usePlaceholders': v:true,
-  \    'analyses': {
-  \      'fillstruct': v:true,
-  \    },
-  \  },
-  \  'initialization_options': {
-  \    'usePlaceholders': v:true,
-  \    'analyses': {
-  \      'fillstruct': v:true,
-  \    },
-  \  },
-  \}
 
 " For snippets
 let g:UltiSnipsExpandTrigger="<tab>"
@@ -190,24 +111,6 @@ autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()"{{{
     nmap <buffer> <ESC> <Plug>(unite_exit)
 endfunction"}}}
-
-" jedi-vim
-set completeopt=menuone
-autocmd! User jedi-vim call s:jedivim_hook()
-function! s:jedivim_hook()
-  let g:jedi#auto_initialization    = 0 " 自動で実行される初期化処理を無効
-  let g:jedi#auto_vim_configuration = 0 " 'completeopt' オプションを上書きしない
-  let g:jedi#popup_on_dot           = 0 " ドット(.)を入力したとき自動で補完しない
-  let g:jedi#popup_select_first     = 0 " 補完候補の1番目を選択しない
-  let g:jedi#show_call_signatures   = 0 " 関数の引数表示を無効(ポップアップのバグを踏んだことがあるため)
-  autocmd FileType python setlocal omnifunc=jedi#completions   " 補完エンジンはjediを使う
-endfunction
-let g:jedi#goto_command = "<C-]>"
-let g:jedi#goto_assignments_command = "<Localleader>g"
-let g:jedi#goto_definitions_command = ""
-let g:jedi#documentation_command = "K"
-let g:jedi#usages_command = "<Localleader>n"
-let g:jedi#rename_command = "<Localleader>R" " quickrun と衝突するので回避
 
 " tab settings
 nnoremap ,tt :<C-u>tabnew<CR>
