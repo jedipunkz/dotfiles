@@ -30,7 +30,7 @@ call dein#add('hashivim/vim-terraform')
 call dein#add('juliosueiras/vim-terraform-completion')
 call dein#add('othree/yajs.vim')
 call dein#add('morhetz/gruvbox')
-call dein#add('davidhalter/jedi-vim')
+" call dein#add('davidhalter/jedi-vim')
 call dein#add('nvie/vim-Flake8')
 call dein#add('nathanaelkane/vim-indent-guides')
 call dein#add('SirVer/ultisnips')
@@ -39,6 +39,7 @@ call dein#add('honza/vim-snippets')
 call dein#add('prabirshrestha/asyncomplete.vim')
 call dein#add('prabirshrestha/asyncomplete-lsp.vim')
 call dein#add('prabirshrestha/vim-lsp')
+call dein#add('prabirshrestha/async')
 " call dein#add('prabirshrestha/vim-lsp', { 'rev': 'v0.1.1' })
 call dein#add('mattn/vim-lsp-settings')
 call dein#add('thomasfaingnaert/vim-lsp-snippets')
@@ -192,22 +193,22 @@ function! s:unite_my_settings()"{{{
 endfunction"}}}
 
 " jedi-vim
-set completeopt=menuone
-autocmd! User jedi-vim call s:jedivim_hook()
-function! s:jedivim_hook()
-  let g:jedi#auto_initialization    = 0 " 自動で実行される初期化処理を無効
-  let g:jedi#auto_vim_configuration = 0 " 'completeopt' オプションを上書きしない
-  let g:jedi#popup_on_dot           = 0 " ドット(.)を入力したとき自動で補完しない
-  let g:jedi#popup_select_first     = 0 " 補完候補の1番目を選択しない
-  let g:jedi#show_call_signatures   = 0 " 関数の引数表示を無効(ポップアップのバグを踏んだことがあるため)
-  autocmd FileType python setlocal omnifunc=jedi#completions   " 補完エンジンはjediを使う
-endfunction
-let g:jedi#goto_command = "<C-]>"
-let g:jedi#goto_assignments_command = "<Localleader>g"
-let g:jedi#goto_definitions_command = ""
-let g:jedi#documentation_command = "K"
-let g:jedi#usages_command = "<Localleader>n"
-let g:jedi#rename_command = "<Localleader>R" " quickrun と衝突するので回避
+" set completeopt=menuone
+" autocmd! User jedi-vim call s:jedivim_hook()
+" function! s:jedivim_hook()
+"   let g:jedi#auto_initialization    = 0 " 自動で実行される初期化処理を無効
+"   let g:jedi#auto_vim_configuration = 0 " 'completeopt' オプションを上書きしない
+"   let g:jedi#popup_on_dot           = 0 " ドット(.)を入力したとき自動で補完しない
+"   let g:jedi#popup_select_first     = 0 " 補完候補の1番目を選択しない
+"   let g:jedi#show_call_signatures   = 0 " 関数の引数表示を無効(ポップアップのバグを踏んだことがあるため)
+"   autocmd FileType python setlocal omnifunc=jedi#completions   " 補完エンジンはjediを使う
+" endfunction
+" let g:jedi#goto_command = "<C-]>"
+" let g:jedi#goto_assignments_command = "<Localleader>g"
+" let g:jedi#goto_definitions_command = ""
+" let g:jedi#documentation_command = "K"
+" let g:jedi#usages_command = "<Localleader>n"
+" let g:jedi#rename_command = "<Localleader>R" " quickrun と衝突するので回避
 
 " tab settings
 nnoremap ,tt :<C-u>tabnew<CR>
