@@ -77,6 +77,17 @@ let g:lsp_settings['gopls'] = {
 
 " Terraform
 au BufRead,BufNewFile *.tf setlocal filetype=terraform
+let g:terraform_fmt_on_save=1
+" 'juliosueiras/vim-terraform-completion'
+" (Optional)Hide Info(Preview) window after completions
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+" (Optional) Enable terraform plan to be include in filter
+let g:syntastic_terraform_tffilter_plan = 1
+" (Optional) Default: 0, enable(1)/disable(0) plugin's keymapping
+let g:terraform_completion_keys = 1
+" (Optional) Default: 1, enable(1)/disable(0) terraform module registry completion
+let g:terraform_registry_module_completion = 0
 
 " Golang
 " Test
@@ -138,20 +149,6 @@ let g:quickrun_config["gobuild"] = {
 
 "" *.goファイルを保存したら非同期にgo buildを実行
 " autocmd BufWritePost *.go :QuickRun gobuild
-
-" Terraform
-let g:terraform_fmt_on_save=1
-
-" 'juliosueiras/vim-terraform-completion'
-" (Optional)Hide Info(Preview) window after completions
-autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-" (Optional) Enable terraform plan to be include in filter
-let g:syntastic_terraform_tffilter_plan = 1
-" (Optional) Default: 0, enable(1)/disable(0) plugin's keymapping
-let g:terraform_completion_keys = 1
-" (Optional) Default: 1, enable(1)/disable(0) terraform module registry completion
-let g:terraform_registry_module_completion = 0
 
 " Python
 " https://qiita.com/lighttiger2505/items/3065164798bc9cd615d4

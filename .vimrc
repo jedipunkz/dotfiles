@@ -30,17 +30,14 @@ call dein#add('hashivim/vim-terraform')
 call dein#add('juliosueiras/vim-terraform-completion')
 call dein#add('othree/yajs.vim')
 call dein#add('morhetz/gruvbox')
-" call dein#add('davidhalter/jedi-vim')
 call dein#add('nvie/vim-Flake8')
 call dein#add('nathanaelkane/vim-indent-guides')
 call dein#add('SirVer/ultisnips')
 call dein#add('honza/vim-snippets')
-" call dein#add('fatih/vim-go')
 call dein#add('prabirshrestha/asyncomplete.vim')
 call dein#add('prabirshrestha/asyncomplete-lsp.vim')
 call dein#add('prabirshrestha/vim-lsp')
 call dein#add('prabirshrestha/async')
-" call dein#add('prabirshrestha/vim-lsp', { 'rev': 'v0.1.1' })
 call dein#add('mattn/vim-lsp-settings')
 call dein#add('thomasfaingnaert/vim-lsp-snippets')
 call dein#add('thomasfaingnaert/vim-lsp-ultisnips')
@@ -51,11 +48,6 @@ call dein#add('sebdah/vim-delve')
 call dein#add('go-delve/delve')
 call dein#add('vim-test/vim-test')
 call dein#add('tpope/vim-dispatch')
-" if has('nvim')
-  " call dein#add('Shougo/deoplete.nvim')
-" else
-"   call dein#add('Shougo/neocomplete.vim')
-" endif
 
 call dein#end()
 
@@ -71,29 +63,6 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_go_checkers = ['golint','govet']
 " (Optional)Remove Info(Preview) window
 set completeopt-=preview
-
-" completion
-" if has('nvim')
-  " deoplete
-  " let g:deoplete#enable_at_startup = 1
-" else
-  " NeoComplete
-  " let g:acp_enableAtStartup = 0
-  " let g:neocomplete#enable_at_startup = 1
-  " let g:neocomplete#enable_smart_case = 1
-  " let g:neocomplete#sources#syntax#min_keyword_length = 3
-  " autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-  " autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  " autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  " autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-  " autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-  " if !exists('g:neocomplete#sources#omni#input_patterns')
-  "   let g:neocomplete#sources#omni#input_patterns = {}
-  " endif
-  " let g:neocomplete#sources#omni#input_patterns.go = '\h\w\.\w*'
-  " inoremap <expr><C-g>     neocomplcache#undo_completion()
-  " inoremap <expr><C-l>     neocomplcache#complete_common_string()
-" endif
 
 " Recommended key-mappings.
 imap <C-f> <C-x><C-o>
@@ -112,10 +81,6 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " Required:
 filetype plugin indent on
-
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-" NeoBundleCheck
 
 " For snippets
 let g:UltiSnipsExpandTrigger="<tab>"
@@ -146,24 +111,6 @@ autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()"{{{
     nmap <buffer> <ESC> <Plug>(unite_exit)
 endfunction"}}}
-
-" jedi-vim
-" set completeopt=menuone
-" autocmd! User jedi-vim call s:jedivim_hook()
-" function! s:jedivim_hook()
-"   let g:jedi#auto_initialization    = 0 " 自動で実行される初期化処理を無効
-"   let g:jedi#auto_vim_configuration = 0 " 'completeopt' オプションを上書きしない
-"   let g:jedi#popup_on_dot           = 0 " ドット(.)を入力したとき自動で補完しない
-"   let g:jedi#popup_select_first     = 0 " 補完候補の1番目を選択しない
-"   let g:jedi#show_call_signatures   = 0 " 関数の引数表示を無効(ポップアップのバグを踏んだことがあるため)
-"   autocmd FileType python setlocal omnifunc=jedi#completions   " 補完エンジンはjediを使う
-" endfunction
-" let g:jedi#goto_command = "<C-]>"
-" let g:jedi#goto_assignments_command = "<Localleader>g"
-" let g:jedi#goto_definitions_command = ""
-" let g:jedi#documentation_command = "K"
-" let g:jedi#usages_command = "<Localleader>n"
-" let g:jedi#rename_command = "<Localleader>R" " quickrun と衝突するので回避
 
 " tab settings
 nnoremap ,tt :<C-u>tabnew<CR>
