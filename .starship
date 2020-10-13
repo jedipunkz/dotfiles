@@ -65,7 +65,8 @@ style = "#e4ff1a"
 
 [time]
 disabled = false
-format = "[%T]"
+format = "[$time]($style) "
+time_format = "[%T]"
 utc_time_offset = "+9"
 style = "#adb5bd"
 
