@@ -1,48 +1,48 @@
 add_newline = false
 scan_timeout = 10
-prompt_order = [
-    "username",
-    "hostname",
-    "directory",
-    "git_branch",
-    "git_commit",
-    "git_state",
-    "git_status",
-    "hg_branch",
-    "env_var",
-    "docker_context",
-    "kubernetes",
-    "aws",
-    "package",
-    "dotnet",
-    "elixir",
-    "elm",
-    "erlang",
-    "golang",
-    "haskell",
-    "java",
-    "julia",
-    "nodejs",
-    "ocaml",
-    "php",
-    "purescript",
-    "python",
-    "ruby",
-    "rust",
-    "terraform",
-    "zig",
-    "nix_shell",
-    "conda",
-    "memory_usage",
-    "crystal",
-    "cmd_duration",
-    "custom",
-    "line_break",
-    "jobs",
-    "battery",
-    "time",
-    "character",
-]
+format = """\
+    $username\
+    $hostname\
+    $directory\
+    $git_branch\
+    $git_commit\
+    $git_state\
+    $git_status\
+    $hg_branch\
+    $env_var\
+    $docker_context\
+    $kubernetes\
+    $aws\
+    $package\
+    $dotnet\
+    $elixir\
+    $elm\
+    $erlang\
+    $golang\
+    $haskell\
+    $java\
+    $julia\
+    $nodejs\
+    $ocaml\
+    $php\
+    $purescript\
+    $python\
+    $ruby\
+    $rust\
+    $terraform\
+    $zig\
+    $nix_shell\
+    $conda\
+    $memory_usage\
+    $crystal\
+    $cmd_duration\
+    $custom\
+    $line_break\
+    $jobs\
+    $battery\
+    $time\
+    $character\
+"""
 
 [character]
 symbol = "::"
@@ -60,7 +60,6 @@ style = "#ffff3f"
 [directory]
 truncation_length = 3
 truncate_to_repo = false
-prefix = "in "
 style = "#e4ff1a"
 
 [time]
@@ -72,7 +71,6 @@ style = "#adb5bd"
 
 [aws]
 symbol = "☁️  "
-displayed_items = "all"
 style = "#ff9900"
 [aws.region_aliases]
 ap-northeast-1 = "tokyo"
