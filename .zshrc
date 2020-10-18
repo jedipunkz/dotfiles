@@ -110,24 +110,15 @@ unset CASE_SENSITIVE HYPHEN_INSENSITIVE
 export PATH=$HOME/usr/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games:/sbin:/usr/sbin
 export TERM=xterm-256color
 
-case "${OSTYPE}" in
-freebsd*|darwin*)
-    # alias vim="mvim -v"
-    alias vim="nvim"
-    ;;
-linux*)
-    alias vim="nvim"
-    ;;
-esac
-
+alias vim="nvim"
 alias ls="ls --color"
 alias la="ls -a"
 alias l="ls -alF"
 alias ssh="ssh -o UserKnownHostsFile=/dev/null -o 'StrictHostKeyChecking no'"
 alias grep="grep --color"
-# alias vim="nvim"
 
-export EDITOR=vim
+export EDITOR="nvim"
+export VISUAL="nvim"
 
 # perl cpanm
 if [ -d "$HOME/perl5/bin" ]; then
