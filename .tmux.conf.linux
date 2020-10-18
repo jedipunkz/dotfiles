@@ -1,7 +1,13 @@
+# set -g set-clipboard on
 setw -g mode-keys emacs
 bind-key -T copy-mode [ send -X begin-selection
 #bind-key -T copy-mode C-w send-keys -X copy-pipe-and-cancel "xclip -i -sel p -f | xclip -i -sel c "
 #bind-key -T copy-mode C-y send-keys -X "xclip -o | tmux load-buffer - ; tmux paste-buffer"
 bind-key -n -T copy-mode M-w send-keys -X copy-pipe-and-cancel "xclip -i -sel p -f | xclip -i -sel c "
 bind-key -n -T copy-mode C-w send-keys -X copy-pipe-and-cancel "xclip -i -sel p -f | xclip -i -sel c "
-bind-key -n C-y run "xclip -o | tmux load-buffer - ; tmux paste-buffer"
+bind-key -n C-v run "xclip -o | tmux load-buffer - ; tmux paste-buffer"
+
+
+# Middle click to paste from the clipboard
+unbind-key MouseDown2Pane
+bind-key -n MouseDown2Pane run "tmux set-buffer \"$(xclip -o -sel clipboard)\"; tmux paste-buffer"
