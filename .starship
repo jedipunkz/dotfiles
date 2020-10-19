@@ -45,12 +45,9 @@ format = """\
 """
 
 [character]
-symbol = "::"
-error_symbol = "💥"
-#style_success = "#dae1e7"
-style_success = "#eeef20"
-style_failure = "red"
-use_symbol_for_status = true
+success_symbol = "[ ::](#eeef20)"
+error_symbol = "[ ::](#FF5555)"
+vicmd_symbol = "[ ::](#55FF55)"
 
 [hostname]
 ssh_only = true
@@ -64,8 +61,8 @@ style = "#e4ff1a"
 
 [time]
 disabled = false
-format = "[$time]($style) "
-time_format = "[%T]"
+format = "[$time]($style)"
+time_format = "%T"
 utc_time_offset = "+9"
 style = "#adb5bd"
 
