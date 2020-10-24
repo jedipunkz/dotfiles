@@ -8,3 +8,4 @@ pip install flake8
 pip install pynvim
 # python language server protocol
 pip install python-language-server
+pip install powerline-status
