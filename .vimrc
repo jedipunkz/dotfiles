@@ -196,6 +196,9 @@ let g:UltiSnipsEditSplit="vertical"
 " no wrap the next line for nvim
 set ww=<,>,[,]
 
+" jump
+nnoremap <C-g> <C-t>
+
 " file type plugins
 filetype plugin on
 
