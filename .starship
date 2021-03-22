@@ -46,7 +46,7 @@ format = """\
 
 [character]
 success_symbol = "[ ::](#eeef20)"
-error_symbol = "[ ::](#FF5555)"
+error_symbol = "[ !!!!](#FF5555)"
 vicmd_symbol = "[ ::](#55FF55)"
 
 [hostname]
@@ -113,8 +113,12 @@ style = "#7fd5ea"
 symbol = "🥑 "
 style = "#ffd31d"
 disabled = false
+format = '[$symbol$context( \($namespace\))]($style) in '
 [kubernetes.context_aliases]
 "dev.local.cluster.k8s" = "dev"
+"arn:aws:eks:ap-northeast-1:395127550274:cluster/rf-sandbox-infratest01-ekscluster" = "sandbox"
+"arn:aws:eks:ap-northeast-1:194251404222:cluster/infrabot-dev2-main-ekscluster" = "infrabot-dev2"
+"arn:aws:eks:ap-northeast-1:513123329229:cluster/infrabot-prd-main-ekscluster" = "infrabot-prd"
 
 [nodejs]
 symbol = "🤖 "
