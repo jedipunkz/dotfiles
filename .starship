@@ -19,7 +19,6 @@ format = """\
     $elm\
     $erlang\
     $golang\
-    $haskell\
     $java\
     $julia\
     $nodejs\
@@ -87,23 +86,9 @@ symbol = "🚀 "
 style = "#68d8d6"
 
 [git_state]
-progress_divider = " of "
-cherry_pick = "🍒 PICKING"
+format = '[\($state( $progress_current of $progress_total)\)]($style) '
+cherry_pick = "[🍒 PICKING](bold red)"
 
-[git_status]
-#conflicted = "🏳"
-#ahead = "🏎💨"
-#behind = "😰"
-#diverged = "😵"
-#untracked = "🤷‍"
-#stashed = "📦"
-modified = "🍔"
-staged.value = "++"
-taged.style = "green"
-staged_count.enabled = true
-staged_count.style = "green"
-renamed = "👅"
-deleted = "🌼"
 
 [golang]
 #symbol = "🏎💨 "
@@ -150,9 +135,6 @@ disabled = true
 disabled = true
 
 [erlang]
-disabled = true
-
-[haskell]
 disabled = true
 
 [java]

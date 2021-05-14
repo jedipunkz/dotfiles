@@ -9,7 +9,7 @@ fi
 CONF_HOME=$(cd $(dirname "$0") && pwd)
 BACKUPDIR=$HOME/.dotbackup
 
-URL_OHMYZSH="git://github.com/robbyrussell/oh-my-zsh.git"
+#URL_OHMYZSH="git://github.com/robbyrussell/oh-my-zsh.git"
 URL_NEOBUNDLE="git://github.com/Shougo/neobundle.vim.git"
 URL_RBENV="git://github.com/sstephenson/rbenv.git"
 URL_RUBY_BUILD="git://github.com/sstephenson/ruby-build.git"
@@ -54,7 +54,7 @@ chkcommand git
 makedir $HOME/gitwork 0755
 makedir $BACKUPDIR 0755
 
-gitclone $URL_OHMYZSH $HOME/.oh-my-zsh
+#gitclone $URL_OHMYZSH $HOME/.oh-my-zsh
 
 link .oh-my-zsh/custom/custom-aliases.zsh $HOME/.oh-my-zsh/custom/custom-aliases.zsh
 link .oh-my-zsh/custom/custom-env.zsh $HOME/.oh-my-zsh/custom/custom-env.zsh

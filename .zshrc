@@ -81,17 +81,10 @@ fi
 
 # pyenv
 if [ -d "$HOME/.pyenv/bin" ]; then
-    PYENV_ROOT="$HOME/.pyenv"
-    PATH="$PYENV_ROOT/bin:$PATH"
-    eval "$(pyenv init -)"
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init --path)"
 fi
-
-# golang
-if [ ! -d "$HOME/go" ]; then
-    mkdir $HOME/go
-fi
-# export GOPATH=$HOME/go
-export PATH="$GOPATH/bin:$PATH"
 
 # rbenv
 if [ -d "$HOME/.rbenv/bin" ]; then
@@ -99,8 +92,14 @@ if [ -d "$HOME/.rbenv/bin" ]; then
     eval "$(rbenv init -)"
 fi
 
-# gvm
+# gvm & golang
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
+
+if [ ! -d "$HOME/ghq" ]; then
+    mkdir $HOME/ghq
+fi
+export GOPATH=$HOME/ghq
+export PATH="$GOPATH/bin:$PATH"
 
 # peco
 function peco-select-history() {
