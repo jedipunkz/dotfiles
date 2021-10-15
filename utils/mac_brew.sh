@@ -4,6 +4,7 @@ brew install \
     git \
     tmux \
     htop \
+    tig \
     mercurial \
     peco \
     starship \
