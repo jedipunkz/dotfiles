@@ -32,6 +32,7 @@ call dein#add('juliosueiras/vim-terraform-completion')
 call dein#add('juliosueiras/terraform-lsp')
 call dein#add('othree/yajs.vim')
 call dein#add('morhetz/gruvbox')
+call dein#add('dracula/vim')
 call dein#add('nvie/vim-Flake8')
 call dein#add('nathanaelkane/vim-indent-guides')
 call dein#add('SirVer/ultisnips')
@@ -129,6 +130,7 @@ set background=dark
 "set background=dark
 " colorschem solarized
 colorschem gruvbox
+" colorschem dracula
 "let g:solarized_termcolors=256
 "colorscheme wombat256
 "colorscheme wombat256mod

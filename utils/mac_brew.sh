@@ -14,4 +14,5 @@ brew install \
     dust \
     duf \
     broot \
-    dog
+    dog \
+    bat
