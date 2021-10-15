@@ -7,10 +7,13 @@ brew install \
     tig \
     mercurial \
     peco \
+    fzf \
+    fish \
     starship \
     coreutils \
     tfenv \
     tree \
+    jq \
     exa \
     dust \
     duf \
