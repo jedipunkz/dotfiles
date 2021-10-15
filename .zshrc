@@ -62,8 +62,14 @@ unset CASE_SENSITIVE HYPHEN_INSENSITIVE
 
 export TERM=xterm-256color
 
+if [ "$(uname)" = "Darwin" ]; then
+    alias ls="exa"
+else
+    alias ls="ls --color"
+fi
+
 alias vim="nvim"
-alias ls="ls --color"
+# alias ls="ls --color"
 alias la="ls -a"
 alias l="ls -alF"
 alias ssh="ssh -o UserKnownHostsFile=/dev/null -o 'StrictHostKeyChecking no'"
