@@ -10,10 +10,10 @@ Dotfiles repository for @jedipunkz
 
 ## Requirement
 
-- peco
+- peco -> fzf
 - ghq
 - neovim
-- zsh
+- zsh -> fish
 - tmux
 - git
 - [starship](https://starship.rs/)
