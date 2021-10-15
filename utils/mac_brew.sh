@@ -16,3 +16,5 @@ brew install \
     broot \
     dog \
     bat
+
+brew install --HEAD neovim
