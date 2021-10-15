@@ -32,6 +32,8 @@ call dein#add('juliosueiras/vim-terraform-completion')
 call dein#add('juliosueiras/terraform-lsp')
 call dein#add('othree/yajs.vim')
 call dein#add('morhetz/gruvbox')
+" call dein#add('dracula/vim')
+" call dein#add('tomasr/molokai')
 call dein#add('nvie/vim-Flake8')
 call dein#add('nathanaelkane/vim-indent-guides')
 call dein#add('SirVer/ultisnips')
@@ -123,12 +125,14 @@ nnoremap ,tT :<C-u>Unite tab<CR>
 " colors
 set t_Co=256
 syntax enable
+set termguicolors
 set background=dark
 "colorscheme darkblue
 "colorscheme desert
 "set background=dark
 " colorschem solarized
 colorschem gruvbox
+" colorschem dracula
 "let g:solarized_termcolors=256
 "colorscheme wombat256
 "colorscheme wombat256mod
