@@ -6,10 +6,10 @@ end
 set -x PATH /opt/homebrew/bin /bin /usr/bin /sbin /usr/sbin /usr/local/bin
 
 ## vi mode
-fish_vi_key_bindings
+# fish_vi_key_bindings
 # vi modeではなんか[I]みたいなの出るからオーバーライド
-function fish_mode_prompt 
-end
+# function fish_mode_prompt 
+# end
 
 # Alias
 if test (uname -s) = "Darwin"
@@ -25,15 +25,15 @@ alias ssh="ssh -o UserKnownHostsFile=/dev/null -o 'StrictHostKeyChecking no'"
 alias grep="grep --color"
 
 # perl cpanm
-# if test "$HOME/perl5/bin"
-#     set -x PERL_CPANM_OPT="--local-lib=~/perl5"
-#     set -x PATH $HOME/perl5/bin $PATH;
-#     set -x PERL5LIB=$HOME/perl5/lib/perl5 $PERL5LIB;
-# fi
+if test -d "$HOME/perl5/bin"
+    set -x PERL_CPANM_OPT "--local-lib=~/perl5"
+    set -x PATH $HOME/perl5/bin $PATH
+    set -x PERL5LIB $HOME/perl5/lib/perl5 $PERL5LIB
+end
 
 # pyenv
 if test -d "$HOME/.pyenv/bin"
-    set -x PYENV_ROOT = $HOME/.pyenv
+    set -x PYENV_ROOT $HOME/.pyenv
     set -x PATH $PYENV_ROOT/bin $PATH
     # pyenv init - | source
     status is-login; and pyenv init --path | source
@@ -58,12 +58,7 @@ end
 set -x GOPATH $HOME/ghq
 set -x PATH $GOPATH/bin $PATH
 
-# peco_select_history
-function fish_user_key_bindings
-  bind \cr 'peco_select_history (commandline -b)'
-end
-
 # starship.rs
-export STARSHIP_CONFIG=~/.starship
-export AWS_PROFILE=default
+set -x STARSHIP_CONFIG ~/.starship
+set -x AWS_PROFILE default
 starship init fish | source
