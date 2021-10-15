@@ -54,15 +54,6 @@ chkcommand git
 makedir $HOME/gitwork 0755
 makedir $BACKUPDIR 0755
 
-#gitclone $URL_OHMYZSH $HOME/.oh-my-zsh
-
-#link .oh-my-zsh/custom/custom-aliases.zsh $HOME/.oh-my-zsh/custom/custom-aliases.zsh
-#link .oh-my-zsh/custom/custom-env.zsh $HOME/.oh-my-zsh/custom/custom-env.zsh
-#link .oh-my-zsh/custom/themes/jedipunkz.zsh-theme $HOME/.oh-my-zsh/custom/themes/jedipunkz.zsh-theme
-#link .oh-my-zsh/custom/themes/jedipunkz-colorfull.zsh-theme $HOME/.oh-my-zsh/custom/themes/jedipunkz-colorfull.zsh-theme
-#link .oh-my-zsh/custom/themes/jedipunkz-gruvbox.zsh-theme $HOME/.oh-my-zsh/custom/themes/jedipunkz-gruvbox.zsh-theme
-#link .oh-my-zsh/custom/themes/gruvbox.zsh-theme $HOME/.oh-my-zsh/custom/themes/gruvbox.zsh-theme
-#link .oh-my-zsh/custom/themes/bullet-train.zsh-theme $HOME/.oh-my-zsh/custom/themes/bullet-train.zsh-theme
 link .gtkrc-2.0 $HOME/.gtkrc-2.0
 link .emacs.d $HOME/.emacs.d
 link .Xresources $HOME/.Xresources
@@ -81,6 +72,8 @@ if [ ! -d $HOME/.config/nvim ]; then
 	mkdir -p $HOME/.config/nvim
 fi
 link .vimrc $HOME/.config/nvim/init.vim
+
+link .config/fish/config.fish $HOME/.config/fish/config.fish
 
 gitclone $URL_TPM ~/.tmux/plugins/tpm
 gitclone $URL_RBENV $HOME/.rbenv
