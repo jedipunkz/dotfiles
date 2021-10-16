@@ -1,6 +1,6 @@
 #!//opt/homebrew/bin/fish
 
-# curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
+curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
 
 fisher install jorgebucaran/fisher
 fisher install dracula/fish
