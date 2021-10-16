@@ -147,13 +147,11 @@ if [ -n "$LS_COLORS" ]; then
     zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 fi
 
+# kubectl
+if [ -x /usr/local/bin/kubectl ]; then source <(kubectl completion zsh); fi
+
 # local environment
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
-if [ -x /usr/local/bin/kubectl ]; then source <(kubectl completion zsh); fi
-
 # for display AWS_PROFILE on prompt via starship
 export AWS_PROFILE=default
-#export AWS_REGION=ap-northeast-1
-
-source /Users/thirai/.config/broot/launcher/bash/br
