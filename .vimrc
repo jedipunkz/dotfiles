@@ -16,7 +16,6 @@ endif
 call dein#begin(expand('~/.vim/dein'))
 
 call dein#add('Shougo/dein.vim')
-call dein#add('Shougo/unite.vim')
 call dein#add('vim-airline/vim-airline')
 call dein#add('vim-airline/vim-airline-themes')
 call dein#add('thinca/vim-quickrun.git')
@@ -24,7 +23,6 @@ call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
 call dein#add('vim-scripts/tComment')
 call dein#add('kien/ctrlp.vim.git')
 call dein#add('scrooloose/nerdtree.git')
-" call dein#add('scrooloose/syntastic.git')
 call dein#add('vim-syntastic/syntastic')
 call dein#add('chase/vim-ansible-yaml')
 call dein#add('hashivim/vim-terraform')
@@ -54,7 +52,7 @@ call dein#add('vim-test/vim-test')
 call dein#add('tpope/vim-dispatch')
 call dein#add('nvim-lua/plenary.nvim')
 call dein#add('nvim-telescope/telescope.nvim')
-call dein#add('nvim-treesitter/nvim-treesitter')
+call dein#add('BurntSushi/ripgrep')
 
 call dein#end()
 
@@ -104,23 +102,9 @@ let g:airline_theme='base16'
 nnoremap <Left> :bp<CR>
 nnoremap <Right> :bn<CR>
 
-" unite settings
-let g:unite_enable_start_insert=1
-let g:unite_source_history_yank_enable =1
-let g:unite_source_file_mru_limit = 200
-nnoremap <silent> ,uy :<C-u>Unite history/yank<CR>
-nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
-nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
-" nnoremap <silent> ,uu :<C-u>Unite file_mru buffer<CR>
-nnoremap <silent> ,uu :<C-u>Unite file buffer<CR>
-autocmd FileType unite call s:unite_my_settings()
-function! s:unite_my_settings()"{{{
-    nmap <buffer> <ESC> <Plug>(unite_exit)
-endfunction"}}}
-
 " telescope
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
+" nnoremap <leader>ff <cmd>Telescope find_files previewer=bat_maker hidden=true layout_config={"prompt_position":"top"} prompt_prefix=🚀<cr>
+nnoremap <leader>ff <cmd>Telescope find_files hidden=true layout_config={"prompt_position":"top","width":0.95} prompt_prefix=🚀<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
