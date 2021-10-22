@@ -3,7 +3,7 @@ if status is-interactive
 end
 
 # PATH
-set -x PATH /opt/homebrew/bin /bin /usr/bin /sbin /usr/sbin /usr/local/bin
+set -x PATH $HOME/.bin /usr/local/bin /usr/local/sbin /opt/homebrew/bin /bin /usr/bin /sbin /usr/sbin
 
 ## vi mode
 # fish_vi_key_bindings
@@ -19,6 +19,7 @@ else
 end
 
 alias vim="nvim"
+alias cat="bat"
 alias la="ls -a"
 alias l="ls -alF"
 alias ssh="ssh -o UserKnownHostsFile=/dev/null -o 'StrictHostKeyChecking no'"
