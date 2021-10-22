@@ -155,3 +155,5 @@ if [ -x /usr/local/bin/kubectl ]; then source <(kubectl completion zsh); fi
 
 # for display AWS_PROFILE on prompt via starship
 export AWS_PROFILE=default
+
+# source /Users/thirai/.config/broot/launcher/bash/br

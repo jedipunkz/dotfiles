@@ -52,6 +52,9 @@ call dein#add('sebdah/vim-delve')
 call dein#add('go-delve/delve')
 call dein#add('vim-test/vim-test')
 call dein#add('tpope/vim-dispatch')
+call dein#add('nvim-lua/plenary.nvim')
+call dein#add('nvim-telescope/telescope.nvim')
+call dein#add('nvim-treesitter/nvim-treesitter')
 
 call dein#end()
 
@@ -115,6 +118,12 @@ autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()"{{{
     nmap <buffer> <ESC> <Plug>(unite_exit)
 endfunction"}}}
+
+" telescope
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 " tab settings
 nnoremap ,tt :<C-u>tabnew<CR>
