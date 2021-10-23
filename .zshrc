@@ -1,52 +1,5 @@
-# Path to your oh-my-zsh configuration.
-# ZSH=$HOME/.oh-my-zsh
-#
-# ZSH_THEME="bullet-train"
-#
-# BULLETTRAIN_PROMPT_ORDER=(
-#     time
-#     dir
-#     go
-#     git
-#     status
-# )
-# BULLETTRAIN_TIME_BG=202
-# BULLETTRAIN_TIME_FG=white
-# BULLETTRAIN_DIR_BG=033
-# BULLETTRAIN_DIR_FG=white
-# BULLETTRAIN_GIT_BG=251
-# BULLETTRAIN_GIT_FG=236
-# BULLETTRAIN_PROMPT_SEPARATE_LINE=false
-# BULLETTRAIN_PROMPT_ADD_NEWLINE=false
-# BULLETTRAIN_PROMPT_CHAR=""
-#
-# SOLARIZED_THEME="dark"
-
-# Set to this to use case-sensitive completion
-# CASE_SENSITIVE="true"
-
-# Comment this out to disable weekly auto-update checks
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment following line if you want to disable colors in ls
-# DISABLE_LS_COLORS="true"
-
-# Uncomment following line if you want to disable autosetting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment following line if you want red dots to be displayed while waiting for completion
-# COMPLETION_WAITING_DOTS="true"
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# plugins=(git rake ruby vagrant osx)
-#
-# source $ZSH/oh-my-zsh.sh
-
-# Customize to your needs...
-
-# source /Users/thirai/.oh-my-zsh/lib/completion.zsh
+# PATH
+export PATH=$HOME/usr/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games:/sbin:/usr/sbin:/opt/homebrew/bin
 
 # starship
 eval "$(starship init zsh)"
@@ -107,11 +60,16 @@ else
 fi
 unset CASE_SENSITIVE HYPHEN_INSENSITIVE
 
-export PATH=$HOME/usr/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games:/sbin:/usr/sbin
 export TERM=xterm-256color
 
+if [ "$(uname)" = "Darwin" ]; then
+    alias ls="exa"
+else
+    alias ls="ls --color"
+fi
+
 alias vim="nvim"
-alias ls="ls --color"
+# alias ls="ls --color"
 alias la="ls -a"
 alias l="ls -alF"
 alias ssh="ssh -o UserKnownHostsFile=/dev/null -o 'StrictHostKeyChecking no'"
@@ -129,17 +87,10 @@ fi
 
 # pyenv
 if [ -d "$HOME/.pyenv/bin" ]; then
-    PYENV_ROOT="$HOME/.pyenv"
-    PATH="$PYENV_ROOT/bin:$PATH"
-    eval "$(pyenv init -)"
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init --path)"
 fi
-
-# golang
-if [ ! -d "$HOME/go" ]; then
-    mkdir $HOME/go
-fi
-# export GOPATH=$HOME/go
-export PATH="$GOPATH/bin:$PATH"
 
 # rbenv
 if [ -d "$HOME/.rbenv/bin" ]; then
@@ -147,8 +98,14 @@ if [ -d "$HOME/.rbenv/bin" ]; then
     eval "$(rbenv init -)"
 fi
 
-# gvm
+# gvm & golang
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
+
+if [ ! -d "$HOME/ghq" ]; then
+    mkdir $HOME/ghq
+fi
+export GOPATH=$HOME/ghq
+export PATH="$GOPATH/bin:$PATH"
 
 # peco
 function peco-select-history() {
@@ -182,7 +139,7 @@ if [ -x "`which ghq`" -a -x "`which peco`" ]; then
 fi
 
 # .dir_colors
-export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 if [ -f ~/.dir_colors ]; then
     eval `dircolors -b ~/.dir_colors`
 fi
@@ -190,11 +147,13 @@ if [ -n "$LS_COLORS" ]; then
     zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 fi
 
+# kubectl
+if [ -x /usr/local/bin/kubectl ]; then source <(kubectl completion zsh); fi
+
 # local environment
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
-if [ -x /usr/local/bin/kubectl ]; then source <(kubectl completion zsh); fi
-
 # for display AWS_PROFILE on prompt via starship
 export AWS_PROFILE=default
-#export AWS_REGION=ap-northeast-1
+
+# source /Users/thirai/.config/broot/launcher/bash/br

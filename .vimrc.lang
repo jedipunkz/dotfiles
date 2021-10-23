@@ -123,6 +123,7 @@ let g:go_info_mode='gopls'
 " autocmd BufWritePost,FileWritePost *.go execute 'Lint' | cwindow
 " mattn/vim-goimports
 let g:goimports = 1
+" let g:goimports_simplify = 1
 
 "" quickrun
 let g:quickrun_config = get(g:, 'quickrun_config', {})

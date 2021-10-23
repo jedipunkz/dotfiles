@@ -10,3 +10,5 @@ auto-save-list
 .emacs.d/elpa/
 .emacs.d/network-security.data
 .config/configstore/
+.emacs.d/.emacs.d
+.vim/.vim

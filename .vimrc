@@ -16,7 +16,6 @@ endif
 call dein#begin(expand('~/.vim/dein'))
 
 call dein#add('Shougo/dein.vim')
-call dein#add('Shougo/unite.vim')
 call dein#add('vim-airline/vim-airline')
 call dein#add('vim-airline/vim-airline-themes')
 call dein#add('thinca/vim-quickrun.git')
@@ -24,12 +23,15 @@ call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
 call dein#add('vim-scripts/tComment')
 call dein#add('kien/ctrlp.vim.git')
 call dein#add('scrooloose/nerdtree.git')
-call dein#add('scrooloose/syntastic.git')
+call dein#add('vim-syntastic/syntastic')
 call dein#add('chase/vim-ansible-yaml')
 call dein#add('hashivim/vim-terraform')
 call dein#add('juliosueiras/vim-terraform-completion')
+call dein#add('juliosueiras/terraform-lsp')
 call dein#add('othree/yajs.vim')
 call dein#add('morhetz/gruvbox')
+" call dein#add('dracula/vim')
+" call dein#add('tomasr/molokai')
 call dein#add('nvie/vim-Flake8')
 call dein#add('nathanaelkane/vim-indent-guides')
 call dein#add('SirVer/ultisnips')
@@ -37,7 +39,7 @@ call dein#add('honza/vim-snippets')
 call dein#add('prabirshrestha/asyncomplete.vim')
 call dein#add('prabirshrestha/asyncomplete-lsp.vim')
 call dein#add('prabirshrestha/vim-lsp')
-call dein#add('prabirshrestha/async')
+call dein#add('prabirshrestha/async.vim')
 call dein#add('mattn/vim-lsp-settings')
 call dein#add('thomasfaingnaert/vim-lsp-snippets')
 call dein#add('thomasfaingnaert/vim-lsp-ultisnips')
@@ -48,6 +50,9 @@ call dein#add('sebdah/vim-delve')
 call dein#add('go-delve/delve')
 call dein#add('vim-test/vim-test')
 call dein#add('tpope/vim-dispatch')
+call dein#add('nvim-lua/plenary.nvim')
+call dein#add('nvim-telescope/telescope.nvim')
+call dein#add('BurntSushi/ripgrep')
 
 call dein#end()
 
@@ -97,20 +102,12 @@ let g:airline_theme='base16'
 nnoremap <Left> :bp<CR>
 nnoremap <Right> :bn<CR>
 
-" unite settings
-let g:unite_enable_start_insert=1
-let g:unite_source_history_yank_enable =1
-let g:unite_source_file_mru_limit = 200
-nnoremap <silent> ,uy :<C-u>Unite history/yank<CR>
-nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
-nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
-" nnoremap <silent> ,uu :<C-u>Unite file_mru buffer<CR>
-nnoremap <silent> ,uu :<C-u>Unite file buffer<CR>
-autocmd FileType unite call s:unite_my_settings()
-function! s:unite_my_settings()"{{{
-    nmap <buffer> <ESC> <Plug>(unite_exit)
-endfunction"}}}
+" telescope
+" nnoremap <leader>ff <cmd>Telescope find_files previewer=bat_maker hidden=true layout_config={"prompt_position":"top"} prompt_prefix=🚀<cr>
+nnoremap <leader>ff <cmd>Telescope find_files hidden=true layout_config={"prompt_position":"top","width":0.95} prompt_prefix=🚀<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 " tab settings
 nnoremap ,tt :<C-u>tabnew<CR>
@@ -121,12 +118,14 @@ nnoremap ,tT :<C-u>Unite tab<CR>
 " colors
 set t_Co=256
 syntax enable
+set termguicolors
 set background=dark
 "colorscheme darkblue
 "colorscheme desert
 "set background=dark
 " colorschem solarized
 colorschem gruvbox
+" colorschem dracula
 "let g:solarized_termcolors=256
 "colorscheme wombat256
 "colorscheme wombat256mod
@@ -193,6 +192,9 @@ let g:UltiSnipsEditSplit="vertical"
 
 " no wrap the next line for nvim
 set ww=<,>,[,]
+
+" jump
+nnoremap <C-g> <C-t>
 
 " file type plugins
 filetype plugin on

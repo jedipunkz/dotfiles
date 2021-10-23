@@ -1,3 +1,24 @@
 #!/bin/sh
 
-brew install git vim tmux htop mercurial peco starship coreutils tfenv tree ghq
+brew install \
+    git \
+    tmux \
+    htop \
+    tig \
+    mercurial \
+    peco \
+    fzf \
+    fish \
+    starship \
+    coreutils \
+    tfenv \
+    tree \
+    jq \
+    exa \
+    dust \
+    duf \
+    broot \
+    dog \
+    bat
+
+brew install --HEAD neovim

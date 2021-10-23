@@ -19,7 +19,6 @@ format = """\
     $elm\
     $erlang\
     $golang\
-    $haskell\
     $java\
     $julia\
     $nodejs\
@@ -46,7 +45,7 @@ format = """\
 
 [character]
 success_symbol = "[ ::](#eeef20)"
-error_symbol = "[ ::](#FF5555)"
+error_symbol = "[ XXXX](#FF00FF)"
 vicmd_symbol = "[ ::](#55FF55)"
 
 [hostname]
@@ -87,8 +86,8 @@ symbol = "🚀 "
 style = "#68d8d6"
 
 [git_state]
-progress_divider = " of "
-cherry_pick = "🍒 PICKING"
+format = '[\($state( $progress_current of $progress_total)\)]($style) '
+cherry_pick = "[🍒 PICKING](bold red)"
 
 [git_status]
 #conflicted = "🏳"
@@ -97,13 +96,10 @@ cherry_pick = "🍒 PICKING"
 #diverged = "😵"
 #untracked = "🤷‍"
 #stashed = "📦"
-modified = "🍔"
-staged.value = "++"
-taged.style = "green"
-staged_count.enabled = true
-staged_count.style = "green"
-renamed = "👅"
-deleted = "🌼"
+#modified = "🍔"
+#staged.value = "++"
+#renamed = "👅"
+#deleted = "🌼"
 
 [golang]
 #symbol = "🏎💨 "
@@ -113,8 +109,12 @@ style = "#7fd5ea"
 symbol = "🥑 "
 style = "#ffd31d"
 disabled = false
+format = '[$symbol$context( \($namespace\))]($style) in '
 [kubernetes.context_aliases]
 "dev.local.cluster.k8s" = "dev"
+"arn:aws:eks:ap-northeast-1:395127550274:cluster/rf-sandbox-infratest01-ekscluster" = "sandbox"
+"arn:aws:eks:ap-northeast-1:194251404222:cluster/infrabot-dev2-main-ekscluster" = "infrabot-dev2"
+"arn:aws:eks:ap-northeast-1:513123329229:cluster/infrabot-prd-main-ekscluster" = "infrabot-prd"
 
 [nodejs]
 symbol = "🤖 "
@@ -150,9 +150,6 @@ disabled = true
 disabled = true
 
 [erlang]
-disabled = true
-
-[haskell]
 disabled = true
 
 [java]
