@@ -73,6 +73,9 @@ if [ ! -d $HOME/.config/nvim ]; then
 fi
 link .vimrc $HOME/.config/nvim/init.vim
 
+if [ ! -d $HOME/.config/fish ]; then
+	mkdir -p $HOME/.config/fish
+fi
 link .config/fish/config.fish $HOME/.config/fish/config.fish
 
 gitclone $URL_TPM ~/.tmux/plugins/tpm

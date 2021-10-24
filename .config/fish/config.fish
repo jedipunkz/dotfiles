@@ -5,21 +5,19 @@ end
 # PATH
 set -x PATH $HOME/.bin /usr/local/bin /usr/local/sbin /opt/homebrew/bin /bin /usr/bin /sbin /usr/sbin
 
-## vi mode
-# fish_vi_key_bindings
-# vi modeではなんか[I]みたいなの出るからオーバーライド
-# function fish_mode_prompt 
-# end
+# Bind keys
+bind \t forward-char
 
 # Alias
 if test (uname -s) = "Darwin"
     alias ls="exa"
+    alias cat="bat"
 else
     alias ls="ls --color"
+    alias cat="batcat"
 end
 
 alias vim="nvim"
-alias cat="bat"
 alias la="ls -a"
 alias l="ls -alF"
 alias ssh="ssh -o UserKnownHostsFile=/dev/null -o 'StrictHostKeyChecking no'"
