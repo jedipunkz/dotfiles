@@ -10,10 +10,10 @@ CONF_HOME=$(cd $(dirname "$0") && pwd)
 BACKUPDIR=$HOME/.dotbackup
 
 #URL_OHMYZSH="git://github.com/robbyrussell/oh-my-zsh.git"
-URL_NEOBUNDLE="git://github.com/Shougo/neobundle.vim.git"
-URL_RBENV="git://github.com/sstephenson/rbenv.git"
-URL_RUBY_BUILD="git://github.com/sstephenson/ruby-build.git"
-URL_PYENV="git://github.com/pyenv/pyenv.git"
+URL_NEOBUNDLE="https://github.com/Shougo/neobundle.vim.git"
+URL_RBENV="https://github.com/sstephenson/rbenv.git"
+URL_RUBY_BUILD="https://github.com/sstephenson/ruby-build.git"
+URL_PYENV="https://github.com/pyenv/pyenv.git"
 URL_TPM="https://github.com/tmux-plugins/tpm"
 URL_ZSHCOMP="https://github.com/zsh-users/zsh-completions.git"
 # URL_DEIN=" https://github.com/Shougo/dein.vim.git"
