@@ -6,7 +6,7 @@ end
 set -x PATH $HOME/.bin /usr/local/bin /usr/local/sbin /opt/homebrew/bin /bin /usr/bin /sbin /usr/sbin
 
 # Bind keys
-bind \t forward-char
+#bind \t forward-char
 
 # Alias
 if test (uname -s) = "Darwin"
