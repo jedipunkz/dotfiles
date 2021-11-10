@@ -9,14 +9,14 @@ fi
 CONF_HOME=$(cd $(dirname "$0") && pwd)
 BACKUPDIR=$HOME/.dotbackup
 
-#URL_OHMYZSH="git://github.com/robbyrussell/oh-my-zsh.git"
 URL_NEOBUNDLE="https://github.com/Shougo/neobundle.vim.git"
 URL_RBENV="https://github.com/sstephenson/rbenv.git"
 URL_RUBY_BUILD="https://github.com/sstephenson/ruby-build.git"
 URL_PYENV="https://github.com/pyenv/pyenv.git"
+URL_NODENV="https://github.com/nodenv/nodenv.git"
+URL_NODE_BUILD="https://github.com/nodenv/node-build.git"
 URL_TPM="https://github.com/tmux-plugins/tpm"
 URL_ZSHCOMP="https://github.com/zsh-users/zsh-completions.git"
-# URL_DEIN=" https://github.com/Shougo/dein.vim.git"
 
 function chkcommand() {
     if hash $1 2>/dev/null; then
@@ -83,21 +83,10 @@ gitclone $URL_RBENV $HOME/.rbenv
 gitclone $URL_RUBY_BUILD $HOME/.rbenv/plugins/ruby-build
 gitclone $URL_PYENV $HOME/.pyenv
 gitclone $URL_ZSHCOMP $HOME/.zsh-completions
-# gitclone $URL_DEIN $HOME/.vim/dein/repos/github.com/Shougo/dein.vim
+gitclone $URL_NODENV $HOME/.nodenv
+gitclone $URL_NODE_BUILD $HOME/.nodenv/plugins/node-build
 
 if [ ! -d $HOME/.gvm ]; then
     bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
 fi
 
-# case "${OSTYPE}" in
-# freebsd*|darwin*)
-#     mv -f $HOME/.gvm/environments/default /tmp/
-#     link .gvm/environments/default $HOME/.gvm/environments/default
-#     echo "install starship.rs by homebrew."
-#     ;;
-# linux*)
-#     mv -f $HOME/.gvm/environments/default /tmp/
-#     link .gvm/environments/default.linux $HOME/.gvm/environments/default
-#     echo 'install starship by manualy. https://starship.rs/guide/#%F0%9F%9A%80-installation'
-#     ;;
-# esac

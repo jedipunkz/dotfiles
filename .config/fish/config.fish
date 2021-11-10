@@ -6,7 +6,7 @@ end
 set -x PATH $HOME/.bin /usr/local/bin /usr/local/sbin /opt/homebrew/bin /bin /usr/bin /sbin /usr/sbin
 
 # Bind keys
-bind \t forward-char
+# bind \t forward-char
 
 # Alias
 if test (uname -s) = "Darwin"
@@ -49,6 +49,12 @@ end
 # gvm & golang
 function gvm
   bass source ~/.gvm/scripts/gvm ';' gvm $argv
+end
+
+# nodenv
+if test -d "$HOME/.nodenv"
+    set -x PATH $HOME/.nodenv/bin $PATH
+    nodenv init - | source
 end
 
 if test ! -d "$HOME/ghq"
