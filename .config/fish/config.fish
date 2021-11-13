@@ -48,9 +48,10 @@ if test -d "$HOME/.rbenv/bin"
 end
 
 # gvm & golang
-function gvm
-  bass source ~/.gvm/scripts/gvm ';' gvm $argv
-end
+# function gvm
+#   bass source ~/.gvm/scripts/gvm ';' gvm $argv
+# end
+bass source ~/.gvm/environments/default
 
 # nodenv
 if test -d "$HOME/.nodenv"

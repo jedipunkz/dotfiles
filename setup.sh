@@ -77,6 +77,7 @@ if [ ! -d $HOME/.config/fish ]; then
 	mkdir -p $HOME/.config/fish
 fi
 link .config/fish/config.fish $HOME/.config/fish/config.fish
+link .config/fish/functions/gvm.fish $HOME/.config/fish/functions/gvm.fish
 
 gitclone $URL_TPM ~/.tmux/plugins/tpm
 gitclone $URL_RBENV $HOME/.rbenv
