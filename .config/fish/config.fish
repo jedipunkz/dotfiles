@@ -2,6 +2,8 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
 end
 
+set -U fish_greeting ""
+
 # PATH
 set -x PATH $HOME/.bin /usr/local/bin /usr/local/sbin /opt/homebrew/bin /bin /usr/bin /sbin /usr/sbin
 
@@ -13,6 +15,8 @@ set -x PATH $HOME/.bin /usr/local/bin /usr/local/sbin /opt/homebrew/bin /bin /us
 if test (uname -s) = "Darwin"
     alias ls="exa"
     alias cat="bat"
+    alias code="/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code"
+    set -x EDITOR nvim
 else
     alias ls="ls --color"
     alias cat="batcat"
