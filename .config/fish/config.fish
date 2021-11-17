@@ -10,6 +10,7 @@ set -x PATH $HOME/.bin /usr/local/bin /usr/local/sbin /opt/homebrew/bin /bin /us
 # Bind keys
 # bind \t forward-char
 
+
 # Alias
 if test (uname -s) = "Darwin"
     alias ls="exa"
