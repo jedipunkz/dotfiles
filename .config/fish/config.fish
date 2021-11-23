@@ -14,6 +14,7 @@ set -x PATH $HOME/.bin /usr/local/bin /usr/local/sbin /opt/homebrew/bin /bin /us
 # Alias
 if test (uname -s) = "Darwin"
     alias ls="exa"
+    alias lt='exa -T -L 3 -a -I "node_modules|.git|.cache" --icons'
 else
     alias ls="ls --color"
 end
