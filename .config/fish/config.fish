@@ -54,6 +54,9 @@ function gvm
   bass source ~/.gvm/scripts/gvm ';' gvm $argv
 end
 
+# workarround for mac
+gvm list > /dev/null
+
 if test ! -d "$HOME/ghq"
     mkdir $HOME/ghq
 end
