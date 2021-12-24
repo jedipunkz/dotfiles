@@ -56,25 +56,21 @@ if test -d "$HOME/.rbenv/bin"
     rbenv init - | source
 end
 
-# gvm & golang
-# function gvm
-#   bass source ~/.gvm/scripts/gvm ';' gvm $argv
-# end
-bass source ~/.gvm/environments/default
-
 # nodenv
 if test -d "$HOME/.nodenv"
     set -x PATH $HOME/.nodenv/bin $PATH
     nodenv init - | source
 end
 
-# workarround for mac
-gvm list > /dev/null
-
 if test ! -d "$HOME/ghq"
     mkdir $HOME/ghq
 end
-set -x GOPATH $HOME/ghq
+
+# golang
+if test ! -d "$HOME/go"
+    mkdir $HOME/go
+end
+set -x GOPATH $HOME/go
 set -x PATH $GOPATH/bin $PATH
 
 # fzf
