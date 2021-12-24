@@ -2,6 +2,7 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
 end
 
+# disable greeting msg
 set -U fish_greeting ""
 
 # PATH
@@ -28,6 +29,9 @@ alias la="ls -a"
 alias l="ls -alF"
 alias ssh="ssh -o UserKnownHostsFile=/dev/null -o 'StrictHostKeyChecking no'"
 alias grep="grep --color"
+
+# fzf
+set -x FZF_DEFAULT_OPTS '--color fg:255,bg:236,hl:84,fg+:255,bg+:236,hl+:215  --color info:141,prompt:84,spinner:212,pointer:212,marker:212'
 
 # perl cpanm
 if test -d "$HOME/perl5/bin"
