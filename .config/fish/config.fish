@@ -2,25 +2,28 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
 end
 
-# PATH
-set -x PATH $HOME/.bin /usr/local/bin /usr/local/sbin /opt/homebrew/bin /bin /usr/bin /sbin /usr/sbin
+set -U fish_greeting ""
 
-## vi mode
-# fish_vi_key_bindings
-# vi modeではなんか[I]みたいなの出るからオーバーライド
-# function fish_mode_prompt 
-# end
+# PATH
+set -x PATH $HOME/.bin /usr/local/bin /usr/local/sbin /opt/homebrew/bin /bin /usr/bin /sbin /usr/sbin /usr/local/sessionmanagerplugin/bin
+
+# Bind keys
+# bind \t forward-char
+
 
 # Alias
 if test (uname -s) = "Darwin"
     alias ls="exa"
     alias lt='exa -T -L 3 -a -I "node_modules|.git|.cache" --icons'
+    alias cat="bat"
+    alias code="/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code"
+    set -x EDITOR nvim
 else
     alias ls="ls --color"
+    alias cat="batcat"
 end
 
 alias vim="nvim"
-alias cat="bat"
 alias la="ls -a"
 alias l="ls -alF"
 alias ssh="ssh -o UserKnownHostsFile=/dev/null -o 'StrictHostKeyChecking no'"
@@ -50,8 +53,15 @@ if test -d "$HOME/.rbenv/bin"
 end
 
 # gvm & golang
-function gvm
-  bass source ~/.gvm/scripts/gvm ';' gvm $argv
+# function gvm
+#   bass source ~/.gvm/scripts/gvm ';' gvm $argv
+# end
+bass source ~/.gvm/environments/default
+
+# nodenv
+if test -d "$HOME/.nodenv"
+    set -x PATH $HOME/.nodenv/bin $PATH
+    nodenv init - | source
 end
 
 # workarround for mac

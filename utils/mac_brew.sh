@@ -5,6 +5,7 @@ brew install \
     tmux \
     htop \
     tig \
+    ghq \
     mercurial \
     peco \
     fzf \

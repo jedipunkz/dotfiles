@@ -83,7 +83,7 @@ symbol = "🐋 "
 symbol = "🚀 "
 #truncation_length = 2
 #truncation_symbol = ""
-style = "#68d8d6"
+style = "#F7819F"
 
 [git_state]
 format = '[\($state( $progress_current of $progress_total)\)]($style) '
@@ -112,7 +112,7 @@ disabled = false
 format = '[$symbol$context( \($namespace\))]($style) in '
 [kubernetes.context_aliases]
 "dev.local.cluster.k8s" = "dev"
-"arn:aws:eks:ap-northeast-1:395127550274:cluster/rf-sandbox-infratest01-ekscluster" = "sandbox"
+"arn:aws:eks:ap-northeast-1:395127550274:cluster/rf-sandbox-example-ekscluster" = "sandbox"
 "arn:aws:eks:ap-northeast-1:194251404222:cluster/infrabot-dev2-main-ekscluster" = "infrabot-dev2"
 "arn:aws:eks:ap-northeast-1:513123329229:cluster/infrabot-prd-main-ekscluster" = "infrabot-prd"
 
