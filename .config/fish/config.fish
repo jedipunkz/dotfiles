@@ -6,7 +6,7 @@ end
 set -U fish_greeting ""
 
 # PATH
-set -x PATH $HOME/.bin /usr/local/bin /usr/local/sbin /opt/homebrew/bin /bin /usr/bin /sbin /usr/sbin
+set -x PATH $HOME/.bin /usr/local/bin /usr/local/sbin /opt/homebrew/bin /bin /usr/bin /sbin /usr/sbin /usr/local/sessionmanagerplugin/bin
 
 # Bind keys
 # bind \t forward-char
@@ -15,6 +15,7 @@ set -x PATH $HOME/.bin /usr/local/bin /usr/local/sbin /opt/homebrew/bin /bin /us
 # Alias
 if test (uname -s) = "Darwin"
     alias ls="exa"
+    alias lt='exa -T -L 3 -a -I "node_modules|.git|.cache" --icons'
     alias cat="bat"
     alias code="/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code"
     set -x EDITOR nvim
@@ -55,12 +56,6 @@ if test -d "$HOME/.rbenv/bin"
     rbenv init - | source
 end
 
-# gvm & golang
-# function gvm
-#   bass source ~/.gvm/scripts/gvm ';' gvm $argv
-# end
-bass source ~/.gvm/environments/default
-
 # nodenv
 if test -d "$HOME/.nodenv"
     set -x PATH $HOME/.nodenv/bin $PATH
@@ -70,8 +65,17 @@ end
 if test ! -d "$HOME/ghq"
     mkdir $HOME/ghq
 end
-set -x GOPATH $HOME/ghq
+
+# golang
+if test ! -d "$HOME/go"
+    mkdir $HOME/go
+end
+set -x GOPATH $HOME/go
 set -x PATH $GOPATH/bin $PATH
+
+# fzf
+set -Ux FZF_DEFAULT_OPTS "--color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4"
+
 
 # starship.rs
 set -x STARSHIP_CONFIG ~/.starship
