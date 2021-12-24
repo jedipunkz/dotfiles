@@ -18,5 +18,6 @@ if [ "$1" = "-f" ]; then
   # go install golang.org/x/tools/gopls@latest
   go install github.com/nametake/golangci-lint-langserver@latest
   go install github.com/cweill/gotests/...@latest
+  go install honnef.co/go/tools/cmd/staticcheck@latest
   echo "Installation completed."
 fi
