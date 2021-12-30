@@ -49,9 +49,9 @@ if command -v pyenv 1>/dev/null 2>&1
         set -x PYENV_ROOT $HOME/.pyenv
         set -x PATH $PYENV_ROOT/bin $PATH
         # pyenv init - | source
-        source (pyenv init - | psub)
-        # status is-login; and pyenv init --path | source
-        # status is-interactive; and pyenv init - | source
+        # source (pyenv init - | psub)
+        status is-login; and pyenv init --path | source
+        status is-interactive; and pyenv init - | source
     case Linux
         pyenv init - | source
         set -x PATH $PYENV_ROOT/shims $PYENV_ROOT/bin $PATH
