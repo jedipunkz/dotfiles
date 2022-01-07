@@ -11,7 +11,6 @@ set -x PATH $HOME/.bin /usr/local/go/bin /usr/local/bin /usr/local/sbin /opt/hom
 # Bind keys
 # bind \t forward-char
 
-
 # Alias
 if test (uname -s) = "Darwin"
     alias ls="exa"
@@ -22,6 +21,11 @@ if test (uname -s) = "Darwin"
 else
     alias ls="ls --color"
     alias cat="batcat"
+end
+
+# KeyRepeat
+if test (uname -s) = "Linux"
+    xset r rate 190 35
 end
 
 alias vim="nvim"
