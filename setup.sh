@@ -77,7 +77,6 @@ if [ ! -d $HOME/.config/fish ]; then
 	mkdir -p $HOME/.config/fish
 fi
 link .config/fish/config.fish $HOME/.config/fish/config.fish
-link .config/fish/functions/gvm.fish $HOME/.config/fish/functions/gvm.fish
 
 gitclone $URL_TPM ~/.tmux/plugins/tpm
 gitclone $URL_RBENV $HOME/.rbenv
@@ -86,8 +85,4 @@ gitclone $URL_PYENV $HOME/.pyenv
 gitclone $URL_ZSHCOMP $HOME/.zsh-completions
 gitclone $URL_NODENV $HOME/.nodenv
 gitclone $URL_NODE_BUILD $HOME/.nodenv/plugins/node-build
-
-if [ ! -d $HOME/.gvm ]; then
-    bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
-fi
 
