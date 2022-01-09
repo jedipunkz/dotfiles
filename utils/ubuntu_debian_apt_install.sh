@@ -16,10 +16,12 @@ sudo apt-get -y install \
     zsh \
     git \
     tig \
+    tree \
     tmux \
     htop \
     xclip \
     peco \
     bison \
     fzf \
-    bat
+    bat \
+    exa
