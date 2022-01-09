@@ -207,3 +207,4 @@ if filereadable(expand('~/.vimrc.local'))
   source ~/.vimrc.local
 endif
 
+autocmd VimEnter * hi Normal ctermbg=NONE guibg=NONE
