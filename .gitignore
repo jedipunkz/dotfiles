@@ -12,3 +12,4 @@ auto-save-list
 .config/configstore/
 .emacs.d/.emacs.d
 .vim/.vim
+.config/fish/fish_variables
