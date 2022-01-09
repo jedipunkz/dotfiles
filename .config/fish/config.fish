@@ -13,13 +13,10 @@ set -x PATH $HOME/.bin /usr/local/go/bin /usr/local/bin /usr/local/sbin /opt/hom
 
 # Alias
 if test (uname -s) = "Darwin"
-    alias ls="exa"
-    alias lt='exa -T -L 3 -a -I "node_modules|.git|.cache" --icons'
     alias cat="bat"
     alias code="/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code"
     set -x EDITOR nvim
 else
-    alias ls="ls --color"
     alias cat="batcat"
 end
 
@@ -28,6 +25,8 @@ if test (uname -s) = "Linux"
     xset r rate 190 35
 end
 
+alias ls="exa"
+alias lt='exa -T -L 3 -a -I "node_modules|.git|.cache" --icons'
 alias vim="nvim"
 alias la="ls -a"
 alias l="ls -alF"
