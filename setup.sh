@@ -7,7 +7,6 @@ fi
 
 # set envs
 CONF_HOME=$(cd $(dirname "$0") && pwd)
-BACKUPDIR=$HOME/.dotbackup
 
 URL_NEOBUNDLE="https://github.com/Shougo/neobundle.vim.git"
 URL_RBENV="https://github.com/sstephenson/rbenv.git"
@@ -28,12 +27,7 @@ function chkcommand() {
 }
 
 function link() {
-    if [ -e $2 ]; then
-        mv  $2 "$BACKUPDIR/"
-        ln -s "$CONF_HOME/$1" $2 || return 1
-    else
-        ln -s "$CONF_HOME/$1" $2 || return 1
-    fi
+    ln -f -s "$CONF_HOME/$1" $2 || return 1
     return 0
 }
 
@@ -52,7 +46,6 @@ function makedir() {
 
 chkcommand git
 makedir $HOME/gitwork 0755
-makedir $BACKUPDIR 0755
 makedir $HOME/.config 700
 
 link .gtkrc-2.0 $HOME/.gtkrc-2.0
@@ -63,11 +56,9 @@ link .dir_colors $HOME/.dir_colors
 link .tmux.conf $HOME/.tmux.conf
 link .tmux.conf.macos $HOME/.tmux.conf.macos
 link .tmux.conf.linux $HOME/.tmux.conf.linux
-link .vim $HOME/.vim
-link .vimrc $HOME/.vimrc
-link .vimrc.lang $HOME/.vimrc.lang
 link .imwheelrc $HOME/.imwheelrc
 link .starship $HOME/.starship
+link .vim $HOME/.vim
 link .config/nvim $HOME/.config/nvim
 link .config/fish $HOME/.config/fish
 link .config/regolith $HOME/.config/regolith
