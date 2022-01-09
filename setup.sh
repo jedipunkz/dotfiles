@@ -68,15 +68,18 @@ link .vimrc.lang $HOME/.vimrc.lang
 link .imwheelrc $HOME/.imwheelrc
 link .starship $HOME/.starship
 
-if [ ! -d $HOME/.config/nvim ]; then
-	mkdir -p $HOME/.config/nvim
-fi
-link .vimrc $HOME/.config/nvim/init.vim
+# if [ ! -d $HOME/.config/nvim ]; then
+# 	mkdir -p $HOME/.config/nvim
+# fi
+# link .vimrc $HOME/.config/nvim/init.vim
+link config/nvim $HOME/.config/nvim
 
-if [ ! -d $HOME/.config/fish ]; then
-	mkdir -p $HOME/.config/fish
-fi
-link .config/fish/config.fish $HOME/.config/fish/config.fish
+# if [ ! -d $HOME/.config/fish ]; then
+# 	mkdir -p $HOME/.config/fish
+# fi
+# link .config/fish/config.fish $HOME/.config/fish/config.fish
+link .config/fish $HOME/.config/fish
+link .config/regolith $HOME/.config/regolith
 
 gitclone $URL_TPM ~/.tmux/plugins/tpm
 gitclone $URL_RBENV $HOME/.rbenv
