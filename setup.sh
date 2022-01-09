@@ -72,7 +72,8 @@ link .starship $HOME/.starship
 # 	mkdir -p $HOME/.config/nvim
 # fi
 # link .vimrc $HOME/.config/nvim/init.vim
-link config/nvim $HOME/.config/nvim
+mkdir -p $HOME/.config
+link .config/nvim $HOME/.config/nvim
 
 # if [ ! -d $HOME/.config/fish ]; then
 # 	mkdir -p $HOME/.config/fish
