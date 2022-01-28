@@ -83,7 +83,7 @@ symbol = "🐋 "
 symbol = "🚀 "
 #truncation_length = 2
 #truncation_symbol = ""
-style = "#F7819F"
+#style = "#F7819F"
 
 [git_state]
 format = '[\($state( $progress_current of $progress_total)\)]($style) '
