@@ -48,20 +48,23 @@ chkcommand git
 makedir $HOME/gitwork 0755
 makedir $HOME/.config 700
 
-link .gtkrc-2.0 $HOME/.gtkrc-2.0
+if [ "`uname`" == "Linux" ]; then
+    link .gtkrc-2.0 $HOME/.gtkrc-2.0
+    link .Xresources $HOME/.Xresources
+    link .imwheelrc $HOME/.imwheelrc
+    link .config/regolith $HOME/.config/regolith
+fi
+
 link .emacs.d $HOME/.emacs.d
-link .Xresources $HOME/.Xresources
 link .zshrc $HOME/.zshrc
 link .dir_colors $HOME/.dir_colors
 link .tmux.conf $HOME/.tmux.conf
 link .tmux.conf.macos $HOME/.tmux.conf.macos
 link .tmux.conf.linux $HOME/.tmux.conf.linux
-link .imwheelrc $HOME/.imwheelrc
 link .starship $HOME/.starship
 link .vim $HOME/.vim
 link .config/nvim $HOME/.config/nvim
 link .config/fish $HOME/.config/fish
-link .config/regolith $HOME/.config/regolith
 
 gitclone $URL_TPM ~/.tmux/plugins/tpm
 gitclone $URL_RBENV $HOME/.rbenv
