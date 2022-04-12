@@ -6,7 +6,7 @@ end
 set -U fish_greeting ""
 
 # PATH
-set -x PATH $HOME/.bin /usr/local/bin /usr/local/sbin /opt/homebrew/bin /bin /usr/bin /sbin /usr/sbin /usr/local/sessionmanagerplugin/bin
+set -x PATH $HOME/.bin /usr/local/bin /usr/local/sbin /opt/homebrew/bin /bin /usr/bin /sbin /usr/sbin /usr/local/sessionmanagerplugin/bin /opt/homebrew/opt/mysql-client/bin
 
 # Bind keys
 # bind \t forward-char
