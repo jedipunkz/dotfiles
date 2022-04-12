@@ -1,14 +1,8 @@
 #!/bin/bash
 
-if ! [ -x "$(command -v curl)" ]; then
-    echo "error: could not find curl command, install curl command." >&2
-    exit 1
-fi
-
 # set envs
 CONF_HOME=$(cd $(dirname "$0") && pwd)
 
-URL_NEOBUNDLE="https://github.com/Shougo/neobundle.vim.git"
 URL_RBENV="https://github.com/sstephenson/rbenv.git"
 URL_RUBY_BUILD="https://github.com/sstephenson/ruby-build.git"
 URL_PYENV="https://github.com/pyenv/pyenv.git"
@@ -44,7 +38,19 @@ function makedir() {
     fi
 }
 
+function backup() {
+    if [ -d $1 ]; then
+        mv $1 $2
+    fi
+}
+
+chkcommand curl
 chkcommand git
+
+makedir $HOME/dotfiles.backup 0755
+backup $HOME/.config $HOME/dotfiles.backup/.config
+backup $HOME/.emacs.d $HOME/dotfiles.backup/.emacs.d
+
 makedir $HOME/gitwork 0755
 makedir $HOME/.config 700
 
