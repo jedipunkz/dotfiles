@@ -187,3 +187,8 @@ nnoremap <LocalLeader>f :<C-u>LspDocumentDiagnostics<CR>
 nnoremap <LocalLeader>s :<C-u>LspDocumentFormat<CR>
 " オムニ補完を利用する場合、定義の追加
 set omnifunc=lsp#complete
+
+" Rust
+syntax enable
+filetype plugin indent on
+let g:rustfmt_autosave = 1
