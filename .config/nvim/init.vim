@@ -54,6 +54,7 @@ call dein#add('nvim-lua/plenary.nvim')
 " call dein#add('nvim-telescope/telescope.nvim')
 call dein#add('BurntSushi/ripgrep')
 call dein#add('github/copilot.vim')
+call dein#add('rust-lang/rust.vim')
 
 call dein#end()
 
@@ -201,7 +202,7 @@ nnoremap <C-g> <C-t>
 filetype plugin on
 
 " lang
-source ~/.config/nvim/.vimrc.lang
+source ~/.config/nvim/lang.vim
 
 " local environment
 if filereadable(expand('~/.vimrc.local'))
