@@ -40,6 +40,7 @@ function makedir() {
 
 function backup() {
     if [ -d $1 ]; then
+        rm -rf $2
         mv $1 $2
     fi
 }
