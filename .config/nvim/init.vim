@@ -201,7 +201,7 @@ nnoremap <C-g> <C-t>
 filetype plugin on
 
 " lang
-source ~/.config/nvim/.vimrc.lang
+source ~/.config/nvim/lang.vim
 
 " local environment
 if filereadable(expand('~/.vimrc.local'))
