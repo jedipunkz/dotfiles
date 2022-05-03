@@ -72,6 +72,7 @@ link .starship $HOME/.starship
 link .vim $HOME/.vim
 link .config/nvim $HOME/.config/nvim
 link .config/fish $HOME/.config/fish
+link .config/alacritty $HOME/.config/alacritty
 
 gitclone $URL_TPM ~/.tmux/plugins/tpm
 gitclone $URL_RBENV $HOME/.rbenv
