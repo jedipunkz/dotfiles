@@ -248,10 +248,10 @@ alt_send_esc: true
 #   - AppKeypad
 key_bindings:
   # (Windows/Linux only)
-  # - { key: V,        mods: Control|Shift,    action: Paste               }
-  # - { key: C,        mods: Control|Shift,    action: Copy                }
-  # - { key: Insert,   mods: Shift,   action: PasteSelection               }
-  # - { key: Key0,     mods: Control, action: ResetFontSize                }
+  - { key: V,        mods: Control|Shift,    action: None                }
+  - { key: C,        mods: Control|Shift,    action: None                }
+  - { key: Insert,   mods: Shift,   action: PasteSelection               }
+  - { key: Key0,     mods: Control, action: ResetFontSize                }
   # - { key: Add,      mods: Control, action: IncreaseFontSize             }
   # - { key: Subtract, mods: Control, action: DecreaseFontSize             }
 
