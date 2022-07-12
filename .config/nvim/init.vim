@@ -134,7 +134,7 @@ colorschem gruvbox
 " colorscheme molokai
 "colorscheme zenburn
 
-"set number
+set number
 set ruler
 set autoread
 set laststatus=2
