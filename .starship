@@ -45,7 +45,7 @@ format = """\
 
 [character]
 success_symbol = "[ ::](#eeef20)"
-error_symbol = "[ XXXX](#FF00FF)"
+error_symbol = "[ ERROR](#ff5859)"
 vicmd_symbol = "[ ::](#55FF55)"
 
 [hostname]
@@ -118,6 +118,7 @@ format = '[$symbol$context( \($namespace\))]($style) in '
 "arn:aws:eks:ap-northeast-1:395127550274:cluster/infrabot-sandbox-main2-ekscluster" = "sandbox"
 "arn:aws:eks:ap-northeast-1:194251404222:cluster/infrabot-dev2-main2-ekscluster" = "infrabot2-dev2"
 "arn:aws:eks:ap-northeast-1:513123329229:cluster/infrabot-prd-main2-ekscluster" = "infrabot2-prd"
+"arn:aws:eks:ap-northeast-1:395127550274:cluster/pipecd-sandbox-main2-ekscluster" = "sandbox-pipecd"
 
 [nodejs]
 symbol = "🤖 "
