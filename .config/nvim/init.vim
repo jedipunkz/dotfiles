@@ -55,6 +55,8 @@ call dein#add('nvim-lua/plenary.nvim')
 call dein#add('BurntSushi/ripgrep')
 call dein#add('github/copilot.vim')
 call dein#add('rust-lang/rust.vim')
+call dein#add('moll/vim-node')
+call dein#add('Townk/vim-autoclose')
 
 call dein#end()
 
@@ -200,6 +202,9 @@ nnoremap <C-g> <C-t>
 
 " file type plugins
 filetype plugin on
+
+" mouse disable
+set mouse=
 
 " lang
 source ~/.config/nvim/lang.vim

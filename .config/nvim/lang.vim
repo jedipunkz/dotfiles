@@ -125,12 +125,12 @@ let g:go_info_mode='gopls'
 let g:goimports = 1
 " let g:goimports_simplify = 1
 
-"" quickrun
+" quickrun
 let g:quickrun_config = get(g:, 'quickrun_config', {})
 
-"" quickrunのランナーにvimprocを使用する
-"" 成功時はバッファへ
-"" エラー時はquickfixへ出力
+" quickrunのランナーにvimprocを使用する
+" 成功時はバッファへ
+" エラー時はquickfixへ出力
 let g:quickrun_config._ = {
 \   'runner'    : 'vimproc',
 \   'runner/vimproc/updatetime' : 60,
@@ -141,7 +141,7 @@ let g:quickrun_config._ = {
 \   'outputter/buffer/close_on_empty' : 1,
 \}
 
-"" quickrunにgo buildを登録
+" quickrunにgo buildを登録
 let g:quickrun_config["gobuild"] = {
 \   'command': 'go',
 \   'cmdopt' : './...',
@@ -192,3 +192,4 @@ set omnifunc=lsp#complete
 syntax enable
 filetype plugin indent on
 let g:rustfmt_autosave = 1
+
