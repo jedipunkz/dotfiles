@@ -56,7 +56,7 @@ call dein#add('BurntSushi/ripgrep')
 call dein#add('github/copilot.vim')
 call dein#add('rust-lang/rust.vim')
 call dein#add('moll/vim-node')
-call dein#add('Townk/vim-autoclose')
+" call dein#add('Townk/vim-autoclose')
 
 call dein#end()
 
