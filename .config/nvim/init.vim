@@ -56,7 +56,7 @@ call dein#add('BurntSushi/ripgrep')
 call dein#add('github/copilot.vim')
 call dein#add('rust-lang/rust.vim')
 call dein#add('moll/vim-node')
-" call dein#add('Townk/vim-autoclose')
+call dein#add('folke/trouble.nvim')
 
 call dein#end()
 
@@ -118,6 +118,14 @@ nnoremap ,tt :<C-u>tabnew<CR>
 nnoremap ,tn gt
 nnoremap ,tp gT
 nnoremap ,tT :<C-u>Unite tab<CR>
+
+" Trouble
+nnoremap <leader>xx <cmd>TroubleToggle<cr>
+nnoremap <leader>xw <cmd>TroubleToggle workspace_diagnostics<cr>
+nnoremap <leader>xd <cmd>TroubleToggle document_diagnostics<cr>
+nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
+nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
+nnoremap gR <cmd>TroubleToggle lsp_references<cr>
 
 " colors
 set t_Co=256
