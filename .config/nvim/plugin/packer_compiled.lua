@@ -89,20 +89,40 @@ _G.packer_plugins = {
     path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/asyncomplete.vim",
     url = "https://github.com/prabirshrestha/asyncomplete.vim"
   },
+  ["cmp-buffer"] = {
+    loaded = true,
+    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/cmp-buffer",
+    url = "https://github.com/hrsh7th/cmp-buffer"
+  },
+  ["cmp-cmdline"] = {
+    loaded = true,
+    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/cmp-cmdline",
+    url = "https://github.com/hrsh7th/cmp-cmdline"
+  },
+  ["cmp-nvim-lsp"] = {
+    loaded = true,
+    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp",
+    url = "https://github.com/hrsh7th/cmp-nvim-lsp"
+  },
+  ["cmp-nvim-lua"] = {
+    loaded = true,
+    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/cmp-nvim-lua",
+    url = "https://github.com/hrsh7th/cmp-nvim-lua"
+  },
+  ["cmp-path"] = {
+    loaded = true,
+    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/cmp-path",
+    url = "https://github.com/hrsh7th/cmp-path"
+  },
+  cmp_luasnip = {
+    loaded = true,
+    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
+    url = "https://github.com/saadparwaiz1/cmp_luasnip"
+  },
   ["copilot.vim"] = {
     loaded = true,
     path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/copilot.vim",
     url = "https://github.com/github/copilot.vim"
-  },
-  ["ctrlp.vim.git"] = {
-    loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/ctrlp.vim.git",
-    url = "https://github.com/kien/ctrlp.vim.git"
-  },
-  ["dein.vim"] = {
-    loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/dein.vim",
-    url = "https://github.com/Shougo/dein.vim"
   },
   delve = {
     loaded = true,
@@ -114,10 +134,40 @@ _G.packer_plugins = {
     path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/gruvbox",
     url = "https://github.com/morhetz/gruvbox"
   },
-  ["nerdtree.git"] = {
+  ["lspkind-nvim"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/nerdtree.git",
-    url = "https://github.com/scrooloose/nerdtree.git"
+    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/lspkind-nvim",
+    url = "https://github.com/onsails/lspkind-nvim"
+  },
+  ["lspsaga.nvim"] = {
+    loaded = true,
+    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/lspsaga.nvim",
+    url = "https://github.com/glepnir/lspsaga.nvim"
+  },
+  ["lualine.nvim"] = {
+    loaded = true,
+    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/lualine.nvim",
+    url = "https://github.com/nvim-lualine/lualine.nvim"
+  },
+  ["null-ls.nvim"] = {
+    loaded = true,
+    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/null-ls.nvim",
+    url = "https://github.com/jose-elias-alvarez/null-ls.nvim"
+  },
+  ["nvim-cmp"] = {
+    loaded = true,
+    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/nvim-cmp",
+    url = "https://github.com/hrsh7th/nvim-cmp"
+  },
+  ["nvim-lsp-installer"] = {
+    loaded = true,
+    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/nvim-lsp-installer",
+    url = "https://github.com/williamboman/nvim-lsp-installer"
+  },
+  ["nvim-lspconfig"] = {
+    loaded = true,
+    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
+    url = "https://github.com/neovim/nvim-lspconfig"
   },
   ["packer.nvim"] = {
     loaded = true,
@@ -128,6 +178,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
+  },
+  ["prettier.nvim"] = {
+    loaded = true,
+    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/prettier.nvim",
+    url = "https://github.com/MunifTanjim/prettier.nvim"
   },
   ripgrep = {
     loaded = true,
@@ -174,16 +229,6 @@ _G.packer_plugins = {
     path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/vim-Flake8",
     url = "https://github.com/nvie/vim-Flake8"
   },
-  ["vim-airline"] = {
-    loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/vim-airline",
-    url = "https://github.com/vim-airline/vim-airline"
-  },
-  ["vim-airline-themes"] = {
-    loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/vim-airline-themes",
-    url = "https://github.com/vim-airline/vim-airline-themes"
-  },
   ["vim-ansible-yaml"] = {
     loaded = true,
     path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/vim-ansible-yaml",
@@ -209,35 +254,10 @@ _G.packer_plugins = {
     path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/vim-indent-guides",
     url = "https://github.com/nathanaelkane/vim-indent-guides"
   },
-  ["vim-lsp"] = {
-    loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/vim-lsp",
-    url = "https://github.com/prabirshrestha/vim-lsp"
-  },
-  ["vim-lsp-settings"] = {
-    loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/vim-lsp-settings",
-    url = "https://github.com/mattn/vim-lsp-settings"
-  },
-  ["vim-lsp-snippets"] = {
-    loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/vim-lsp-snippets",
-    url = "https://github.com/thomasfaingnaert/vim-lsp-snippets"
-  },
-  ["vim-lsp-ultisnips"] = {
-    loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/vim-lsp-ultisnips",
-    url = "https://github.com/thomasfaingnaert/vim-lsp-ultisnips"
-  },
   ["vim-node"] = {
     loaded = true,
     path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/vim-node",
     url = "https://github.com/moll/vim-node"
-  },
-  ["vim-quickrun.git"] = {
-    loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/vim-quickrun.git",
-    url = "https://github.com/thinca/vim-quickrun.git"
   },
   ["vim-snippets"] = {
     loaded = true,

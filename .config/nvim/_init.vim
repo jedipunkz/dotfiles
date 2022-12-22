@@ -1,5 +1,6 @@
 " packer
-lua require('plugins')
+" lua require('plugins')
+" lua require('lsp')
 
 " Syntastic Config
 set statusline+=%#warningmsg#
