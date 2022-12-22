@@ -1,0 +1,43 @@
+vim.cmd [[packadd packer.nvim]]
+
+return require('packer').startup(function(use)
+  -- Packer can manage itself
+  use 'wbthomason/packer.nvim'
+
+  -- 
+  use 'vim-airline/vim-airline'
+  use 'vim-airline/vim-airline-themes'
+  use 'vim-scripts/tComment'
+  use 'vim-syntastic/syntastic'
+  use 'chase/vim-ansible-yaml'
+  use 'hashivim/vim-terraform'
+  use 'juliosueiras/vim-terraform-completion'
+  use 'juliosueiras/terraform-lsp'
+  use 'othree/yajs.vim'
+  use 'morhetz/gruvbox'
+  use 'nvie/vim-Flake8'
+  use 'nathanaelkane/vim-indent-guides'
+  use 'SirVer/ultisnips'
+  use 'honza/vim-snippets'
+  use 'prabirshrestha/asyncomplete.vim'
+  use 'prabirshrestha/asyncomplete-lsp.vim'
+  use 'prabirshrestha/vim-lsp'
+  use 'prabirshrestha/async.vim'
+  use 'mattn/vim-lsp-settings'
+  use 'thomasfaingnaert/vim-lsp-snippets'
+  use 'thomasfaingnaert/vim-lsp-ultisnips'
+  use 'hrsh7th/vim-vsnip'
+  use 'hrsh7th/vim-vsnip-integ'
+  use 'mattn/vim-goimports'
+  use 'sebdah/vim-delve'
+  use 'go-delve/delve'
+  use 'vim-test/vim-test'
+  use 'tpope/vim-dispatch'
+  use 'nvim-lua/plenary.nvim'
+  use 'nvim-telescope/telescope.nvim'
+  use 'BurntSushi/ripgrep'
+  use 'github/copilot.vim'
+  use 'rust-lang/rust.vim'
+  use 'moll/vim-node'
+  use 'folke/trouble.nvim'
+ end) 
