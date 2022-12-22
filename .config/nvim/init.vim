@@ -29,7 +29,9 @@ call dein#add('hashivim/vim-terraform')
 call dein#add('juliosueiras/vim-terraform-completion')
 call dein#add('juliosueiras/terraform-lsp')
 call dein#add('othree/yajs.vim')
+" colorscheme
 call dein#add('morhetz/gruvbox')
+call dein#add('EdenEast/nightfox.nvim')
 " call dein#add('dracula/vim')
 " call dein#add('tomasr/molokai')
 call dein#add('nvie/vim-Flake8')
@@ -137,6 +139,7 @@ set background=dark
 "set background=dark
 " colorschem solarized
 colorschem gruvbox
+" colorschem nightfox
 " colorschem dracula
 "let g:solarized_termcolors=256
 "colorscheme wombat256
