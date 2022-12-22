@@ -1,64 +1,6 @@
-" dein.vim
-if &compatible
-  set nocompatible
-endif
-
-let s:dein_dir = expand('~/.cache/dein')
-let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
-
-if &runtimepath !~# '/dein.vim'
-  if !isdirectory(s:dein_repo_dir)
-    execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
-  endif
-  execute 'set runtimepath^=' . s:dein_repo_dir
-endif
-
-call dein#begin(expand('~/.vim/dein'))
-
-call dein#add('Shougo/dein.vim')
-call dein#add('vim-airline/vim-airline')
-call dein#add('vim-airline/vim-airline-themes')
-call dein#add('thinca/vim-quickrun.git')
-call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
-call dein#add('vim-scripts/tComment')
-call dein#add('kien/ctrlp.vim.git')
-call dein#add('scrooloose/nerdtree.git')
-call dein#add('vim-syntastic/syntastic')
-call dein#add('chase/vim-ansible-yaml')
-call dein#add('hashivim/vim-terraform')
-call dein#add('juliosueiras/vim-terraform-completion')
-call dein#add('juliosueiras/terraform-lsp')
-call dein#add('othree/yajs.vim')
-call dein#add('morhetz/gruvbox')
-" call dein#add('dracula/vim')
-" call dein#add('tomasr/molokai')
-call dein#add('nvie/vim-Flake8')
-call dein#add('nathanaelkane/vim-indent-guides')
-call dein#add('SirVer/ultisnips')
-call dein#add('honza/vim-snippets')
-call dein#add('prabirshrestha/asyncomplete.vim')
-call dein#add('prabirshrestha/asyncomplete-lsp.vim')
-call dein#add('prabirshrestha/vim-lsp')
-call dein#add('prabirshrestha/async.vim')
-call dein#add('mattn/vim-lsp-settings')
-call dein#add('thomasfaingnaert/vim-lsp-snippets')
-call dein#add('thomasfaingnaert/vim-lsp-ultisnips')
-call dein#add('hrsh7th/vim-vsnip')
-call dein#add('hrsh7th/vim-vsnip-integ')
-call dein#add('mattn/vim-goimports')
-call dein#add('sebdah/vim-delve')
-call dein#add('go-delve/delve')
-call dein#add('vim-test/vim-test')
-call dein#add('tpope/vim-dispatch')
-call dein#add('nvim-lua/plenary.nvim')
-" call dein#add('nvim-telescope/telescope.nvim')
-call dein#add('BurntSushi/ripgrep')
-call dein#add('github/copilot.vim')
-call dein#add('rust-lang/rust.vim')
-call dein#add('moll/vim-node')
-call dein#add('Townk/vim-autoclose')
-
-call dein#end()
+" packer
+" lua require('plugins')
+" lua require('lsp')
 
 " Syntastic Config
 set statusline+=%#warningmsg#
@@ -119,6 +61,14 @@ nnoremap ,tn gt
 nnoremap ,tp gT
 nnoremap ,tT :<C-u>Unite tab<CR>
 
+" Trouble
+nnoremap <leader>xx <cmd>TroubleToggle<cr>
+nnoremap <leader>xw <cmd>TroubleToggle workspace_diagnostics<cr>
+nnoremap <leader>xd <cmd>TroubleToggle document_diagnostics<cr>
+nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
+nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
+nnoremap gR <cmd>TroubleToggle lsp_references<cr>
+
 " colors
 set t_Co=256
 syntax enable
@@ -129,6 +79,7 @@ set background=dark
 "set background=dark
 " colorschem solarized
 colorschem gruvbox
+" colorschem nightfox
 " colorschem dracula
 "let g:solarized_termcolors=256
 "colorscheme wombat256
