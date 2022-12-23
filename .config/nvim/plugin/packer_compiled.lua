@@ -169,6 +169,12 @@ _G.packer_plugins = {
     path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
   },
+  ["nvim-web-devicons"] = {
+    loaded = false,
+    needs_bufread = false,
+    path = "/Users/thirai/.local/share/nvim/site/pack/packer/opt/nvim-web-devicons",
+    url = "https://github.com/kyazdani42/nvim-web-devicons"
+  },
   ["packer.nvim"] = {
     loaded = true,
     path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/packer.nvim",
@@ -193,11 +199,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/rust.vim",
     url = "https://github.com/rust-lang/rust.vim"
-  },
-  syntastic = {
-    loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/syntastic",
-    url = "https://github.com/vim-syntastic/syntastic"
   },
   tComment = {
     loaded = true,

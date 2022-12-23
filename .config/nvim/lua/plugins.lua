@@ -48,11 +48,14 @@ return require('packer').startup(function(use)
   use 'morhetz/gruvbox'
 
   -- Statusline
-  use({ "nvim-lualine/lualine.nvim" }) -- Statusline
+  use {
+    'nvim-lualine/lualine.nvim',
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+  }
 
   -- Others
   use 'vim-scripts/tComment'
-  use 'vim-syntastic/syntastic'
+  -- use 'vim-syntastic/syntastic'
   use 'nathanaelkane/vim-indent-guides'
   use 'SirVer/ultisnips'
   use 'honza/vim-snippets'
@@ -64,7 +67,6 @@ return require('packer').startup(function(use)
   use 'vim-test/vim-test'
   use 'tpope/vim-dispatch'
   use 'nvim-lua/plenary.nvim'
-  use 'nvim-telescope/telescope.nvim'
   use 'BurntSushi/ripgrep'
   use 'folke/trouble.nvim'
 
@@ -105,4 +107,11 @@ return require('packer').startup(function(use)
   use 'mattn/vim-goimports'
   use 'rust-lang/rust.vim'
   use 'moll/vim-node'
- end) 
+
+  -- telescope
+  use {
+    'nvim-telescope/telescope.nvim', tag = '0.1.0',
+    requires = { {'nvim-lua/plenary.nvim'} }, 
+  }
+end) 
+

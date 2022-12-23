@@ -24,4 +24,6 @@ sudo apt-get -y install \
     bison \
     fzf \
     bat \
-    exa
+    exa \
+    ripgrep \
+    luajit
