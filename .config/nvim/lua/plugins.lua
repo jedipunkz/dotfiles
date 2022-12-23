@@ -110,5 +110,14 @@ return require('packer').startup(function(use)
       {'nvim-telescope/telescope-fzy-native.nvim'}, 
     }, 
   }
+
+  -- startup
+  use {
+    "startup-nvim/startup.nvim",
+    requires = {"nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim"},
+    config = function()
+      require"startup".setup({theme = "dashboard"})
+    end
+  }
 end) 
 
