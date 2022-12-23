@@ -20,6 +20,7 @@ brew install \
     duf \
     broot \
     dog \
-    bat
+    bat \
+    ripgrep
 
 brew install --HEAD neovim
