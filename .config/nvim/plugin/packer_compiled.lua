@@ -205,6 +205,11 @@ _G.packer_plugins = {
     path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/tComment",
     url = "https://github.com/vim-scripts/tComment"
   },
+  ["telescope-fzy-native.nvim"] = {
+    loaded = true,
+    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/telescope-fzy-native.nvim",
+    url = "https://github.com/nvim-telescope/telescope-fzy-native.nvim"
+  },
   ["telescope.nvim"] = {
     loaded = true,
     path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/telescope.nvim",
