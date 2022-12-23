@@ -52,7 +52,7 @@ return require('packer').startup(function(use)
 
   -- Others
   use 'vim-scripts/tComment'
-  use 'vim-syntastic/syntastic'
+  -- use 'vim-syntastic/syntastic'
   use 'nathanaelkane/vim-indent-guides'
   use 'SirVer/ultisnips'
   use 'honza/vim-snippets'
