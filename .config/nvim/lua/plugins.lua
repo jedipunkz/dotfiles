@@ -55,7 +55,6 @@ return require('packer').startup(function(use)
 
   -- Others
   use 'vim-scripts/tComment'
-  -- use 'vim-syntastic/syntastic'
   use 'nathanaelkane/vim-indent-guides'
   use 'SirVer/ultisnips'
   use 'honza/vim-snippets'
@@ -86,13 +85,8 @@ return require('packer').startup(function(use)
 	use({ "jose-elias-alvarez/null-ls.nvim" }) -- for formatters and linters
 	use({ "glepnir/lspsaga.nvim" }) -- LSP UIs
   use 'juliosueiras/terraform-lsp'
-  -- use 'mattn/vim-lsp-settings'
-  -- use "neovim/nvim-lspconfig"
-  -- use 'thomasfaingnaert/vim-lsp-snippets'
-  -- use 'thomasfaingnaert/vim-lsp-ultisnips'
   use 'prabirshrestha/asyncomplete.vim'
   use 'prabirshrestha/asyncomplete-lsp.vim'
-  -- use 'prabirshrestha/vim-lsp'
 
 	-- Formatter
 	use({ "MunifTanjim/prettier.nvim" })
@@ -111,7 +105,10 @@ return require('packer').startup(function(use)
   -- telescope
   use {
     'nvim-telescope/telescope.nvim', tag = '0.1.0',
-    requires = { {'nvim-lua/plenary.nvim'} }, 
+    requires = {
+      {'nvim-lua/plenary.nvim'}, 
+      {'nvim-telescope/telescope-fzy-native.nvim'}, 
+    }, 
   }
 end) 
 
