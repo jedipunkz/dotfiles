@@ -25,4 +25,5 @@ sudo apt-get -y install \
     fzf \
     bat \
     exa \
-    ripgrep
+    ripgrep \
+    luajit
