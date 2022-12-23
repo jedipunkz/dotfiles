@@ -10,10 +10,10 @@ Dotfiles repository for @jedipunkz
 
 ## Requirement
 
-- peco -> fzf
+- fzf
 - ghq
 - neovim
-- zsh -> fish
+- fish
 - tmux
 - git
 - [starship](https://starship.rs/)
@@ -24,13 +24,6 @@ Dotfiles repository for @jedipunkz
 git clone git://github.com/jedipunkz/dotfiles.git
 bash dotfiles/setup.sh
 ```
-
-## Usage of local environment files
-
-If you need modify dotfiles for local environment, you can add such configuration to bellow files. 
-
-- .zshrc.local
-- .vimrc.local
 
 ## Licence
 
