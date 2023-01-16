@@ -30,7 +30,7 @@ local options = {
 	relativenumber = false,
 	numberwidth = 4,
 	signcolumn = "yes",
-	wrap = false,
+	wrap = true, 
 	winblend = 0,
 	wildoptions = "pum",
 	pumblend = 5,
@@ -40,6 +40,7 @@ local options = {
 	guifont = "monospace:h17",
 	splitbelow = false, -- オンのとき、ウィンドウを横分割すると新しいウィンドウはカレントウィンドウの下に開かれる
 	splitright = false, -- オンのとき、ウィンドウを縦分割すると新しいウィンドウはカレントウィンドウの右に開かれる
+  mouse = "", 
 }
 
 vim.opt.shortmess:append("c")

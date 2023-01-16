@@ -32,5 +32,13 @@ return {
 
   scrollback_lines = 1000000,
   enable_tab_bar = false, 
+
+  mouse_bindings = {
+    {
+      event = { Up = { streak = 1, button = 'Right' } },
+      mods = 'NONE',
+      action = wezterm.action.Paste,
+    },
+  },
 }
 
