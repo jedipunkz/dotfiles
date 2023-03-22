@@ -18,7 +18,7 @@ return {
 
   -- color_scheme = "Dracula (Gogh)",
   -- color_scheme = "Dracula (base16)",
-  -- color_scheme = "Gruvbox Dark"
+  -- color_scheme = "Gruvbox Dark", 
   -- color_scheme = "Sakura",
   color_scheme = "Solarized Dark Higher Contrast", 
   -- color_scheme = "VSCodeDark+ (Gogh)",
@@ -37,8 +37,19 @@ return {
     {
       event = { Up = { streak = 1, button = 'Right' } },
       mods = 'NONE',
-      action = wezterm.action.Paste,
+      action = wezterm.action.PasteFrom("PrimarySelection"),
     },
-  },
+    {
+      event = { Down = { streak = 1, button = { WheelUp = 1 } } },
+      mods = 'CTRL',
+      action = wezterm.action.IncreaseFontSize,
+    },
+
+    {
+      event = { Down = { streak = 1, button = { WheelDown = 1 } } },
+      mods = 'CTRL',
+      action = wezterm.action.DecreaseFontSize,
+    },
+}
 }
 
