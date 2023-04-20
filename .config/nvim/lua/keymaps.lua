@@ -66,7 +66,7 @@ keymap("n", "<Esc><Esc>", ":<C-u>set nohlsearch<Return>", opts)
 keymap("i", "jk", "<ESC>", opts)
 
 -- コンマの後に自動的にスペースを挿入
-keymap("i", ",", ",<Space>", opts)
+-- keymap("i", ",", ",<Space>", opts)
 
 -- Visual --
 -- Stay in indent mode
