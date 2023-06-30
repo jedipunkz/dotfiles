@@ -17,3 +17,4 @@ auto-save-list
 .config/fish/conf.d
 .config/fish/functions
 .config/fish/fish_plugins
+.config/fish/themes/
