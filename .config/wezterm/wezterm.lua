@@ -1,6 +1,9 @@
 local wezterm = require 'wezterm'
 
 return {
+  use_ime = true,
+  macos_forward_to_ime_modifier_mask = "SHIFT|CTRL",
+
   font = wezterm.font_with_fallback {
     -- for mac font
     'Monaco', 
