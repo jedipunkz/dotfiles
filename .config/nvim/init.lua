@@ -1,4 +1,5 @@
 require('base')
+require('autocmds')
 require('plugins')
 require('options')
 require('keymaps')
@@ -9,3 +10,4 @@ require('statusline')
 require('telescope_conf')
 require('language')
 require('startup_nvim')
+
