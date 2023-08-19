@@ -20,12 +20,14 @@ return {
     bottom = 0
   },
 
+  window_decorations = "RESIZE",
+
   -- color_scheme = "Dracula (Gogh)",
   -- color_scheme = "Dracula (base16)",
   -- color_scheme = "Gruvbox Dark",
   -- color_scheme = "Sakura",
-  color_scheme = "Solarized Dark Higher Contrast",
-  -- color_scheme = "VSCodeDark+ (Gogh)",
+  -- color_scheme = "Solarized Dark Higher Contrast",
+  color_scheme = "VSCodeDark+ (Gogh)",
 
   colors = {
     cursor_bg = '#ffffff',
