@@ -6,11 +6,12 @@ return {
 
   font = wezterm.font_with_fallback {
     -- for mac font
-    'Monaco', 
+    'Consolas',
+    'Monaco',
     'FuraMono Nerd Font Mono',
-  }, 
+  },
 
-  font_size = 14, 
+  font_size = 14,
 
   window_padding = {
     left = 0,
@@ -21,9 +22,9 @@ return {
 
   -- color_scheme = "Dracula (Gogh)",
   -- color_scheme = "Dracula (base16)",
-  -- color_scheme = "Gruvbox Dark", 
+  -- color_scheme = "Gruvbox Dark",
   -- color_scheme = "Sakura",
-  color_scheme = "Solarized Dark Higher Contrast", 
+  color_scheme = "Solarized Dark Higher Contrast",
   -- color_scheme = "VSCodeDark+ (Gogh)",
 
   colors = {
@@ -31,10 +32,10 @@ return {
     cursor_fg = 'black',
     selection_fg = 'white',
     selection_bg = '#C2185B',
-  }, 
+  },
 
   scrollback_lines = 1000000,
-  enable_tab_bar = false, 
+  enable_tab_bar = false,
 
   mouse_bindings = {
     {
