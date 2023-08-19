@@ -24,10 +24,15 @@ return {
 
   -- color_scheme = "Dracula (Gogh)",
   -- color_scheme = "Dracula (base16)",
-  -- color_scheme = "Gruvbox Dark",
   -- color_scheme = "Sakura",
   -- color_scheme = "Solarized Dark Higher Contrast",
-  color_scheme = "VSCodeDark+ (Gogh)",
+  -- color_scheme = "terafox",
+  -- color_scheme = "Gruvbox Dark (Gogh)",
+  -- color_scheme = "GruvboxDark",
+  -- color_scheme = "Gruvbox dark, hard (base16)",
+  color_scheme = "GruvboxDarkHard",
+  -- color_scheme = "Gruvbox Material (Gogh)",
+  -- color_scheme = "VSCodeDark+ (Gogh)",
 
   colors = {
     cursor_bg = '#ffffff',
