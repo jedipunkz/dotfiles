@@ -27,6 +27,14 @@ client.unfocused        $bg2 $bg2 $fg3 $bg3
 client.focused_inactive $bg3 $bg3 $fg3 $bg3
 client.urgent           $bg1 $red $fg0 $red
 
+# Border size
+default_border pixel 4
+
+# if you install i3-gaps
+# ref: https://devicetests.com/install-i3-gaps-ubuntu-22-04-jammy-jellyfish#google_vignette
+gaps inner 14
+gaps outer 14
+
 exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id nm-applet
@@ -177,5 +185,6 @@ bar {
 }
 
 exec --no-startup-id fcitx-autostart
-exec --no-startup-id feh --bg-fill ~/pix/neon.jpg
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec --no-startup-id feh --bg-fill ~/pix/dark.jpg
+#exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+
