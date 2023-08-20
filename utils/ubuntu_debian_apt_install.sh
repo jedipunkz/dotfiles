@@ -14,6 +14,7 @@ sudo apt-get -y install mozc-utils-gui fcitx-config-gtk
 # basics
 sudo apt-get -y install \
     zsh \
+    fish \
     git \
     tig \
     tree \
@@ -27,3 +28,6 @@ sudo apt-get -y install \
     exa \
     ripgrep \
     luajit
+
+# for Desktop
+# sudo apt-get -y xorg i3 install alsa-utils polybar feh nemo fuse fcitx-mozc

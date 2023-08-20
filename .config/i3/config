@@ -1,6 +1,6 @@
 set $mod Mod1
 
-font pango:Consolas 10
+font pango:Consolas 14
 
 # Gruvbox colors
 set $bg0 #282828
