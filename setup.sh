@@ -63,6 +63,8 @@ if [ "`uname`" == "Linux" ]; then
     link .config/regolith $HOME/.config/regolith
 fi
 
+link .xbindkeysrc $HOME/.xbindkeysrc
+link .xinitrc $HOME/.xinitrc
 link .emacs.d $HOME/.emacs.d
 link .zshrc $HOME/.zshrc
 link .dir_colors $HOME/.dir_colors
@@ -74,6 +76,7 @@ link .vim $HOME/.vim
 link .config/nvim $HOME/.config/nvim
 link .config/fish $HOME/.config/fish
 link .config/wezterm $HOME/.config/wezterm
+link .config/3 $HOME/.config/i3
 link .config/alacritty $HOME/.config/alacritty
 
 gitclone $URL_TPM ~/.tmux/plugins/tpm
