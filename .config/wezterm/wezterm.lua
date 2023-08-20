@@ -61,6 +61,8 @@ return {
       mods = 'CTRL',
       action = wezterm.action.DecreaseFontSize,
     },
-}
+  },
+
+  disable_default_key_bindings = true
 }
 
