@@ -76,7 +76,7 @@ link .vim $HOME/.vim
 link .config/nvim $HOME/.config/nvim
 link .config/fish $HOME/.config/fish
 link .config/wezterm $HOME/.config/wezterm
-link .config/3 $HOME/.config/i3
+link .config/i3 $HOME/.config/i3
 link .config/alacritty $HOME/.config/alacritty
 
 gitclone $URL_TPM ~/.tmux/plugins/tpm
