@@ -1,5 +1,13 @@
 local wezterm = require 'wezterm'
 
+local font_size = 14 -- デフォルトのフォントサイズ
+
+if wezterm.target_triple:find("linux") then
+  font_size = 14 -- Linux用のフォントサイズ
+elseif wezterm.target_triple:find("darwin") then
+  font_size = 16 -- macOS用のフォントサイズ
+end
+
 return {
   use_ime = true,
   macos_forward_to_ime_modifier_mask = "SHIFT|CTRL",
@@ -11,7 +19,7 @@ return {
     'FuraMono Nerd Font Mono',
   },
 
-  font_size = 14,
+  font_size = font_size,
 
   window_padding = {
     left = 0,
