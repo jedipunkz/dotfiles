@@ -71,6 +71,6 @@ return {
     },
   },
 
-  disable_default_key_bindings = true
+  -- disable_default_key_bindings = true
 }
 
