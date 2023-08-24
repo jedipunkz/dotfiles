@@ -23,12 +23,12 @@ end
 # KeyRepeat
 if test (uname -s) = "Linux"
     xset r rate 190 35
+    alias vim="neovim"
 end
 
 alias ls="exa"
 alias lt='exa -T -L 3 -a -I "node_modules|.git|.cache" --icons'
 alias vim="nvim"
-alias vim="neovim"
 alias la="ls -a"
 alias l="ls -alF"
 alias ssh="ssh -o UserKnownHostsFile=/dev/null -o 'StrictHostKeyChecking no'"
