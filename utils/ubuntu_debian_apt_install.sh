@@ -30,4 +30,4 @@ sudo apt-get -y install \
     luajit
 
 # for Desktop
-# sudo apt-get -y xorg i3 install alsa-utils polybar feh nemo fuse fcitx-mozc
+# sudo apt-get -y xorg i3 install alsa-utils polybar feh nemo fuse fcitx-mozc xcompmgr

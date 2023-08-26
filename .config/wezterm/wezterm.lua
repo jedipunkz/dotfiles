@@ -49,6 +49,8 @@ return {
     selection_bg = '#C2185B',
   },
 
+  window_background_opacity = 0.8,
+
   scrollback_lines = 1000000,
   enable_tab_bar = false,
 
