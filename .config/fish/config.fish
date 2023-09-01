@@ -34,8 +34,8 @@ alias l="ls -alF"
 alias ssh="ssh -o UserKnownHostsFile=/dev/null -o 'StrictHostKeyChecking no'"
 alias grep="grep --color"
 
-# fzf
-set -x FZF_DEFAULT_OPTS '--color fg:255,bg:236,hl:84,fg+:255,bg+:236,hl+:215  --color info:141,prompt:84,spinner:212,pointer:212,marker:212'
+# # fzf
+# set -x FZF_DEFAULT_OPTS '--color fg:255,bg:236,hl:84,fg+:255,bg+:236,hl+:215  --color info:141,prompt:84,spinner:212,pointer:212,marker:212'
 
 # perl cpanm
 if test -d "$HOME/perl5/bin"
@@ -86,9 +86,28 @@ end
 set -x GOPATH $HOME/go
 set -x PATH $GOPATH/bin $PATH
 
-# fzf
-set -Ux FZF_DEFAULT_OPTS "--color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4"
-
+# fzf color settings
+# https://github.com/tinted-theming/base16-fzf/blob/main/bash/base16-horizon-dark.config
+set color00 '#1c1e26'
+set color01 '#232530'
+set color02 '#2e303e'
+set color03 '#6f6f70'
+set color04 '#9da0a2'
+set color05 '#cbced0'
+set color06 '#dcdfe4'
+set color07 '#e3e6ee'
+set color08 '#e93c58'
+set color09 '#e58d7d'
+set color0A '#efb993'
+set color0B '#efaf8e'
+set color0C '#24a8b4'
+set color0D '#df5273'
+set color0E '#b072d1'
+set color0F '#e4a382'
+export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS"\
+" --color=bg+:$color01,bg:$color00,spinner:$color0C,hl:$color0D"\
+" --color=fg:$color04,header:$color0D,info:$color0A,pointer:$color0C"\
+" --color=marker:$color0C,fg+:$color06,prompt:$color0A,hl+:$color0D"
 
 # starship.rs
 set -x STARSHIP_CONFIG ~/.starship
