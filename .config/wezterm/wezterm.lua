@@ -4,8 +4,10 @@ local font_size = 14 -- デフォルトのフォントサイズ
 
 if wezterm.target_triple:find("linux") then
   font_size = 14 -- Linux用のフォントサイズ
+  window_background_opacity = 0.8 -- 透明化
 elseif wezterm.target_triple:find("darwin") then
   font_size = 15 -- macOS用のフォントサイズ
+  window_background_opacity = 1.0 -- 透明化せず
 end
 
 return {
@@ -13,7 +15,6 @@ return {
   macos_forward_to_ime_modifier_mask = "SHIFT|CTRL",
 
   font = wezterm.font_with_fallback {
-    -- for mac font
     'Consolas',
     'Monaco',
     'FuraMono Nerd Font Mono',
@@ -49,7 +50,7 @@ return {
     selection_bg = '#C2185B',
   },
 
-  window_background_opacity = 0.8,
+  window_background_opacity = window_background_opacity,
 
   scrollback_lines = 1000000,
   enable_tab_bar = false,
