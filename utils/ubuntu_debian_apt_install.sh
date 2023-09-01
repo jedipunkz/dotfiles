@@ -27,6 +27,7 @@ sudo apt-get -y install \
     bat \
     exa \
     ripgrep \
+    fd-find \
     luajit
 
 # for Desktop
