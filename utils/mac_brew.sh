@@ -21,6 +21,7 @@ brew install \
     broot \
     dog \
     bat \
+    fd \
     ripgrep
 
 brew install --HEAD neovim
