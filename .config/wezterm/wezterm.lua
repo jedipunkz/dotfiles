@@ -3,7 +3,7 @@ local wezterm = require 'wezterm'
 local font_size = 14 -- デフォルトのフォントサイズ
 
 if wezterm.target_triple:find("linux") then
-  font_size = 14 -- Linux用のフォントサイズ
+  font_size = 13 -- Linux用のフォントサイズ
   window_background_opacity = 0.8 -- 透明化
 elseif wezterm.target_triple:find("darwin") then
   font_size = 15 -- macOS用のフォントサイズ

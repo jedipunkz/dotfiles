@@ -30,5 +30,8 @@ sudo apt-get -y install \
     fd-find \
     luajit
 
-# for Desktop
-# sudo apt-get -y xorg i3 install alsa-utils polybar feh nemo fuse fcitx-mozc xcompmgr rofi
+# for Desktop i3
+# sudo apt-get install -y xorg i3 install alsa-utils polybar feh nemo fuse fcitx-mozc xcompmgr rofi
+
+# for Desktop sway
+# sudo apt-get  install -y sway wdisplays fuse language-pack-ja nemo fonts-noto fcitx-mozc
