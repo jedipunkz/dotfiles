@@ -78,6 +78,7 @@ link .config/fish $HOME/.config/fish
 link .config/wezterm $HOME/.config/wezterm
 link .config/i3 $HOME/.config/i3
 link .config/sway $HOME/.config/sway
+link .config/waybar $HOME/.config/waybar
 link .config/polybar $HOME/.config/polybar
 link .config/alacritty $HOME/.config/alacritty
 link .config/gtk-3.0 $HOME/.config/gtk-3.0
