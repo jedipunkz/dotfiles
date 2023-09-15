@@ -15,34 +15,25 @@ set $up k
 set $right l
 
 set $term wezterm
-
-# Your preferred application launcher
-# Note: pass the final command to swaymsg so that the resulting window can be opened
-# on the original workspace that the command was run on.
 set $menu dmenu_path | dmenu | xargs swaymsg exec --
 
 include /etc/sway/config-vars.d/*
+include /etc/sway/config.d/*
+include ~/.config/sway/config.d/*
 
-### Output configuration
-#
-# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg ~/pix/dark.jpg fill
+output * bg ~/pix/wallpaper.jpg fill
 output eDP-1 {
 	resolution 2160x1350 position 2160,0
 	scale 1.3
 }
 
-default_border none
+# appearance
+default_border pixel 2
+gaps inner 8
+gaps outer 8
 
 ### fonts
-font pango:DejaVuSans 12
-
-#
-# Example configuration:
-#
-#   output HDMI-A-1 resolution 1920x1080 position 1920,0
-#
-# You can get the names of your outputs by running: swaymsg -t get_outputs
+font pango:Consolas 12
 
 ### Idle configuration
 #
@@ -72,11 +63,10 @@ font pango:DejaVuSans 12
 # Read `man 5 sway-input` for more information about this section.
 
 ### Key bindings
-#
-# Basics:
-#
-    # Start a terminal
+
     bindsym $mod+Return exec $term
+
+    bindsym $mod+Shift+Return exec google-chrome
 
     # Kill focused window
     bindsym $mod+Shift+q kill
@@ -91,14 +81,10 @@ font pango:DejaVuSans 12
     # mouse button for dragging.
     floating_modifier $mod normal
 
-    # Reload the configuration file
     bindsym $mod+Shift+r reload
 
-    # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
-#
-# Moving around:
-#
+
     # Move your focus around
     bindsym $mod+h focus left
     bindsym $mod+j focus down
@@ -110,9 +96,7 @@ font pango:DejaVuSans 12
     bindsym $mod+Shift+j move down
     bindsym $mod+Shift+k move up
     bindsym $mod+Shift+l move right
-#
-# Workspaces:
-#
+
     # Switch to workspace
     bindsym Control+1 workspace number 1
     bindsym Control+2 workspace number 2
@@ -135,14 +119,7 @@ font pango:DejaVuSans 12
     bindsym $mod+Shift+8 move container to workspace number 8
     bindsym $mod+Shift+9 move container to workspace number 9
     bindsym $mod+Shift+0 move container to workspace number 10
-    # Note: workspaces can have any name you want, not just numbers.
-    # We just use 1-10 as the default.
-#
-# Layout stuff:
-#
-    # You can "split" the current object of your focus with
-    # $mod+b or $mod+v, for horizontal and vertical splits
-    # respectively.
+
     bindsym $mod+b splith
     bindsym $mod+v splitv
 
@@ -151,10 +128,8 @@ font pango:DejaVuSans 12
     bindsym $mod+w layout tabbed
     bindsym $mod+e layout toggle split
 
-    # Make the current focus fullscreen
     bindsym $mod+f fullscreen
 
-    # Toggle the current focus between tiling and floating mode
     bindsym $mod+Shift+space floating toggle
 
     # Swap focus between the tiling area and the floating area
@@ -162,9 +137,7 @@ font pango:DejaVuSans 12
 
     # Move focus to the parent container
     bindsym $mod+a focus parent
-#
-# Scratchpad:
-#
+
     # Sway has a "scratchpad", which is a bag of holding for windows.
     # You can send windows there and get them back later.
 
@@ -174,24 +147,16 @@ font pango:DejaVuSans 12
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
-#
-# Resizing containers:
-#
+
 mode "resize" {
     # left will shrink the containers width
     # right will grow the containers width
     # up will shrink the containers height
     # down will grow the containers height
-    bindsym $left resize shrink width 10px
-    bindsym $down resize grow height 10px
-    bindsym $up resize shrink height 10px
-    bindsym $right resize grow width 10px
-
-    # Ditto, with arrow keys
-    bindsym Left resize shrink width 10px
-    bindsym Down resize grow height 10px
-    bindsym Up resize shrink height 10px
-    bindsym Right resize grow width 10px
+    bindsym l resize shrink width 10px
+    bindsym j resize grow height 10px
+    bindsym k resize shrink height 10px
+    bindsym h resize grow width 10px
 
     # Return to default mode
     bindsym Return mode "default"
@@ -199,39 +164,23 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-#
-# Status Bar:
-#
-# Read `man 5 sway-bar` for more information about this section.
 bar {
-    position top
-
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
-
-    colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
-    }
+  swaybar_command waybar
 }
 
-# set color theme
-set $bg             #a48abfcc
-set $bg-inactive    #120e1200
-set $bg-urgent      #d9236588
-set $text-light     #f2d8e988
-set $text-dark      #0b0b0b88
-set $text-inactive  #59485088
+# Gruvbox
+set $col_focused #f28534
+set $col_focused_inactive #e9b143
+set $col_unfocused #3c3836
+set $col_text_dark #32302f
+set $col_text_light #e2cca9
+set $col_urgent #f2594b
+set $col_unfocused_border #252423
 
-client.focused          $bg           $bg           $text-dark  $bg           $bg
-client.focused_inactive $bg-inactive  $bg-inactive  $text-light $bg-inactive  $bg-inactive
-client.unfocused        $bg-inactive  $bg-inactive  $text-light $bg-inactive  $bg-inactive
-client.urgent           $bg-urgent    $bg-urgent    $text-light $bg-urgent    $bg-urgent
-client.placeholder      $bg-inactive  $bg-inactive  $text-light $bg-inactive  $bg-inactive
+client.focused           $col_focused           $col_focused           $col_text_dark   $col_focused           $col_focused
+client.focused_inactive  $col_focused_inactive  $col_focused_inactive  $col_text_dark   $col_focused_inactive  $col_focused_inactive
+client.unfocused         $col_unfocused_border  $col_unfocused         $col_text_light  $col_unfocused         $col_unfocused
+client.urgent            $col_text_dark         $col_urgent            $col_text_dark   $col_urgent            $col_urgent
 
 exec --no-startup-id "fcitx -rd"
 
-include /etc/sway/config.d/*
-include ~/.config/sway/config.d/*
