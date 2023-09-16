@@ -31,6 +31,11 @@ input "2:10:TPPS/2_Elan_TrackPoint" {
     pointer_accel -0.4
 }
 
+input type:keyboard {
+    repeat_delay 280
+    repeat_rate 50
+}
+
 # appearance
 default_border pixel 2
 gaps inner 8
