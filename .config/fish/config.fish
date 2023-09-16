@@ -22,8 +22,12 @@ end
 
 # KeyRepeat
 if test (uname -s) = "Linux"
-    xset r rate 190 35
+    # xset r rate 190 35
     alias vim="neovim"
+    set -gx GTK_IM_MODULE fcitx
+    set -gx QT_IM_MODULE fcitx
+    set -gx XMODIFIERS "@im=fcitx"
+
 end
 
 alias ls="exa"
