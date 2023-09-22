@@ -34,4 +34,5 @@ sudo apt-get -y install \
 # sudo apt-get install -y xorg i3 install alsa-utils polybar feh nemo fuse fcitx-mozc xcompmgr rofi
 
 # for Desktop sway
-# sudo apt-get  install -y sway wdisplays fuse language-pack-ja nemo fonts-noto fcitx-mozc xdotool grim
+# sudo apt-get  install -y sway wdisplays fuse language-pack-ja nemo fonts-noto xdotool grim waybar fcitx5-frontend-gtk4 fcitx5-mozc
+
