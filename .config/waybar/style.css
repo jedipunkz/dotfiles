@@ -1,4 +1,4 @@
-@import "./base16-waybar/colors/base16-default-dark.css";
+@import "./gruvbox-dark.css";
 
 * {
   transition: none;

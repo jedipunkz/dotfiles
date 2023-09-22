@@ -17,12 +17,14 @@ set $right l
 set $term wezterm
 #set $menu dmenu_path | dmenu | xargs swaymsg exec --
 set $menu wofi -G --show drun | xargs swaymsg exec --
+# #set $term foot
 
 include /etc/sway/config-vars.d/*
 include /etc/sway/config.d/*
 include ~/.config/sway/config.d/*
 
 output * bg ~/.config/sway/pix/wallpaper.png fill
+
 output eDP-1 {
 	resolution 2160x1350 position 2160,0
 	scale 1.3
@@ -76,7 +78,9 @@ font pango:Consolas 12
 
     bindsym $mod+Return exec $term
 
-    bindsym $mod+Shift+Return exec google-chrome
+    #bindsym $mod+Shift+Return exec google-chrome
+    #bindsym $mod+Shift+Return exec google-chrome -enable-features=UseOzonePlatform --ozone-platform=wayland --gtk-version=4
+    bindsym $mod+Shift+Return exec firefox
 
     # Kill focused window
     bindsym $mod+Shift+q kill
@@ -195,5 +199,5 @@ client.focused_inactive  $col_focused_inactive  $col_focused_inactive  $col_text
 client.unfocused         $col_unfocused_border  $col_unfocused         $col_text_light  $col_unfocused         $col_unfocused
 client.urgent            $col_text_dark         $col_urgent            $col_text_dark   $col_urgent            $col_urgent
 
-exec --no-startup-id "fcitx -rd"
+exec --no-startup-id "fcitx5 -rd"
 
