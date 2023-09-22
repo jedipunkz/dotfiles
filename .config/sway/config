@@ -15,14 +15,16 @@ set $up k
 set $right l
 
 set $term wezterm
-#set $term foot
-set $menu dmenu_path | dmenu | xargs swaymsg exec --
+#set $menu dmenu_path | dmenu | xargs swaymsg exec --
+set $menu wofi -G --show drun | xargs swaymsg exec --
+# #set $term foot
 
 include /etc/sway/config-vars.d/*
 include /etc/sway/config.d/*
 include ~/.config/sway/config.d/*
 
-output * bg ~/.config/sway/wallpaper.jpg fill
+output * bg ~/.config/sway/pix/wallpaper.png fill
+
 output eDP-1 {
 	resolution 2160x1350 position 2160,0
 	scale 1.3
