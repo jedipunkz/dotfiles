@@ -17,7 +17,7 @@ set $right l
 set $term wezterm
 #set $menu dmenu_path | dmenu | xargs swaymsg exec --
 set $menu wofi -G --show drun | xargs swaymsg exec --
-# #set $term foot
+#set $term foot
 
 include /etc/sway/config-vars.d/*
 include /etc/sway/config.d/*
@@ -79,8 +79,8 @@ font pango:Consolas 12
     bindsym $mod+Return exec $term
 
     #bindsym $mod+Shift+Return exec google-chrome
-    #bindsym $mod+Shift+Return exec google-chrome -enable-features=UseOzonePlatform --ozone-platform=wayland --gtk-version=4
-    bindsym $mod+Shift+Return exec firefox
+    bindsym $mod+Shift+Return exec google-chrome -enable-features=UseOzonePlatform --ozone-platform=wayland --gtk-version=4
+    #bindsym $mod+Shift+Return exec firefox
 
     # Kill focused window
     bindsym $mod+Shift+q kill
@@ -200,4 +200,7 @@ client.unfocused         $col_unfocused_border  $col_unfocused         $col_text
 client.urgent            $col_text_dark         $col_urgent            $col_text_dark   $col_urgent            $col_urgent
 
 exec --no-startup-id "fcitx5 -rd"
+#TODO
+# cargo install xremap --features wlroots
+#exec_always /home/thirai/.config/xremap/start.sh
 

@@ -82,6 +82,7 @@ link .config/waybar $HOME/.config/waybar
 link .config/polybar $HOME/.config/polybar
 link .config/alacritty $HOME/.config/alacritty
 link .config/gtk-3.0 $HOME/.config/gtk-3.0
+link .config/xremap $HOME/.config/xremap
 
 gitclone $URL_TPM ~/.tmux/plugins/tpm
 gitclone $URL_RBENV $HOME/.rbenv
@@ -91,4 +92,6 @@ gitclone $URL_ZSHCOMP $HOME/.zsh-completions
 gitclone $URL_NODENV $HOME/.nodenv
 gitclone $URL_NODE_BUILD $HOME/.nodenv/plugins/node-build
 # gitclone $URL_PACKER $HOME/.local/share/nvim/site/pack/packer/start/packer.nvim
+
+curl https://sh.rustup.rs -sSf | sh
 
