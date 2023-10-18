@@ -112,8 +112,6 @@ disabled = false
 format = '[$symbol$context( \($namespace\))]($style) in '
 [kubernetes.context_aliases]
 "dev.local.cluster.k8s" = "dev"
-"arn:aws:eks:ap-northeast-1:395127550274:cluster/infrabot-sandbox-main2-ekscluster" = "sandbox"
-"arn:aws:eks:ap-northeast-1:395127550274:cluster/pipecd-sandbox-main2-ekscluster" = "sandbox-pipecd"
 
 [nodejs]
 symbol = "🤖 "
