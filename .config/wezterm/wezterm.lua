@@ -57,11 +57,11 @@ return {
 
   mouse_bindings = {
     -- 右クリックでペースト
-    -- {
-    --   event = { Up = { streak = 1, button = 'Right' } },
-    --   mods = 'NONE',
-    --   action = wezterm.action.PasteFrom("PrimarySelection"),
-    -- },
+    {
+      event = { Up = { streak = 1, button = 'Right' } },
+      mods = 'NONE',
+      action = wezterm.action.PasteFrom("PrimarySelection"),
+    },
     {
       event = { Down = { streak = 1, button = { WheelUp = 1 } } },
       mods = 'CTRL',
