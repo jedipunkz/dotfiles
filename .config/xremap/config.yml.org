@@ -1,8 +1,7 @@
-# Credit: https://github.com/mooz/xkeysnail/blob/bf3c93b4fe6efd42893db4e6588e5ef1c4909cfb/example/config.py#L62-L125
 keymap:
   - name: Emacs
-    application:
-      not: [Emacs]
+    #application:
+    #  not: "org.wezfurlong.wezterm"
     remap:
       # Cursor
       C-b: { with_mark: left }
@@ -16,36 +15,33 @@ keymap:
       C-a: { with_mark: home }
       C-e: { with_mark: end }
       # Page up/down
-      M-v: { with_mark: pageup }
-      C-v: { with_mark: pagedown }
+      #M-v: { with_mark: pageup }
+      #C-v: { with_mark: pagedown }
       # Beginning/End of file
       M-Shift-comma: { with_mark: C-home }
       M-Shift-dot: { with_mark: C-end }
       # Newline
-      C-m: enter
-      C-j: enter
-      C-o: [enter, left]
+      #C-m: enter
+      #C-j: enter
+      # C-o: [enter, left]
       # Copy
-      C-w: [C-x, { set_mark: false }]
-      M-w: [C-c, { set_mark: false }]
-      C-y: [C-v, { set_mark: false }]
+      #C-w: [C-x, { set_mark: false }]
+      #M-w: [C-c, { set_mark: false }]
+      #C-y: [C-v, { set_mark: false }]
       # Delete
       C-d: [delete, { set_mark: false }]
       M-d: [C-delete, { set_mark: false }]
+      C-h: [backspace, { set_mark: false }]
       # Kill line
-      C-k: [Shift-end, C-x, { set_mark: false }]
-      # Kill word backward
-      Alt-backspace: [C-backspace, {set_mark: false}]
-      # set mark next word continuously.
-      C-M-space: [C-Shift-right, {set_mark: true}]
+      #C-k: [Shift-end, C-x, { set_mark: false }]
       # Undo
       C-slash: [C-z, { set_mark: false }]
       C-Shift-ro: C-z
       # Mark
-      C-space: { set_mark: true }
+      #C-space: { set_mark: true }
       # Search
-      C-s: C-f
-      C-r: Shift-F3
+      Win-f: F3
+      # C-r: Shift-F3
       M-Shift-5: C-h
       # Cancel
       C-g: [esc, { set_mark: false }]

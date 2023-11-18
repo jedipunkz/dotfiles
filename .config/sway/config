@@ -15,6 +15,7 @@ set $up k
 set $right l
 
 set $term wezterm
+#set $term rxvt
 #set $menu dmenu_path | dmenu | xargs swaymsg exec --
 set $menu wofi -G --show drun | xargs swaymsg exec --
 #set $term foot
@@ -80,6 +81,7 @@ font pango:Consolas 12
 
     #bindsym $mod+Shift+Return exec google-chrome
     bindsym $mod+Shift+Return exec google-chrome -enable-features=UseOzonePlatform --ozone-platform=wayland --gtk-version=4
+    #bindsym $mod+Shift+Return exec chromium -enable-features=UseOzonePlatform --ozone-platform=wayland --gtk-version=4
     #bindsym $mod+Shift+Return exec firefox
 
     # Kill focused window
@@ -202,5 +204,5 @@ client.urgent            $col_text_dark         $col_urgent            $col_text
 exec --no-startup-id "fcitx5 -rd"
 #TODO
 # cargo install xremap --features wlroots
-#exec_always /home/thirai/.config/xremap/start.sh
+exec_always /home/thirai/.config/xremap/start.sh
 
