@@ -1,8 +1,7 @@
-# Credit: https://github.com/mooz/xkeysnail/blob/bf3c93b4fe6efd42893db4e6588e5ef1c4909cfb/example/config.py#L62-L125
 keymap:
   - name: Emacs
     application:
-      not: [Emacs]
+      not: "org.wezfurlong.wezterm"
     remap:
       # Cursor
       C-b: { with_mark: left }
@@ -24,7 +23,6 @@ keymap:
       # Newline
       C-m: enter
       C-j: enter
-      C-o: [enter, left]
       # Copy
       C-w: [C-x, { set_mark: false }]
       M-w: [C-c, { set_mark: false }]
@@ -32,6 +30,7 @@ keymap:
       # Delete
       C-d: [delete, { set_mark: false }]
       M-d: [C-delete, { set_mark: false }]
+      C-h: { with_mark: backspace }
       # Kill line
       C-k: [Shift-end, C-x, { set_mark: false }]
       # Kill word backward
@@ -64,3 +63,8 @@ keymap:
           C-c: C-q
           # C-x u (undo)
           u: [C-z, { set_mark: false }]
+
+modmap:
+  - name: CapsLock to Control_L
+    remap:
+      KEY_CAPSLOCK: KEY_LEFTCTRL
