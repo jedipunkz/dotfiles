@@ -9,7 +9,7 @@
 
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["sway/window"],
-    "modules-right": ["tray", "backlight", "cpu","memory", "temperature", "pulseaudio", "network", "battery", "clock"],
+    "modules-right": ["tray", "backlight", "cpu","memory", "temperature", "network", "battery", "clock"],
     "sway/mode": {
         "format": "{}"
     },
@@ -72,7 +72,7 @@
         "format-alt-click": "click-right",
 	"format-icons": {
     		"wifi": ["📶", "🔊", "📡"],
-		"ethernet": ["🌐"], 
+		"ethernet": ["🌐"],
 		"disconnected": ["❌"]
 	},
         "on-click": "alacritty -e nmtui",
