@@ -14,7 +14,8 @@ set $down j
 set $up k
 set $right l
 
-set $term wezterm
+#set $term wezterm
+set $term flatpak run org.wezfurlong.wezterm start -- fish
 #set $term rxvt
 #set $menu dmenu_path | dmenu | xargs swaymsg exec --
 set $menu wofi -G --show drun | xargs swaymsg exec --

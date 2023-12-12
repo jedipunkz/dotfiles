@@ -14,7 +14,7 @@ case "$1" in
     sudo apt-get install -y xorg i3 alsa-utils polybar feh nemo fuse fcitx-mozc xcompmgr rofi mozc-utils-gui fcitx-config-gtk
     ;;
   --with-sway)
-    sudo apt-get install -y sway wdisplays fuse language-pack-ja nemo fonts-noto xdotool grim waybar fcitx5-frontend-gtk4 fcitx5-mozc wofi wl-clipboard mozc-utils-gui fcitx-config-gtk
+    sudo apt-get install -y sway wdisplays fuse nemo fonts-noto xdotool grim waybar fcitx5-frontend-gtk4 fcitx5-mozc wofi wl-clipboard mozc-utils-gui fcitx-config-gtk
     ;;
   *)
     # 何もしない
