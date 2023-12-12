@@ -1,4 +1,5 @@
-@import "./gruvbox-dark.css";
+/* @import "./gruvbox-dark.css"; */
+@import "./dracula.css";
 
 * {
   transition: none;
