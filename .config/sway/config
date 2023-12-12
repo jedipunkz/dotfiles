@@ -188,14 +188,15 @@ bar {
   swaybar_command waybar
 }
 
-# Gruvbox
-set $col_focused #f28534
-set $col_focused_inactive #e9b143
-set $col_unfocused #3c3836
-set $col_text_dark #32302f
-set $col_text_light #e2cca9
-set $col_urgent #f2594b
-set $col_unfocused_border #252423
+# Dracula
+set $col_focused #bd93f9
+set $col_focused_inactive #6272a4
+set $col_unfocused #282a36
+set $col_text_dark #f8f8f2
+set $col_text_light #f8f8f2
+set $col_urgent #ff5555
+set $col_unfocused_border #282a36
+
 
 client.focused           $col_focused           $col_focused           $col_text_dark   $col_focused           $col_focused
 client.focused_inactive  $col_focused_inactive  $col_focused_inactive  $col_text_dark   $col_focused_inactive  $col_focused_inactive
