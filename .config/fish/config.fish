@@ -16,14 +16,15 @@ if test (uname -s) = "Darwin"
     alias cat="bat"
     alias code="/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code"
     set -x EDITOR nvim
+    alias vim="nvim"
 else
     alias cat="batcat"
+    alias vim="flatpak run io.neovim.nvim"
 end
 
 # KeyRepeat
 if test (uname -s) = "Linux"
     # xset r rate 190 35
-    alias vim="neovim"
     set -gx GTK_IM_MODULE fcitx
     set -gx QT_IM_MODULE fcitx
     set -gx XMODIFIERS "@im=fcitx"
@@ -32,7 +33,8 @@ end
 
 alias ls="exa"
 alias lt='exa -T -L 3 -a -I "node_modules|.git|.cache" --icons'
-alias vim="nvim"
+#alias vim="nvim"
+#alias vim="flatpak run io.neovim.nvim"
 alias la="ls -a"
 alias l="ls -alF"
 alias ssh="ssh -o UserKnownHostsFile=/dev/null -o 'StrictHostKeyChecking no'"
