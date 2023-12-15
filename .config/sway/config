@@ -25,9 +25,9 @@ include /etc/sway/config-vars.d/*
 include /etc/sway/config.d/*
 include ~/.config/sway/config.d/*
 
-#output * bg ~/.config/sway/pix/wallpaper.png fill
-#output * bg ~/.config/sway/pix/dracula.png fill
-output * bg ~/.config/sway/pix/nord.jpg fill
+output * bg ~/.config/sway/pix/wallpaper.png fill
+# output * bg ~/.config/sway/pix/dracula.png fill
+# output * bg ~/.config/sway/pix/nord.jpg fill
 
 output DP-3 {
   resolution 3840x2160
