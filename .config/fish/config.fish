@@ -19,7 +19,8 @@ if test (uname -s) = "Darwin"
     alias vim="nvim"
 else
     alias cat="batcat"
-    alias vim="flatpak run io.neovim.nvim"
+    #alias vim="flatpak run io.neovim.nvim"
+    alias vim="nvim"
 end
 
 # KeyRepeat
