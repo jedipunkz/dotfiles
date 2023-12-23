@@ -83,6 +83,8 @@ link .config/polybar $HOME/.config/polybar
 link .config/alacritty $HOME/.config/alacritty
 link .config/gtk-3.0 $HOME/.config/gtk-3.0
 link .config/xremap $HOME/.config/xremap
+link .config/yabai $HOME/.config/yabai
+link .config/skhd $HOME/.config/skhd
 
 gitclone $URL_TPM ~/.tmux/plugins/tpm
 gitclone $URL_RBENV $HOME/.rbenv
