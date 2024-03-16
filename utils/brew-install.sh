@@ -15,7 +15,7 @@ brew install \
     tfenv \
     tree \
     jq \
-    exa \
+    eza \
     dust \
     duf \
     broot \
