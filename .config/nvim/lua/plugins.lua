@@ -81,7 +81,8 @@ return require('packer').startup(function(use)
 
 	-- LSP
 	use({ "neovim/nvim-lspconfig" }) -- enable LSP
-	use({ "williamboman/nvim-lsp-installer" }) -- simple to use language server installer
+	-- use({ "williamboman/nvim-lsp-installer" }) -- deprecated
+  use({ "williamboman/mason.nvim" })
 	use({ "jose-elias-alvarez/null-ls.nvim" }) -- for formatters and linters
 	use({ "glepnir/lspsaga.nvim" }) -- LSP UIs
   use 'juliosueiras/terraform-lsp'
@@ -110,6 +111,9 @@ return require('packer').startup(function(use)
       {'nvim-telescope/telescope-fzy-native.nvim'},
     },
   }
+
+  -- mason.nvim
+  require("mason").setup()
 
   -- startup
   use {
