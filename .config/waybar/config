@@ -1,0 +1,101 @@
+{
+    "layer": "bottom",
+    "position": "top",
+    "height": 34,
+
+    "style": {
+      "font": "Consolas 12"
+    },
+
+    "modules-left": ["sway/workspaces", "sway/mode"],
+    "modules-center": ["sway/window"],
+    "modules-right": ["tray", "backlight", "cpu","memory", "temperature", "network", "battery", "clock"],
+    "sway/mode": {
+        "format": "{}"
+    },
+    "sway/workspaces": {
+        "format": "{icon}",
+        "format-icons": {
+            "1": "1",
+            "2": "2",
+            "3": "3",
+            "4": "4",
+            "5": "5",
+            "6": "6",
+            "10": "10",
+            "urgent": "",
+            "focused": "",
+            "default": ""
+        }
+    },
+    "sway/window": {
+        "max-length": 80,
+        "tooltip": false
+    },
+    "clock": {
+        "format": "{:%a · %Y-%m-%d · %H:%M}",
+        "tooltip": false
+    },
+    "cpu": {
+        "interval": 10,
+        "format": "{}%",
+        "max-length": 10
+    },
+    "memory": {
+        "interval": 30,
+        "format": "{used:0.2f} / {total:0.0f} GB",
+        "max-length": 10,
+        "tooltip": false
+    },
+    "battery": {
+        "bat": "BAT0",
+        "format": "{capacity}% {icon}",
+        "format-alt": "{time} {icon}",
+	"format-icons": ["🔋", "🔋", "🔋", "🔋", "🔋"],
+        "format-charging": "{capacity}% ",
+        "interval": 30,
+        "states": {
+            "warning": 25,
+            "critical": 10
+        },
+        "tooltip": false
+    },
+    "temperature": {
+        "critical-threshold": 80,
+	"format-critical": "{temperatureC}° 🔥",
+	"format": "{temperatureC}° 🌡️"
+
+    },
+    "network": {
+        "format": "{icon}",
+        "format-alt": "{icon}",
+        "format-alt-click": "click-right",
+	"format-icons": {
+    		"wifi": ["📶", "🔊", "📡"],
+		"ethernet": ["🌐"],
+		"disconnected": ["❌"]
+	},
+        "on-click": "alacritty -e nmtui",
+        "tooltip": false
+    },
+    "pulseaudio": {
+        "format": "{volume}% {icon}",
+        "format-bluetooth": "{volume}% {icon}",
+        "format-muted": "",
+	"format-icons": {
+    		"headphone": "🎧",
+    		"hands-free": "📞",
+    		"headset": "🎧",
+    		"phone": "📱",
+    		"portable": "📟",
+    		"default": "🔊"
+	},
+        "scroll-step": 1,
+        "on-click": "pavucontrol",
+        "tooltip": false
+    },
+    "tray": {
+        "icon-size": 18
+    }
+}
+

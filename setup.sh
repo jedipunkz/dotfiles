@@ -63,6 +63,8 @@ if [ "`uname`" == "Linux" ]; then
     link .config/regolith $HOME/.config/regolith
 fi
 
+link .xbindkeysrc $HOME/.xbindkeysrc
+link .xinitrc $HOME/.xinitrc
 link .emacs.d $HOME/.emacs.d
 link .zshrc $HOME/.zshrc
 link .dir_colors $HOME/.dir_colors
@@ -74,7 +76,16 @@ link .vim $HOME/.vim
 link .config/nvim $HOME/.config/nvim
 link .config/fish $HOME/.config/fish
 link .config/wezterm $HOME/.config/wezterm
+link .config/i3 $HOME/.config/i3
+link .config/sway $HOME/.config/sway
+link .config/waybar $HOME/.config/waybar
+link .config/polybar $HOME/.config/polybar
 link .config/alacritty $HOME/.config/alacritty
+link .config/gtk-3.0 $HOME/.config/gtk-3.0
+link .config/xremap $HOME/.config/xremap
+link .config/yabai $HOME/.config/yabai
+link .config/skhd $HOME/.config/skhd
+link .config/zellij $HOME/.config/zellij
 
 gitclone $URL_TPM ~/.tmux/plugins/tpm
 gitclone $URL_RBENV $HOME/.rbenv
@@ -84,4 +95,6 @@ gitclone $URL_ZSHCOMP $HOME/.zsh-completions
 gitclone $URL_NODENV $HOME/.nodenv
 gitclone $URL_NODE_BUILD $HOME/.nodenv/plugins/node-build
 # gitclone $URL_PACKER $HOME/.local/share/nvim/site/pack/packer/start/packer.nvim
+
+curl https://sh.rustup.rs -sSf | sh
 

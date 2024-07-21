@@ -81,7 +81,8 @@ return require('packer').startup(function(use)
 
 	-- LSP
 	use({ "neovim/nvim-lspconfig" }) -- enable LSP
-	use({ "williamboman/nvim-lsp-installer" }) -- simple to use language server installer
+	-- use({ "williamboman/nvim-lsp-installer" }) -- deprecated
+  use({ "williamboman/mason.nvim" })
 	use({ "jose-elias-alvarez/null-ls.nvim" }) -- for formatters and linters
 	use({ "glepnir/lspsaga.nvim" }) -- LSP UIs
   use 'juliosueiras/terraform-lsp'
@@ -104,12 +105,15 @@ return require('packer').startup(function(use)
 
   -- telescope
   use {
-    'nvim-telescope/telescope.nvim', tag = '0.1.0',
+    'nvim-telescope/telescope.nvim',
     requires = {
-      {'nvim-lua/plenary.nvim'}, 
-      {'nvim-telescope/telescope-fzy-native.nvim'}, 
-    }, 
+      {'nvim-lua/plenary.nvim'},
+      {'nvim-telescope/telescope-fzy-native.nvim'},
+    },
   }
+
+  -- mason.nvim
+  require("mason").setup()
 
   -- startup
   use {
@@ -119,5 +123,5 @@ return require('packer').startup(function(use)
     --   require"startup".setup({theme = "dashboard"})
     -- end
   }
-end) 
+end)
 
