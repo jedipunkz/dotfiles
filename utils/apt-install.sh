@@ -7,7 +7,7 @@ sudo apt-get -y install gcc make libssl-dev libbz2-dev libreadline-dev libsqlite
 # rbenv
 sudo apt-get -y install build-essential zlib1g-dev libssl-dev libreadline-dev ruby-dev libxml2-dev libxslt-dev g++
 # basics
-sudo apt-get -y install zsh fish git tig tree tmux htop xclip peco bison fzf bat exa ripgrep fd-find luajit
+sudo apt-get -y install zsh fish git tig tree tmux htop xclip peco bison fzf bat eza ripgrep fd-find luajit
 
 case "$1" in
   --with-i3)
