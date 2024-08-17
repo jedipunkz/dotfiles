@@ -55,9 +55,11 @@ tiling_drag modifier titlebar
 
 # start a terminal
 bindsym $mod+Return exec wezterm
+#bindsym $mod+Return exec i3-sensitive-terminal
 
 # start browser
 bindsym $mod+Shift+Return exec google-chrome
+#bindsym $mod+Shift+Return exec chromium-browser
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -189,6 +191,6 @@ bar {
 
 exec --no-startup-id fcitx-autostart
 exec --no-startup-id feh --bg-fill ~/pix/dark.jpg
-exec xcompmgr -c -f -n
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh --shapes
+#exec xcompmgr -c -f -n
+#exec_always --no-startup-id $HOME/.config/polybar/launch.sh --shapes
 
