@@ -55,9 +55,11 @@ tiling_drag modifier titlebar
 
 # start a terminal
 bindsym $mod+Return exec wezterm
+#bindsym $mod+Return exec i3-sensitive-terminal
 
 # start browser
 bindsym $mod+Shift+Return exec google-chrome
+#bindsym $mod+Shift+Return exec chromium-browser
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -179,7 +181,8 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Google Chrome Back: Ctrl-d
-bindsym Control+d exec --no-startup-id ~/.config/i3/chrome-back.sh
+bindsym Control+q exec --no-startup-id ~/.config/i3/chrome.sh back
+bindsym Control+z exec --no-startup-id ~/.config/i3/chrome.sh forward
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -190,5 +193,5 @@ bar {
 exec --no-startup-id fcitx-autostart
 exec --no-startup-id feh --bg-fill ~/pix/dark.jpg
 exec xcompmgr -c -f -n
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh --shapes
-
+#exec_always --no-startup-id $HOME/.config/polybar/launch.sh --shapes
+exec --no-startup-id xset r rate 190 35
