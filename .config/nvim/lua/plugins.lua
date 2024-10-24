@@ -83,8 +83,8 @@ return require('packer').startup(function(use)
 	use({ "neovim/nvim-lspconfig" }) -- enable LSP
 	-- use({ "williamboman/nvim-lsp-installer" }) -- deprecated
   use({ "williamboman/mason.nvim" })
-	use({ "jose-elias-alvarez/null-ls.nvim" }) -- for formatters and linters
-	use({ "glepnir/lspsaga.nvim" }) -- LSP UIs
+  use({ "jose-elias-alvarez/null-ls.nvim" }) -- for formatters and linters
+  use({ "glepnir/lspsaga.nvim" }) -- LSP UIs
   use 'juliosueiras/terraform-lsp'
   use 'prabirshrestha/asyncomplete.vim'
   use 'prabirshrestha/asyncomplete-lsp.vim'
