@@ -191,7 +191,7 @@ bar {
 }
 
 exec --no-startup-id fcitx-autostart
-exec --no-startup-id feh --bg-fill ~/pix/dark.jpg
+exec --no-startup-id feh --bg-fill ~/pix/gruvbox.png
 exec xcompmgr -c -f -n
 #exec_always --no-startup-id $HOME/.config/polybar/launch.sh --shapes
 exec --no-startup-id xset r rate 190 35
