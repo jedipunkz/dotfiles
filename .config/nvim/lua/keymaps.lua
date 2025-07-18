@@ -78,3 +78,7 @@ keymap("v", "v", "$h", opts)
 
 -- 0番レジスタを使いやすくした
 keymap("v", "<C-p>", '"0p', opts)
+
+-- neo-tree
+vim.keymap.set("n", "<C-e>", "<cmd>Neotree toggle<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>o", "<cmd>Neotree focus<CR>", { noremap = true, silent = true })
