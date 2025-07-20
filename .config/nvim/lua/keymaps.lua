@@ -65,6 +65,9 @@ keymap("n", "<Esc><Esc>", ":<C-u>set nohlsearch<Return>", opts)
 -- Press jk fast to exit insert mode
 keymap("i", "jk", "<ESC>", opts)
 
+-- Ctrl-kでカーソル位置から行末まで削除
+keymap("i", "<C-k>", "<C-o>d$", opts)
+
 -- コンマの後に自動的にスペースを挿入
 -- keymap("i", ",", ",<Space>", opts)
 
