@@ -53,6 +53,25 @@ return require('packer').startup(function(use)
     requires = { 'kyazdani42/nvim-web-devicons', opt = true }
   }
 
+  -- File explorer (neo-tree)
+use({
+  "nvim-neo-tree/neo-tree.nvim",
+  branch = "v3.x",
+  requires = {
+    "nvim-lua/plenary.nvim",
+    "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+    "MunifTanjim/nui.nvim",
+    -- Optional image support in preview window: See `# Preview Mode` for more information
+    -- { "3rd/image.nvim", config = function() require('image').setup({}) end },
+    -- OR use snacks.nvim's image module:
+    -- "folke/snacks.nvim",
+  }
+})
+
+  -- Icons
+  use 'ryanoasis/vim-devicons'
+  use 'nvim-tree/nvim-web-devicons'
+
   -- Others
   use 'vim-scripts/tComment'
   use 'nathanaelkane/vim-indent-guides'
@@ -81,7 +100,8 @@ return require('packer').startup(function(use)
 
 	-- LSP
 	use({ "neovim/nvim-lspconfig" }) -- enable LSP
-	use({ "williamboman/nvim-lsp-installer" }) -- simple to use language server installer
+	-- use({ "williamboman/nvim-lsp-installer" }) -- deprecated
+  use({ "williamboman/mason.nvim" })
 	use({ "jose-elias-alvarez/null-ls.nvim" }) -- for formatters and linters
 	use({ "glepnir/lspsaga.nvim" }) -- LSP UIs
   use 'juliosueiras/terraform-lsp'
@@ -110,6 +130,9 @@ return require('packer').startup(function(use)
       {'nvim-telescope/telescope-fzy-native.nvim'},
     },
   }
+
+  -- mason.nvim
+  require("mason").setup()
 
   -- startup
   use {

@@ -63,7 +63,7 @@ unset CASE_SENSITIVE HYPHEN_INSENSITIVE
 export TERM=xterm-256color
 
 if [ "$(uname)" = "Darwin" ]; then
-    alias ls="exa"
+    alias ls="eza"
 else
     alias ls="ls --color"
 fi

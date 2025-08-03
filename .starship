@@ -75,6 +75,11 @@ us-east-1 = "va"
 us-east-2 = "oh"
 us-west-1 = "ca"
 us-west-2 = "or"
+[aws.profile_aliases]
+'sandbox' = 'sandbox'
+'dev-service.hirai.user' = 'dev'
+'prod-service.hirai.user' = 'prod'
+'prod.jamroll-ai-infra.user' = 'prod-ai'
 
 [docker_context]
 symbol = "🐋 "

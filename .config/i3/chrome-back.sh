@@ -4,6 +4,7 @@ active_window=$(xdotool getactivewindow)
 window_class=$(xprop -id $active_window | grep "WM_CLASS(STRING)")
 
 if [[ $window_class == *'"Google-chrome"'* ]]; then
+  xdotoll windowactivate $active_window
   xdotool key --window $active_window Alt+Left
 fi
 

@@ -65,6 +65,9 @@ keymap("n", "<Esc><Esc>", ":<C-u>set nohlsearch<Return>", opts)
 -- Press jk fast to exit insert mode
 keymap("i", "jk", "<ESC>", opts)
 
+-- Ctrl-kでカーソル位置から行末まで削除
+keymap("i", "<C-k>", "<C-o>d$", opts)
+
 -- コンマの後に自動的にスペースを挿入
 -- keymap("i", ",", ",<Space>", opts)
 
@@ -78,3 +81,25 @@ keymap("v", "v", "$h", opts)
 
 -- 0番レジスタを使いやすくした
 keymap("v", "<C-p>", '"0p', opts)
+
+-- neo-tree
+vim.keymap.set("n", "<C-e>", "<cmd>Neotree toggle<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>o", "<cmd>Neotree focus<CR>", { noremap = true, silent = true })
+
+-- LSP keymaps
+-- 関数定義にジャンプ
+keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+-- 関数の実装にジャンプ
+keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+-- 関数の参照を表示
+keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+-- 関数のドキュメントを表示
+keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+
+-- ジャンプ履歴ナビゲーション
+-- 前の位置に戻る
+keymap("n", "<C-y>", "<C-o>", opts)
+-- 次の位置に進む
+keymap("n", "<C-i>", "<C-i>", opts)
+-- ジャンプ履歴を表示
+keymap("n", "<leader>j", ":jumps<CR>", opts)
