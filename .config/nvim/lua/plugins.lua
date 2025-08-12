@@ -68,6 +68,10 @@ use({
   }
 })
 
+  -- Icons
+  use 'ryanoasis/vim-devicons'
+  use 'nvim-tree/nvim-web-devicons'
+
   -- Others
   use 'vim-scripts/tComment'
   use 'nathanaelkane/vim-indent-guides'
