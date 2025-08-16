@@ -128,3 +128,8 @@ set -Ux FZF_DEFAULT_OPTS "$FZF_NON_COLOR_OPTS"\
 set -x STARSHIP_CONFIG ~/.starship
 set -x AWS_PROFILE default
 starship init fish | source
+
+# Added by LM Studio CLI (lms)
+set -gx PATH $PATH /Users/thirai/.lmstudio/bin
+# End of LM Studio CLI section
+
