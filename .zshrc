@@ -157,3 +157,8 @@ if [ -x /usr/local/bin/kubectl ]; then source <(kubectl completion zsh); fi
 export AWS_PROFILE=default
 
 # source /Users/thirai/.config/broot/launcher/bash/br
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/thirai/.lmstudio/bin"
+# End of LM Studio CLI section
+
