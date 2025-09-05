@@ -12,7 +12,6 @@ brew install \
     fish \
     starship \
     coreutils \
-    tfenv \
     tree \
     jq \
     eza \
