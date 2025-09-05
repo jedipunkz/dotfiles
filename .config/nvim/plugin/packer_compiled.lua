@@ -49,8 +49,8 @@ local function save_profiles(threshold)
 end
 
 time([[Luarocks path setup]], true)
-local package_path_str = "/Users/thirai/.cache/nvim/packer_hererocks/2.1.1713773202/share/lua/5.1/?.lua;/Users/thirai/.cache/nvim/packer_hererocks/2.1.1713773202/share/lua/5.1/?/init.lua;/Users/thirai/.cache/nvim/packer_hererocks/2.1.1713773202/lib/luarocks/rocks-5.1/?.lua;/Users/thirai/.cache/nvim/packer_hererocks/2.1.1713773202/lib/luarocks/rocks-5.1/?/init.lua"
-local install_cpath_pattern = "/Users/thirai/.cache/nvim/packer_hererocks/2.1.1713773202/lib/lua/5.1/?.so"
+local package_path_str = "/home/thirai/.cache/nvim/packer_hererocks/2.1.1741730670/share/lua/5.1/?.lua;/home/thirai/.cache/nvim/packer_hererocks/2.1.1741730670/share/lua/5.1/?/init.lua;/home/thirai/.cache/nvim/packer_hererocks/2.1.1741730670/lib/luarocks/rocks-5.1/?.lua;/home/thirai/.cache/nvim/packer_hererocks/2.1.1741730670/lib/luarocks/rocks-5.1/?/init.lua"
+local install_cpath_pattern = "/home/thirai/.cache/nvim/packer_hererocks/2.1.1741730670/lib/lua/5.1/?.so"
 if not string.find(package.path, package_path_str, 1, true) then
   package.path = package.path .. ';' .. package_path_str
 end
@@ -76,233 +76,243 @@ time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
   ["async.vim"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/async.vim",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/async.vim",
     url = "https://github.com/prabirshrestha/async.vim"
   },
   ["asyncomplete-lsp.vim"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/asyncomplete-lsp.vim",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/asyncomplete-lsp.vim",
     url = "https://github.com/prabirshrestha/asyncomplete-lsp.vim"
   },
   ["asyncomplete.vim"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/asyncomplete.vim",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/asyncomplete.vim",
     url = "https://github.com/prabirshrestha/asyncomplete.vim"
   },
   ["cmp-buffer"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/cmp-buffer",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/cmp-buffer",
     url = "https://github.com/hrsh7th/cmp-buffer"
   },
   ["cmp-cmdline"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/cmp-cmdline",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/cmp-cmdline",
     url = "https://github.com/hrsh7th/cmp-cmdline"
   },
   ["cmp-nvim-lsp"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp",
     url = "https://github.com/hrsh7th/cmp-nvim-lsp"
   },
   ["cmp-nvim-lua"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/cmp-nvim-lua",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/cmp-nvim-lua",
     url = "https://github.com/hrsh7th/cmp-nvim-lua"
   },
   ["cmp-path"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/cmp-path",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/cmp-path",
     url = "https://github.com/hrsh7th/cmp-path"
   },
   cmp_luasnip = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
     url = "https://github.com/saadparwaiz1/cmp_luasnip"
   },
   ["copilot.vim"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/copilot.vim",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/copilot.vim",
     url = "https://github.com/github/copilot.vim"
   },
   delve = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/delve",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/delve",
     url = "https://github.com/go-delve/delve"
   },
   gruvbox = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/gruvbox",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/gruvbox",
     url = "https://github.com/morhetz/gruvbox"
   },
   ["lspkind-nvim"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/lspkind-nvim",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/lspkind-nvim",
     url = "https://github.com/onsails/lspkind-nvim"
   },
   ["lspsaga.nvim"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/lspsaga.nvim",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/lspsaga.nvim",
     url = "https://github.com/glepnir/lspsaga.nvim"
   },
   ["lualine.nvim"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/lualine.nvim",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/lualine.nvim",
     url = "https://github.com/nvim-lualine/lualine.nvim"
   },
   ["mason.nvim"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/mason.nvim",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/mason.nvim",
     url = "https://github.com/williamboman/mason.nvim"
+  },
+  ["neo-tree.nvim"] = {
+    loaded = true,
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/neo-tree.nvim",
+    url = "https://github.com/nvim-neo-tree/neo-tree.nvim"
+  },
+  ["nui.nvim"] = {
+    loaded = true,
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/nui.nvim",
+    url = "https://github.com/MunifTanjim/nui.nvim"
   },
   ["null-ls.nvim"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/null-ls.nvim",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/null-ls.nvim",
     url = "https://github.com/jose-elias-alvarez/null-ls.nvim"
   },
   ["nvim-cmp"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/nvim-cmp",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/nvim-cmp",
     url = "https://github.com/hrsh7th/nvim-cmp"
   },
   ["nvim-lspconfig"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
   },
   ["nvim-web-devicons"] = {
     loaded = false,
     needs_bufread = false,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/opt/nvim-web-devicons",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/opt/nvim-web-devicons",
     url = "https://github.com/kyazdani42/nvim-web-devicons"
   },
   ["packer.nvim"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/packer.nvim",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/packer.nvim",
     url = "https://github.com/wbthomason/packer.nvim"
   },
   ["plenary.nvim"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/plenary.nvim",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
   },
   ["prettier.nvim"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/prettier.nvim",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/prettier.nvim",
     url = "https://github.com/MunifTanjim/prettier.nvim"
   },
   ripgrep = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/ripgrep",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/ripgrep",
     url = "https://github.com/BurntSushi/ripgrep"
   },
   ["rust.vim"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/rust.vim",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/rust.vim",
     url = "https://github.com/rust-lang/rust.vim"
   },
   ["startup.nvim"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/startup.nvim",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/startup.nvim",
     url = "https://github.com/startup-nvim/startup.nvim"
   },
   tComment = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/tComment",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/tComment",
     url = "https://github.com/vim-scripts/tComment"
   },
   ["telescope-fzy-native.nvim"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/telescope-fzy-native.nvim",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/telescope-fzy-native.nvim",
     url = "https://github.com/nvim-telescope/telescope-fzy-native.nvim"
   },
   ["telescope.nvim"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/telescope.nvim",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
   },
   ["terraform-lsp"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/terraform-lsp",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/terraform-lsp",
     url = "https://github.com/juliosueiras/terraform-lsp"
   },
   ["trouble.nvim"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/trouble.nvim",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/trouble.nvim",
     url = "https://github.com/folke/trouble.nvim"
   },
   ultisnips = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/ultisnips",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/ultisnips",
     url = "https://github.com/SirVer/ultisnips"
   },
   ["vim-Flake8"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/vim-Flake8",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/vim-Flake8",
     url = "https://github.com/nvie/vim-Flake8"
   },
   ["vim-ansible-yaml"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/vim-ansible-yaml",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/vim-ansible-yaml",
     url = "https://github.com/chase/vim-ansible-yaml"
   },
   ["vim-delve"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/vim-delve",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/vim-delve",
     url = "https://github.com/sebdah/vim-delve"
   },
   ["vim-dispatch"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/vim-dispatch",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/vim-dispatch",
     url = "https://github.com/tpope/vim-dispatch"
   },
   ["vim-goimports"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/vim-goimports",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/vim-goimports",
     url = "https://github.com/mattn/vim-goimports"
   },
   ["vim-indent-guides"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/vim-indent-guides",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/vim-indent-guides",
     url = "https://github.com/nathanaelkane/vim-indent-guides"
   },
   ["vim-node"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/vim-node",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/vim-node",
     url = "https://github.com/moll/vim-node"
   },
   ["vim-snippets"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/vim-snippets",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/vim-snippets",
     url = "https://github.com/honza/vim-snippets"
   },
   ["vim-terraform"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/vim-terraform",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/vim-terraform",
     url = "https://github.com/hashivim/vim-terraform"
   },
   ["vim-terraform-completion"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/vim-terraform-completion",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/vim-terraform-completion",
     url = "https://github.com/juliosueiras/vim-terraform-completion"
   },
   ["vim-test"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/vim-test",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/vim-test",
     url = "https://github.com/vim-test/vim-test"
   },
   ["vim-vsnip"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/vim-vsnip",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/vim-vsnip",
     url = "https://github.com/hrsh7th/vim-vsnip"
   },
   ["vim-vsnip-integ"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/vim-vsnip-integ",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/vim-vsnip-integ",
     url = "https://github.com/hrsh7th/vim-vsnip-integ"
   },
   ["yajs.vim"] = {
     loaded = true,
-    path = "/Users/thirai/.local/share/nvim/site/pack/packer/start/yajs.vim",
+    path = "/home/thirai/.local/share/nvim/site/pack/packer/start/yajs.vim",
     url = "https://github.com/othree/yajs.vim"
   }
 }
