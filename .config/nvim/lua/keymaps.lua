@@ -50,16 +50,16 @@ keymap("n", "<Space>h", "^", opts)
 keymap("n", "<Space>l", "$", opts)
 
 -- Claude Code keybindings
-keymap("n", "<C-x>c", "<cmd>ClaudeCode<cr>", opts)
-keymap("n", "<C-x>f", "<cmd>ClaudeCodeFocus<cr>", opts)
-keymap("n", "<C-x>e", "<C-w>h", opts)  -- エディタに戻る（左のウィンドウへ）
-keymap("n", "<C-x>r", "<cmd>ClaudeCode --resume<cr>", opts)
-keymap("n", "<C-x>C", "<cmd>ClaudeCode --continue<cr>", opts)
-keymap("n", "<C-x>m", "<cmd>ClaudeCodeSelectModel<cr>", opts)
-keymap("n", "<C-x>b", "<cmd>ClaudeCodeAdd %<cr>", opts)
-keymap("v", "<C-x>s", "<cmd>ClaudeCodeSend<cr>", opts)
-keymap("n", "<C-x>a", "<cmd>ClaudeCodeDiffAccept<cr>", opts)
-keymap("n", "<C-x>d", "<cmd>ClaudeCodeDiffDeny<cr>", opts)
+keymap("n", "<Leader>cc", "<cmd>ClaudeCode<cr>", opts)
+keymap("n", "<Leader>cf", "<cmd>ClaudeCodeFocus<cr>", opts)
+keymap("n", "<Leader>ce", "<C-w>h", opts)  -- エディタに戻る（左のウィンドウへ）
+keymap("n", "<Leader>cr", "<cmd>ClaudeCode --resume<cr>", opts)
+keymap("n", "<Leader>cC", "<cmd>ClaudeCode --continue<cr>", opts)
+keymap("n", "<Leader>cm", "<cmd>ClaudeCodeSelectModel<cr>", opts)
+keymap("n", "<Leader>cb", "<cmd>ClaudeCodeAdd %<cr>", opts)
+keymap("v", "<Leader>cs", "<cmd>ClaudeCodeSend<cr>", opts)
+keymap("n", "<Leader>ca", "<cmd>ClaudeCodeDiffAccept<cr>", opts)
+keymap("n", "<Leader>cd", "<cmd>ClaudeCodeDiffDeny<cr>", opts)
 
 -- ;でコマンド入力( ;と:を入れ替)
 keymap("n", ";", ":", opts)
