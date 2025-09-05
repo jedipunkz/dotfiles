@@ -1,40 +1,94 @@
-require('lualine').setup {
-  options = {
-    icons_enabled = true,
-    theme = 'dracula', -- ref: https://github.com/nvim-lualine/lualine.nvim/blob/master/THEMES.md
-    -- component_separators = { left = '', right = ''},
-    -- section_separators = { left = '', right = ''},
-    disabled_filetypes = {
-      statusline = {},
-      winbar = {},
-    },
-    ignore_focus = {},
-    always_divide_middle = true,
-    globalstatus = false,
-    refresh = {
-      statusline = 1000,
-      tabline = 1000,
-      winbar = 1000,
-    }
-  },
-  sections = {
-    lualine_a = {'mode'},
-    lualine_b = {'branch', 'diff', 'diagnostics'},
-    lualine_c = {'filename'},
-    lualine_x = {'encoding', 'fileformat', 'filetype'},
-    lualine_y = {'progress'},
-    lualine_z = {'location'}
-  },
-  inactive_sections = {
-    lualine_a = {},
-    lualine_b = {},
-    lualine_c = {'filename'},
-    lualine_x = {'location'},
-    lualine_y = {},
-    lualine_z = {}
-  },
-  tabline = {},
-  winbar = {},
-  inactive_winbar = {},
-  extensions = {}
+local gl = require('galaxyline')
+local condition = require('galaxyline.condition')
+local gls = gl.section
+
+local colors = {
+  bg = '#282828',
+  fg = '#ebdbb2',
+  blue = '#83a598',
+  green = '#b8bb26',
+  red = '#fb4934',
+  yellow = '#fabd2f',
+  orange = '#fe8019'
+}
+
+gls.left[1] = {
+  ViMode = {
+    provider = function()
+      local mode = vim.fn.mode()
+      if mode == 'n' then return 'NORMAL'
+      elseif mode == 'i' then return 'INSERT'
+      elseif mode == 'v' or mode == 'V' then return 'VISUAL'
+      else return mode:upper()
+      end
+    end,
+    highlight = {colors.bg, colors.blue, 'bold'},
+  }
+}
+
+gls.left[2] = {
+  FileIcon = {
+    provider = 'FileIcon',
+    condition = condition.buffer_not_empty,
+    highlight = {require('galaxyline.provider_fileinfo').get_file_icon_color, colors.bg},
+  }
+}
+
+gls.left[3] = {
+  FileName = {
+    provider = 'FileName',
+    condition = condition.buffer_not_empty,
+    highlight = {colors.fg, colors.bg}
+  }
+}
+
+gls.left[4] = {
+  FileType = {
+    provider = 'FileTypeName',
+    condition = condition.buffer_not_empty,
+    highlight = {colors.blue, colors.bg}
+  }
+}
+
+gls.left[5] = {
+  LineColumn = {
+    provider = 'LineColumn',
+    highlight = {colors.fg, colors.bg}
+  }
+}
+
+gls.right[1] = {
+  DiffAdd = {
+    provider = 'DiffAdd',
+    condition = condition.hide_in_width,
+    icon = ' +',
+    highlight = {colors.green, colors.bg}
+  }
+}
+
+gls.right[2] = {
+  DiffModified = {
+    provider = 'DiffModified',
+    condition = condition.hide_in_width,
+    icon = ' ~',
+    highlight = {colors.yellow, colors.bg}
+  }
+}
+
+gls.right[3] = {
+  DiffRemove = {
+    provider = 'DiffRemove',
+    condition = condition.hide_in_width,
+    icon = ' -',
+    highlight = {colors.red, colors.bg}
+  }
+}
+
+gls.right[4] = {
+  GitBranch = {
+    provider = 'GitBranch',
+    condition = condition.check_git_workspace,
+    icon = ' ',
+    highlight = {colors.green, colors.bg}
+  }
 }
