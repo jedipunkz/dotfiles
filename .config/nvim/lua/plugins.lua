@@ -131,6 +131,23 @@ use({
     },
   }
 
+  -- Snacks.nvim (dependency for claudecode.nvim)
+  use {
+    'folke/snacks.nvim',
+    config = function()
+      require('snacks').setup()
+    end
+  }
+
+  -- Claude Code for Neovim
+  use {
+    'coder/claudecode.nvim',
+    after = 'snacks.nvim',
+    config = function()
+      require('claudecode').setup()
+    end
+  }
+
   -- mason.nvim
   require("mason").setup()
 
