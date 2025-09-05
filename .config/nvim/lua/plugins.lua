@@ -102,8 +102,8 @@ use({
 	use({ "neovim/nvim-lspconfig" }) -- enable LSP
 	-- use({ "williamboman/nvim-lsp-installer" }) -- deprecated
   use({ "williamboman/mason.nvim" })
-	use({ "jose-elias-alvarez/null-ls.nvim" }) -- for formatters and linters
-	use({ "glepnir/lspsaga.nvim" }) -- LSP UIs
+  use({ "jose-elias-alvarez/null-ls.nvim" }) -- for formatters and linters
+  use({ "glepnir/lspsaga.nvim" }) -- LSP UIs
   use 'juliosueiras/terraform-lsp'
   use 'prabirshrestha/asyncomplete.vim'
   use 'prabirshrestha/asyncomplete-lsp.vim'
@@ -129,6 +129,23 @@ use({
       {'nvim-lua/plenary.nvim'},
       {'nvim-telescope/telescope-fzy-native.nvim'},
     },
+  }
+
+  -- Snacks.nvim (dependency for claudecode.nvim)
+  use {
+    'folke/snacks.nvim',
+    config = function()
+      require('snacks').setup()
+    end
+  }
+
+  -- Claude Code for Neovim
+  use {
+    'coder/claudecode.nvim',
+    after = 'snacks.nvim',
+    config = function()
+      require('claudecode').setup()
+    end
   }
 
   -- mason.nvim
