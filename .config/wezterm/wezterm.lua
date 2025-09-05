@@ -15,7 +15,9 @@ return {
   macos_forward_to_ime_modifier_mask = "SHIFT|CTRL",
 
   font = wezterm.font_with_fallback {
+    -- 'JetBrains Mono',
     'Consolas',
+    'Hiragino Sans',
     'Monaco',
     'FuraMono Nerd Font Mono',
   },
