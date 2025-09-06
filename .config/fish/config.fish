@@ -4,7 +4,7 @@ end
 
 set -U fish_greeting ""
 
-set -x PATH $HOME/.cargo/bin $HOME/.bin /usr/local/bin /usr/local/sbin /opt/homebrew/bin /bin /usr/bin /sbin /usr/sbin /usr/local/sessionmanagerplugin/bin $HOME/google-cloud-sdk/bin $HOME/.local/bin
+set -x PATH $HOME/.cargo/bin $HOME/.bin /usr/local/bin /usr/local/sbin /opt/homebrew/bin /bin /usr/bin /sbin /usr/sbin /usr/local/sessionmanagerplugin/bin $HOME/google-cloud-sdk/bin $HOME/.local/bin $HOME/.lmstudio/bin
 
 if test (uname -s) = "Darwin"
     alias cat="bat"

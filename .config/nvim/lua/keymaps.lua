@@ -50,16 +50,21 @@ keymap("n", "<Space>h", "^", opts)
 keymap("n", "<Space>l", "$", opts)
 
 -- Claude Code keybindings
-keymap("n", "<Leader>cc", "<cmd>ClaudeCode<cr>", opts)
-keymap("n", "<Leader>cf", "<cmd>ClaudeCodeFocus<cr>", opts)
-keymap("n", "<Leader>ce", "<C-w>h", opts)  -- エディタに戻る（左のウィンドウへ）
-keymap("n", "<Leader>cr", "<cmd>ClaudeCode --resume<cr>", opts)
-keymap("n", "<Leader>cC", "<cmd>ClaudeCode --continue<cr>", opts)
-keymap("n", "<Leader>cm", "<cmd>ClaudeCodeSelectModel<cr>", opts)
-keymap("n", "<Leader>cb", "<cmd>ClaudeCodeAdd %<cr>", opts)
-keymap("v", "<Leader>cs", "<cmd>ClaudeCodeSend<cr>", opts)
-keymap("n", "<Leader>ca", "<cmd>ClaudeCodeDiffAccept<cr>", opts)
-keymap("n", "<Leader>cd", "<cmd>ClaudeCodeDiffDeny<cr>", opts)
+keymap("n", "cc", "<cmd>ClaudeCode<cr>", opts)
+keymap("n", "cf", "<cmd>ClaudeCodeFocus<cr>", opts)
+keymap("n", "cr", "<cmd>ClaudeCode --resume<cr>", opts)
+keymap("n", "cC", "<cmd>ClaudeCode --continue<cr>", opts)
+keymap("n", "cm", "<cmd>ClaudeCodeSelectModel<cr>", opts)
+keymap("n", "cb", "<cmd>ClaudeCodeAdd %<cr>", opts)
+keymap("v", "cs", "<cmd>ClaudeCodeSend<cr>", opts)
+keymap("n", "ca", "<cmd>ClaudeCodeDiffAccept<cr>", opts)
+keymap("n", "cd", "<cmd>ClaudeCodeDiffDeny<cr>", opts)
+
+-- Snacks.nvim keybindings (デフォルト設定)
+keymap("n", "tt", "<cmd>lua Snacks.terminal.toggle()<cr>", opts)  -- ターミナルをトグル
+keymap("t", "tt", "<cmd>lua Snacks.terminal.toggle()<cr>", opts)  -- ターミナルモードでもトグル
+keymap("n", "tf", "<cmd>lua Snacks.picker.smart()<cr>", opts)  -- スマートファイル検索
+keymap("n", "tg", "<cmd>lua Snacks.picker.grep()<cr>", opts)  -- grep検索
 
 -- ;でコマンド入力( ;と:を入れ替)
 keymap("n", ";", ":", opts)
@@ -115,3 +120,8 @@ keymap("n", "<C-y>", "<C-o>", opts)
 keymap("n", "<C-i>", "<C-i>", opts)
 -- ジャンプ履歴を表示
 keymap("n", "<leader>j", ":jumps<CR>", opts)
+
+-- TreeSJ keybindings
+keymap("n", "mm", "<cmd>TSJToggle<CR>", opts)  -- split/join toggle
+keymap("n", "mj", "<cmd>TSJJoin<CR>", opts)    -- join
+keymap("n", "ms", "<cmd>TSJSplit<CR>", opts)   -- split

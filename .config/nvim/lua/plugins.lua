@@ -135,7 +135,21 @@ use({
   use {
     'folke/snacks.nvim',
     config = function()
-      require('snacks').setup()
+      local snacks = require('snacks')
+      if not snacks.did_setup then
+        snacks.setup({
+          terminal = { enabled = true },
+        })
+      end
+      
+      -- Create Snacks commands manually
+      vim.api.nvim_create_user_command('SnackTerminal', function()
+        require('snacks').terminal.toggle()
+      end, { desc = 'Toggle terminal' })
+      
+      vim.api.nvim_create_user_command('SnackTerminalOpen', function()
+        require('snacks').terminal.open()
+      end, { desc = 'Open terminal' })
     end
   }
 
@@ -145,6 +159,74 @@ use({
     after = 'snacks.nvim',
     config = function()
       require('claudecode').setup()
+    end
+  }
+
+  -- Treesitter for syntax highlighting and parsing
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate',
+    config = function()
+      require('nvim-treesitter.configs').setup {
+        ensure_installed = { "lua", "vim", "vimdoc", "query", "javascript", "typescript", "python", "go", "rust", "json", "yaml", "markdown" },
+        sync_install = false,
+        auto_install = true,
+        highlight = {
+          enable = true,
+          additional_vim_regex_highlighting = false,
+        },
+      }
+    end
+  }
+
+  -- TreeSJ for split/join syntax tree nodes
+  use {
+    'Wansmer/treesj',
+    requires = { 'nvim-treesitter/nvim-treesitter' },
+    config = function()
+      require('treesj').setup()
+    end
+  }
+
+  -- GitSigns for git integration
+  use {
+    'lewis6991/gitsigns.nvim',
+    config = function()
+      require('gitsigns').setup()
+    end
+  }
+
+  -- Chunk highlighting
+  use {
+    'shellRaining/hlchunk.nvim',
+    config = function()
+      require('hlchunk').setup({
+        chunk = {
+          enable = true,
+          style = "#00ffff",
+          chars = {
+            horizontal_line = "─",
+            vertical_line = "│",
+            left_top = "╭",
+            left_bottom = "╰",
+            right_arrow = ">",
+          },
+        },
+        indent = {
+          enable = false,
+        }
+      })
+    end
+  }
+
+  -- Markdown plugins
+  use 'ixru/nvim-markdown'
+  use {
+    'MeanderingProgrammer/render-markdown.nvim',
+    after = { 'nvim-treesitter' },
+    requires = { 'nvim-tree/nvim-web-devicons', opt = true },
+    config = function()
+      require('render-markdown').setup()
     end
   }
 
