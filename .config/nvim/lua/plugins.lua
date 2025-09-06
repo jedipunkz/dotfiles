@@ -188,6 +188,14 @@ use({
     end
   }
 
+  -- GitSigns for git integration
+  use {
+    'lewis6991/gitsigns.nvim',
+    config = function()
+      require('gitsigns').setup()
+    end
+  }
+
   -- mason.nvim
   require("mason").setup()
 
