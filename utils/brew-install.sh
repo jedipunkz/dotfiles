@@ -12,7 +12,6 @@ brew install \
     fish \
     starship \
     coreutils \
-    tfenv \
     tree \
     jq \
     eza \
@@ -22,6 +21,7 @@ brew install \
     dog \
     bat \
     fd \
+    mise \
     ripgrep
 
 brew install --HEAD neovim
