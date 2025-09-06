@@ -1,34 +1,28 @@
-# dotfiles for @jedipunkz
+# jedipunkz' dotfiles
 
-## Overview
+Terminal development environment focused on Neovim, Fish shell, and developer productivity.
 
-Dotfiles repository for @jedipunkz
-
-## Screenshot
-
-<img src="https://raw.githubusercontent.com/jedipunkz/dotfiles/master/pix/dotfiles.png">
-
-## Requirement
-
-- fzf
-- ghq
-- neovim
-- fish
-- tmux
-- git
-- [starship](https://starship.rs/)
 
 ## Installation
 
+> **Notice**: Back up your existing dotfiles before running the setup script.
+
+### Quick Install
 ```bash
 git clone git://github.com/jedipunkz/dotfiles.git
-bash dotfiles/setup.sh
+cd dotfiles
+bash setup.sh
 ```
 
-## Licence
 
-[MIT](https://github.com/tcnksm/tool/blob/master/LICENCE)
+## Requirements
 
-## Author
+- [Neovim](https://neovim.io/) 0.10+
+- [Fish](https://fishshell.com/)
+- [Starship](https://starship.rs/)
+- [fzf](https://github.com/junegunn/fzf)
+- [ghq](https://github.com/x-motemen/ghq)
 
-[jedipunkz](https://github.com/jedipunkz)
+## License
+
+MIT
