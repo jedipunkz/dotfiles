@@ -135,7 +135,21 @@ use({
   use {
     'folke/snacks.nvim',
     config = function()
-      require('snacks').setup()
+      local snacks = require('snacks')
+      if not snacks.did_setup then
+        snacks.setup({
+          terminal = { enabled = true },
+        })
+      end
+      
+      -- Create Snacks commands manually
+      vim.api.nvim_create_user_command('SnackTerminal', function()
+        require('snacks').terminal.toggle()
+      end, { desc = 'Toggle terminal' })
+      
+      vim.api.nvim_create_user_command('SnackTerminalOpen', function()
+        require('snacks').terminal.open()
+      end, { desc = 'Open terminal' })
     end
   }
 
