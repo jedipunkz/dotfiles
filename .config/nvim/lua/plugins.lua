@@ -196,6 +196,9 @@ use({
     end
   }
 
+  -- Markdown plugin
+  use 'ixru/nvim-markdown'
+
   -- mason.nvim
   require("mason").setup()
 
