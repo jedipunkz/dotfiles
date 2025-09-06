@@ -196,6 +196,29 @@ use({
     end
   }
 
+  -- Chunk highlighting
+  use {
+    'shellRaining/hlchunk.nvim',
+    config = function()
+      require('hlchunk').setup({
+        chunk = {
+          enable = true,
+          style = "#00ffff",
+          chars = {
+            horizontal_line = "─",
+            vertical_line = "│",
+            left_top = "╭",
+            left_bottom = "╰",
+            right_arrow = ">",
+          },
+        },
+        indent = {
+          enable = false,
+        }
+      })
+    end
+  }
+
   -- Markdown plugins
   use 'ixru/nvim-markdown'
   use {
