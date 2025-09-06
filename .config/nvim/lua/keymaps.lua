@@ -120,3 +120,8 @@ keymap("n", "<C-y>", "<C-o>", opts)
 keymap("n", "<C-i>", "<C-i>", opts)
 -- ジャンプ履歴を表示
 keymap("n", "<leader>j", ":jumps<CR>", opts)
+
+-- TreeSJ keybindings
+keymap("n", "mm", "<cmd>TSJToggle<CR>", opts)  -- split/join toggle
+keymap("n", "mj", "<cmd>TSJJoin<CR>", opts)    -- join
+keymap("n", "ms", "<cmd>TSJSplit<CR>", opts)   -- split

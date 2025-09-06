@@ -162,6 +162,32 @@ use({
     end
   }
 
+  -- Treesitter for syntax highlighting and parsing
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate',
+    config = function()
+      require('nvim-treesitter.configs').setup {
+        ensure_installed = { "lua", "vim", "vimdoc", "query", "javascript", "typescript", "python", "go", "rust", "json", "yaml", "markdown" },
+        sync_install = false,
+        auto_install = true,
+        highlight = {
+          enable = true,
+          additional_vim_regex_highlighting = false,
+        },
+      }
+    end
+  }
+
+  -- TreeSJ for split/join syntax tree nodes
+  use {
+    'Wansmer/treesj',
+    requires = { 'nvim-treesitter/nvim-treesitter' },
+    config = function()
+      require('treesj').setup()
+    end
+  }
+
   -- mason.nvim
   require("mason").setup()
 
