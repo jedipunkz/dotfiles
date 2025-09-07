@@ -290,10 +290,24 @@ themes {
         white "#FBF1C7"
         orange "#D65D0E"
  	}
+    doom-one {
+        fg "#BBC2CF"
+        bg "#2E3440"
+        black "#3B4252"
+        red "#FF6C6B"
+        green "#A9A1E1"
+        yellow "#ECBE7B"
+        blue "#A9A1E1"
+        magenta "#C678DD"
+        cyan "#46D9FF"
+        white "#DFDFDF"
+        orange "#DA8548"
+    }
 }
 
 //theme "gruvbox-dark"
-theme "dracula"
+//theme "dracula"
+theme "doom-one"
 
 // The name of the default layout to load on startup
 // Default: "default"
