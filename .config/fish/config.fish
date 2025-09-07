@@ -43,23 +43,53 @@ if test ! -d "$HOME/ghq"
     mkdir $HOME/ghq
 end
 
-# fzf color settings
-set -l color00 '#1c1e26'
-set -l color01 '#232530'
-set -l color02 '#2e303e'
-set -l color03 '#6f6f70'
-set -l color04 '#9da0a2'
-set -l color05 '#cbced0'
-set -l color06 '#dcdfe4'
-set -l color07 '#e3e6ee'
-set -l color08 '#e93c58'
-set -l color09 '#e58d7d'
-set -l color0A '#efb993'
-set -l color0B '#efaf8e'
-set -l color0C '#24a8b4'
-set -l color0D '#df5273'
-set -l color0E '#b072d1'
-set -l color0F '#e4a382'
+# Doom One color palette
+set -l doom_bg '#282c34'
+set -l doom_bg_alt '#21242b'
+set -l doom_dark '#1c1f24'
+set -l doom_white '#dfdfdf'
+set -l doom_light_grey '#5c6370'
+set -l doom_grey '#3f444a'
+set -l doom_dark_grey '#2c313c'
+set -l doom_red '#ff6c6b'
+set -l doom_orange '#da8548'
+set -l doom_green '#98be65'
+set -l doom_teal '#4db5bd'
+set -l doom_yellow '#ecbe7b'
+set -l doom_blue '#51afef'
+set -l doom_dark_blue '#2257a0'
+set -l doom_magenta '#c678dd'
+set -l doom_violet '#a9a1e1'
+set -l doom_cyan '#46d9ff'
+
+# Fish color settings (Doom One theme)
+set -U fish_color_normal $doom_white
+set -U fish_color_command $doom_blue
+set -U fish_color_quote $doom_green
+set -U fish_color_redirection $doom_violet
+set -U fish_color_end $doom_red
+set -U fish_color_error $doom_red
+set -U fish_color_param $doom_white
+set -U fish_color_comment $doom_light_grey
+set -U fish_color_match $doom_cyan
+set -U fish_color_selection --background=$doom_grey
+set -U fish_color_search_match --background=$doom_grey
+set -U fish_color_history_current --bold
+set -U fish_color_operator $doom_violet
+set -U fish_color_escape $doom_cyan
+set -U fish_color_cwd $doom_green
+set -U fish_color_cwd_root $doom_red
+set -U fish_color_valid_path --underline
+set -U fish_color_autosuggestion $doom_light_grey
+set -U fish_color_user $doom_green
+set -U fish_color_host $doom_blue
+set -U fish_color_cancel $doom_red
+
+# Pager colors
+set -U fish_pager_color_completion $doom_white --bold
+set -U fish_pager_color_description $doom_cyan
+set -U fish_pager_color_prefix $doom_yellow --bold
+set -U fish_pager_color_progress $doom_green
 
 set -l FZF_NON_COLOR_OPTS
 
@@ -70,9 +100,9 @@ for arg in (echo $FZF_DEFAULT_OPTS | tr " " "\n")
 end
 
 set -Ux FZF_DEFAULT_OPTS "$FZF_NON_COLOR_OPTS"\
-" --color=bg+:$color01,bg:$color00,spinner:$color0C,hl:$color0D"\
-" --color=fg:$color04,header:$color0D,info:$color0A,pointer:$color0C"\
-" --color=marker:$color0C,fg+:$color06,prompt:$color0A,hl+:$color0D"
+" --color=bg+:$doom_grey,bg:$doom_bg,spinner:$doom_cyan,hl:$doom_blue"\
+" --color=fg:$doom_white,header:$doom_blue,info:$doom_yellow,pointer:$doom_cyan"\
+" --color=marker:$doom_green,fg+:$doom_white,prompt:$doom_blue,hl+:$doom_cyan"
 
 set -x STARSHIP_CONFIG ~/.starship
 set -x AWS_PROFILE default
