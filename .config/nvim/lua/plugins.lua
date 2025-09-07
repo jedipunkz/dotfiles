@@ -51,8 +51,8 @@ return require('packer').startup(function(use)
 
   -- Statusline
   use {
-    'glepnir/galaxyline.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+    'nvim-lualine/lualine.nvim',
+    requires = { 'nvim-tree/nvim-web-devicons', opt = true }
   }
 
   -- File explorer (neo-tree)
@@ -203,7 +203,13 @@ use({
   use {
     'lewis6991/gitsigns.nvim',
     config = function()
-      require('gitsigns').setup()
+      require('gitsigns').setup({
+        current_line_blame = false,
+        sign_priority = 6,
+        update_debounce = 100,
+        status_formatter = nil,
+        max_file_length = 40000,
+      })
     end
   }
 
