@@ -47,17 +47,7 @@ return require('packer').startup(function(use)
   -- Colorscheme
   -- use 'morhetz/gruvbox'
   -- DoomeOne theme
-  use {
-    'NTBBloodbath/doom-one.nvim',
-    config = function()
-      -- Ensure theme is loaded immediately
-      vim.defer_fn(function()
-        if not vim.g.colors_name or vim.g.colors_name ~= 'doom-one' then
-          pcall(vim.cmd, 'colorscheme doom-one')
-        end
-      end, 50)
-    end
-  }
+  use 'NTBBloodbath/doom-one.nvim'
 
   -- Statusline
   use {

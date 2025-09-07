@@ -23,7 +23,7 @@ vim.g.doom_one_plugin_indent_blankline = true
 vim.g.doom_one_plugin_vim_illuminate = true
 vim.g.doom_one_plugin_lspsaga = false
 
--- Apply colorscheme with better timing
+-- Apply colorscheme
 local function apply_colorscheme()
   vim.cmd [[
   try
