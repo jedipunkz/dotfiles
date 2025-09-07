@@ -3,52 +3,55 @@ if not status_ok then
   return
 end
 
--- DoomOne color palette
+-- DoomOne color palette (exact colors from doom-one.nvim)
 local colors = {
-  bg = '#282c34',
-  fg = '#bbc2cf',
+  bg = '#282c34',      -- Background
+  bg_alt = '#21242b',  -- Alternative background
+  fg = '#bbc2cf',      -- Foreground
+  fg_alt = '#5b6268',  -- Alternative foreground
   yellow = '#ecbe7b',
   cyan = '#46d9ff',
-  darkblue = '#081633',
+  darkblue = '#2257a0',
   green = '#98be65',
   orange = '#da8548',
   violet = '#c678dd',
   magenta = '#c678dd',
   blue = '#51afef',
   red = '#ff6c6b',
-  gray = '#5c6370',
+  gray = '#3f444a',    -- Darker gray for better contrast
+  light_gray = '#5b6268',
 }
 
 -- Custom DoomOne theme for lualine
 local doom_one_theme = {
   normal = {
-    a = { fg = colors.bg, bg = colors.blue, gui = 'bold' },
-    b = { fg = colors.fg, bg = colors.gray },
-    c = { fg = colors.fg, bg = colors.bg },
+    a = { fg = colors.fg, bg = colors.gray, gui = 'bold' },  -- Changed to gray background with light text
+    b = { fg = colors.fg, bg = colors.bg_alt },
+    c = { fg = colors.fg, bg = colors.bg },  -- Changed to brighter text
   },
   insert = {
     a = { fg = colors.bg, bg = colors.green, gui = 'bold' },
-    b = { fg = colors.fg, bg = colors.gray },
+    b = { fg = colors.fg, bg = colors.bg_alt },
     c = { fg = colors.fg, bg = colors.bg },
   },
   visual = {
     a = { fg = colors.bg, bg = colors.violet, gui = 'bold' },
-    b = { fg = colors.fg, bg = colors.gray },
+    b = { fg = colors.fg, bg = colors.bg_alt },
     c = { fg = colors.fg, bg = colors.bg },
   },
   replace = {
     a = { fg = colors.bg, bg = colors.red, gui = 'bold' },
-    b = { fg = colors.fg, bg = colors.gray },
+    b = { fg = colors.fg, bg = colors.bg_alt },
     c = { fg = colors.fg, bg = colors.bg },
   },
   command = {
     a = { fg = colors.bg, bg = colors.yellow, gui = 'bold' },
-    b = { fg = colors.fg, bg = colors.gray },
+    b = { fg = colors.fg, bg = colors.bg_alt },
     c = { fg = colors.fg, bg = colors.bg },
   },
   inactive = {
-    a = { fg = colors.fg, bg = colors.gray },
-    b = { fg = colors.fg, bg = colors.bg },
+    a = { fg = colors.fg_alt, bg = colors.bg_alt },
+    b = { fg = colors.fg_alt, bg = colors.bg },
     c = { fg = colors.gray, bg = colors.bg },
   },
 }
@@ -102,7 +105,7 @@ local branch_component = {
 lualine.setup {
   options = {
     icons_enabled = true,
-    theme = doom_one_theme,
+    theme = 'dracula',
     component_separators = { left = '', right = '' },
     section_separators = { left = '', right = '' },
     disabled_filetypes = {
