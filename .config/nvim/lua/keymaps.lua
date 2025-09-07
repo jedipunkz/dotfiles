@@ -121,6 +121,14 @@ keymap("n", "<C-i>", "<C-i>", opts)
 -- ジャンプ履歴を表示
 keymap("n", "<leader>j", ":jumps<CR>", opts)
 
+-- Terminal --
+-- Terminal escape and window navigation
+keymap("t", "<C-\\>", "<C-\\><C-N>", term_opts)  -- Escape terminal mode
+keymap("t", "<C-w>h", "<C-\\><C-N><C-w>h", term_opts)
+keymap("t", "<C-w>j", "<C-\\><C-N><C-w>j", term_opts)
+keymap("t", "<C-w>k", "<C-\\><C-N><C-w>k", term_opts)
+keymap("t", "<C-w>l", "<C-\\><C-N><C-w>l", term_opts)
+
 -- TreeSJ keybindings
 keymap("n", "mm", "<cmd>TSJToggle<CR>", opts)  -- split/join toggle
 keymap("n", "mj", "<cmd>TSJJoin<CR>", opts)    -- join
