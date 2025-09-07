@@ -23,7 +23,7 @@ vim.g.doom_one_plugin_indent_blankline = true
 vim.g.doom_one_plugin_vim_illuminate = true
 vim.g.doom_one_plugin_lspsaga = false
 
--- Apply colorscheme
+-- Apply colorscheme with better timing
 local function apply_colorscheme()
   vim.cmd [[
   try
@@ -35,14 +35,30 @@ local function apply_colorscheme()
   ]]
 end
 
--- Apply colorscheme on startup
-apply_colorscheme()
-
 -- Apply colorscheme after plugins are loaded
 vim.api.nvim_create_autocmd("User", {
   pattern = "PackerComplete",
   callback = apply_colorscheme
 })
+
+-- Try to apply colorscheme immediately if doom-one is available
+local has_doom_one = pcall(require, 'doom-one')
+if has_doom_one then
+  apply_colorscheme()
+else
+  -- Fallback to waiting for PackerComplete
+  vim.api.nvim_create_autocmd("User", {
+    pattern = "PackerComplete",
+    callback = apply_colorscheme
+  })
+
+  -- Also try on VimEnter as additional fallback
+  vim.api.nvim_create_autocmd("VimEnter", {
+    callback = function()
+      vim.defer_fn(apply_colorscheme, 100)
+    end
+  })
+end
 
 -- Apply DoomOne terminal colors to Snacks terminal
 vim.api.nvim_create_autocmd("TermOpen", {
@@ -52,7 +68,7 @@ vim.api.nvim_create_autocmd("TermOpen", {
       -- DoomOne color palette
       vim.api.nvim_set_hl(0, "TermCursor", { fg = "#282c34", bg = "#51afef" })
       vim.api.nvim_set_hl(0, "TermCursorNC", { fg = "#282c34", bg = "#5c6370" })
-      
+
       -- Set terminal colors to match DoomOne theme
       vim.g.terminal_color_0 = "#282c34"   -- black
       vim.g.terminal_color_1 = "#ff6c6b"   -- red
