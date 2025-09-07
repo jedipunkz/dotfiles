@@ -3,13 +3,15 @@ local condition = require('galaxyline.condition')
 local gls = gl.section
 
 local colors = {
-  bg = '#282828',
-  fg = '#ebdbb2',
-  blue = '#83a598',
-  green = '#b8bb26',
-  red = '#fb4934',
-  yellow = '#fabd2f',
-  orange = '#fe8019'
+  bg = '#3d2c5a',  -- Dark deep purple
+  fg = '#bbc2cf',  -- Light gray for good contrast
+  blue = '#51afef',
+  green = '#98be65',
+  red = '#ff6c6b',
+  yellow = '#ecbe7b',
+  orange = '#da8548',
+  purple = '#c678dd',
+  cyan = '#46d9ff'
 }
 
 gls.left[1] = {
