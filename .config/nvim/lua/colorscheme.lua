@@ -23,19 +23,25 @@ vim.g.doom_one_plugin_indent_blankline = true
 vim.g.doom_one_plugin_vim_illuminate = true
 vim.g.doom_one_plugin_lspsaga = false
 
+-- Apply colorscheme
+local function apply_colorscheme()
+  vim.cmd [[
+  try
+    colorscheme doom-one
+  catch /^Vim\%((\a\+)\)\=:E185/
+    colorscheme default
+    set background=dark
+  endtry
+  ]]
+end
+
+-- Apply colorscheme on startup
+apply_colorscheme()
+
 -- Apply colorscheme after plugins are loaded
 vim.api.nvim_create_autocmd("User", {
   pattern = "PackerComplete",
-  callback = function()
-    vim.cmd [[
-    try
-      colorscheme doom-one
-    catch /^Vim\%((\a\+)\)\=:E185/
-      colorscheme default
-      set background=dark
-    endtry
-    ]]
-  end
+  callback = apply_colorscheme
 })
 
 -- Apply DoomOne terminal colors to Snacks terminal
