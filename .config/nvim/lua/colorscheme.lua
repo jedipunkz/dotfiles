@@ -23,20 +23,36 @@ vim.g.doom_one_plugin_indent_blankline = true
 vim.g.doom_one_plugin_vim_illuminate = true
 vim.g.doom_one_plugin_lspsaga = false
 
--- Apply colorscheme after plugins are loaded
-vim.api.nvim_create_autocmd("User", {
-  pattern = "PackerComplete",
-  callback = function()
-    vim.cmd [[
-    try
-      colorscheme doom-one
-    catch /^Vim\%((\a\+)\)\=:E185/
-      colorscheme default
-      set background=dark
-    endtry
-    ]]
-  end
-})
+-- Apply colorscheme with better timing
+local function apply_colorscheme()
+  vim.cmd [[
+  try
+    colorscheme doom-one
+  catch /^Vim\%((\a\+)\)\=:E185/
+    colorscheme default
+    set background=dark
+  endtry
+  ]]
+end
+
+-- Try to apply colorscheme immediately if doom-one is available
+local has_doom_one = pcall(require, 'doom-one')
+if has_doom_one then
+  apply_colorscheme()
+else
+  -- Fallback to waiting for PackerComplete
+  vim.api.nvim_create_autocmd("User", {
+    pattern = "PackerComplete", 
+    callback = apply_colorscheme
+  })
+  
+  -- Also try on VimEnter as additional fallback
+  vim.api.nvim_create_autocmd("VimEnter", {
+    callback = function()
+      vim.defer_fn(apply_colorscheme, 100)
+    end
+  })
+end
 
 -- Apply DoomOne terminal colors to Snacks terminal
 vim.api.nvim_create_autocmd("TermOpen", {
