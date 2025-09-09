@@ -10,4 +10,5 @@ require('statusline')
 require('telescope_conf')
 require('language')
 require('startup_nvim')
+require('neo-tree-config')
 
