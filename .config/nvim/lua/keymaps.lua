@@ -78,6 +78,9 @@ keymap("n", "<Space>q", ":<C-u>q!<Return>", opts)
 -- ESC*2 でハイライトやめる
 keymap("n", "<Esc><Esc>", ":<C-u>set nohlsearch<Return>", opts)
 
+-- checktime for reloading externally changed files
+keymap("n", "ct", ":checktime<CR>", opts)
+
 -- Insert --
 -- Press jk fast to exit insert mode
 keymap("i", "jk", "<ESC>", opts)
