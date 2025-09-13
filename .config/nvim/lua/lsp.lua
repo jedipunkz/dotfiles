@@ -41,20 +41,25 @@ local lsp_flags = {
 require('lspconfig')['pyright'].setup{
     on_attach = on_attach,
     flags = lsp_flags,
+    capabilities = capabilities,
 }
 require('lspconfig')['ts_ls'].setup{
     on_attach = on_attach,
     flags = lsp_flags,
+    capabilities = capabilities,
 }
 require('lspconfig')['rust_analyzer'].setup{
     on_attach = on_attach,
     flags = lsp_flags,
+    capabilities = capabilities,
     -- Server-specific settings...
     settings = {
       ["rust-analyzer"] = {}
     }
 }
 require'lspconfig'.gopls.setup{
+  on_attach = on_attach,
+  flags = lsp_flags,
   capabilities = capabilities
 }
 
