@@ -66,6 +66,12 @@ return {
       mods = 'NONE',
       action = wezterm.action.PasteFrom("PrimarySelection"),
     },
+    -- マウス選択時に直接クリップボードにコピーする (workarround)
+    {
+      event = { Up = { streak = 1, button = 'Left' } },
+      mods = 'NONE',
+      action = wezterm.action.CompleteSelectionOrOpenLinkAtMouseCursor("Clipboard"),
+    },
     {
       event = { Down = { streak = 1, button = { WheelUp = 1 } } },
       mods = 'CTRL',
