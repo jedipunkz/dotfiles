@@ -236,22 +236,6 @@ use({
     end
   }
 
-  -- Markdown plugins
-  use {
-    'ixru/nvim-markdown',
-    config = function()
-      -- Disable default key mappings to prevent Tab key conflict with copilot
-      vim.g.vim_markdown_no_default_key_mappings = 1
-    end
-  }
-  use {
-    'MeanderingProgrammer/render-markdown.nvim',
-    after = { 'nvim-treesitter' },
-    requires = { 'nvim-tree/nvim-web-devicons', opt = true },
-    config = function()
-      require('render-markdown').setup()
-    end
-  }
 
   -- mason.nvim
   require("mason").setup()
