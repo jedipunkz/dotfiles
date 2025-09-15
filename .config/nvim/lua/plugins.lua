@@ -236,16 +236,6 @@ use({
     end
   }
 
-  -- Markdown plugins
-  use 'ixru/nvim-markdown'
-  use {
-    'MeanderingProgrammer/render-markdown.nvim',
-    after = { 'nvim-treesitter' },
-    requires = { 'nvim-tree/nvim-web-devicons', opt = true },
-    config = function()
-      require('render-markdown').setup()
-    end
-  }
 
   -- mason.nvim
   require("mason").setup()
