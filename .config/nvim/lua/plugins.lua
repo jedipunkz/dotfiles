@@ -213,6 +213,14 @@ use({
     end
   }
 
+  -- Grug-far for find and replace
+  use {
+    'MagicDuck/grug-far.nvim',
+    config = function()
+      require('replace')
+    end
+  }
+
   -- Chunk highlighting
   use {
     'shellRaining/hlchunk.nvim',
