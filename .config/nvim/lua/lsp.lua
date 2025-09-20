@@ -38,28 +38,30 @@ local lsp_flags = {
   -- This is the default in Nvim 0.7+
   debounce_text_changes = 150,
 }
-require('lspconfig')['pyright'].setup{
-    on_attach = on_attach,
-    flags = lsp_flags,
-    capabilities = capabilities,
-}
-require('lspconfig')['ts_ls'].setup{
-    on_attach = on_attach,
-    flags = lsp_flags,
-    capabilities = capabilities,
-}
-require('lspconfig')['rust_analyzer'].setup{
-    on_attach = on_attach,
-    flags = lsp_flags,
-    capabilities = capabilities,
-    -- Server-specific settings...
-    settings = {
-      ["rust-analyzer"] = {}
-    }
-}
-require'lspconfig'.gopls.setup{
+vim.lsp.config.pyright = {
+  cmd = { 'pyright-langserver', '--stdio' },
   on_attach = on_attach,
-  flags = lsp_flags,
-  capabilities = capabilities
+  capabilities = capabilities,
+}
+
+vim.lsp.config.ts_ls = {
+  cmd = { 'typescript-language-server', '--stdio' },
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
+
+vim.lsp.config.rust_analyzer = {
+  cmd = { 'rust-analyzer' },
+  on_attach = on_attach,
+  capabilities = capabilities,
+  settings = {
+    ["rust-analyzer"] = {}
+  }
+}
+
+vim.lsp.config.gopls = {
+  cmd = { 'gopls' },
+  on_attach = on_attach,
+  capabilities = capabilities,
 }
 
