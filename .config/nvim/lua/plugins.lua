@@ -213,6 +213,27 @@ use({
     end
   }
 
+  -- Git blame
+  use {
+    'f-person/git-blame.nvim',
+    config = function()
+      require('gitblame').setup({
+        enabled = true,
+        message_template = ' <summary> • <date> • <author>',
+        date_format = '%m/%d/%y',
+        virtual_text_column = 1,
+      })
+    end
+  }
+
+  -- Grug-far for find and replace
+  use {
+    'MagicDuck/grug-far.nvim',
+    config = function()
+      require('replace')
+    end
+  }
+
   -- Chunk highlighting
   use {
     'shellRaining/hlchunk.nvim',
