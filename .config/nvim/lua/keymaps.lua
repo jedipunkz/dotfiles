@@ -133,3 +133,7 @@ keymap("t", "<C-w>l", "<C-\\><C-N><C-w>l", term_opts)
 keymap("n", "mm", "<cmd>TSJToggle<CR>", opts)  -- split/join toggle
 keymap("n", "mj", "<cmd>TSJJoin<CR>", opts)    -- join
 keymap("n", "ms", "<cmd>TSJSplit<CR>", opts)   -- split
+
+-- Git blame keybindings
+keymap("n", "gb", "<cmd>GitBlameToggle<CR>", opts)  -- toggle git blame
+keymap("n", "gB", "<cmd>GitBlameCopyCommitURL<CR>", opts)  -- copy commit URL
