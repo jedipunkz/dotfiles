@@ -10,5 +10,4 @@ require('statusline')
 require('language')
 require('tab')
 require('startup_nvim')
-require('neo-tree-config')
 

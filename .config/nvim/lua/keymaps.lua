@@ -102,9 +102,8 @@ keymap("v", "v", "$h", opts)
 -- 0番レジスタを使いやすくした
 keymap("v", "<C-p>", '"0p', opts)
 
--- neo-tree
-vim.keymap.set("n", "<C-e>", "<cmd>Neotree toggle<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>o", "<cmd>Neotree focus<CR>", { noremap = true, silent = true })
+-- snacks.nvim explorer
+vim.keymap.set("n", "<C-e>", "<cmd>lua Snacks.explorer()<CR>", { noremap = true, silent = true })
 
 -- LSP keymaps
 -- 関数定義にジャンプ
