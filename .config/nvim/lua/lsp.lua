@@ -39,42 +39,47 @@ local lsp_flags = {
   debounce_text_changes = 150,
 }
 
--- nvim-lspconfigを使用
-local lspconfig = vim.lsp.config
+-- Neovim 0.11+ の新しいLSP設定方法を使用
+-- グローバル設定（全LSPサーバー共通）
+vim.lsp.config('*', {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  flags = lsp_flags,
+})
 
 -- Pyright (Python)
-lspconfig.pyright.setup({
+vim.lsp.config.pyright = {
   on_attach = on_attach,
   capabilities = capabilities,
   flags = lsp_flags,
-})
+}
 
 -- TypeScript/JavaScript
-lspconfig.ts_ls.setup({
+vim.lsp.config.ts_ls = {
   on_attach = on_attach,
   capabilities = capabilities,
   flags = lsp_flags,
-})
+}
 
 -- Rust
-lspconfig.rust_analyzer.setup({
+vim.lsp.config.rust_analyzer = {
   on_attach = on_attach,
   capabilities = capabilities,
   flags = lsp_flags,
   settings = {
     ["rust-analyzer"] = {}
   }
-})
+}
 
 -- Go
-lspconfig.gopls.setup({
+vim.lsp.config.gopls = {
   on_attach = on_attach,
   capabilities = capabilities,
   flags = lsp_flags,
-})
+}
 
 -- Lua (Neovim設定用)
-lspconfig.lua_ls.setup({
+vim.lsp.config.lua_ls = {
   on_attach = on_attach,
   capabilities = capabilities,
   flags = lsp_flags,
@@ -95,5 +100,8 @@ lspconfig.lua_ls.setup({
       },
     },
   },
-})
+}
+
+-- 設定したLSPサーバーを有効化
+vim.lsp.enable({'pyright', 'ts_ls', 'rust_analyzer', 'gopls', 'lua_ls'})
 
