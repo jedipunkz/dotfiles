@@ -115,6 +115,9 @@ symbol = "🥑 "
 style = "#ffd31d"
 disabled = false
 format = '[$symbol$context( \($namespace\))]($style) in '
+detect_extensions = []
+detect_files = ['k8s', 'Dockerfile', 'docker-compose.yml', 'docker-compose.yaml', 'helmfile.yaml', 'helmfile.yml']
+detect_folders = ['k8s', 'helm', 'kubernetes', '.kube']
 [kubernetes.context_aliases]
 "dev.local.cluster.k8s" = "dev"
 

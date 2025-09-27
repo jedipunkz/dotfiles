@@ -38,30 +38,70 @@ local lsp_flags = {
   -- This is the default in Nvim 0.7+
   debounce_text_changes = 150,
 }
+
+-- Neovim 0.11+ の新しいLSP設定方法を使用
+-- グローバル設定（全LSPサーバー共通）
+vim.lsp.config('*', {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  flags = lsp_flags,
+})
+
+-- Pyright (Python)
 vim.lsp.config.pyright = {
-  cmd = { 'pyright-langserver', '--stdio' },
   on_attach = on_attach,
   capabilities = capabilities,
+  flags = lsp_flags,
 }
 
+-- TypeScript/JavaScript
 vim.lsp.config.ts_ls = {
-  cmd = { 'typescript-language-server', '--stdio' },
   on_attach = on_attach,
   capabilities = capabilities,
+  flags = lsp_flags,
 }
 
+-- Rust
 vim.lsp.config.rust_analyzer = {
-  cmd = { 'rust-analyzer' },
   on_attach = on_attach,
   capabilities = capabilities,
+  flags = lsp_flags,
   settings = {
     ["rust-analyzer"] = {}
   }
 }
 
+-- Go
 vim.lsp.config.gopls = {
-  cmd = { 'gopls' },
   on_attach = on_attach,
   capabilities = capabilities,
+  flags = lsp_flags,
 }
+
+-- Lua (Neovim設定用)
+vim.lsp.config.lua_ls = {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  flags = lsp_flags,
+  settings = {
+    Lua = {
+      runtime = {
+        version = 'LuaJIT',
+      },
+      diagnostics = {
+        globals = { 'vim' },
+      },
+      workspace = {
+        library = vim.api.nvim_get_runtime_file("", true),
+        checkThirdParty = false,
+      },
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+}
+
+-- 設定したLSPサーバーを有効化
+vim.lsp.enable({'pyright', 'ts_ls', 'rust_analyzer', 'gopls', 'lua_ls'})
 

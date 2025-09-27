@@ -50,15 +50,15 @@ keymap("n", "<Space>h", "^", opts)
 keymap("n", "<Space>l", "$", opts)
 
 -- Claude Code keybindings
-keymap("n", "cc", "<cmd>ClaudeCode<cr>", opts)
-keymap("n", "cf", "<cmd>ClaudeCodeFocus<cr>", opts)
-keymap("n", "cr", "<cmd>ClaudeCode --resume<cr>", opts)
-keymap("n", "cC", "<cmd>ClaudeCode --continue<cr>", opts)
-keymap("n", "cm", "<cmd>ClaudeCodeSelectModel<cr>", opts)
-keymap("n", "cb", "<cmd>ClaudeCodeAdd %<cr>", opts)
-keymap("v", "cs", "<cmd>ClaudeCodeSend<cr>", opts)
-keymap("n", "ca", "<cmd>ClaudeCodeDiffAccept<cr>", opts)
-keymap("n", "cd", "<cmd>ClaudeCodeDiffDeny<cr>", opts)
+keymap("n", "<Space>cc", "<cmd>ClaudeCode<cr>", opts)
+keymap("n", "<Space>cr", "<cmd>ClaudeCode --resume<cr>", opts)
+keymap("v", "<Space>cs", "<cmd>ClaudeCodeSend<cr>", opts)
+keymap("n", "<Space>cf", "<cmd>ClaudeCodeFocus<cr>", opts)
+keymap("n", "<Space>cC", "<cmd>ClaudeCode --continue<cr>", opts)
+keymap("n", "<Space>cm", "<cmd>ClaudeCodeSelectModel<cr>", opts)
+keymap("n", "<Space>cb", "<cmd>ClaudeCodeAdd %<cr>", opts)
+keymap("n", "<Space>ca", "<cmd>ClaudeCodeDiffAccept<cr>", opts)
+keymap("n", "<Space>cd", "<cmd>ClaudeCodeDiffDeny<cr>", opts)
 
 -- Snacks.nvim keybindings (デフォルト設定)
 keymap("n", "tt", "<cmd>lua Snacks.terminal.toggle()<cr>", opts)  -- ターミナルをトグル
@@ -77,6 +77,9 @@ keymap("n", "<Space>q", ":<C-u>q!<Return>", opts)
 
 -- ESC*2 でハイライトやめる
 keymap("n", "<Esc><Esc>", ":<C-u>set nohlsearch<Return>", opts)
+
+-- checktime for reloading externally changed files
+keymap("n", "ct", ":checktime<CR>", opts)
 
 -- Insert --
 -- Press jk fast to exit insert mode

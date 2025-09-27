@@ -11,4 +11,5 @@ require('telescope_conf')
 require('language')
 require('tab')
 require('startup_nvim')
+require('neo-tree-config')
 
