@@ -124,14 +124,6 @@ use({
   use 'rust-lang/rust.vim'
   use 'moll/vim-node'
 
-  -- telescope
-  use {
-    'nvim-telescope/telescope.nvim',
-    requires = {
-      {'nvim-lua/plenary.nvim'},
-      {'nvim-telescope/telescope-fzy-native.nvim'},
-    },
-  }
 
   -- Snacks.nvim (dependency for claudecode.nvim)
   use {
@@ -140,7 +132,7 @@ use({
       local snacks = require('snacks')
       if not snacks.did_setup then
         snacks.setup({
-          terminal = { 
+          terminal = {
             enabled = true,
             win = {
               -- DoomOne theme colors for terminal
@@ -148,6 +140,9 @@ use({
                 winhl = "Normal:Normal,FloatBorder:FloatBorder,FloatTitle:FloatTitle,FloatFooter:FloatFooter"
               },
             },
+          },
+          explorer = {
+            enabled = true,
           },
         })
       end
