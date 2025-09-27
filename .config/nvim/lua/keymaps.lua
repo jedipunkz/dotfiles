@@ -61,12 +61,12 @@ keymap("n", "<Space>ca", "<cmd>ClaudeCodeDiffAccept<cr>", opts)
 keymap("n", "<Space>cd", "<cmd>ClaudeCodeDiffDeny<cr>", opts)
 
 -- Snacks.nvim keybindings (デフォルト設定)
-keymap("n", "tt", "<cmd>lua Snacks.terminal.toggle()<cr>", opts)  -- ターミナルをトグル
-keymap("t", "tt", "<cmd>lua Snacks.terminal.toggle()<cr>", opts)  -- ターミナルモードでもトグル
-keymap("n", "tf", "<cmd>lua Snacks.picker.smart()<cr>", opts)  -- スマートファイル検索
-keymap("n", "tg", "<cmd>lua Snacks.picker.grep()<cr>", opts)  -- grep検索
-keymap("n", "tb", "<cmd>lua Snacks.gitbrowse()<cr>", opts)  -- git browse in browser
-keymap("n", "tl", "<cmd>lua Snacks.lazygit()<cr>", opts)  -- lazygit
+keymap("n", "st", "<cmd>lua Snacks.terminal.toggle()<cr>", opts)  -- ターミナルをトグル
+keymap("t", "st", "<cmd>lua Snacks.terminal.toggle()<cr>", opts)  -- ターミナルモードでもトグル
+keymap("n", "sf", "<cmd>lua Snacks.picker.smart()<cr>", opts)  -- スマートファイル検索
+keymap("n", "sg", "<cmd>lua Snacks.picker.grep()<cr>", opts)  -- grep検索
+keymap("n", "sb", "<cmd>lua Snacks.gitbrowse()<cr>", opts)  -- git browse in browser
+keymap("n", "sl", "<cmd>lua Snacks.lazygit()<cr>", opts)  -- lazygit
 
 -- ;でコマンド入力( ;と:を入れ替)
 keymap("n", ";", ":", opts)

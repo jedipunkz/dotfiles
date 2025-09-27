@@ -402,13 +402,27 @@ return require('packer').startup(function(use)
   -- mason.nvim
   require("mason").setup()
 
-  -- startup
+  -- Dashboard
   use {
-    "startup-nvim/startup.nvim",
-    requires = {"nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim"},
-    -- config = function()
-    --   require"startup".setup({theme = "dashboard"})
-    -- end
+    'nvimdev/dashboard-nvim',
+    event = 'VimEnter',
+    config = function()
+      require('dashboard').setup({
+        config = {
+          header = {
+            '',
+            '░░░░░██╗███████╗██████╗░██╗██████╗░██╗░░░██╗███╗░░██╗██╗░░██╗███████╗',
+            '░░░░░██║██╔════╝██╔══██╗██║██╔══██╗██║░░░██║████╗░██║██║░██╔╝╚════██║',
+            '░░░░░██║█████╗░░██║░░██║██║██████╔╝██║░░░██║██╔██╗██║█████═╝░░░███╔═╝',
+            '██╗░░██║██╔══╝░░██║░░██║██║██╔═══╝░██║░░░██║██║╚████║██╔═██╗░██╔══╝░░',
+            '╚█████╔╝███████╗██████╔╝██║██║░░░░░╚██████╔╝██║░╚███║██║░╚██╗███████╗',
+            '░╚════╝░╚══════╝╚═════╝░╚═╝╚═╝░░░░░░╚═════╝░╚═╝░░╚══╝╚═╝░░╚═╝╚══════╝',
+            '',
+          },
+        }
+      })
+    end,
+    requires = {'nvim-tree/nvim-web-devicons'}
   }
 end)
 

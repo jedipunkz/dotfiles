@@ -9,5 +9,4 @@ require('completion')
 require('statusline')
 require('language')
 require('tab')
-require('startup_nvim')
 
