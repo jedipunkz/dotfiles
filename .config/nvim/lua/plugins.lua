@@ -111,6 +111,14 @@ return require('packer').startup(function(use)
   use 'moll/vim-node'
 
 
+  -- Namu.nvim - Symbol navigator
+  use {
+    'bassamsdata/namu.nvim',
+    config = function()
+      require('namu').setup({})
+    end
+  }
+
   -- Snacks.nvim (dependency for claudecode.nvim)
   use {
     'folke/snacks.nvim',

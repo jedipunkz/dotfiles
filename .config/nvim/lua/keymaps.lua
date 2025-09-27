@@ -101,8 +101,8 @@ keymap("v", ">", ">gv", opts)
 -- ビジュアルモード時vで行末まで選択
 keymap("v", "v", "$h", opts)
 
--- 0番レジスタを使いやすくした
-keymap("v", "<C-p>", '"0p', opts)
+-- 0番レジスタを使いやすくした（<C-p>をnamu.nvimで使うため変更）
+keymap("v", "<leader>p", '"0p', opts)
 
 -- snacks.nvim explorer
 vim.keymap.set("n", "<C-e>", "<cmd>lua Snacks.explorer()<CR>", { noremap = true, silent = true })
@@ -141,3 +141,8 @@ keymap("n", "ms", "<cmd>TSJSplit<CR>", opts)   -- split
 -- Git blame keybindings
 keymap("n", "gb", "<cmd>GitBlameToggle<CR>", opts)  -- toggle git blame
 keymap("n", "gB", "<cmd>GitBlameCopyCommitURL<CR>", opts)  -- copy commit URL
+
+-- Namu.nvim keybindings
+vim.keymap.set("n", "nm", ":Namu symbols<cr>", { desc = "Jump to LSP symbol", silent = true })
+vim.keymap.set("n", "nw", ":Namu workspace<cr>", { desc = "LSP Symbols - Workspace", silent = true })
+
