@@ -22,6 +22,7 @@ brew install \
     bat \
     fd \
     mise \
+    ast-grep \
     ripgrep
 
 brew install --HEAD neovim
