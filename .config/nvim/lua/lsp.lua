@@ -38,30 +38,62 @@ local lsp_flags = {
   -- This is the default in Nvim 0.7+
   debounce_text_changes = 150,
 }
-vim.lsp.config.pyright = {
-  cmd = { 'pyright-langserver', '--stdio' },
-  on_attach = on_attach,
-  capabilities = capabilities,
-}
 
-vim.lsp.config.ts_ls = {
-  cmd = { 'typescript-language-server', '--stdio' },
-  on_attach = on_attach,
-  capabilities = capabilities,
-}
+-- nvim-lspconfigを使用
+local lspconfig = require('lspconfig')
 
-vim.lsp.config.rust_analyzer = {
-  cmd = { 'rust-analyzer' },
+-- Pyright (Python)
+lspconfig.pyright.setup({
   on_attach = on_attach,
   capabilities = capabilities,
+  flags = lsp_flags,
+})
+
+-- TypeScript/JavaScript
+lspconfig.ts_ls.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+  flags = lsp_flags,
+})
+
+-- Rust
+lspconfig.rust_analyzer.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+  flags = lsp_flags,
   settings = {
     ["rust-analyzer"] = {}
   }
-}
+})
 
-vim.lsp.config.gopls = {
-  cmd = { 'gopls' },
+-- Go
+lspconfig.gopls.setup({
   on_attach = on_attach,
   capabilities = capabilities,
-}
+  flags = lsp_flags,
+})
+
+-- Lua (Neovim設定用)
+lspconfig.lua_ls.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+  flags = lsp_flags,
+  settings = {
+    Lua = {
+      runtime = {
+        version = 'LuaJIT',
+      },
+      diagnostics = {
+        globals = { 'vim' },
+      },
+      workspace = {
+        library = vim.api.nvim_get_runtime_file("", true),
+        checkThirdParty = false,
+      },
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+})
 
