@@ -138,6 +138,17 @@ return require('packer').startup(function(use)
             env = {
               TERM = "xterm-256color"
             },
+            bo = {
+              filetype = "snacks_terminal"
+            },
+            keys = {
+              q = "hide",
+              term_normal = {
+                "<C-\\><C-n>",
+                mode = "t",
+                desc = "Terminal normal mode"
+              }
+            }
           },
           explorer = {
             enabled = true,
