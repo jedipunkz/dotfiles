@@ -40,7 +40,7 @@ local lsp_flags = {
 }
 
 -- nvim-lspconfigを使用
-local lspconfig = require('lspconfig')
+local lspconfig = vim.lsp.config
 
 -- Pyright (Python)
 lspconfig.pyright.setup({
