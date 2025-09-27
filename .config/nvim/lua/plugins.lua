@@ -121,10 +121,14 @@ return require('packer').startup(function(use)
           terminal = {
             enabled = true,
             win = {
+              style = "terminal",
               -- DoomOne theme colors for terminal
               wo = {
                 winhl = "Normal:Normal,FloatBorder:FloatBorder,FloatTitle:FloatTitle,FloatFooter:FloatFooter"
               },
+            },
+            env = {
+              TERM = "xterm-256color"
             },
           },
           explorer = {
@@ -132,6 +136,13 @@ return require('packer').startup(function(use)
           },
           gitbrowse = {
             enabled = true,
+          },
+          lazygit = {
+            enabled = true,
+            configure = true,
+            win = {
+              style = "lazygit"
+            },
           },
         })
       end
