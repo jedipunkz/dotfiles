@@ -257,6 +257,22 @@ use({
     end
   }
 
+  -- Modicator: カーソルライン番号の色をモードによって変更
+  use {
+    'mawkler/modicator.nvim',
+    config = function()
+      require('modicator').setup({
+        show_warnings = false,
+        highlights = {
+          defaults = {
+            bold = true,
+            italic = false,
+          },
+        },
+      })
+    end
+  }
+
 
   -- mason.nvim
   require("mason").setup()
