@@ -61,10 +61,12 @@ keymap("n", "<Space>ca", "<cmd>ClaudeCodeDiffAccept<cr>", opts)
 keymap("n", "<Space>cd", "<cmd>ClaudeCodeDiffDeny<cr>", opts)
 
 -- Snacks.nvim keybindings (デフォルト設定)
-keymap("n", "tt", "<cmd>lua Snacks.terminal.toggle()<cr>", opts)  -- ターミナルをトグル
-keymap("t", "tt", "<cmd>lua Snacks.terminal.toggle()<cr>", opts)  -- ターミナルモードでもトグル
-keymap("n", "tf", "<cmd>lua Snacks.picker.smart()<cr>", opts)  -- スマートファイル検索
-keymap("n", "tg", "<cmd>lua Snacks.picker.grep()<cr>", opts)  -- grep検索
+keymap("n", "st", "<cmd>lua Snacks.terminal.toggle()<cr>", opts)  -- ターミナルをトグル
+keymap("t", "st", "<cmd>lua Snacks.terminal.toggle()<cr>", opts)  -- ターミナルモードでもトグル
+keymap("n", "sf", "<cmd>lua Snacks.picker.smart()<cr>", opts)  -- スマートファイル検索
+keymap("n", "sg", "<cmd>lua Snacks.picker.grep()<cr>", opts)  -- grep検索
+keymap("n", "sb", "<cmd>lua Snacks.gitbrowse()<cr>", opts)  -- git browse in browser
+keymap("n", "sl", "<cmd>lua Snacks.lazygit()<cr>", opts)  -- lazygit
 
 -- ;でコマンド入力( ;と:を入れ替)
 keymap("n", ";", ":", opts)
@@ -99,12 +101,11 @@ keymap("v", ">", ">gv", opts)
 -- ビジュアルモード時vで行末まで選択
 keymap("v", "v", "$h", opts)
 
--- 0番レジスタを使いやすくした
-keymap("v", "<C-p>", '"0p', opts)
+-- 0番レジスタを使いやすくした（<C-p>をnamu.nvimで使うため変更）
+keymap("v", "<leader>p", '"0p', opts)
 
--- neo-tree
-vim.keymap.set("n", "<C-e>", "<cmd>Neotree toggle<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>o", "<cmd>Neotree focus<CR>", { noremap = true, silent = true })
+-- snacks.nvim explorer
+vim.keymap.set("n", "<C-e>", "<cmd>lua Snacks.explorer()<CR>", { noremap = true, silent = true })
 
 -- LSP keymaps
 -- 関数定義にジャンプ
@@ -140,3 +141,8 @@ keymap("n", "ms", "<cmd>TSJSplit<CR>", opts)   -- split
 -- Git blame keybindings
 keymap("n", "gb", "<cmd>GitBlameToggle<CR>", opts)  -- toggle git blame
 keymap("n", "gB", "<cmd>GitBlameCopyCommitURL<CR>", opts)  -- copy commit URL
+
+-- Namu.nvim keybindings
+vim.keymap.set("n", "nm", ":Namu symbols<cr>", { desc = "Jump to LSP symbol", silent = true })
+vim.keymap.set("n", "nw", ":Namu workspace<cr>", { desc = "LSP Symbols - Workspace", silent = true })
+

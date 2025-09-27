@@ -55,20 +55,6 @@ return require('packer').startup(function(use)
     requires = { 'nvim-tree/nvim-web-devicons', opt = true }
   }
 
-  -- File explorer (neo-tree)
-use({
-  "nvim-neo-tree/neo-tree.nvim",
-  branch = "v3.x",
-  requires = {
-    "nvim-lua/plenary.nvim",
-    "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-    "MunifTanjim/nui.nvim",
-    -- Optional image support in preview window: See `# Preview Mode` for more information
-    -- { "3rd/image.nvim", config = function() require('image').setup({}) end },
-    -- OR use snacks.nvim's image module:
-    -- "folke/snacks.nvim",
-  }
-})
 
   -- Icons
   use 'ryanoasis/vim-devicons'
@@ -124,13 +110,13 @@ use({
   use 'rust-lang/rust.vim'
   use 'moll/vim-node'
 
-  -- telescope
+
+  -- Namu.nvim - Symbol navigator
   use {
-    'nvim-telescope/telescope.nvim',
-    requires = {
-      {'nvim-lua/plenary.nvim'},
-      {'nvim-telescope/telescope-fzy-native.nvim'},
-    },
+    'bassamsdata/namu.nvim',
+    config = function()
+      require('namu').setup({})
+    end
   }
 
   -- Snacks.nvim (dependency for claudecode.nvim)
@@ -140,13 +126,41 @@ use({
       local snacks = require('snacks')
       if not snacks.did_setup then
         snacks.setup({
-          terminal = { 
+          terminal = {
             enabled = true,
             win = {
+              style = "terminal",
               -- DoomOne theme colors for terminal
               wo = {
                 winhl = "Normal:Normal,FloatBorder:FloatBorder,FloatTitle:FloatTitle,FloatFooter:FloatFooter"
               },
+            },
+            env = {
+              TERM = "xterm-256color"
+            },
+            bo = {
+              filetype = "snacks_terminal"
+            },
+            keys = {
+              q = "hide",
+              term_normal = {
+                "<C-\\><C-n>",
+                mode = "t",
+                desc = "Terminal normal mode"
+              }
+            }
+          },
+          explorer = {
+            enabled = true,
+          },
+          gitbrowse = {
+            enabled = true,
+          },
+          lazygit = {
+            enabled = true,
+            configure = true,
+            win = {
+              style = "lazygit"
             },
           },
         })
@@ -388,13 +402,27 @@ use({
   -- mason.nvim
   require("mason").setup()
 
-  -- startup
+  -- Dashboard
   use {
-    "startup-nvim/startup.nvim",
-    requires = {"nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim"},
-    -- config = function()
-    --   require"startup".setup({theme = "dashboard"})
-    -- end
+    'nvimdev/dashboard-nvim',
+    event = 'VimEnter',
+    config = function()
+      require('dashboard').setup({
+        config = {
+          header = {
+            '',
+            '░░░░░██╗███████╗██████╗░██╗██████╗░██╗░░░██╗███╗░░██╗██╗░░██╗███████╗',
+            '░░░░░██║██╔════╝██╔══██╗██║██╔══██╗██║░░░██║████╗░██║██║░██╔╝╚════██║',
+            '░░░░░██║█████╗░░██║░░██║██║██████╔╝██║░░░██║██╔██╗██║█████═╝░░░███╔═╝',
+            '██╗░░██║██╔══╝░░██║░░██║██║██╔═══╝░██║░░░██║██║╚████║██╔═██╗░██╔══╝░░',
+            '╚█████╔╝███████╗██████╔╝██║██║░░░░░╚██████╔╝██║░╚███║██║░╚██╗███████╗',
+            '░╚════╝░╚══════╝╚═════╝░╚═╝╚═╝░░░░░░╚═════╝░╚═╝░░╚══╝╚═╝░░╚═╝╚══════╝',
+            '',
+          },
+        }
+      })
+    end,
+    requires = {'nvim-tree/nvim-web-devicons'}
   }
 end)
 
