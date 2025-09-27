@@ -65,6 +65,7 @@ keymap("n", "tt", "<cmd>lua Snacks.terminal.toggle()<cr>", opts)  -- ターミ�
 keymap("t", "tt", "<cmd>lua Snacks.terminal.toggle()<cr>", opts)  -- ターミナルモードでもトグル
 keymap("n", "tf", "<cmd>lua Snacks.picker.smart()<cr>", opts)  -- スマートファイル検索
 keymap("n", "tg", "<cmd>lua Snacks.picker.grep()<cr>", opts)  -- grep検索
+keymap("n", "tb", "<cmd>lua Snacks.gitbrowse()<cr>", opts)  -- git browse in browser
 
 -- ;でコマンド入力( ;と:を入れ替)
 keymap("n", ";", ":", opts)

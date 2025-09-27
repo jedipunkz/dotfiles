@@ -130,6 +130,9 @@ return require('packer').startup(function(use)
           explorer = {
             enabled = true,
           },
+          gitbrowse = {
+            enabled = true,
+          },
         })
       end
 
