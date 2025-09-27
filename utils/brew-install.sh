@@ -23,6 +23,7 @@ brew install \
     fd \
     mise \
     ast-grep \
+    tree-sitter \
     ripgrep
 
 brew install --HEAD neovim
