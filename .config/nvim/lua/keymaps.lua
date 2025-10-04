@@ -47,16 +47,6 @@ keymap("n", "dw", 'vb"_d', opts)
 keymap("n", "<Space>h", "^", opts)
 keymap("n", "<Space>l", "$", opts)
 
--- Claude Code keybindings
-keymap("n", "<Space>cc", "<cmd>ClaudeCode<cr>", opts)
-keymap("n", "<Space>cr", "<cmd>ClaudeCode --resume<cr>", opts)
-keymap("v", "<Space>cs", "<cmd>ClaudeCodeSend<cr>", opts)
-keymap("n", "<Space>cf", "<cmd>ClaudeCodeFocus<cr>", opts)
-keymap("n", "<Space>cC", "<cmd>ClaudeCode --continue<cr>", opts)
-keymap("n", "<Space>cm", "<cmd>ClaudeCodeSelectModel<cr>", opts)
-keymap("n", "<Space>cb", "<cmd>ClaudeCodeAdd %<cr>", opts)
-keymap("n", "<Space>ca", "<cmd>ClaudeCodeDiffAccept<cr>", opts)
-keymap("n", "<Space>cd", "<cmd>ClaudeCodeDiffDeny<cr>", opts)
 
 -- Snacks.nvim keybindings (デフォルト設定)
 keymap("n", "st", "<cmd>lua Snacks.terminal.toggle()<cr>", opts)  -- ターミナルをトグル
