@@ -2,7 +2,6 @@
   "async.vim": { "branch": "master", "commit": "2082d13bb195f3203d41a308b89417426a7deca1" },
   "asyncomplete-lsp.vim": { "branch": "master", "commit": "4486c49331a6d0160a78ae5b3fbbef2c06331dbe" },
   "asyncomplete.vim": { "branch": "master", "commit": "016590d2ca73cefe45712430e319a0ef004e2215" },
-  "claudecode.nvim": { "branch": "main", "commit": "ac2baef386d8078ef2a0aaa98580d25ec178f40a" },
   "cmp-buffer": { "branch": "main", "commit": "b74fab3656eea9de20a9b8116afa3cfc4ec09657" },
   "cmp-cmdline": { "branch": "main", "commit": "d126061b624e0af6c3a556428712dd4d4194ec6d" },
   "cmp-nvim-lsp": { "branch": "main", "commit": "bd5a7d6db125d4654b50eeae9f5217f24bb22fd3" },

@@ -6,6 +6,13 @@ return {
       local snacks = require("snacks")
       if not snacks.did_setup then
         snacks.setup({
+          picker = {
+            sources = {
+              files = {
+                hidden = true,
+              },
+            },
+          },
           dashboard = {
             enabled = true,
             sections = {
@@ -79,6 +86,7 @@ return {
           },
           explorer = {
             enabled = true,
+            hidden = true,
           },
           gitbrowse = {
             enabled = true,
