@@ -34,6 +34,7 @@
   "project.nvim": { "branch": "main", "commit": "8c6bad7d22eef1b71144b401c9f74ed01526a4fb" },
   "ripgrep": { "branch": "master", "commit": "9802945e6342ec284633924cb7d8d3ce67204995" },
   "rust.vim": { "branch": "master", "commit": "889b9a7515db477f4cb6808bef1769e53493c578" },
+  "sidekick.nvim": { "branch": "main", "commit": "0ab6a23b779e208c3733c48a380bf35e3ec1d49d" },
   "snacks.nvim": { "branch": "main", "commit": "bfe8c26dbd83f7c4fbc222787552e29b4eccfcc0" },
   "tComment": { "branch": "master", "commit": "e9ee1caada3338387ed4702db463323cfee8e925" },
   "terraform-lsp": { "branch": "master", "commit": "09a574540faa3d199abd21e75b0c4710bbdee1e6" },
