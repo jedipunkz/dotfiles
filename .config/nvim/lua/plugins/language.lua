@@ -1,0 +1,30 @@
+return {
+  -- Language support
+  {
+    "github/copilot.vim",
+  },
+  {
+    "othree/yajs.vim",
+  },
+  {
+    "chase/vim-ansible-yaml",
+  },
+  {
+    "hashivim/vim-terraform",
+  },
+  {
+    "juliosueiras/vim-terraform-completion",
+  },
+  {
+    "nvie/vim-Flake8",
+  },
+  {
+    "mattn/vim-goimports",
+  },
+  {
+    "rust-lang/rust.vim",
+  },
+  {
+    "moll/vim-node",
+  },
+}

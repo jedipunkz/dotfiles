@@ -1,0 +1,457 @@
+-- Automatically generated packer.nvim plugin loader code
+
+if vim.api.nvim_call_function('has', {'nvim-0.5'}) ~= 1 then
+  vim.api.nvim_command('echohl WarningMsg | echom "Invalid Neovim version for packer.nvim! | echohl None"')
+  return
+end
+
+vim.api.nvim_command('packadd packer.nvim')
+
+local no_errors, error_msg = pcall(function()
+
+_G._packer = _G._packer or {}
+_G._packer.inside_compile = true
+
+local time
+local profile_info
+local should_profile = false
+if should_profile then
+  local hrtime = vim.loop.hrtime
+  profile_info = {}
+  time = function(chunk, start)
+    if start then
+      profile_info[chunk] = hrtime()
+    else
+      profile_info[chunk] = (hrtime() - profile_info[chunk]) / 1e6
+    end
+  end
+else
+  time = function(chunk, start) end
+end
+
+local function save_profiles(threshold)
+  local sorted_times = {}
+  for chunk_name, time_taken in pairs(profile_info) do
+    sorted_times[#sorted_times + 1] = {chunk_name, time_taken}
+  end
+  table.sort(sorted_times, function(a, b) return a[2] > b[2] end)
+  local results = {}
+  for i, elem in ipairs(sorted_times) do
+    if not threshold or threshold and elem[2] > threshold then
+      results[i] = elem[1] .. ' took ' .. elem[2] .. 'ms'
+    end
+  end
+  if threshold then
+    table.insert(results, '(Only showing plugins that took longer than ' .. threshold .. ' ms ' .. 'to load)')
+  end
+
+  _G._packer.profile_output = results
+end
+
+time([[Luarocks path setup]], true)
+local package_path_str = "/Users/tomokazu_hirai/.cache/nvim/packer_hererocks/2.1.1753364724/share/lua/5.1/?.lua;/Users/tomokazu_hirai/.cache/nvim/packer_hererocks/2.1.1753364724/share/lua/5.1/?/init.lua;/Users/tomokazu_hirai/.cache/nvim/packer_hererocks/2.1.1753364724/lib/luarocks/rocks-5.1/?.lua;/Users/tomokazu_hirai/.cache/nvim/packer_hererocks/2.1.1753364724/lib/luarocks/rocks-5.1/?/init.lua"
+local install_cpath_pattern = "/Users/tomokazu_hirai/.cache/nvim/packer_hererocks/2.1.1753364724/lib/lua/5.1/?.so"
+if not string.find(package.path, package_path_str, 1, true) then
+  package.path = package.path .. ';' .. package_path_str
+end
+
+if not string.find(package.cpath, install_cpath_pattern, 1, true) then
+  package.cpath = package.cpath .. ';' .. install_cpath_pattern
+end
+
+time([[Luarocks path setup]], false)
+time([[try_loadstring definition]], true)
+local function try_loadstring(s, component, name)
+  local success, result = pcall(loadstring(s), name, _G.packer_plugins[name])
+  if not success then
+    vim.schedule(function()
+      vim.api.nvim_notify('packer.nvim: Error running ' .. component .. ' for ' .. name .. ': ' .. result, vim.log.levels.ERROR, {})
+    end)
+  end
+  return result
+end
+
+time([[try_loadstring definition]], false)
+time([[Defining packer_plugins]], true)
+_G.packer_plugins = {
+  ["async.vim"] = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/async.vim",
+    url = "https://github.com/prabirshrestha/async.vim"
+  },
+  ["asyncomplete-lsp.vim"] = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/asyncomplete-lsp.vim",
+    url = "https://github.com/prabirshrestha/asyncomplete-lsp.vim"
+  },
+  ["asyncomplete.vim"] = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/asyncomplete.vim",
+    url = "https://github.com/prabirshrestha/asyncomplete.vim"
+  },
+  ["claudecode.nvim"] = {
+    config = { "\27LJ\2\n8\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\15claudecode\frequire\0" },
+    load_after = {},
+    loaded = true,
+    needs_bufread = false,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/opt/claudecode.nvim",
+    url = "https://github.com/coder/claudecode.nvim"
+  },
+  ["cmp-buffer"] = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/cmp-buffer",
+    url = "https://github.com/hrsh7th/cmp-buffer"
+  },
+  ["cmp-cmdline"] = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/cmp-cmdline",
+    url = "https://github.com/hrsh7th/cmp-cmdline"
+  },
+  ["cmp-nvim-lsp"] = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp",
+    url = "https://github.com/hrsh7th/cmp-nvim-lsp"
+  },
+  ["cmp-nvim-lua"] = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/cmp-nvim-lua",
+    url = "https://github.com/hrsh7th/cmp-nvim-lua"
+  },
+  ["cmp-path"] = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/cmp-path",
+    url = "https://github.com/hrsh7th/cmp-path"
+  },
+  cmp_luasnip = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
+    url = "https://github.com/saadparwaiz1/cmp_luasnip"
+  },
+  ["copilot.vim"] = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/copilot.vim",
+    url = "https://github.com/github/copilot.vim"
+  },
+  ["dashboard-nvim"] = {
+    config = { "\27LJ\2\n�\3\0\0\19\0\22\3>6\0\0\0006\2\1\0'\3\2\0B\0\3\3\14\0\0\0X\2\2�4\2\0\0L\2\2\0009\2\3\1B\2\1\0024\3\0\0006\4\4\0\18\6\2\0B\4\2\4X\a,�)\t\f\0\1\t\a\0X\t\1�X\4*�+\t\0\0)\n\t\0\3\a\n\0X\n\5�6\n\5\0\18\f\a\0B\n\2\2\18\t\n\0X\n\v�\t\a\0\0X\n\2�'\t\6\0X\n\a�\t\a\1\0X\n\2�'\t\a\0X\n\3�\t\a\2\0X\n\1�'\t\b\0006\n\t\0009\n\n\n\18\f\3\0005\r\16\0'\14\v\0006\15\f\0009\15\r\0159\15\14\15\18\17\b\0'\18\15\0B\15\3\2&\14\15\14=\14\17\r'\14\18\0\18\15\b\0'\16\19\0&\14\16\14=\14\20\r=\t\21\rB\n\3\1E\a\3\3R\a�\127L\3\2\0\bkey\vaction\14 | edit .\bcd \tdesc\1\0\4\bkey\0\vaction\0\tdesc\0\ngroup\vNumber\a:t\16fnamemodify\afn\bvim\6 \vinsert\ntable\6b\6a\0060\rtostring\vipairs\24get_recent_projects\17project_nvim\frequire\npcall\20\22\24�\f\1\0\v\0\15\0\0256\0\0\0'\2\1\0B\0\2\0023\1\2\0009\2\3\0005\4\4\0005\5\6\0005\6\5\0=\6\a\0056\6\b\0009\6\t\0064\b\3\0005\t\n\0>\t\1\b5\t\v\0>\t\2\b\18\t\1\0B\t\1\0A\6\1\2=\6\f\0054\6\0\0=\6\r\5=\5\14\4B\2\2\1K\0\1\0\vconfig\vfooter\vcenter\1\0\4\bkey\6f\vaction?lua vim.cmd(\"cd \" .. vim.fn.expand(\"~\")) vim.cmd(\"edit .\")\tdesc\15 Find File\ngroup\nLabel\1\0\4\bkey\6u\vaction\15PackerSync\tdesc\24󰊳 Update Plugins\ngroup\14@property\16list_extend\bvim\vheader\1\0\3\vheader\0\vcenter\0\vfooter\0\1\t\0\0\5�\1░░░░░██╗███████╗██████╗░██╗██████╗░██╗░░░██╗███╗░░██╗██╗░░██╗███████╗�\1░░░░░██║██╔════╝██╔══██╗██║██╔══██╗██║░░░██║████╗░██║██║░██╔╝╚════██║�\1░░░░░██║█████╗░░██║░░██║██║██████╔╝██║░░░██║██╔██╗██║█████═╝░░░███╔═╝�\1██╗░░██║██╔══╝░░██║░░██║██║██╔═══╝░██║░░░██║██║╚████║██╔═██╗░██╔══╝░░�\1╚█████╔╝███████╗██████╔╝██║██║░░░░░╚██████╔╝██║░╚███║██║░╚██╗███████╗�\1░╚════╝░╚══════╝╚═════╝░╚═╝╚═╝░░░░░░╚═════╝░╚═╝░░╚══╝╚═╝░░╚═╝╚══════╝\5\1\0\2\ntheme\tdoom\vconfig\0\nsetup\0\14dashboard\frequire\0" },
+    loaded = false,
+    needs_bufread = false,
+    only_cond = false,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/opt/dashboard-nvim",
+    url = "https://github.com/nvimdev/dashboard-nvim"
+  },
+  delve = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/delve",
+    url = "https://github.com/go-delve/delve"
+  },
+  ["doom-one.nvim"] = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/doom-one.nvim",
+    url = "https://github.com/NTBBloodbath/doom-one.nvim"
+  },
+  ["git-blame.nvim"] = {
+    config = { "\27LJ\2\n�\1\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\4\21message_template' <summary> • <date> • <author>\fenabled\2\24virtual_text_column\3\1\16date_format\r%m/%d/%y\nsetup\rgitblame\frequire\0" },
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/git-blame.nvim",
+    url = "https://github.com/f-person/git-blame.nvim"
+  },
+  ["gitsigns.nvim"] = {
+    config = { "\27LJ\2\n�\1\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\5\20max_file_length\3��\2\21status_formatter\0\20update_debounce\3d\18sign_priority\3\6\23current_line_blame\1\nsetup\rgitsigns\frequire\0" },
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",
+    url = "https://github.com/lewis6991/gitsigns.nvim"
+  },
+  ["grug-far.nvim"] = {
+    config = { "\27LJ\2\n'\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\freplace\frequire\0" },
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/grug-far.nvim",
+    url = "https://github.com/MagicDuck/grug-far.nvim"
+  },
+  ["hlchunk.nvim"] = {
+    config = { "\27LJ\2\n�\1\0\0\5\0\n\0\r6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\6\0005\3\3\0005\4\4\0=\4\5\3=\3\a\0025\3\b\0=\3\t\2B\0\2\1K\0\1\0\vindent\1\0\1\venable\1\nchunk\1\0\2\vindent\0\nchunk\0\nchars\1\0\5\16left_bottom\b╰\16right_arrow\6>\rleft_top\b╭\18vertical_line\b│\20horizontal_line\b─\1\0\3\nstyle\f#00ffff\venable\2\nchars\0\nsetup\fhlchunk\frequire\0" },
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/hlchunk.nvim",
+    url = "https://github.com/shellRaining/hlchunk.nvim"
+  },
+  ["lspkind-nvim"] = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/lspkind-nvim",
+    url = "https://github.com/onsails/lspkind-nvim"
+  },
+  ["lspsaga.nvim"] = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/lspsaga.nvim",
+    url = "https://github.com/glepnir/lspsaga.nvim"
+  },
+  ["lualine.nvim"] = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/lualine.nvim",
+    url = "https://github.com/nvim-lualine/lualine.nvim"
+  },
+  ["mason.nvim"] = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/mason.nvim",
+    url = "https://github.com/williamboman/mason.nvim"
+  },
+  ["modicator.nvim"] = {
+    config = { "\27LJ\2\n�\1\0\0\5\0\b\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\5\0005\4\4\0=\4\6\3=\3\a\2B\0\2\1K\0\1\0\15highlights\rdefaults\1\0\1\rdefaults\0\1\0\2\tbold\2\vitalic\1\1\0\2\18show_warnings\1\15highlights\0\nsetup\14modicator\frequire\0" },
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/modicator.nvim",
+    url = "https://github.com/mawkler/modicator.nvim"
+  },
+  ["namu.nvim"] = {
+    config = { "\27LJ\2\n6\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\tnamu\frequire\0" },
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/namu.nvim",
+    url = "https://github.com/bassamsdata/namu.nvim"
+  },
+  ["null-ls.nvim"] = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/null-ls.nvim",
+    url = "https://github.com/jose-elias-alvarez/null-ls.nvim"
+  },
+  ["nvim-cmp"] = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/nvim-cmp",
+    url = "https://github.com/hrsh7th/nvim-cmp"
+  },
+  ["nvim-lspconfig"] = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
+    url = "https://github.com/neovim/nvim-lspconfig"
+  },
+  ["nvim-scrollview"] = {
+    config = { "\27LJ\2\n�\f\0\0\6\0.\0?6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\0024\3\3\0006\4\b\0009\4\t\0049\4\n\0049\4\v\4>\4\1\0036\4\b\0009\4\t\0049\4\n\0049\4\f\4>\4\2\3=\3\r\0025\3\14\0=\3\15\0025\3\19\0005\4\17\0005\5\16\0=\5\18\4=\4\20\0035\4\22\0005\5\21\0=\5\18\4=\4\23\0035\4\25\0005\5\24\0=\5\18\4=\4\26\0035\4\28\0005\5\27\0=\5\18\4=\4\29\0035\4\31\0005\5\30\0=\5\18\4=\4 \0035\4\"\0005\5!\0=\5\18\4=\4#\0035\4%\0005\5$\0=\5\18\4=\4&\0035\4(\0005\5'\0=\5\18\4=\4)\0035\4+\0005\5*\0=\5\18\4=\4,\3=\3-\2B\0\2\1K\0\1\0\nmarks\14GitDelete\1\0\a\rpriority\3\a\ttext\0\rcolor_nr\0\14highlight\15DiffDelete\ncterm\0\ncolor\0\bgui\0\1\3\0\0\b┃\b━\14GitChange\1\0\a\rpriority\3\a\ttext\0\rcolor_nr\0\14highlight\15DiffChange\ncterm\0\ncolor\0\bgui\0\1\3\0\0\b┃\b━\vGitAdd\1\0\a\rpriority\3\a\ttext\0\rcolor_nr\0\14highlight\fDiffAdd\ncterm\0\ncolor\0\bgui\0\1\3\0\0\b┃\b━\tMisc\1\0\a\rpriority\3\6\ttext\0\rcolor_nr\0\14highlight\vNormal\ncterm\0\ncolor\0\bgui\0\1\3\0\0\b┃\b━\tHint\1\0\a\rpriority\3\5\ttext\0\rcolor_nr\0\14highlight\19DiagnosticHint\ncterm\0\ncolor\0\bgui\0\1\3\0\0\b┃\b━\tInfo\1\0\a\rpriority\3\4\ttext\0\rcolor_nr\0\14highlight\19DiagnosticInfo\ncterm\0\ncolor\0\bgui\0\1\3\0\0\b┃\b━\tWarn\1\0\a\rpriority\3\3\ttext\0\rcolor_nr\0\14highlight\19DiagnosticWarn\ncterm\0\ncolor\0\bgui\0\1\3\0\0\b┃\b━\nError\1\0\a\rpriority\3\2\ttext\0\rcolor_nr\0\14highlight\20DiagnosticError\ncterm\0\ncolor\0\bgui\0\1\3\0\0\b┃\b━\vSearch\1\0\t\14GitDelete\0\vGitAdd\0\vSearch\0\tMisc\0\tHint\0\tInfo\0\tWarn\0\nError\0\14GitChange\0\ttext\1\0\a\rpriority\3\1\ttext\0\rcolor_nr\0\14highlight\vSearch\ncterm\0\ncolor\0\bgui\0\1\3\0\0\6-\6=\rhandlers\1\0\a\vcursor\1\15diagnostic\2\vhandle\2\vsearch\2\bale\1\rgitsigns\2\blsp\1\27diagnostics_severities\tWARN\nERROR\rseverity\15diagnostic\bvim\21signs_on_startup\1\2\0\0\ball\23excluded_filetypes\1\0\f\17current_only\2\vhandle\2\nmarks\0\23excluded_filetypes\0\tbase\nright\rhandlers\0\22signs_max_per_row\3\3\19signs_overflow\nright\rwinblend\0032\27diagnostics_severities\0\21signs_on_startup\0\vcolumn\3\1\1\4\0\0\rnerdtree\rneo-tree\19neo-tree-popup\nsetup\15scrollview\frequire\0" },
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/nvim-scrollview",
+    url = "https://github.com/dstein64/nvim-scrollview"
+  },
+  ["nvim-treesitter"] = {
+    config = { "\27LJ\2\n�\2\0\0\4\0\b\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\2B\0\2\1K\0\1\0\14highlight\1\0\2\venable\2&additional_vim_regex_highlighting\1\21ensure_installed\1\0\4\17sync_install\1\14highlight\0\21ensure_installed\0\17auto_install\2\1\r\0\0\blua\bvim\vvimdoc\nquery\15javascript\15typescript\vpython\ago\trust\tjson\tyaml\rmarkdown\nsetup\28nvim-treesitter.configs\frequire\0" },
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
+    url = "https://github.com/nvim-treesitter/nvim-treesitter"
+  },
+  ["nvim-web-devicons"] = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
+    url = "https://github.com/nvim-tree/nvim-web-devicons"
+  },
+  ["packer.nvim"] = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/packer.nvim",
+    url = "https://github.com/wbthomason/packer.nvim"
+  },
+  ["plenary.nvim"] = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/plenary.nvim",
+    url = "https://github.com/nvim-lua/plenary.nvim"
+  },
+  ["prettier.nvim"] = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/prettier.nvim",
+    url = "https://github.com/MunifTanjim/prettier.nvim"
+  },
+  ["project.nvim"] = {
+    config = { "\27LJ\2\n�\1\0\0\4\0\b\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\2B\0\2\1K\0\1\0\rpatterns\1\b\0\0\t.git\v_darcs\b.hg\t.bzr\t.svn\rMakefile\17package.json\22detection_methods\1\0\4\22detection_methods\0\17silent_chdir\2\16show_hidden\1\rpatterns\0\1\3\0\0\fpattern\blsp\nsetup\17project_nvim\frequire\0" },
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/project.nvim",
+    url = "https://github.com/ahmedkhalf/project.nvim"
+  },
+  ripgrep = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/ripgrep",
+    url = "https://github.com/BurntSushi/ripgrep"
+  },
+  ["rust.vim"] = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/rust.vim",
+    url = "https://github.com/rust-lang/rust.vim"
+  },
+  ["snacks.nvim"] = {
+    after = { "claudecode.nvim" },
+    config = { "\27LJ\2\nB\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0009\0\3\0B\0\1\1K\0\1\0\vtoggle\rterminal\vsnacks\frequire@\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0009\0\3\0B\0\1\1K\0\1\0\topen\rterminal\vsnacks\frequire�\6\1\0\a\0#\0.6\0\0\0'\2\1\0B\0\2\0029\1\2\0\14\0\1\0X\1\25�9\1\3\0005\3\17\0005\4\4\0005\5\5\0005\6\6\0=\6\a\5=\5\b\0045\5\t\0=\5\n\0045\5\v\0=\5\f\0045\5\r\0005\6\14\0=\6\15\5=\5\16\4=\4\18\0035\4\19\0=\4\20\0035\4\21\0=\4\22\0035\4\23\0005\5\24\0=\5\b\4=\4\25\3B\1\2\0016\1\26\0009\1\27\0019\1\28\1'\3\29\0003\4\30\0005\5\31\0B\1\4\0016\1\26\0009\1\27\0019\1\28\1'\3 \0003\4!\0005\5\"\0B\1\4\1K\0\1\0\1\0\1\tdesc\18Open terminal\0\22SnackTerminalOpen\1\0\1\tdesc\20Toggle terminal\0\18SnackTerminal\29nvim_create_user_command\bapi\bvim\flazygit\1\0\1\nstyle\flazygit\1\0\3\14configure\2\fenabled\2\bwin\0\14gitbrowse\1\0\1\fenabled\2\rexplorer\1\0\1\fenabled\2\rterminal\1\0\4\rexplorer\0\flazygit\0\rterminal\0\14gitbrowse\0\tkeys\16term_normal\1\2\2\0\15<C-\\><C-n>\tdesc\25Terminal normal mode\tmode\6t\1\0\2\6q\thide\16term_normal\0\abo\1\0\1\rfiletype\20snacks_terminal\benv\1\0\1\tTERM\19xterm-256color\bwin\awo\1\0\1\nwinhlXNormal:Normal,FloatBorder:FloatBorder,FloatTitle:FloatTitle,FloatFooter:FloatFooter\1\0\2\nstyle\rterminal\awo\0\1\0\5\abo\0\benv\0\tkeys\0\bwin\0\fenabled\2\nsetup\14did_setup\vsnacks\frequire\0" },
+    loaded = true,
+    only_config = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/snacks.nvim",
+    url = "https://github.com/folke/snacks.nvim"
+  },
+  tComment = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/tComment",
+    url = "https://github.com/vim-scripts/tComment"
+  },
+  ["terraform-lsp"] = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/terraform-lsp",
+    url = "https://github.com/juliosueiras/terraform-lsp"
+  },
+  treesj = {
+    config = { "\27LJ\2\n4\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\vtreesj\frequire\0" },
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/treesj",
+    url = "https://github.com/Wansmer/treesj"
+  },
+  ["trouble.nvim"] = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/trouble.nvim",
+    url = "https://github.com/folke/trouble.nvim"
+  },
+  ultisnips = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/ultisnips",
+    url = "https://github.com/SirVer/ultisnips"
+  },
+  ["vim-Flake8"] = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/vim-Flake8",
+    url = "https://github.com/nvie/vim-Flake8"
+  },
+  ["vim-ansible-yaml"] = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/vim-ansible-yaml",
+    url = "https://github.com/chase/vim-ansible-yaml"
+  },
+  ["vim-delve"] = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/vim-delve",
+    url = "https://github.com/sebdah/vim-delve"
+  },
+  ["vim-devicons"] = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/vim-devicons",
+    url = "https://github.com/ryanoasis/vim-devicons"
+  },
+  ["vim-dispatch"] = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/vim-dispatch",
+    url = "https://github.com/tpope/vim-dispatch"
+  },
+  ["vim-goimports"] = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/vim-goimports",
+    url = "https://github.com/mattn/vim-goimports"
+  },
+  ["vim-indent-guides"] = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/vim-indent-guides",
+    url = "https://github.com/nathanaelkane/vim-indent-guides"
+  },
+  ["vim-node"] = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/vim-node",
+    url = "https://github.com/moll/vim-node"
+  },
+  ["vim-snippets"] = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/vim-snippets",
+    url = "https://github.com/honza/vim-snippets"
+  },
+  ["vim-terraform"] = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/vim-terraform",
+    url = "https://github.com/hashivim/vim-terraform"
+  },
+  ["vim-terraform-completion"] = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/vim-terraform-completion",
+    url = "https://github.com/juliosueiras/vim-terraform-completion"
+  },
+  ["vim-test"] = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/vim-test",
+    url = "https://github.com/vim-test/vim-test"
+  },
+  ["vim-vsnip"] = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/vim-vsnip",
+    url = "https://github.com/hrsh7th/vim-vsnip"
+  },
+  ["vim-vsnip-integ"] = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/vim-vsnip-integ",
+    url = "https://github.com/hrsh7th/vim-vsnip-integ"
+  },
+  ["yajs.vim"] = {
+    loaded = true,
+    path = "/Users/tomokazu_hirai/.local/share/nvim/site/pack/packer/start/yajs.vim",
+    url = "https://github.com/othree/yajs.vim"
+  }
+}
+
+time([[Defining packer_plugins]], false)
+-- Config for: nvim-scrollview
+time([[Config for nvim-scrollview]], true)
+try_loadstring("\27LJ\2\n�\f\0\0\6\0.\0?6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\0024\3\3\0006\4\b\0009\4\t\0049\4\n\0049\4\v\4>\4\1\0036\4\b\0009\4\t\0049\4\n\0049\4\f\4>\4\2\3=\3\r\0025\3\14\0=\3\15\0025\3\19\0005\4\17\0005\5\16\0=\5\18\4=\4\20\0035\4\22\0005\5\21\0=\5\18\4=\4\23\0035\4\25\0005\5\24\0=\5\18\4=\4\26\0035\4\28\0005\5\27\0=\5\18\4=\4\29\0035\4\31\0005\5\30\0=\5\18\4=\4 \0035\4\"\0005\5!\0=\5\18\4=\4#\0035\4%\0005\5$\0=\5\18\4=\4&\0035\4(\0005\5'\0=\5\18\4=\4)\0035\4+\0005\5*\0=\5\18\4=\4,\3=\3-\2B\0\2\1K\0\1\0\nmarks\14GitDelete\1\0\a\rpriority\3\a\ttext\0\rcolor_nr\0\14highlight\15DiffDelete\ncterm\0\ncolor\0\bgui\0\1\3\0\0\b┃\b━\14GitChange\1\0\a\rpriority\3\a\ttext\0\rcolor_nr\0\14highlight\15DiffChange\ncterm\0\ncolor\0\bgui\0\1\3\0\0\b┃\b━\vGitAdd\1\0\a\rpriority\3\a\ttext\0\rcolor_nr\0\14highlight\fDiffAdd\ncterm\0\ncolor\0\bgui\0\1\3\0\0\b┃\b━\tMisc\1\0\a\rpriority\3\6\ttext\0\rcolor_nr\0\14highlight\vNormal\ncterm\0\ncolor\0\bgui\0\1\3\0\0\b┃\b━\tHint\1\0\a\rpriority\3\5\ttext\0\rcolor_nr\0\14highlight\19DiagnosticHint\ncterm\0\ncolor\0\bgui\0\1\3\0\0\b┃\b━\tInfo\1\0\a\rpriority\3\4\ttext\0\rcolor_nr\0\14highlight\19DiagnosticInfo\ncterm\0\ncolor\0\bgui\0\1\3\0\0\b┃\b━\tWarn\1\0\a\rpriority\3\3\ttext\0\rcolor_nr\0\14highlight\19DiagnosticWarn\ncterm\0\ncolor\0\bgui\0\1\3\0\0\b┃\b━\nError\1\0\a\rpriority\3\2\ttext\0\rcolor_nr\0\14highlight\20DiagnosticError\ncterm\0\ncolor\0\bgui\0\1\3\0\0\b┃\b━\vSearch\1\0\t\14GitDelete\0\vGitAdd\0\vSearch\0\tMisc\0\tHint\0\tInfo\0\tWarn\0\nError\0\14GitChange\0\ttext\1\0\a\rpriority\3\1\ttext\0\rcolor_nr\0\14highlight\vSearch\ncterm\0\ncolor\0\bgui\0\1\3\0\0\6-\6=\rhandlers\1\0\a\vcursor\1\15diagnostic\2\vhandle\2\vsearch\2\bale\1\rgitsigns\2\blsp\1\27diagnostics_severities\tWARN\nERROR\rseverity\15diagnostic\bvim\21signs_on_startup\1\2\0\0\ball\23excluded_filetypes\1\0\f\17current_only\2\vhandle\2\nmarks\0\23excluded_filetypes\0\tbase\nright\rhandlers\0\22signs_max_per_row\3\3\19signs_overflow\nright\rwinblend\0032\27diagnostics_severities\0\21signs_on_startup\0\vcolumn\3\1\1\4\0\0\rnerdtree\rneo-tree\19neo-tree-popup\nsetup\15scrollview\frequire\0", "config", "nvim-scrollview")
+time([[Config for nvim-scrollview]], false)
+-- Config for: git-blame.nvim
+time([[Config for git-blame.nvim]], true)
+try_loadstring("\27LJ\2\n�\1\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\4\21message_template' <summary> • <date> • <author>\fenabled\2\24virtual_text_column\3\1\16date_format\r%m/%d/%y\nsetup\rgitblame\frequire\0", "config", "git-blame.nvim")
+time([[Config for git-blame.nvim]], false)
+-- Config for: nvim-treesitter
+time([[Config for nvim-treesitter]], true)
+try_loadstring("\27LJ\2\n�\2\0\0\4\0\b\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\2B\0\2\1K\0\1\0\14highlight\1\0\2\venable\2&additional_vim_regex_highlighting\1\21ensure_installed\1\0\4\17sync_install\1\14highlight\0\21ensure_installed\0\17auto_install\2\1\r\0\0\blua\bvim\vvimdoc\nquery\15javascript\15typescript\vpython\ago\trust\tjson\tyaml\rmarkdown\nsetup\28nvim-treesitter.configs\frequire\0", "config", "nvim-treesitter")
+time([[Config for nvim-treesitter]], false)
+-- Config for: gitsigns.nvim
+time([[Config for gitsigns.nvim]], true)
+try_loadstring("\27LJ\2\n�\1\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\5\20max_file_length\3��\2\21status_formatter\0\20update_debounce\3d\18sign_priority\3\6\23current_line_blame\1\nsetup\rgitsigns\frequire\0", "config", "gitsigns.nvim")
+time([[Config for gitsigns.nvim]], false)
+-- Config for: grug-far.nvim
+time([[Config for grug-far.nvim]], true)
+try_loadstring("\27LJ\2\n'\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\freplace\frequire\0", "config", "grug-far.nvim")
+time([[Config for grug-far.nvim]], false)
+-- Config for: hlchunk.nvim
+time([[Config for hlchunk.nvim]], true)
+try_loadstring("\27LJ\2\n�\1\0\0\5\0\n\0\r6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\6\0005\3\3\0005\4\4\0=\4\5\3=\3\a\0025\3\b\0=\3\t\2B\0\2\1K\0\1\0\vindent\1\0\1\venable\1\nchunk\1\0\2\vindent\0\nchunk\0\nchars\1\0\5\16left_bottom\b╰\16right_arrow\6>\rleft_top\b╭\18vertical_line\b│\20horizontal_line\b─\1\0\3\nstyle\f#00ffff\venable\2\nchars\0\nsetup\fhlchunk\frequire\0", "config", "hlchunk.nvim")
+time([[Config for hlchunk.nvim]], false)
+-- Config for: modicator.nvim
+time([[Config for modicator.nvim]], true)
+try_loadstring("\27LJ\2\n�\1\0\0\5\0\b\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\5\0005\4\4\0=\4\6\3=\3\a\2B\0\2\1K\0\1\0\15highlights\rdefaults\1\0\1\rdefaults\0\1\0\2\tbold\2\vitalic\1\1\0\2\18show_warnings\1\15highlights\0\nsetup\14modicator\frequire\0", "config", "modicator.nvim")
+time([[Config for modicator.nvim]], false)
+-- Config for: project.nvim
+time([[Config for project.nvim]], true)
+try_loadstring("\27LJ\2\n�\1\0\0\4\0\b\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\2B\0\2\1K\0\1\0\rpatterns\1\b\0\0\t.git\v_darcs\b.hg\t.bzr\t.svn\rMakefile\17package.json\22detection_methods\1\0\4\22detection_methods\0\17silent_chdir\2\16show_hidden\1\rpatterns\0\1\3\0\0\fpattern\blsp\nsetup\17project_nvim\frequire\0", "config", "project.nvim")
+time([[Config for project.nvim]], false)
+-- Config for: namu.nvim
+time([[Config for namu.nvim]], true)
+try_loadstring("\27LJ\2\n6\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\tnamu\frequire\0", "config", "namu.nvim")
+time([[Config for namu.nvim]], false)
+-- Config for: snacks.nvim
+time([[Config for snacks.nvim]], true)
+try_loadstring("\27LJ\2\nB\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0009\0\3\0B\0\1\1K\0\1\0\vtoggle\rterminal\vsnacks\frequire@\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0009\0\3\0B\0\1\1K\0\1\0\topen\rterminal\vsnacks\frequire�\6\1\0\a\0#\0.6\0\0\0'\2\1\0B\0\2\0029\1\2\0\14\0\1\0X\1\25�9\1\3\0005\3\17\0005\4\4\0005\5\5\0005\6\6\0=\6\a\5=\5\b\0045\5\t\0=\5\n\0045\5\v\0=\5\f\0045\5\r\0005\6\14\0=\6\15\5=\5\16\4=\4\18\0035\4\19\0=\4\20\0035\4\21\0=\4\22\0035\4\23\0005\5\24\0=\5\b\4=\4\25\3B\1\2\0016\1\26\0009\1\27\0019\1\28\1'\3\29\0003\4\30\0005\5\31\0B\1\4\0016\1\26\0009\1\27\0019\1\28\1'\3 \0003\4!\0005\5\"\0B\1\4\1K\0\1\0\1\0\1\tdesc\18Open terminal\0\22SnackTerminalOpen\1\0\1\tdesc\20Toggle terminal\0\18SnackTerminal\29nvim_create_user_command\bapi\bvim\flazygit\1\0\1\nstyle\flazygit\1\0\3\14configure\2\fenabled\2\bwin\0\14gitbrowse\1\0\1\fenabled\2\rexplorer\1\0\1\fenabled\2\rterminal\1\0\4\rexplorer\0\flazygit\0\rterminal\0\14gitbrowse\0\tkeys\16term_normal\1\2\2\0\15<C-\\><C-n>\tdesc\25Terminal normal mode\tmode\6t\1\0\2\6q\thide\16term_normal\0\abo\1\0\1\rfiletype\20snacks_terminal\benv\1\0\1\tTERM\19xterm-256color\bwin\awo\1\0\1\nwinhlXNormal:Normal,FloatBorder:FloatBorder,FloatTitle:FloatTitle,FloatFooter:FloatFooter\1\0\2\nstyle\rterminal\awo\0\1\0\5\abo\0\benv\0\tkeys\0\bwin\0\fenabled\2\nsetup\14did_setup\vsnacks\frequire\0", "config", "snacks.nvim")
+time([[Config for snacks.nvim]], false)
+-- Config for: treesj
+time([[Config for treesj]], true)
+try_loadstring("\27LJ\2\n4\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\vtreesj\frequire\0", "config", "treesj")
+time([[Config for treesj]], false)
+-- Load plugins in order defined by `after`
+time([[Sequenced loading]], true)
+vim.cmd [[ packadd claudecode.nvim ]]
+
+-- Config for: claudecode.nvim
+try_loadstring("\27LJ\2\n8\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\15claudecode\frequire\0", "config", "claudecode.nvim")
+
+time([[Sequenced loading]], false)
+vim.cmd [[augroup packer_load_aucmds]]
+vim.cmd [[au!]]
+  -- Event lazy-loads
+time([[Defining lazy-load event autocommands]], true)
+vim.cmd [[au VimEnter * ++once lua require("packer.load")({'dashboard-nvim'}, { event = "VimEnter *" }, _G.packer_plugins)]]
+time([[Defining lazy-load event autocommands]], false)
+vim.cmd("augroup END")
+
+_G._packer.inside_compile = false
+if _G._packer.needs_bufread == true then
+  vim.cmd("doautocmd BufRead")
+end
+_G._packer.needs_bufread = false
+
+if should_profile then save_profiles() end
+
+end)
+
+if not no_errors then
+  error_msg = error_msg:gsub('"', '\\"')
+  vim.api.nvim_command('echohl ErrorMsg | echom "Error in packer_compiled: '..error_msg..'" | echom "Please check your config for correctness" | echohl None')
+end
