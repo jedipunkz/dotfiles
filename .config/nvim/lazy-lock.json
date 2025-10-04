@@ -10,7 +10,6 @@
   "cmp-path": { "branch": "main", "commit": "c642487086dbd9a93160e1679a1327be111cbc25" },
   "cmp_luasnip": { "branch": "master", "commit": "98d9cb5c2c38532bd9bdb481067b20fea8f32e90" },
   "copilot.vim": { "branch": "release", "commit": "da369d90cfd6c396b1d0ec259836a1c7222fb2ea" },
-  "dashboard-nvim": { "branch": "master", "commit": "0775e567b6c0be96d01a61795f7b64c1758262f6" },
   "delve": { "branch": "master", "commit": "fd4fc92c74fd00fc44498e5adf43c18dfce80b23" },
   "doom-one.nvim": { "branch": "main", "commit": "beae92173315c7282f6897e666cfd67fbf0f3ac9" },
   "git-blame.nvim": { "branch": "master", "commit": "9874ec1ec8bc53beb33b7cd82c092b85271a578b" },
