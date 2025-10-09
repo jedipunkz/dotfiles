@@ -2,7 +2,6 @@ return {
   -- Treesitter for syntax highlighting and parsing
   {
     "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
     config = function()
       require("nvim-treesitter.configs").setup({
         ensure_installed = {
@@ -19,7 +18,7 @@ return {
           "yaml",
         },
         sync_install = false,
-        auto_install = true,
+        auto_install = false,  -- Disable auto-install on startup
         highlight = {
           enable = true,
           additional_vim_regex_highlighting = { "markdown" },
