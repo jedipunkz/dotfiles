@@ -17,9 +17,25 @@ return {
       vim.cmd([[autocmd BufRead,BufNewFile .terraformrc,terraform.rc set filetype=hcl]])
       vim.cmd([[autocmd BufRead,BufNewFile *.hcl,*.tf,*.tfvars set filetype=terraform]])
       vim.cmd([[autocmd BufRead,BufNewFile *.tfstate,*.tfstate.backup set filetype=json]])
-      vim.cmd([[let g:terraform_fmt_on_save=1]])
+
+      -- Disable vim-terraform's built-in fmt on save
+      vim.cmd([[let g:terraform_fmt_on_save=0]])
       vim.cmd([[let g:terraform_align=1]])
-      vim.api.nvim_command('autocmd BufWritePre *.hcl TerraformFmt')
+
+      -- Custom format function that uses mise-aware terraform
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        pattern = {"*.tf", "*.tfvars", "*.hcl"},
+        callback = function()
+          local buf_dir = vim.fn.expand("%:p:h")
+          -- Use mise exec to run terraform in the correct project context
+          local cmd = string.format("cd %s && mise exec -- terraform fmt -write=true %s",
+                                    vim.fn.shellescape(buf_dir),
+                                    vim.fn.shellescape(vim.fn.expand("%:p")))
+          vim.fn.system(cmd)
+          -- Reload buffer to reflect changes
+          vim.cmd("edit!")
+        end,
+      })
     end,
   },
   {
