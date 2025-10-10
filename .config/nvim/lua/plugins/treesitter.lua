@@ -4,19 +4,8 @@ return {
     "nvim-treesitter/nvim-treesitter",
     config = function()
       require("nvim-treesitter.configs").setup({
-        ensure_installed = {
-          "lua",
-          "vim",
-          "vimdoc",
-          "query",
-          "javascript",
-          "typescript",
-          "python",
-          "go",
-          "rust",
-          "json",
-          "yaml",
-        },
+        -- Disable ensure_installed to prevent startup updates
+        ensure_installed = {},
         sync_install = false,
         auto_install = false,  -- Disable auto-install on startup
         highlight = {
