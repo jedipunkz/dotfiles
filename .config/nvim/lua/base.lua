@@ -4,6 +4,19 @@ vim.scriptencoding = "utf-8"
 
 vim.wo.number = true
 
+-- Setup mise environment for Neovim
+-- This ensures mise-managed tools (like terraform) are available in Neovim
+if vim.fn.executable("mise") == 1 then
+  local handle = io.popen("mise env -s bash 2>/dev/null | grep '^export PATH=' | cut -d= -f2- | tr -d \"'\"")
+  if handle then
+    local mise_path = handle:read("*a"):gsub("\n", "")
+    handle:close()
+    if mise_path ~= "" then
+      vim.env.PATH = mise_path
+    end
+  end
+end
+
 -- for vim-terraform
 -- ref: https://github.com/hashivim/vim-terraform/pull/133
 vim.o.compatible = false
