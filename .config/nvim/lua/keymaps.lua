@@ -49,12 +49,12 @@ keymap("n", "<Space>l", "$", opts)
 
 
 -- Snacks.nvim keybindings (デフォルト設定)
-keymap("n", "st", "<cmd>lua Snacks.terminal.toggle()<cr>", opts)  -- ターミナルをトグル
-keymap("t", "st", "<cmd>lua Snacks.terminal.toggle()<cr>", opts)  -- ターミナルモードでもトグル
-keymap("n", "sf", "<cmd>lua Snacks.picker.smart()<cr>", opts)  -- スマートファイル検索
-keymap("n", "sg", "<cmd>lua Snacks.picker.grep()<cr>", opts)  -- grep検索
-keymap("n", "sb", "<cmd>lua Snacks.gitbrowse()<cr>", opts)  -- git browse in browser
-keymap("n", "sl", "<cmd>lua Snacks.lazygit()<cr>", opts)  -- lazygit
+keymap("n", "<Leader>st", "<cmd>lua Snacks.terminal.toggle()<cr>", opts)  -- ターミナルをトグル
+keymap("t", "<Leader>st", "<cmd>lua Snacks.terminal.toggle()<cr>", opts)  -- ターミナルモードでもトグル
+keymap("n", "<Leader>sf", "<cmd>lua Snacks.picker.smart()<cr>", opts)  -- スマートファイル検索
+keymap("n", "<Leader>sg", "<cmd>lua Snacks.picker.grep()<cr>", opts)  -- grep検索
+keymap("n", "<Leader>sb", "<cmd>lua Snacks.gitbrowse()<cr>", opts)  -- git browse in browser
+keymap("n", "<Leader>sl", "<cmd>lua Snacks.lazygit()<cr>", opts)  -- lazygit
 
 -- ;でコマンド入力( ;と:を入れ替)
 keymap("n", ";", ":", opts)
