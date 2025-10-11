@@ -25,7 +25,7 @@ brew install \
     ast-grep \
     tree-sitter \
     tree-sitter-cli \
-    lazygit
+    lazygit \
     ripgrep
 
 brew install --HEAD neovim
