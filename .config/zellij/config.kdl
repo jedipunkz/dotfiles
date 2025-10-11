@@ -263,47 +263,7 @@ plugins {
 // For more examples, see: https://github.com/zellij-org/zellij/tree/main/example/themes
 // Once these themes are defined, one of them should to be selected in the "theme" section of this file
 //
-themes {
-    dracula {
-        fg 248 248 242
-        bg 40 42 54
-        red 255 85 85
-        green 80 250 123
-        yellow 241 250 140
-        blue 98 114 164
-        magenta 255 121 198
-        orange 255 184 108
-        cyan 139 233 253
-        black 0 0 0
-        white 255 255 255
-    }
-    gruvbox-dark {
-        fg "#D5C4A1"
-        bg "#282828"
-        black "#3C3836"
-        red "#CC241D"
-        green "#98971A"
-        yellow "#D79921"
-        blue "#3C8588"
-        magenta "#B16286"
-        cyan "#689D6A"
-        white "#FBF1C7"
-        orange "#D65D0E"
- 	}
-    doom-one {
-        fg "#BBC2CF"
-        bg "#2E3440"
-        black "#3B4252"
-        red "#FF6C6B"
-        green "#A9A1E1"
-        yellow "#ECBE7B"
-        blue "#A9A1E1"
-        magenta "#C678DD"
-        cyan "#46D9FF"
-        white "#DFDFDF"
-        orange "#DA8548"
-    }
-}
+// Themes are loaded from ~/.config/zellij/themes/ directory
 
 //theme "gruvbox-dark"
 //theme "dracula"
