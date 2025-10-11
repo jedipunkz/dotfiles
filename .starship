@@ -111,7 +111,7 @@ conflicted = ""
 untracked = ""
 stashed = ""
 modified = ""
-staged.value = "++"
+staged = "++"
 renamed = ""
 deleted = ""
 
