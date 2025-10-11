@@ -10,7 +10,7 @@ themes {
         }
         text_selected {
             base 187 194 207         // fg: #bbc2cf
-            background 40 44 52      // bg: #282c34
+            background 70 77 89      // darker blue-gray for visibility
             emphasis_0 218 133 72    // orange: #da8548
             emphasis_1 70 175 255    // cyan: #46D9FF
             emphasis_2 198 120 221   // magenta: #c678dd (changed from green)
