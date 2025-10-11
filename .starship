@@ -1,5 +1,6 @@
 add_newline = false
-scan_timeout = 10
+scan_timeout = 30
+command_timeout = 10000 # 重すぎることがあるので適宜調整
 format = """\
     $username\
     $hostname\
@@ -102,19 +103,20 @@ symbol = "🚀 "
 
 [git_state]
 format = '[\($state( $progress_current of $progress_total)\)]($style) '
-cherry_pick = "[🍒 PICKING](bold red)"
+cherry_pick = "[PICKING](bold red)"
 
 [git_status]
-#conflicted = "🏳"
-#ahead = "🏎💨"
-#behind = "😰"
-#diverged = "😵"
-#untracked = "🤷‍"
-#stashed = "📦"
-#modified = "🍔"
-#staged.value = "++"
-#renamed = "👅"
-#deleted = "🌼"
+ignore_submodules = true
+ahead = ""
+behind = ""
+diverged = ""
+conflicted = ""
+untracked = ""
+stashed = ""
+modified = ""
+staged.value = "++"
+renamed = ""
+deleted = ""
 
 [golang]
 #symbol = "🏎💨 "
