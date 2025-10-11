@@ -19,3 +19,4 @@ auto-save-list
 .config/fish/fish_plugins
 .config/fish/themes/
 .config/nvim/plugin/packer_compiled.lua
+.config/nvim/lazy-lock.json
