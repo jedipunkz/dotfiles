@@ -60,32 +60,72 @@ else
   })
 end
 
+-- Doom One Official Color Palette
+-- Source: https://github.com/doomemacs/themes/blob/master/themes/doom-one-theme.el
+local doom_one_colors = {
+  -- Background & Foreground
+  bg          = "#282c34",  -- main background
+  bg_alt      = "#21242b",  -- alternate background
+  fg          = "#bbc2cf",  -- main foreground
+  fg_alt      = "#5B6268",  -- alternate foreground
+
+  -- Base Colors (Grayscale)
+  base0       = "#1B2229",  -- darkest
+  base1       = "#1c1f24",
+  base2       = "#202328",
+  base3       = "#23272e",
+  base4       = "#3f444a",
+  base5       = "#5B6268",
+  base6       = "#73797e",
+  base7       = "#9ca0a4",
+  base8       = "#DFDFDF",  -- lightest
+
+  -- Primary Theme Colors
+  red         = "#ff6c6b",
+  orange      = "#da8548",
+  green       = "#98be65",
+  teal        = "#4db5bd",
+  yellow      = "#ECBE7B",
+  blue        = "#51afef",
+  dark_blue   = "#2257A0",
+  magenta     = "#c678dd",
+  violet      = "#a9a1e1",
+  cyan        = "#46D9FF",
+  dark_cyan   = "#5699AF",
+
+  -- Special
+  black       = "#1B2229",
+  white       = "#DFDFDF",
+  grey        = "#3B3F46",
+  dark_grey   = "#23272e",
+}
+
 -- Apply DoomOne terminal colors to Snacks terminal
 vim.api.nvim_create_autocmd("TermOpen", {
   pattern = "*",
   callback = function()
     if vim.bo.buftype == "terminal" then
       -- DoomOne color palette
-      vim.api.nvim_set_hl(0, "TermCursor", { fg = "#282c34", bg = "#51afef" })
-      vim.api.nvim_set_hl(0, "TermCursorNC", { fg = "#282c34", bg = "#5c6370" })
+      vim.api.nvim_set_hl(0, "TermCursor", { fg = doom_one_colors.bg, bg = doom_one_colors.blue })
+      vim.api.nvim_set_hl(0, "TermCursorNC", { fg = doom_one_colors.bg, bg = doom_one_colors.base5 })
 
-      -- Set terminal colors to match DoomOne theme
-      vim.g.terminal_color_0 = "#282c34"   -- black
-      vim.g.terminal_color_1 = "#ff6c6b"   -- red
-      vim.g.terminal_color_2 = "#98be65"   -- green
-      vim.g.terminal_color_3 = "#ecbe7b"   -- yellow
-      vim.g.terminal_color_4 = "#51afef"   -- blue
-      vim.g.terminal_color_5 = "#c678dd"   -- magenta
-      vim.g.terminal_color_6 = "#46d9ff"   -- cyan
-      vim.g.terminal_color_7 = "#bbc2cf"   -- white
-      vim.g.terminal_color_8 = "#5c6370"   -- bright black
-      vim.g.terminal_color_9 = "#ff6c6b"   -- bright red
-      vim.g.terminal_color_10 = "#98be65"  -- bright green
-      vim.g.terminal_color_11 = "#ecbe7b"  -- bright yellow
-      vim.g.terminal_color_12 = "#51afef"  -- bright blue
-      vim.g.terminal_color_13 = "#c678dd"  -- bright magenta
-      vim.g.terminal_color_14 = "#46d9ff"  -- bright cyan
-      vim.g.terminal_color_15 = "#dfdfdf"  -- bright white
+      -- Set terminal colors to match DoomOne theme (16 ANSI colors)
+      vim.g.terminal_color_0  = doom_one_colors.black       -- black
+      vim.g.terminal_color_1  = doom_one_colors.red         -- red
+      vim.g.terminal_color_2  = doom_one_colors.green       -- green
+      vim.g.terminal_color_3  = doom_one_colors.yellow      -- yellow
+      vim.g.terminal_color_4  = doom_one_colors.blue        -- blue
+      vim.g.terminal_color_5  = doom_one_colors.magenta     -- magenta
+      vim.g.terminal_color_6  = doom_one_colors.cyan        -- cyan
+      vim.g.terminal_color_7  = doom_one_colors.fg          -- white
+      vim.g.terminal_color_8  = doom_one_colors.base5       -- bright black (gray)
+      vim.g.terminal_color_9  = doom_one_colors.red         -- bright red
+      vim.g.terminal_color_10 = doom_one_colors.green       -- bright green
+      vim.g.terminal_color_11 = doom_one_colors.yellow      -- bright yellow
+      vim.g.terminal_color_12 = doom_one_colors.blue        -- bright blue
+      vim.g.terminal_color_13 = doom_one_colors.magenta     -- bright magenta
+      vim.g.terminal_color_14 = doom_one_colors.cyan        -- bright cyan
+      vim.g.terminal_color_15 = doom_one_colors.white       -- bright white
     end
   end
 })
