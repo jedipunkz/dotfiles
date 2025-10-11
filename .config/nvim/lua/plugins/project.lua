@@ -1,16 +1,16 @@
 return {
-  -- Project management
-  {
-    "ahmedkhalf/project.nvim",
-    config = function()
-      require("project_nvim").setup({
-        detection_methods = { "pattern", "lsp" },
-        patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json" },
-        silent_chdir = true,
-        show_hidden = false,
-      })
-    end,
-  },
+  -- Project management (disabled - not currently used)
+  -- {
+  --   "DrKJeff16/project.nvim",
+  --   config = function()
+  --     require("project").setup({
+  --       detection_methods = { "pattern" },
+  --       patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json" },
+  --       silent_chdir = true,
+  --       show_hidden = false,
+  --     })
+  --   end,
+  -- },
 
   -- Dashboard (disabled - using snacks.nvim dashboard instead)
   -- {
