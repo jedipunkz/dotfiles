@@ -13,6 +13,7 @@ format = """\
     $docker_context\
     $kubernetes\
     $aws\
+    $gcloud\
     $package\
     $dotnet\
     $elixir\
@@ -64,6 +65,15 @@ format = "[$time]($style)"
 time_format = "%T"
 utc_time_offset = "+9"
 style = "#adb5bd"
+
+[gcloud]
+symbol = '️🇬️ '
+format = 'on [$symbol$account(@$domain)(\($region\))(\($project\))]($style) '
+style = 'bold #4285F4'
+detect_env_vars = ['GOOGLE_APPLICATION_CREDENTIALS']
+[gcloud.region_aliases]
+us-central1 = 'uc1'
+asia-northeast1 = 'an1'
 
 [aws]
 symbol = "☁️  "
