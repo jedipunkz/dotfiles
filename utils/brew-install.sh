@@ -28,4 +28,5 @@ brew install \
     lazygit \
     ripgrep
 
+brew install --cask font-cousine-nerd-font
 brew install --HEAD neovim
