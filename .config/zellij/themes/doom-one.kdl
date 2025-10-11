@@ -9,8 +9,8 @@ themes {
             emphasis_3 198 120 221   // magenta: #c678dd
         }
         text_selected {
-            base 187 194 207         // fg: #bbc2cf
-            background 70 77 89      // darker blue-gray for visibility
+            base 255 255 255         // white: #ffffff
+            background 138 43 226    // purple: #8a2be2
             emphasis_0 218 133 72    // orange: #da8548
             emphasis_1 70 175 255    // cyan: #46D9FF
             emphasis_2 198 120 221   // magenta: #c678dd (changed from green)
