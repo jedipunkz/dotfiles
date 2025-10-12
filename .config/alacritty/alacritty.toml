@@ -539,7 +539,12 @@ text = "#282c34"
 
 [colors.selection]
 background = "#9370db"
-foreground = "#ffffff"
+
+[colors.search.matches]
+background = "#9370db"
+
+[colors.search.focused_match]
+background = "#8a2be2"
 
 [colors.vi_mode_cursor]
 cursor = "#51afef"
