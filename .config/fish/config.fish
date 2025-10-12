@@ -43,53 +43,41 @@ if test ! -d "$HOME/ghq"
     mkdir $HOME/ghq
 end
 
-# Doom One color palette
-set -l doom_bg '#282c34'
-set -l doom_bg_alt '#21242b'
-set -l doom_dark '#1c1f24'
-set -l doom_white '#dfdfdf'
-set -l doom_light_grey '#5c6370'
-set -l doom_grey '#3f444a'
-set -l doom_dark_grey '#2c313c'
-set -l doom_red '#ff6c6b'
-set -l doom_orange '#da8548'
-set -l doom_green '#98be65'
-set -l doom_teal '#4db5bd'
-set -l doom_yellow '#ecbe7b'
-set -l doom_blue '#51afef'
-set -l doom_dark_blue '#2257a0'
-set -l doom_magenta '#c678dd'
-set -l doom_violet '#a9a1e1'
-set -l doom_cyan '#46d9ff'
+# Tokyo Night color palette
+set -l foreground c0caf5
+set -l selection 283457
+set -l comment 565f89
+set -l red f7768e
+set -l orange ff9e64
+set -l yellow e0af68
+set -l green 9ece6a
+set -l purple 9d7cd8
+set -l cyan 7dcfff
+set -l pink bb9af7
 
-# Fish color settings (Doom One theme)
-set -U fish_color_normal $doom_white
-set -U fish_color_command $doom_blue
-set -U fish_color_quote $doom_green
-set -U fish_color_redirection $doom_violet
-set -U fish_color_end $doom_red
-set -U fish_color_error $doom_red
-set -U fish_color_param $doom_white
-set -U fish_color_comment $doom_light_grey
-set -U fish_color_match $doom_cyan
-set -U fish_color_selection --background=$doom_grey
-set -U fish_color_search_match --background=$doom_grey
-set -U fish_color_history_current --bold
-set -U fish_color_operator $doom_violet
-set -U fish_color_escape $doom_cyan
-set -U fish_color_cwd $doom_green
-set -U fish_color_cwd_root $doom_red
-set -U fish_color_valid_path --underline
-set -U fish_color_autosuggestion $doom_light_grey
-set -U fish_color_user $doom_green
-set -U fish_color_host $doom_blue
-set -U fish_color_cancel $doom_red
+# Fish color settings (Tokyo Night theme)
+set -U fish_color_normal $foreground
+set -U fish_color_command $cyan
+set -U fish_color_keyword $pink
+set -U fish_color_quote $yellow
+set -U fish_color_redirection $foreground
+set -U fish_color_end $orange
+set -U fish_color_option $pink
+set -U fish_color_error $red
+set -U fish_color_param $purple
+set -U fish_color_comment $comment
+set -U fish_color_selection --background=$selection
+set -U fish_color_search_match --background=$selection
+set -U fish_color_operator $green
+set -U fish_color_escape $pink
+set -U fish_color_autosuggestion $comment
 
 # Pager colors
-set -U fish_pager_color_completion $doom_white --bold
-set -U fish_pager_color_description $doom_cyan
-set -U fish_pager_color_prefix $doom_yellow --bold
-set -U fish_pager_color_progress $doom_green
+set -U fish_pager_color_progress $comment
+set -U fish_pager_color_prefix $cyan
+set -U fish_pager_color_completion $foreground
+set -U fish_pager_color_description $comment
+set -U fish_pager_color_selected_background --background=$selection
 
 set -l FZF_NON_COLOR_OPTS
 
@@ -99,10 +87,28 @@ for arg in (echo $FZF_DEFAULT_OPTS | tr " " "\n")
     end
 end
 
+# FZF Tokyo Night color scheme
 set -Ux FZF_DEFAULT_OPTS "$FZF_NON_COLOR_OPTS"\
-" --color=bg+:$doom_grey,bg:$doom_bg,spinner:$doom_cyan,hl:$doom_blue"\
-" --color=fg:$doom_white,header:$doom_blue,info:$doom_yellow,pointer:$doom_cyan"\
-" --color=marker:$doom_green,fg+:$doom_white,prompt:$doom_blue,hl+:$doom_cyan"
+" --highlight-line"\
+" --info=inline-right"\
+" --ansi"\
+" --border=none"\
+" --color=bg+:#283457"\
+" --color=bg:#16161e"\
+" --color=border:#27a1b9"\
+" --color=fg:#c0caf5"\
+" --color=gutter:#16161e"\
+" --color=header:#ff9e64"\
+" --color=hl+:#2ac3de"\
+" --color=hl:#2ac3de"\
+" --color=info:#545c7e"\
+" --color=marker:#ff007c"\
+" --color=pointer:#ff007c"\
+" --color=prompt:#2ac3de"\
+" --color=query:#c0caf5:regular"\
+" --color=scrollbar:#27a1b9"\
+" --color=separator:#ff9e64"\
+" --color=spinner:#ff007c"
 
 set -x STARSHIP_CONFIG ~/.starship
 set -x AWS_PROFILE default
