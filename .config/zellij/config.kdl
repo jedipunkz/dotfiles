@@ -267,7 +267,8 @@ plugins {
 
 //theme "gruvbox-dark"
 //theme "dracula"
-theme "doom-one"
+//theme "doom-one"
+theme "tokyo-night-dark"
 
 // The name of the default layout to load on startup
 // Default: "default"
