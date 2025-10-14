@@ -23,7 +23,7 @@ return {
       vim.cmd([[let g:terraform_align=1]])
 
       -- Custom format function that uses mise-aware terraform
-      vim.api.nvim_create_autocmd("BufWritePre", {
+      vim.api.nvim_create_autocmd("BufWritePost", {
         pattern = {"*.tf", "*.tfvars", "*.hcl"},
         callback = function()
           local buf_dir = vim.fn.expand("%:p:h")
@@ -33,7 +33,7 @@ return {
                                     vim.fn.shellescape(vim.fn.expand("%:p")))
           vim.fn.system(cmd)
           -- Reload buffer to reflect changes
-          vim.cmd("edit!")
+          vim.cmd("edit")
         end,
       })
     end,
