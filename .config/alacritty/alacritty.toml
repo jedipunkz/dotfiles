@@ -507,7 +507,10 @@ key = "NumpadEnter"
 
 [general]
 live_config_reload = true
-import = ["~/.config/alacritty/themes/tokyonight_night.toml"]
+import = ["~/.config/alacritty/themes/kanagawa_wave.toml"]
+# import = ["~/.config/alacritty/themes/kanagawa_dragon.toml"]
+# import = ["~/.config/alacritty/themes/tokyonight_night.toml"]
+# import = ["~/.config/alacritty/themes/tokyonight_strom.toml"]
 
 [cursor.style]
 shape = "Block"
@@ -540,7 +543,7 @@ family = "Cousine Nerd Font Mono"
 style = "Bold Italic"
 
 [mouse]
-hide_when_typing = true
+hide_when_typing = false
 bindings = [
     { mouse = "Middle", action = "PasteSelection" },
     { mouse = "Right", action = "Paste" }
