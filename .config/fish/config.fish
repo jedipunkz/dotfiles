@@ -43,38 +43,38 @@ if test ! -d "$HOME/ghq"
     mkdir $HOME/ghq
 end
 
-# Tokyo Night color palette
-set -l foreground c0caf5
-set -l selection 283457
-set -l comment 565f89
-set -l red f7768e
-set -l orange ff9e64
-set -l yellow e0af68
-set -l green 9ece6a
-set -l purple 9d7cd8
-set -l cyan 7dcfff
-set -l pink bb9af7
+# Kanagawa Wave color palette
+set -l foreground dcd7ba
+set -l selection 2d4f67
+set -l comment 727169
+set -l red c34043
+set -l orange ffa066
+set -l yellow c0a36e
+set -l green 76946a
+set -l purple 957fb8
+set -l cyan 6a9589
+set -l blue 7e9cd8
 
-# Fish color settings (Tokyo Night theme)
+# Fish color settings (Kanagawa Wave theme)
 set -U fish_color_normal $foreground
-set -U fish_color_command $cyan
-set -U fish_color_keyword $pink
+set -U fish_color_command $blue
+set -U fish_color_keyword $purple
 set -U fish_color_quote $yellow
 set -U fish_color_redirection $foreground
 set -U fish_color_end $orange
-set -U fish_color_option $pink
+set -U fish_color_option $purple
 set -U fish_color_error $red
-set -U fish_color_param $purple
+set -U fish_color_param $cyan
 set -U fish_color_comment $comment
 set -U fish_color_selection --background=$selection
 set -U fish_color_search_match --background=$selection
 set -U fish_color_operator $green
-set -U fish_color_escape $pink
+set -U fish_color_escape $purple
 set -U fish_color_autosuggestion $comment
 
 # Pager colors
 set -U fish_pager_color_progress $comment
-set -U fish_pager_color_prefix $cyan
+set -U fish_pager_color_prefix $blue
 set -U fish_pager_color_completion $foreground
 set -U fish_pager_color_description $comment
 set -U fish_pager_color_selected_background --background=$selection
@@ -87,28 +87,28 @@ for arg in (echo $FZF_DEFAULT_OPTS | tr " " "\n")
     end
 end
 
-# FZF Tokyo Night color scheme
+# FZF Kanagawa Wave color scheme
 set -Ux FZF_DEFAULT_OPTS "$FZF_NON_COLOR_OPTS"\
 " --highlight-line"\
 " --info=inline-right"\
 " --ansi"\
 " --border=none"\
-" --color=bg+:#283457"\
-" --color=bg:#16161e"\
-" --color=border:#27a1b9"\
-" --color=fg:#c0caf5"\
-" --color=gutter:#16161e"\
-" --color=header:#ff9e64"\
-" --color=hl+:#2ac3de"\
-" --color=hl:#2ac3de"\
-" --color=info:#545c7e"\
-" --color=marker:#ff007c"\
-" --color=pointer:#ff007c"\
-" --color=prompt:#2ac3de"\
-" --color=query:#c0caf5:regular"\
-" --color=scrollbar:#27a1b9"\
-" --color=separator:#ff9e64"\
-" --color=spinner:#ff007c"
+" --color=bg+:#2d4f67"\
+" --color=bg:#1f1f28"\
+" --color=border:#6a9589"\
+" --color=fg:#dcd7ba"\
+" --color=gutter:#1f1f28"\
+" --color=header:#ffa066"\
+" --color=hl+:#7fb4ca"\
+" --color=hl:#7fb4ca"\
+" --color=info:#727169"\
+" --color=marker:#957fb8"\
+" --color=pointer:#957fb8"\
+" --color=prompt:#7e9cd8"\
+" --color=query:#dcd7ba:regular"\
+" --color=scrollbar:#6a9589"\
+" --color=separator:#ffa066"\
+" --color=spinner:#957fb8"
 
 set -x STARSHIP_CONFIG ~/.starship
 set -x AWS_PROFILE default
