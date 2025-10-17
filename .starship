@@ -1,5 +1,6 @@
 add_newline = false
-scan_timeout = 10
+scan_timeout = 30
+command_timeout = 10000 # 重すぎることがあるので適宜調整
 format = """\
     $username\
     $hostname\
@@ -13,6 +14,7 @@ format = """\
     $docker_context\
     $kubernetes\
     $aws\
+    $gcloud\
     $package\
     $dotnet\
     $elixir\
@@ -45,7 +47,7 @@ format = """\
 
 [character]
 success_symbol = "[ ::](#eeef20)"
-error_symbol = "[ ERROR](#ff5859)"
+error_symbol = "[ ERROR⚡️](#ff5859)"
 vicmd_symbol = "[ ::](#55FF55)"
 
 [hostname]
@@ -65,9 +67,18 @@ time_format = "%T"
 utc_time_offset = "+9"
 style = "#adb5bd"
 
+[gcloud]
+symbol = '️🇬️ '
+format = 'on [$symbol$account(@$domain)(\($region\))(\($project\))]($style) '
+style = 'bold #4285F4'
+detect_env_vars = ['GOOGLE_APPLICATION_CREDENTIALS']
+[gcloud.region_aliases]
+us-central1 = 'uc1'
+asia-northeast1 = 'an1'
+
 [aws]
-symbol = "☁️  "
-style = "#ff9900"
+symbol = "☁️ "
+style = "#FF9900"
 [aws.region_aliases]
 ap-northeast-1 = "tokyo"
 ap-northeast-3 = "osaka"
@@ -75,11 +86,8 @@ us-east-1 = "va"
 us-east-2 = "oh"
 us-west-1 = "ca"
 us-west-2 = "or"
-[aws.profile_aliases]
-'sandbox' = 'sandbox'
-'dev-service.hirai.user' = 'dev'
-'prod-service.hirai.user' = 'prod'
-'prod.jamroll-ai-infra.user' = 'prod-ai'
+#[aws.profile_aliases]
+#'sandbox' = 'sandbox'
 
 [docker_context]
 symbol = "🐋 "
@@ -92,19 +100,20 @@ symbol = "🚀 "
 
 [git_state]
 format = '[\($state( $progress_current of $progress_total)\)]($style) '
-cherry_pick = "[🍒 PICKING](bold red)"
+cherry_pick = "[PICKING](bold red)"
 
 [git_status]
-#conflicted = "🏳"
-#ahead = "🏎💨"
-#behind = "😰"
-#diverged = "😵"
-#untracked = "🤷‍"
-#stashed = "📦"
-#modified = "🍔"
-#staged.value = "++"
-#renamed = "👅"
-#deleted = "🌼"
+ignore_submodules = true
+ahead = ""
+behind = ""
+diverged = "⇕"
+conflicted = "="
+untracked = "?"
+stashed = "$"
+modified = "!"
+staged = "+"
+renamed = "»"
+deleted = "✘"
 
 [golang]
 #symbol = "🏎💨 "
@@ -115,6 +124,9 @@ symbol = "🥑 "
 style = "#ffd31d"
 disabled = false
 format = '[$symbol$context( \($namespace\))]($style) in '
+detect_extensions = []
+detect_files = ['k8s', 'Dockerfile', 'docker-compose.yml', 'docker-compose.yaml', 'helmfile.yaml', 'helmfile.yml']
+detect_folders = ['k8s', 'helm', 'kubernetes', '.kube']
 [kubernetes.context_aliases]
 "dev.local.cluster.k8s" = "dev"
 

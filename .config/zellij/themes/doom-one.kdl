@@ -1,0 +1,120 @@
+themes {
+    doom-one {
+        text_unselected {
+            base 187 194 207         // fg: #bbc2cf
+            background 40 44 52      // bg: #282c34
+            emphasis_0 218 133 72    // orange: #da8548
+            emphasis_1 70 175 255    // cyan: #46D9FF
+            emphasis_2 198 120 221   // magenta: #c678dd (changed from green)
+            emphasis_3 198 120 221   // magenta: #c678dd
+        }
+        text_selected {
+            base 255 255 255         // white: #ffffff
+            background 138 43 226    // purple: #8a2be2
+            emphasis_0 218 133 72    // orange: #da8548
+            emphasis_1 70 175 255    // cyan: #46D9FF
+            emphasis_2 198 120 221   // magenta: #c678dd (changed from green)
+            emphasis_3 198 120 221   // magenta: #c678dd
+        }
+        ribbon_selected {
+            base 40 44 52            // bg: #282c34
+            background 184 140 223   // between violet and magenta (slightly more vivid)
+            emphasis_0 255 108 107   // red: #ff6c6b
+            emphasis_1 236 190 123   // yellow: #ECBE7B
+            emphasis_2 198 120 221   // magenta: #c678dd
+            emphasis_3 81 175 239    // blue: #51afef
+        }
+        ribbon_unselected {
+            base 187 194 207         // fg: #bbc2cf (brighter text)
+            background 91 98 104     // fg-alt: #5B6268
+            emphasis_0 236 190 123   // yellow: #ECBE7B (changed from red for better visibility)
+            emphasis_1 187 194 207   // fg: #bbc2cf
+            emphasis_2 81 175 239    // blue: #51afef
+            emphasis_3 198 120 221   // magenta: #c678dd
+        }
+        table_title {
+            base 198 120 221         // magenta: #c678dd (changed from green)
+            background 0
+            emphasis_0 218 133 72    // orange: #da8548
+            emphasis_1 70 175 255    // cyan: #46D9FF
+            emphasis_2 198 120 221   // magenta: #c678dd (changed from green)
+            emphasis_3 198 120 221   // magenta: #c678dd
+        }
+        table_cell_selected {
+            base 187 194 207         // fg: #bbc2cf
+            background 51 55 63      // slightly lighter than bg
+            emphasis_0 218 133 72    // orange: #da8548
+            emphasis_1 70 175 255    // cyan: #46D9FF
+            emphasis_2 198 120 221   // magenta: #c678dd (changed from green)
+            emphasis_3 198 120 221   // magenta: #c678dd
+        }
+        table_cell_unselected {
+            base 187 194 207         // fg: #bbc2cf
+            background 40 44 52      // bg: #282c34
+            emphasis_0 218 133 72    // orange: #da8548
+            emphasis_1 70 175 255    // cyan: #46D9FF
+            emphasis_2 198 120 221   // magenta: #c678dd (changed from green)
+            emphasis_3 198 120 221   // magenta: #c678dd
+        }
+        list_selected {
+            base 187 194 207         // fg: #bbc2cf
+            background 51 55 63      // slightly lighter than bg
+            emphasis_0 218 133 72    // orange: #da8548
+            emphasis_1 70 175 255    // cyan: #46D9FF
+            emphasis_2 198 120 221   // magenta: #c678dd (changed from green)
+            emphasis_3 198 120 221   // magenta: #c678dd
+        }
+        list_unselected {
+            base 187 194 207         // fg: #bbc2cf
+            background 40 44 52      // bg: #282c34
+            emphasis_0 218 133 72    // orange: #da8548
+            emphasis_1 70 175 255    // cyan: #46D9FF
+            emphasis_2 198 120 221   // magenta: #c678dd (changed from green)
+            emphasis_3 198 120 221   // magenta: #c678dd
+        }
+        frame_selected {
+            base 184 140 223         // between violet and magenta (slightly more vivid)
+            background 0
+            emphasis_0 218 133 72    // orange: #da8548
+            emphasis_1 70 175 255    // cyan: #46D9FF
+            emphasis_2 198 120 221   // magenta: #c678dd
+            emphasis_3 0
+        }
+        frame_highlight {
+            base 236 190 123         // yellow: #ECBE7B
+            background 0
+            emphasis_0 198 120 221   // magenta: #c678dd
+            emphasis_1 218 133 72    // orange: #da8548
+            emphasis_2 218 133 72    // orange: #da8548
+            emphasis_3 218 133 72    // orange: #da8548
+        }
+        exit_code_success {
+            base 198 120 221         // magenta: #c678dd (changed from green)
+            background 0
+            emphasis_0 70 175 255    // cyan: #46D9FF
+            emphasis_1 40 44 52      // bg: #282c34
+            emphasis_2 198 120 221   // magenta: #c678dd
+            emphasis_3 81 175 239    // blue: #51afef
+        }
+        exit_code_error {
+            base 255 108 107         // red: #ff6c6b
+            background 0
+            emphasis_0 236 190 123   // yellow: #ECBE7B
+            emphasis_1 0
+            emphasis_2 0
+            emphasis_3 0
+        }
+        multiplayer_user_colors {
+            player_1 198 120 221     // magenta: #c678dd
+            player_2 81 175 239      // blue: #51afef
+            player_3 0
+            player_4 236 190 123     // yellow: #ECBE7B
+            player_5 70 175 255      // cyan: #46D9FF
+            player_6 0
+            player_7 255 108 107     // red: #ff6c6b
+            player_8 0
+            player_9 0
+            player_10 0
+        }
+    }
+}

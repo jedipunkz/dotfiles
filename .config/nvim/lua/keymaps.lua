@@ -6,8 +6,6 @@ local keymap = vim.api.nvim_set_keymap
 
 --Remap space as leader key
 keymap("", "<Space>", "<Nop>", opts)
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
 
 -- Modes
 --   normal_mode = 'n',
@@ -19,10 +17,10 @@ vim.g.maplocalleader = " "
 
 -- Normal --
 -- Better window navigation
-keymap("n", "<C-h>", "<C-w>h", opts)
-keymap("n", "<C-j>", "<C-w>j", opts)
-keymap("n", "<C-k>", "<C-w>k", opts)
-keymap("n", "<C-l>", "<C-w>l", opts)
+-- keymap("n", "<C-h>", "<C-w>h", opts)
+-- keymap("n", "<C-j>", "<C-w>j", opts)
+-- keymap("n", "<C-k>", "<C-w>k", opts)
+-- keymap("n", "<C-l>", "<C-w>l", opts)
 
 -- New tab
 keymap("n", "te", ":tabedit", opts)
@@ -49,6 +47,15 @@ keymap("n", "dw", 'vb"_d', opts)
 keymap("n", "<Space>h", "^", opts)
 keymap("n", "<Space>l", "$", opts)
 
+
+-- Snacks.nvim keybindings (デフォルト設定)
+keymap("n", "<Leader>st", "<cmd>lua Snacks.terminal.toggle()<cr>", opts)  -- ターミナルをトグル
+keymap("t", "<Leader>st", "<cmd>lua Snacks.terminal.toggle()<cr>", opts)  -- ターミナルモードでもトグル
+keymap("n", "<Leader>sf", "<cmd>lua Snacks.picker.smart()<cr>", opts)  -- スマートファイル検索
+keymap("n", "<Leader>sg", "<cmd>lua Snacks.picker.grep()<cr>", opts)  -- grep検索
+keymap("n", "<Leader>sb", "<cmd>lua Snacks.gitbrowse()<cr>", opts)  -- git browse in browser
+keymap("n", "<Leader>sl", "<cmd>lua Snacks.lazygit()<cr>", opts)  -- lazygit
+
 -- ;でコマンド入力( ;と:を入れ替)
 keymap("n", ";", ":", opts)
 
@@ -61,9 +68,15 @@ keymap("n", "<Space>q", ":<C-u>q!<Return>", opts)
 -- ESC*2 でハイライトやめる
 keymap("n", "<Esc><Esc>", ":<C-u>set nohlsearch<Return>", opts)
 
+-- checktime for reloading externally changed files
+keymap("n", "ct", ":checktime<CR>", opts)
+
 -- Insert --
 -- Press jk fast to exit insert mode
 keymap("i", "jk", "<ESC>", opts)
+
+-- Ctrl-kでカーソル位置から行末まで削除
+keymap("i", "<C-k>", "<C-o>d$", opts)
 
 -- コンマの後に自動的にスペースを挿入
 -- keymap("i", ",", ",<Space>", opts)
@@ -76,5 +89,48 @@ keymap("v", ">", ">gv", opts)
 -- ビジュアルモード時vで行末まで選択
 keymap("v", "v", "$h", opts)
 
--- 0番レジスタを使いやすくした
-keymap("v", "<C-p>", '"0p', opts)
+-- 0番レジスタを使いやすくした（<C-p>をnamu.nvimで使うため変更）
+keymap("v", "<leader>p", '"0p', opts)
+
+-- snacks.nvim explorer
+vim.keymap.set("n", "<C-e>", "<cmd>lua Snacks.explorer()<CR>", { noremap = true, silent = true })
+
+-- LSP keymaps
+-- 関数定義にジャンプ
+keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+-- 関数の実装にジャンプ
+keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+-- 関数の参照を表示
+keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+-- 関数のドキュメントを表示
+keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+
+-- ジャンプ履歴ナビゲーション
+-- 前の位置に戻る
+keymap("n", "<C-y>", "<C-o>", opts)
+-- 次の位置に進む
+keymap("n", "<C-i>", "<C-i>", opts)
+-- ジャンプ履歴を表示
+keymap("n", "<leader>j", ":jumps<CR>", opts)
+
+-- Terminal --
+-- Terminal escape and window navigation
+keymap("t", "<C-\\>", "<C-\\><C-N>", term_opts)  -- Escape terminal mode
+keymap("t", "<C-w>h", "<C-\\><C-N><C-w>h", term_opts)
+keymap("t", "<C-w>j", "<C-\\><C-N><C-w>j", term_opts)
+keymap("t", "<C-w>k", "<C-\\><C-N><C-w>k", term_opts)
+keymap("t", "<C-w>l", "<C-\\><C-N><C-w>l", term_opts)
+
+-- TreeSJ keybindings
+keymap("n", "mm", "<cmd>TSJToggle<CR>", opts)  -- split/join toggle
+keymap("n", "mj", "<cmd>TSJJoin<CR>", opts)    -- join
+keymap("n", "ms", "<cmd>TSJSplit<CR>", opts)   -- split
+
+-- Git blame keybindings
+keymap("n", "gb", "<cmd>GitBlameToggle<CR>", opts)  -- toggle git blame
+keymap("n", "gB", "<cmd>GitBlameCopyCommitURL<CR>", opts)  -- copy commit URL
+
+-- Namu.nvim keybindings
+vim.keymap.set("n", "nm", ":Namu symbols<cr>", { desc = "Jump to LSP symbol", silent = true })
+vim.keymap.set("n", "nw", ":Namu workspace<cr>", { desc = "LSP Symbols - Workspace", silent = true })
+

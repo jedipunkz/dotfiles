@@ -4,8 +4,74 @@ vim.scriptencoding = "utf-8"
 
 vim.wo.number = true
 
+-- Setup mise environment for Neovim
+-- This ensures mise-managed tools (like terraform) are available in Neovim
+if vim.fn.executable("mise") == 1 then
+  local handle = io.popen("mise env -s bash 2>/dev/null | grep '^export PATH=' | cut -d= -f2- | tr -d \"'\"")
+  if handle then
+    local mise_path = handle:read("*a"):gsub("\n", "")
+    handle:close()
+    if mise_path ~= "" then
+      vim.env.PATH = mise_path
+    end
+  end
+end
+
 -- for vim-terraform
 -- ref: https://github.com/hashivim/vim-terraform/pull/133
 vim.o.compatible = false
 vim.cmd('filetype plugin indent on')
 vim.cmd('syntax on')
+
+-- Tab display configuration
+vim.cmd([[
+" =========== Tab表示系機能を設定 ==========
+
+" tab系の機能をShougoさんにする
+"   参照: Shougoさんのサイト
+" Anywhere SID.
+function! s:SID_PREFIX()
+  return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
+endfunction
+
+" Set tabline.
+function! s:my_tabline()  "{{{
+  let s = ''
+  for i in range(1, tabpagenr('$'))
+    let bufnrs = tabpagebuflist(i)
+    let bufnr = bufnrs[tabpagewinnr(i) - 1]  " first window, first appears
+    let no = i  " display 0-origin tabpagenr.
+    let mod = getbufvar(bufnr, '&modified') ? '!' : ' '
+    let title = fnamemodify(bufname(bufnr), ':t')
+    let title = '[' . title . ']'
+    let s .= '%'.i.'T'
+    let s .= '%#' . (i == tabpagenr() ? 'TabLineSel' : 'TabLine') . '#'
+    let s .= no . ':' . title
+    let s .= mod
+    let s .= '%#TabLineFill# '
+  endfor
+  let s .= '%#TabLineFill#%T%=%#TabLine#'
+  return s
+endfunction "}}}
+
+let &tabline = '%!'. s:SID_PREFIX() . 'my_tabline()'
+set showtabline=2 " 常にタブラインを表示
+
+" The prefix key.
+ nnoremap    [Tag]   <Nop>
+nmap    t [Tag]
+" Tab jump
+for n in range(1, 9)
+  execute 'nnoremap <silent> [Tag]'.n  ':<C-u>tabnext'.n.'<CR>'
+endfor
+" t1 で1番左のタブ、t2 で1番左から2番目のタブにジャンプ
+
+" tc 新しいタブを一番右に作る
+map <silent> [Tag]c :tablast <bar> tabnew<CR>
+" tx タブを閉じる
+map <silent> [Tag]x :tabclose<CR>
+" tn 次のタブ
+map <silent> [Tag]n :tabnext<CR>
+" tp 前のタブ
+map <silent> [Tag]p :tabprevious<CR>
+]])

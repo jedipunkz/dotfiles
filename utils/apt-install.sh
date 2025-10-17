@@ -11,7 +11,7 @@ sudo apt-get -y install zsh fish git tig tree tmux htop xclip peco bison fzf bat
 
 case "$1" in
   --with-i3)
-    sudo apt-get install -y xorg i3 alsa-utils polybar feh nemo fuse fcitx-mozc xcompmgr rofi mozc-utils-gui fcitx-config-gtk
+    sudo apt-get install -y xorg i3 alsa-utils polybar feh nemo fuse fcitx-mozc xcompmgr rofi mozc-utils-gui fcitx-config-gtk xdotool
     ;;
   --with-sway)
     sudo apt-get install -y sway wdisplays fuse nemo fonts-noto xdotool grim waybar fcitx5-frontend-gtk4 fcitx5-mozc wofi wl-clipboard mozc-utils-gui fcitx-config-gtk

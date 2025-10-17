@@ -4,7 +4,7 @@ local font_size = 14 -- デフォルトのフォントサイズ
 
 if wezterm.target_triple:find("linux") then
   font_size = 12 -- Linux用のフォントサイズ
-  window_background_opacity = 0.7 -- 透明化
+  window_background_opacity = 0.8 -- 透明化
 elseif wezterm.target_triple:find("darwin") then
   font_size = 15 -- macOS用のフォントサイズ
   window_background_opacity = 1.0 -- 透明化せず
@@ -15,7 +15,9 @@ return {
   macos_forward_to_ime_modifier_mask = "SHIFT|CTRL",
 
   font = wezterm.font_with_fallback {
+    -- 'JetBrains Mono',
     'Consolas',
+    'Hiragino Sans',
     'Monaco',
     'FuraMono Nerd Font Mono',
   },
@@ -33,8 +35,10 @@ return {
 
   -- color_scheme = "Dracula (Gogh)",
   -- color_scheme = "Dracula (base16)",
+  -- color_scheme = "Dracula (Official)",
+  color_scheme = "DoomOne",
   -- color_scheme = "Sakura",
-  color_scheme = "Solarized Dark Higher Contrast",
+  -- color_scheme = "Solarized Dark Higher Contrast",
   -- color_scheme = "terafox",
   -- color_scheme = "Gruvbox Dark (Gogh)",
   -- color_scheme = "GruvboxDark",
@@ -61,6 +65,12 @@ return {
       event = { Up = { streak = 1, button = 'Right' } },
       mods = 'NONE',
       action = wezterm.action.PasteFrom("PrimarySelection"),
+    },
+    -- マウス選択時に直接クリップボードにコピーする (workarround)
+    {
+      event = { Up = { streak = 1, button = 'Left' } },
+      mods = 'NONE',
+      action = wezterm.action.CompleteSelectionOrOpenLinkAtMouseCursor("Clipboard"),
     },
     {
       event = { Down = { streak = 1, button = { WheelUp = 1 } } },

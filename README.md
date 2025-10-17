@@ -1,34 +1,37 @@
-# dotfiles for @jedipunkz
+# 🚀 jedipunkz's dotfiles
 
-## Overview
+<div align="center">
 
-Dotfiles repository for @jedipunkz
+**Neovim** • **Fish** • **Starship**
 
-## Screenshot
+*Minimal. Fast. Efficient.*
 
-<img src="https://raw.githubusercontent.com/jedipunkz/dotfiles/master/pix/dotfiles.png">
+</div>
 
-## Requirement
+---
 
-- fzf
-- ghq
-- neovim
-- fish
-- tmux
-- git
-- [starship](https://starship.rs/)
-
-## Installation
+## ⚡ Installation
 
 ```bash
 git clone git://github.com/jedipunkz/dotfiles.git
-bash dotfiles/setup.sh
+cd dotfiles
+bash setup.sh
 ```
 
-## Licence
+---
 
-[MIT](https://github.com/tcnksm/tool/blob/master/LICENCE)
+## 🛠 Stack
 
-## Author
+| Tool | Version | Purpose |
+|------|---------|---------|
+| [Neovim](https://neovim.io/) | 0.10+ | Editor |
+| [Fish](https://fishshell.com/) | - | Shell |
+| [Starship](https://starship.rs/) | - | Prompt |
+| [fzf](https://github.com/junegunn/fzf) | - | Fuzzy finder |
+| [ghq](https://github.com/x-motemen/ghq) | - | Repo manager |
 
-[jedipunkz](https://github.com/jedipunkz)
+---
+
+## 📜 License
+
+MIT

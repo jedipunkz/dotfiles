@@ -12,7 +12,6 @@ brew install \
     fish \
     starship \
     coreutils \
-    tfenv \
     tree \
     jq \
     eza \
@@ -22,6 +21,12 @@ brew install \
     dog \
     bat \
     fd \
+    mise \
+    ast-grep \
+    tree-sitter \
+    tree-sitter-cli \
+    lazygit \
     ripgrep
 
+brew install --cask font-cousine-nerd-font
 brew install --HEAD neovim

@@ -2,16 +2,10 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
 end
 
-# disable greeting msg
 set -U fish_greeting ""
 
-# PATH
-set -x PATH $HOME/.cargo/bin $HOME/.bin /usr/local/go/bin /usr/local/bin /usr/local/sbin /opt/homebrew/bin /bin /usr/bin /sbin /usr/sbin /usr/local/sessionmanagerplugin/bin $HOME/google-cloud-sdk/bin $HOME/.local/bin
+set -x PATH /opt/homebrew/bin $HOME/.cargo/bin $HOME/.bin /usr/local/bin /usr/local/sbin /bin /usr/bin /sbin /usr/sbin /usr/local/sessionmanagerplugin/bin $HOME/google-cloud-sdk/bin $HOME/.local/bin $HOME/.lmstudio/bin
 
-# Bind keys
-# bind \t forward-char
-
-# Alias
 if test (uname -s) = "Darwin"
     alias cat="bat"
     alias code="/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code"
@@ -19,97 +13,71 @@ if test (uname -s) = "Darwin"
     alias vim="nvim"
 else
     alias cat="batcat"
-    #alias vim="flatpak run io.neovim.nvim"
     alias vim="nvim"
 end
 
-# KeyRepeat
 if test (uname -s) = "Linux"
     # xset r rate 190 35
     set -gx GTK_IM_MODULE fcitx
     set -gx QT_IM_MODULE fcitx
     set -gx XMODIFIERS "@im=fcitx"
-
+    # linux homebrew
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 end
 
 alias ls="eza"
 alias lt='eza -T -L 3 -a -I "node_modules|.git|.cache" --icons'
-#alias vim="nvim"
-#alias vim="flatpak run io.neovim.nvim"
 alias la="ls -a"
 alias l="ls -alF"
 alias ssh="ssh -o UserKnownHostsFile=/dev/null -o 'StrictHostKeyChecking no'"
 alias grep="grep --color"
 
-# # fzf
-# set -x FZF_DEFAULT_OPTS '--color fg:255,bg:236,hl:84,fg+:255,bg+:236,hl+:215  --color info:141,prompt:84,spinner:212,pointer:212,marker:212'
-
-# perl cpanm
-if test -d "$HOME/perl5/bin"
-    set -x PERL_CPANM_OPT "--local-lib=~/perl5"
-    set -x PATH $HOME/perl5/bin $PATH
-    set -x PERL5LIB $HOME/perl5/lib/perl5 $PERL5LIB
-end
-
-# pyenv
-set -x PYENV_ROOT $HOME/.pyenv
-set -x PATH $PYENV_ROOT/bin $PATH
-if command -v pyenv 1>/dev/null 2>&1
-    switch (uname)
-    case Darwin
-        set -x PYENV_ROOT $HOME/.pyenv
-        set -x PATH $PYENV_ROOT/bin $PATH
-        # pyenv init - | source
-        # source (pyenv init - | psub)
-        status is-login; and pyenv init --path | source
-        status is-interactive; and pyenv init - | source
-    case Linux
-        pyenv init - | source
-        set -x PATH $PYENV_ROOT/shims $PYENV_ROOT/bin $PATH
-        pyenv rehash
-    end
-end
-
-# rbenv
-if test -d "$HOME/.rbenv/bin"
-    set -x PATH $HOME/.rbenv/bin $PATH
-    rbenv init - | source
-end
-
-# nodenv
-if test -d "$HOME/.nodenv"
-    set -x PATH $HOME/.nodenv/bin $PATH
-    nodenv init - | source
+# mise
+if test (uname -s) = "Linux"
+    /home/linuxbrew/.linuxbrew/bin/mise activate fish | source
+else if test (uname -s) = "Darwin"
+    mise activate fish | source
 end
 
 if test ! -d "$HOME/ghq"
     mkdir $HOME/ghq
 end
 
-# golang
-if test ! -d "$HOME/go"
-    mkdir $HOME/go
-end
-set -x GOPATH $HOME/go
-set -x PATH $GOPATH/bin $PATH
+# Kanagawa Wave color palette
+set -l foreground dcd7ba
+set -l selection 2d4f67
+set -l comment 727169
+set -l red c34043
+set -l orange ffa066
+set -l yellow c0a36e
+set -l green 76946a
+set -l purple 957fb8
+set -l cyan 6a9589
+set -l blue 7e9cd8
 
-# fzf color settings
-set -l color00 '#1c1e26'
-set -l color01 '#232530'
-set -l color02 '#2e303e'
-set -l color03 '#6f6f70'
-set -l color04 '#9da0a2'
-set -l color05 '#cbced0'
-set -l color06 '#dcdfe4'
-set -l color07 '#e3e6ee'
-set -l color08 '#e93c58'
-set -l color09 '#e58d7d'
-set -l color0A '#efb993'
-set -l color0B '#efaf8e'
-set -l color0C '#24a8b4'
-set -l color0D '#df5273'
-set -l color0E '#b072d1'
-set -l color0F '#e4a382'
+# Fish color settings (Kanagawa Wave theme)
+set -U fish_color_normal $foreground
+set -U fish_color_command $blue
+set -U fish_color_keyword $purple
+set -U fish_color_quote $yellow
+set -U fish_color_redirection $foreground
+set -U fish_color_end $orange
+set -U fish_color_option $purple
+set -U fish_color_error $red
+set -U fish_color_param $cyan
+set -U fish_color_comment $comment
+set -U fish_color_selection --background=$selection
+set -U fish_color_search_match --background=$selection
+set -U fish_color_operator $green
+set -U fish_color_escape $purple
+set -U fish_color_autosuggestion $comment
+
+# Pager colors
+set -U fish_pager_color_progress $comment
+set -U fish_pager_color_prefix $blue
+set -U fish_pager_color_completion $foreground
+set -U fish_pager_color_description $comment
+set -U fish_pager_color_selected_background --background=$selection
 
 set -l FZF_NON_COLOR_OPTS
 
@@ -119,12 +87,30 @@ for arg in (echo $FZF_DEFAULT_OPTS | tr " " "\n")
     end
 end
 
+# FZF Kanagawa Wave color scheme
 set -Ux FZF_DEFAULT_OPTS "$FZF_NON_COLOR_OPTS"\
-" --color=bg+:$color01,bg:$color00,spinner:$color0C,hl:$color0D"\
-" --color=fg:$color04,header:$color0D,info:$color0A,pointer:$color0C"\
-" --color=marker:$color0C,fg+:$color06,prompt:$color0A,hl+:$color0D"
+" --highlight-line"\
+" --info=inline-right"\
+" --ansi"\
+" --border=none"\
+" --color=bg+:#2d4f67"\
+" --color=bg:#1f1f28"\
+" --color=border:#6a9589"\
+" --color=fg:#dcd7ba"\
+" --color=gutter:#1f1f28"\
+" --color=header:#ffa066"\
+" --color=hl+:#7fb4ca"\
+" --color=hl:#7fb4ca"\
+" --color=info:#727169"\
+" --color=marker:#957fb8"\
+" --color=pointer:#957fb8"\
+" --color=prompt:#7e9cd8"\
+" --color=query:#dcd7ba:regular"\
+" --color=scrollbar:#6a9589"\
+" --color=separator:#ffa066"\
+" --color=spinner:#957fb8"
 
-# starship.rs
 set -x STARSHIP_CONFIG ~/.starship
 set -x AWS_PROFILE default
 starship init fish | source
+
