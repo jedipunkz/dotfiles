@@ -507,9 +507,9 @@ key = "NumpadEnter"
 
 [general]
 live_config_reload = true
-import = ["~/.config/alacritty/themes/kanagawa_wave.toml"]
+# import = ["~/.config/alacritty/themes/kanagawa_wave.toml"]
 # import = ["~/.config/alacritty/themes/kanagawa_dragon.toml"]
-# import = ["~/.config/alacritty/themes/tokyonight_night.toml"]
+import = ["~/.config/alacritty/themes/tokyonight_night.toml"]
 # import = ["~/.config/alacritty/themes/tokyonight_strom.toml"]
 
 [cursor.style]
