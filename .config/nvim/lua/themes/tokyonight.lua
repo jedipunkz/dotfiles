@@ -11,6 +11,13 @@ require("tokyonight").setup({
     sidebars = "dark",
     floats = "dark",
   },
+  on_highlights = function(hl, c)
+    -- Customize Visual selection colors
+    hl.Visual = {
+      bg = "#9d7cd8",  -- purple background
+      fg = "#ffffff",  -- white text
+    }
+  end,
 })
 
 -- Apply colorscheme
