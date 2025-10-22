@@ -69,9 +69,10 @@ style = "#adb5bd"
 
 [gcloud]
 symbol = '️🇬️ '
-format = 'on [$symbol$account(@$domain)(\($region\))(\($project\))]($style) '
+#format = 'on [$symbol$account(@$domain)(\($region\))(\($project\))]($style) '
+format = 'on [(\($region\))(\($project\))]($style) '
 style = 'bold #4285F4'
-detect_env_vars = ['GOOGLE_APPLICATION_CREDENTIALS']
+# detect_env_vars = ['GOOGLE_APPLICATION_CREDENTIALS']
 [gcloud.region_aliases]
 us-central1 = 'uc1'
 asia-northeast1 = 'an1'
