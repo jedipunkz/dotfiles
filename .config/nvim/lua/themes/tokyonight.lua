@@ -17,6 +17,10 @@ require("tokyonight").setup({
       bg = "#9d7cd8",  -- purple background
       fg = "#ffffff",  -- white text
     }
+    -- Customize Comment colors (brighter than default)
+    hl.Comment = {
+      fg = "#797979",  -- slightly darker blue (more visible than default gray #565f89)
+    }
   end,
 })
 
