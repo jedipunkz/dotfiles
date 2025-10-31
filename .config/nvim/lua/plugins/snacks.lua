@@ -2,6 +2,23 @@ return {
   -- Snacks.nvim (dependency for claudecode.nvim)
   {
     "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    init = function()
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "VeryLazy",
+        callback = function()
+          -- Setup keymaps after Snacks is fully loaded
+          vim.keymap.set("n", "<leader>st", function() Snacks.terminal() end, { desc = "Toggle terminal" })
+          vim.keymap.set("t", "<leader>st", function() Snacks.terminal() end, { desc = "Toggle terminal" })
+          vim.keymap.set("n", "<leader>sf", function() Snacks.picker.smart() end, { desc = "Smart file search" })
+          vim.keymap.set("n", "<leader>sg", function() Snacks.picker.grep() end, { desc = "Grep search" })
+          vim.keymap.set("n", "<leader>sb", function() Snacks.gitbrowse() end, { desc = "Git browse" })
+          vim.keymap.set("n", "<leader>sl", function() Snacks.lazygit() end, { desc = "Lazygit" })
+          vim.keymap.set("n", "<C-e>", function() Snacks.explorer() end, { desc = "File explorer" })
+        end,
+      })
+    end,
     config = function()
       local snacks = require("snacks")
       if not snacks.did_setup then
@@ -63,24 +80,8 @@ return {
           terminal = {
             enabled = true,
             win = {
-              style = "terminal",
-              -- DoomOne theme colors for terminal
               wo = {
-                winhl = "Normal:Normal,FloatBorder:FloatBorder,FloatTitle:FloatTitle,FloatFooter:FloatFooter",
-              },
-            },
-            env = {
-              TERM = "xterm-256color",
-            },
-            bo = {
-              filetype = "snacks_terminal",
-            },
-            keys = {
-              q = "hide",
-              term_normal = {
-                "<C-\\><C-n>",
-                mode = "t",
-                desc = "Terminal normal mode",
+                winhl = "Normal:Normal,FloatBorder:FloatBorder",
               },
             },
           },
@@ -100,15 +101,6 @@ return {
           },
         })
       end
-
-      -- Create Snacks commands manually
-      vim.api.nvim_create_user_command("SnackTerminal", function()
-        require("snacks").terminal.toggle()
-      end, { desc = "Toggle terminal" })
-
-      vim.api.nvim_create_user_command("SnackTerminalOpen", function()
-        require("snacks").terminal.open()
-      end, { desc = "Open terminal" })
     end,
   },
 
