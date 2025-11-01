@@ -114,3 +114,10 @@ set -x STARSHIP_CONFIG ~/.starship
 set -x AWS_PROFILE default
 starship init fish | source
 
+
+# pnpm
+set -gx PNPM_HOME "/Users/thirai/Library/pnpm"
+if not string match -q -- $PNPM_HOME $PATH
+  set -gx PATH "$PNPM_HOME" $PATH
+end
+# pnpm end
