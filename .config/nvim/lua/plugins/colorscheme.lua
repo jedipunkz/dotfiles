@@ -15,4 +15,10 @@ return {
       style = "night",
     },
   },
+  {
+    "EdenEast/nightfox.nvim",
+    priority = 1000,
+    lazy = false,
+    opts = {},
+  },
 }
