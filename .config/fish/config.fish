@@ -14,6 +14,7 @@ if test (uname -s) = "Darwin"
 else
     alias cat="batcat"
     alias vim="nvim"
+    alias code="/mnt/c/Users/tomok/AppData/Local/Programs/Microsoft\ VS\ Code/bin/code"
 end
 
 if test (uname -s) = "Linux"
