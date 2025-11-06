@@ -511,6 +511,7 @@ live_config_reload = true
 # import = ["~/.config/alacritty/themes/kanagawa_dragon.toml"]
 import = ["~/.config/alacritty/themes/tokyonight_night.toml"]
 # import = ["~/.config/alacritty/themes/tokyonight_strom.toml"]
+# import = ["~/.config/alacritty/themes/duskfox.toml"]
 
 [cursor.style]
 shape = "Block"

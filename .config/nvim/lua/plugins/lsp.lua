@@ -100,8 +100,15 @@ return {
         },
       }
 
+      -- Zig
+      vim.lsp.config.zls = {
+        on_attach = on_attach,
+        capabilities = capabilities,
+        flags = lsp_flags,
+      }
+
       -- Enable configured LSP servers
-      vim.lsp.enable({'pyright', 'ts_ls', 'rust_analyzer', 'gopls', 'lua_ls'})
+      vim.lsp.enable({'pyright', 'ts_ls', 'rust_analyzer', 'gopls', 'lua_ls', 'zls'})
     end,
   },
   {
