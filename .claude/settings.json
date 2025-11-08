@@ -11,7 +11,12 @@
   "permissions": {
     "allow": [
       "WebSearch",
-      "WebFetch"
+      "WebFetch",
+      "Bash(ls *)",
+      "Bash(find *)",
+      "Bash(cat *)",
+      "Bash(head *)",
+      "Bash(tail *)"
     ],
     "deny": [
       "Read(~/.aws/**)",
@@ -19,7 +24,10 @@
       "Read(.env)",
       "Read(.env.*)",
       "Read(**/.env)",
-      "Read(**/.env.*)"
+      "Read(**/.env.*)",
+      "Bash(rm -rf *)",
+      "Bash(rm * -rf)",
+      "Bash(rm * -r *)"
     ]
   }
 }
