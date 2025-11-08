@@ -53,8 +53,8 @@ makedir $HOME/dotfiles.backup 0755
 backup $HOME/.config $HOME/dotfiles.backup/.config
 backup $HOME/.emacs.d $HOME/dotfiles.backup/.emacs.d
 
-makedir $HOME/gitwork 0755
 makedir $HOME/.config 700
+makedir $HOME/.claude 700
 
 if [ "`uname`" == "Linux" ]; then
     link .gtkrc-2.0 $HOME/.gtkrc-2.0
@@ -87,6 +87,8 @@ link .config/yabai $HOME/.config/yabai
 link .config/skhd $HOME/.config/skhd
 link .config/zellij $HOME/.config/zellij
 link .config/starship $HOME/.config/starship
+link .claude/settings.json $HOME/.claude/settings.json
+link .claude/statusline.sh $HOME/.claude/statusline.sh
 
 gitclone $URL_TPM ~/.tmux/plugins/tpm
 # gitclone $URL_RBENV $HOME/.rbenv
