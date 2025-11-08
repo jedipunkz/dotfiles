@@ -3,11 +3,11 @@
 # set envs
 CONF_HOME=$(cd $(dirname "$0") && pwd)
 
-URL_RBENV="https://github.com/sstephenson/rbenv.git"
-URL_RUBY_BUILD="https://github.com/sstephenson/ruby-build.git"
-URL_PYENV="https://github.com/pyenv/pyenv.git"
-URL_NODENV="https://github.com/nodenv/nodenv.git"
-URL_NODE_BUILD="https://github.com/nodenv/node-build.git"
+# URL_RBENV="https://github.com/sstephenson/rbenv.git"
+# URL_RUBY_BUILD="https://github.com/sstephenson/ruby-build.git"
+# URL_PYENV="https://github.com/pyenv/pyenv.git"
+# URL_NODENV="https://github.com/nodenv/nodenv.git"
+# URL_NODE_BUILD="https://github.com/nodenv/node-build.git"
 URL_TPM="https://github.com/tmux-plugins/tpm"
 URL_ZSHCOMP="https://github.com/zsh-users/zsh-completions.git"
 # URL_PACKER="https://github.com/wbthomason/packer.nvim"
@@ -88,12 +88,12 @@ link .config/skhd $HOME/.config/skhd
 link .config/zellij $HOME/.config/zellij
 
 gitclone $URL_TPM ~/.tmux/plugins/tpm
-gitclone $URL_RBENV $HOME/.rbenv
-gitclone $URL_RUBY_BUILD $HOME/.rbenv/plugins/ruby-build
-gitclone $URL_PYENV $HOME/.pyenv
+# gitclone $URL_RBENV $HOME/.rbenv
+# gitclone $URL_RUBY_BUILD $HOME/.rbenv/plugins/ruby-build
+# gitclone $URL_PYENV $HOME/.pyenv
 gitclone $URL_ZSHCOMP $HOME/.zsh-completions
-gitclone $URL_NODENV $HOME/.nodenv
-gitclone $URL_NODE_BUILD $HOME/.nodenv/plugins/node-build
+# gitclone $URL_NODENV $HOME/.nodenv
+# gitclone $URL_NODE_BUILD $HOME/.nodenv/plugins/node-build
 # gitclone $URL_PACKER $HOME/.local/share/nvim/site/pack/packer/start/packer.nvim
 
 curl https://sh.rustup.rs -sSf | sh
