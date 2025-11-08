@@ -88,7 +88,8 @@ link .config/skhd $HOME/.config/skhd
 link .config/zellij $HOME/.config/zellij
 link .config/starship $HOME/.config/starship
 link .claude/settings.json $HOME/.claude/settings.json
-link .claude/statusline.sh $HOME/.claude/statusline.sh
+link .claude/scripts $HOME/.claude/scripts
+link .claude/skills $HOME/.claude/skills
 
 gitclone $URL_TPM ~/.tmux/plugins/tpm
 # gitclone $URL_RBENV $HOME/.rbenv
