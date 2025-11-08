@@ -110,7 +110,7 @@ set -Ux FZF_DEFAULT_OPTS "$FZF_NON_COLOR_OPTS"\
 " --color=separator:#ff9e64"\
 " --color=spinner:#bb9af7"
 
-set -x STARSHIP_CONFIG ~/.starship
+set -x STARSHIP_CONFIG ~/.config/starship/config.toml
 set -x AWS_PROFILE default
 starship init fish | source
 

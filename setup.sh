@@ -86,6 +86,7 @@ link .config/xremap $HOME/.config/xremap
 link .config/yabai $HOME/.config/yabai
 link .config/skhd $HOME/.config/skhd
 link .config/zellij $HOME/.config/zellij
+link .config/starship $HOME/.config/starship
 
 gitclone $URL_TPM ~/.tmux/plugins/tpm
 # gitclone $URL_RBENV $HOME/.rbenv
