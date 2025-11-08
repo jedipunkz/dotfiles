@@ -10,6 +10,11 @@ MODEL=$(echo "$input" | jq -r '.model.display_name // "Claude"')
 CURRENT_DIR=$(echo "$input" | jq -r '.workspace.current_dir // "~"')
 DIR_NAME=${CURRENT_DIR##*/}
 
+# Session cost and code statistics
+TOTAL_COST=$(echo "$input" | jq -r '.cost.total_cost_usd // 0')
+LINES_ADDED=$(echo "$input" | jq -r '.cost.total_lines_added // 0')
+LINES_REMOVED=$(echo "$input" | jq -r '.cost.total_lines_removed // 0')
+
 # TokyoNight color palette (RGB ANSI codes)
 PURPLE='\033[38;2;187;154;247m'   # #bb9af7 - Purple for model
 CYAN='\033[38;2;125;207;255m'     # #7dcfff - Cyan for directory
@@ -51,12 +56,12 @@ if [ -d "$CURRENT_DIR/.git" ]; then
     fi
 
     # Output with changes
-    printf "${PURPLE}[$MODEL]${RESET} ${CYAN}📁 $DIR_NAME${RESET} ${GRAY}|${RESET} Git ${BLUE}[$BRANCH]${RESET}: ${YELLOW}${FILES_CHANGED:-0} changed${RESET}, ${GREEN}+${INSERTIONS:-0}${RESET} ${RED}-${DELETIONS:-0}${RESET}, ${YELLOW}${STAGED_FILES:-0} staged${RESET}, ${YELLOW}$UNTRACKED untracked${RESET}"
+    printf "${PURPLE}[$MODEL]${RESET} ${CYAN}📁 $DIR_NAME${RESET} ${GRAY}|${RESET} Git ${BLUE}[$BRANCH]${RESET}: ${YELLOW}${FILES_CHANGED:-0} changed${RESET}, ${GREEN}+${INSERTIONS:-0}${RESET} ${RED}-${DELETIONS:-0}${RESET}, ${YELLOW}${STAGED_FILES:-0} staged${RESET}, ${YELLOW}$UNTRACKED untracked${RESET} ${GRAY}|${RESET} ${YELLOW}💰 \$${TOTAL_COST}${RESET} ${GRAY}|${RESET} 📝 ${GREEN}+${LINES_ADDED}${RESET} ${RED}-${LINES_REMOVED}${RESET}"
   else
     # Clean working tree
-    printf "${PURPLE}[$MODEL]${RESET} ${CYAN}📁 $DIR_NAME${RESET} ${GRAY}|${RESET} Git ${BLUE}[$BRANCH]${RESET}: ${GREEN}✓ Clean${RESET}"
+    printf "${PURPLE}[$MODEL]${RESET} ${CYAN}📁 $DIR_NAME${RESET} ${GRAY}|${RESET} Git ${BLUE}[$BRANCH]${RESET}: ${GREEN}✓ Clean${RESET} ${GRAY}|${RESET} ${YELLOW}💰 \$${TOTAL_COST}${RESET} ${GRAY}|${RESET} 📝 ${GREEN}+${LINES_ADDED}${RESET} ${RED}-${LINES_REMOVED}${RESET}"
   fi
 else
   # Not a git repository
-  printf "${PURPLE}[$MODEL]${RESET} ${CYAN}📁 $DIR_NAME${RESET} ${GRAY}|${RESET} Git: ${GRAY}Not a repository${RESET}"
+  printf "${PURPLE}[$MODEL]${RESET} ${CYAN}📁 $DIR_NAME${RESET} ${GRAY}|${RESET} Git: ${GRAY}Not a repository${RESET} ${GRAY}|${RESET} ${YELLOW}💰 \$${TOTAL_COST}${RESET} ${GRAY}|${RESET} 📝 ${GREEN}+${LINES_ADDED}${RESET} ${RED}-${LINES_REMOVED}${RESET}"
 fi
