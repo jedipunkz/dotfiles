@@ -47,7 +47,7 @@ format = """\
 
 [character]
 success_symbol = "[ ::](#9ece6a)"
-error_symbol = "[ ERROR⚡️](#f7768e)"
+error_symbol = "[ ERROR](#f7768e)"
 vicmd_symbol = "[ ::](#9ece6a)"
 
 [hostname]
