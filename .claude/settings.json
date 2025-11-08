@@ -18,7 +18,8 @@
       "Bash(cat:*)",
       "Bash(head:*)",
       "Bash(tail:*)",
-      "Bash(jq:*)"
+      "Bash(jq:*)",
+      "Skill"
     ],
     "deny": [
       "Read(~/.aws/**)",
