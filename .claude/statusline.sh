@@ -35,7 +35,8 @@ if [ -d "$CURRENT_DIR/.git" ]; then
   # Get git stats
   GIT_STATUS=$(git diff --stat 2>/dev/null)
   STAGED_STATUS=$(git diff --cached --stat 2>/dev/null)
-  UNTRACKED=$(git status --porcelain 2>/dev/null | grep -c '^??' || echo 0)
+  UNTRACKED=$(git status --porcelain 2>/dev/null | grep -c '^??' 2>/dev/null || true)
+  UNTRACKED=${UNTRACKED:-0}
 
   # Check if there are any changes
   if [ -n "$GIT_STATUS" ] || [ -n "$STAGED_STATUS" ] || [ "$UNTRACKED" -gt 0 ]; then
@@ -56,10 +57,10 @@ if [ -d "$CURRENT_DIR/.git" ]; then
     fi
 
     # Output with changes
-    printf "${PURPLE}[$MODEL]${RESET} ${CYAN}📁 $DIR_NAME${RESET} ${GRAY}|${RESET} Git ${BLUE}[$BRANCH]${RESET}: ${YELLOW}${FILES_CHANGED:-0} changed${RESET}, ${GREEN}+${INSERTIONS:-0}${RESET} ${RED}-${DELETIONS:-0}${RESET}, ${YELLOW}${STAGED_FILES:-0} staged${RESET}, ${YELLOW}$UNTRACKED untracked${RESET} ${GRAY}|${RESET} ${YELLOW}💰 \$${TOTAL_COST}${RESET} ${GRAY}|${RESET} 📝 ${GREEN}+${LINES_ADDED}${RESET} ${RED}-${LINES_REMOVED}${RESET}"
+    printf "${PURPLE}[$MODEL]${RESET} ${CYAN}📁 $DIR_NAME${RESET} ${GRAY}|${RESET} Git ${BLUE}[$BRANCH]${RESET}: ${YELLOW}${FILES_CHANGED:-0} changed${RESET}, ${GREEN}+${INSERTIONS:-0}${RESET} ${RED}-${DELETIONS:-0}${RESET}, ${YELLOW}${STAGED_FILES:-0} staged${RESET}, ${YELLOW}$UNTRACKED untracked${RESET} ${GRAY}|${RESET} ${YELLOW}💰 \$${TOTAL_COST}${RESET} ${GRAY}|${RESET} 📝 ${GREEN}+${LINES_ADDED}${RESET} ${RED}-${LINES_REMOVED}${RESET}\n"
   else
     # Clean working tree
-    printf "${PURPLE}[$MODEL]${RESET} ${CYAN}📁 $DIR_NAME${RESET} ${GRAY}|${RESET} Git ${BLUE}[$BRANCH]${RESET}: ${GREEN}✓ Clean${RESET} ${GRAY}|${RESET} ${YELLOW}💰 \$${TOTAL_COST}${RESET} ${GRAY}|${RESET} 📝 ${GREEN}+${LINES_ADDED}${RESET} ${RED}-${LINES_REMOVED}${RESET}"
+    printf "${PURPLE}[$MODEL]${RESET} ${CYAN}📁 $DIR_NAME${RESET} ${GRAY}|${RESET} Git ${BLUE}[$BRANCH]${RESET}: ${GREEN}✓ Clean${RESET} ${GRAY}|${RESET} ${YELLOW}💰 \$${TOTAL_COST}${RESET} ${GRAY}|${RESET} 📝 ${GREEN}+${LINES_ADDED}${RESET} ${RED}-${LINES_REMOVED}${RESET}\n"
   fi
 else
   # Not a git repository
