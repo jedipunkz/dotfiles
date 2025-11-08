@@ -52,6 +52,8 @@ chkcommand git
 makedir $HOME/dotfiles.backup 0755
 backup $HOME/.config $HOME/dotfiles.backup/.config
 backup $HOME/.emacs.d $HOME/dotfiles.backup/.emacs.d
+backup $HOME/.claude/scripts $HOME/dotfiles.backup/scripts
+backup $HOME/.claude/skills $HOME/dotfiles.backup/skills
 
 makedir $HOME/.config 700
 makedir $HOME/.claude 700
