@@ -46,32 +46,32 @@ format = """\
 """
 
 [character]
-success_symbol = "[ ::](#eeef20)"
-error_symbol = "[ ERROR⚡️](#ff5859)"
-vicmd_symbol = "[ ::](#55FF55)"
+success_symbol = "[ ::](#9ece6a)"
+error_symbol = "[ ERROR](#f7768e)"
+vicmd_symbol = "[ ::](#9ece6a)"
 
 [hostname]
 ssh_only = true
 disabled = false
-style = "#ffff3f"
+style = "#e0af68"
 
 [directory]
 truncation_length = 3
 truncate_to_repo = false
-style = "#e4ff1a"
+style = "#7dcfff"
 
 [time]
 disabled = false
 format = "[$time]($style)"
 time_format = "%T"
 utc_time_offset = "+9"
-style = "#adb5bd"
+style = "#565f89"
 
 [gcloud]
 symbol = '️🇬️ '
 #format = 'on [$symbol$account(@$domain)(\($region\))(\($project\))]($style) '
 format = 'on [(\($region\))(\($project\))]($style) '
-style = 'bold #4285F4'
+style = 'bold #7aa2f7'
 # detect_env_vars = ['GOOGLE_APPLICATION_CREDENTIALS']
 [gcloud.region_aliases]
 us-central1 = 'uc1'
@@ -79,7 +79,7 @@ asia-northeast1 = 'an1'
 
 [aws]
 symbol = "☁️ "
-style = "#FF9900"
+style = "#ff9e64"
 [aws.region_aliases]
 ap-northeast-1 = "tokyo"
 ap-northeast-3 = "osaka"
@@ -97,7 +97,7 @@ symbol = "🐋 "
 symbol = "🚀 "
 #truncation_length = 2
 #truncation_symbol = ""
-#style = "#F7819F"
+style = "#bb9af7"
 
 [git_state]
 format = '[\($state( $progress_current of $progress_total)\)]($style) '
@@ -118,11 +118,11 @@ deleted = "✘"
 
 [golang]
 #symbol = "🏎💨 "
-style = "#7fd5ea"
+style = "#7dcfff"
 
 [kubernetes]
 symbol = "🥑 "
-style = "#ffd31d"
+style = "#e0af68"
 disabled = false
 format = '[$symbol$context( \($namespace\))]($style) in '
 detect_extensions = []

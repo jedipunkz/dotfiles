@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/scripts/statusline.sh"
+  },
+  "feedbackSurveyState": {
+    "lastShownTime": 1754085614062
+  },
+  "alwaysThinkingEnabled": true,
+  "permissions": {
+    "allow": [
+      "Read",
+      "WebSearch",
+      "WebFetch",
+      "Bash(ls:*)",
+      "Bash(find:*)",
+      "Bash(cat:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(jq:*)",
+      "Skill"
+    ],
+    "deny": [
+      "Read(~/.aws/**)",
+      "Read(~/.ssh/**)",
+      "Read(.env)",
+      "Read(.env.*)",
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Bash(rm -rf:*)",
+      "Bash(rm -r:*)"
+    ]
+  }
+}
