@@ -23,6 +23,7 @@ if test (uname -s) = "Linux"
     set -gx XMODIFIERS "@im=fcitx"
     # linux homebrew
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    bind \cr history-pager
 end
 
 alias ls="eza"
