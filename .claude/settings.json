@@ -10,13 +10,14 @@
   "alwaysThinkingEnabled": true,
   "permissions": {
     "allow": [
+      "Read",
       "WebSearch",
       "WebFetch",
       "Bash(ls:*)",
       "Bash(find:*)",
       "Bash(cat:*)",
       "Bash(head:*)",
-      "Bash(tail:*)"
+      "Bash(tail:*)",
       "Bash(jq:*)"
     ],
     "deny": [
@@ -26,7 +27,7 @@
       "Read(.env.*)",
       "Read(**/.env)",
       "Read(**/.env.*)",
-      "Bash(rm:*)"
+      "Bash(rm -rf:*)",
     ]
   }
 }
