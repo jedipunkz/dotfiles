@@ -28,6 +28,7 @@
       "Read(**/.env)",
       "Read(**/.env.*)",
       "Bash(rm -rf:*)",
+      "Bash(rm -r:*)"
     ]
   }
 }
