@@ -144,8 +144,7 @@ pyenv_prefix = "foo "
 symbol = "🔺 "
 
 [terraform]
-#symbol = "🏎💨 "
-#show_version = true
+format = "via [$symbol$version]($style) "
 
 [mise]
 disabled = false
