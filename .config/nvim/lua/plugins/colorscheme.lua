@@ -545,6 +545,18 @@ return {
     opts = {},
   },
   {
+    "neanias/everforest-nvim",
+    priority = 1000,
+    lazy = false,
+    config = function()
+      require("everforest").setup({
+        background = "hard",
+        italics = false,
+        disable_italic_comments = true,
+      })
+    end,
+  },
+  {
     "zaldih/themery.nvim",
     lazy = false,
     config = function()
@@ -600,6 +612,10 @@ return {
           {
             name = "Solarized Osaka",
             colorscheme = "solarized-osaka",
+          },
+          {
+            name = "Everforest Hard",
+            colorscheme = "everforest",
           },
           {
             name = "Duskfox",
