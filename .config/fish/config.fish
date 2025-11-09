@@ -44,19 +44,19 @@ if test ! -d "$HOME/ghq"
     mkdir $HOME/ghq
 end
 
-# Kanagawa Wave color palette
-set -l foreground dcd7ba
-set -l selection 2d4f67
-set -l comment 727169
-set -l red c34043
-set -l orange ffa066
-set -l yellow c0a36e
-set -l green 76946a
-set -l purple 957fb8
-set -l cyan 6a9589
-set -l blue 7e9cd8
+# TokyoNight Night color palette
+set -l foreground c0c5db
+set -l selection 283457
+set -l comment 565f89
+set -l red f7768e
+set -l orange ff9e64
+set -l yellow e0af68
+set -l green 9ece6a
+set -l purple bb9af7
+set -l cyan 7dcfff
+set -l blue 7aa2f7
 
-# Fish color settings (Kanagawa Wave theme)
+# Fish color settings (TokyoNight Night theme)
 set -U fish_color_normal $foreground
 set -U fish_color_command $blue
 set -U fish_color_keyword $purple
@@ -88,30 +88,30 @@ for arg in (echo $FZF_DEFAULT_OPTS | tr " " "\n")
     end
 end
 
-# FZF Kanagawa Wave color scheme
+# FZF TokyoNight Night color scheme
 set -Ux FZF_DEFAULT_OPTS "$FZF_NON_COLOR_OPTS"\
 " --highlight-line"\
 " --info=inline-right"\
 " --ansi"\
 " --border=none"\
-" --color=bg+:#2d4f67"\
-" --color=bg:#1f1f28"\
-" --color=border:#6a9589"\
-" --color=fg:#dcd7ba"\
-" --color=gutter:#1f1f28"\
-" --color=header:#ffa066"\
-" --color=hl+:#7fb4ca"\
-" --color=hl:#7fb4ca"\
-" --color=info:#727169"\
-" --color=marker:#957fb8"\
-" --color=pointer:#957fb8"\
-" --color=prompt:#7e9cd8"\
-" --color=query:#dcd7ba:regular"\
-" --color=scrollbar:#6a9589"\
-" --color=separator:#ffa066"\
-" --color=spinner:#957fb8"
+" --color=bg+:#283457"\
+" --color=bg:#1a1b26"\
+" --color=border:#7dcfff"\
+" --color=fg:#c0c5db"\
+" --color=gutter:#1a1b26"\
+" --color=header:#ff9e64"\
+" --color=hl+:#7dcfff"\
+" --color=hl:#7aa2f7"\
+" --color=info:#565f89"\
+" --color=marker:#bb9af7"\
+" --color=pointer:#bb9af7"\
+" --color=prompt:#7aa2f7"\
+" --color=query:#c0c5db:regular"\
+" --color=scrollbar:#7dcfff"\
+" --color=separator:#ff9e64"\
+" --color=spinner:#bb9af7"
 
-set -x STARSHIP_CONFIG ~/.starship
+set -x STARSHIP_CONFIG ~/.config/starship/config.toml
 set -x AWS_PROFILE default
 starship init fish | source
 
