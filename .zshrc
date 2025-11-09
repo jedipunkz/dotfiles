@@ -162,3 +162,5 @@ export AWS_PROFILE=default
 export PATH="$PATH:/Users/thirai/.lmstudio/bin"
 # End of LM Studio CLI section
 
+
+[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
