@@ -539,6 +539,12 @@ return {
     },
   },
   {
+    "craftzdog/solarized-osaka.nvim",
+    priority = 1000,
+    lazy = false,
+    opts = {},
+  },
+  {
     "zaldih/themery.nvim",
     lazy = false,
     config = function()
@@ -590,6 +596,10 @@ return {
             before = [[
               vim.o.background = "dark"
             ]],
+          },
+          {
+            name = "Solarized Osaka",
+            colorscheme = "solarized-osaka",
           },
           {
             name = "Duskfox",
