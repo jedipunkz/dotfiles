@@ -32,6 +32,7 @@ format = """\
     $rust\
     $terraform\
     $zig\
+    $mise\
     $nix_shell\
     $conda\
     $memory_usage\
@@ -145,6 +146,14 @@ symbol = "🔺 "
 [terraform]
 #symbol = "🏎💨 "
 #show_version = true
+
+[mise]
+disabled = false
+symbol = 'mise '
+style = 'bold #ff9e64'
+format = 'on [$symbol$health]($style) '
+healthy_symbol = '✔️ '
+unhealthy_symbol = '❌ '
 
 [battery]
 disabled = true
