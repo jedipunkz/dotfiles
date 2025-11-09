@@ -473,21 +473,40 @@ return {
     lazy = false,
   },
   {
-    "ellisonleao/gruvbox.nvim",
+    "sainnhe/gruvbox-material",
     priority = 1000,
     lazy = false,
-    opts = {
-      terminal_colors = true,
-      undercurl = true,
-      underline = true,
-      bold = true,
-      italic = {
-        strings = false,
-        emphasis = false,
-        comments = false,
-      },
-      contrast = "hard", -- "hard" = darker background, "soft" = lighter, "" = default
-    },
+    config = function()
+      -- Set to 'hard' for darkest background, 'medium' (default), or 'soft'
+      vim.g.gruvbox_material_background = 'hard'
+      -- Disable italic
+      vim.g.gruvbox_material_enable_italic = 0
+      vim.g.gruvbox_material_disable_italic_comment = 1
+      -- Better performance
+      vim.g.gruvbox_material_better_performance = 1
+    end,
+  },
+  {
+    "rose-pine/neovim",
+    name = "rose-pine",
+    priority = 1000,
+    lazy = false,
+    config = function()
+      require("rose-pine").setup({
+        variant = "auto",
+        dark_variant = "main",
+        enable = {
+          terminal = true,
+          legacy_highlights = true,
+          migrations = true,
+        },
+        styles = {
+          bold = true,
+          italic = false,
+          transparency = false,
+        },
+      })
+    end,
   },
   {
     "AlexvZyl/nordic.nvim",
@@ -554,8 +573,12 @@ return {
             colorscheme = "oxocarbon",
           },
           {
-            name = "Gruvbox Dark",
-            colorscheme = "gruvbox",
+            name = "Gruvbox Material",
+            colorscheme = "gruvbox-material",
+          },
+          {
+            name = "Rose Pine",
+            colorscheme = "rose-pine",
           },
           {
             name = "Nordic",
