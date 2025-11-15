@@ -44,7 +44,7 @@ if test ! -d "$HOME/ghq"
 end
 
 # TokyoNight Night color palette
-set -l foreground c0c5db
+set -l foreground a0d8f0
 set -l selection 283457
 set -l comment 565f89
 set -l red f7768e
@@ -96,7 +96,7 @@ set -Ux FZF_DEFAULT_OPTS "$FZF_NON_COLOR_OPTS"\
 " --color=bg+:#283457"\
 " --color=bg:#1a1b26"\
 " --color=border:#7dcfff"\
-" --color=fg:#c0c5db"\
+" --color=fg:#a0d8f0"\
 " --color=gutter:#1a1b26"\
 " --color=header:#ff9e64"\
 " --color=hl+:#7dcfff"\
@@ -105,7 +105,7 @@ set -Ux FZF_DEFAULT_OPTS "$FZF_NON_COLOR_OPTS"\
 " --color=marker:#bb9af7"\
 " --color=pointer:#bb9af7"\
 " --color=prompt:#7aa2f7"\
-" --color=query:#c0c5db:regular"\
+" --color=query:#a0d8f0:regular"\
 " --color=scrollbar:#7dcfff"\
 " --color=separator:#ff9e64"\
 " --color=spinner:#bb9af7"
