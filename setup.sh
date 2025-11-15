@@ -3,11 +3,11 @@
 # set envs
 CONF_HOME=$(cd $(dirname "$0") && pwd)
 
-URL_RBENV="https://github.com/sstephenson/rbenv.git"
-URL_RUBY_BUILD="https://github.com/sstephenson/ruby-build.git"
-URL_PYENV="https://github.com/pyenv/pyenv.git"
-URL_NODENV="https://github.com/nodenv/nodenv.git"
-URL_NODE_BUILD="https://github.com/nodenv/node-build.git"
+# URL_RBENV="https://github.com/sstephenson/rbenv.git"
+# URL_RUBY_BUILD="https://github.com/sstephenson/ruby-build.git"
+# URL_PYENV="https://github.com/pyenv/pyenv.git"
+# URL_NODENV="https://github.com/nodenv/nodenv.git"
+# URL_NODE_BUILD="https://github.com/nodenv/node-build.git"
 URL_TPM="https://github.com/tmux-plugins/tpm"
 URL_ZSHCOMP="https://github.com/zsh-users/zsh-completions.git"
 # URL_PACKER="https://github.com/wbthomason/packer.nvim"
@@ -52,9 +52,11 @@ chkcommand git
 makedir $HOME/dotfiles.backup 0755
 backup $HOME/.config $HOME/dotfiles.backup/.config
 backup $HOME/.emacs.d $HOME/dotfiles.backup/.emacs.d
+backup $HOME/.claude/scripts $HOME/dotfiles.backup/scripts
+backup $HOME/.claude/skills $HOME/dotfiles.backup/skills
 
-makedir $HOME/gitwork 0755
 makedir $HOME/.config 700
+makedir $HOME/.claude 700
 
 if [ "`uname`" == "Linux" ]; then
     link .gtkrc-2.0 $HOME/.gtkrc-2.0
@@ -86,14 +88,18 @@ link .config/xremap $HOME/.config/xremap
 link .config/yabai $HOME/.config/yabai
 link .config/skhd $HOME/.config/skhd
 link .config/zellij $HOME/.config/zellij
+link .config/starship $HOME/.config/starship
+link .claude/settings.json $HOME/.claude/settings.json
+link .claude/scripts $HOME/.claude/scripts
+link .claude/skills $HOME/.claude/skills
 
 gitclone $URL_TPM ~/.tmux/plugins/tpm
-gitclone $URL_RBENV $HOME/.rbenv
-gitclone $URL_RUBY_BUILD $HOME/.rbenv/plugins/ruby-build
-gitclone $URL_PYENV $HOME/.pyenv
+# gitclone $URL_RBENV $HOME/.rbenv
+# gitclone $URL_RUBY_BUILD $HOME/.rbenv/plugins/ruby-build
+# gitclone $URL_PYENV $HOME/.pyenv
 gitclone $URL_ZSHCOMP $HOME/.zsh-completions
-gitclone $URL_NODENV $HOME/.nodenv
-gitclone $URL_NODE_BUILD $HOME/.nodenv/plugins/node-build
+# gitclone $URL_NODENV $HOME/.nodenv
+# gitclone $URL_NODE_BUILD $HOME/.nodenv/plugins/node-build
 # gitclone $URL_PACKER $HOME/.local/share/nvim/site/pack/packer/start/packer.nvim
 
 curl https://sh.rustup.rs -sSf | sh

@@ -1,8 +1,20 @@
 return {
+  -- Inline diagnostics
+  {
+    "rachartier/tiny-inline-diagnostic.nvim",
+    event = "VeryLazy",
+    priority = 1000,
+    config = function()
+      require("tiny-inline-diagnostic").setup()
+    end,
+  },
   -- LSP
   {
     "neovim/nvim-lspconfig",
     config = function()
+      -- Disable default virtual text to use tiny-inline-diagnostic instead
+      vim.diagnostic.config({ virtual_text = false })
+
       -- Mappings
       local opts = { noremap=true, silent=true }
       vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
@@ -100,8 +112,15 @@ return {
         },
       }
 
+      -- Zig
+      vim.lsp.config.zls = {
+        on_attach = on_attach,
+        capabilities = capabilities,
+        flags = lsp_flags,
+      }
+
       -- Enable configured LSP servers
-      vim.lsp.enable({'pyright', 'ts_ls', 'rust_analyzer', 'gopls', 'lua_ls'})
+      vim.lsp.enable({'pyright', 'ts_ls', 'rust_analyzer', 'gopls', 'lua_ls', 'zls'})
     end,
   },
   {

@@ -1,17 +1,6 @@
 -- TokyoNight theme configuration
-require("tokyonight").setup({
-  style = "night",
-  transparent = false,
-  terminal_colors = true,
-  styles = {
-    comments = { italic = false },
-    keywords = { italic = false },
-    functions = {},
-    variables = {},
-    sidebars = "dark",
-    floats = "dark",
-  },
-})
+-- Note: Main configuration is in lua/plugins/colorscheme.lua
+-- This file only handles colorscheme application and terminal colors
 
 -- Apply colorscheme
 local function apply_colorscheme()
