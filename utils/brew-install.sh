@@ -4,10 +4,10 @@ brew install \
     git \
     tmux \
     htop \
+    ctop \
     tig \
     ghq \
     mercurial \
-    peco \
     fzf \
     fish \
     starship \
@@ -18,7 +18,6 @@ brew install \
     dust \
     duf \
     broot \
-    dog \
     bat \
     fd \
     mise \
@@ -30,3 +29,7 @@ brew install \
 
 brew install --cask font-cousine-nerd-font
 brew install --HEAD neovim
+brew install --cask claude-code
+brew install --cask ghostty
+brew install --cask alacritty
+brew install --cask wezterm
