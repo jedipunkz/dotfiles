@@ -48,11 +48,11 @@ TERM rxvt-unicode-256color
 # Background color codes:
 # 40=black 41=red 42=green 43=yellow 44=blue 45=magenta 46=cyan 47=white
 
-NORMAL 00;38;2;187;194;207 # Doom One fg: #bbc2cf
+NORMAL 00;38;2;192;202;245 # Tokyo Night fg: #c0caf5
 #FILE 00 # regular file: use no color at all
 RESET 0 # reset to "normal" color
-DIR 01;38;2;81;175;239 # directory - Doom One blue: #51afef
-LINK 01;38;2;70;175;255 # symbolic link - Doom One cyan: #46D9FF
+DIR 01;38;2;125;207;255 # directory - Tokyo Night cyan: #7dcfff
+LINK 01;38;2;122;162;247 # symbolic link - Tokyo Night blue: #7aa2f7
 MULTIHARDLINK 00 # regular file with more than one link
 FIFO 48;5;230;38;5;136;01 # pipe
 SOCK 48;5;230;38;5;136;01 # socket
@@ -74,87 +74,87 @@ STICKY 48;5;33;38;5;230 # dir with the sticky bit set (+t) and not other-writabl
 # List any file extensions like '.gz' or '.tar' that you would like ls
 # to colorize below. Put the extension, a space, and the color init string.
 # (and any comments you want to add after a '#')
-.tar 01;38;2;255;108;107 # archives or compressed - Doom One red: #ff6c6b
-.tgz 01;38;2;255;108;107
-.arj 01;38;2;255;108;107
-.taz 01;38;2;255;108;107
-.lzh 01;38;2;255;108;107
-.zip 01;38;2;255;108;107
-.z   01;38;2;255;108;107
-.Z   01;38;2;255;108;107
-.gz  01;38;2;255;108;107
+.tar 01;38;2;247;118;142 # archives or compressed - Tokyo Night red: #f7768e
+.tgz 01;38;2;247;118;142
+.arj 01;38;2;247;118;142
+.taz 01;38;2;247;118;142
+.lzh 01;38;2;247;118;142
+.zip 01;38;2;247;118;142
+.z   01;38;2;247;118;142
+.Z   01;38;2;247;118;142
+.gz  01;38;2;247;118;142
 
-# Executables - Doom One green: #98be65
-EXEC 01;38;2;152;190;101 # Files with exec flag
-.cmd 00;38;2;152;190;101
-.exe 00;38;2;152;190;101
-.com 00;38;2;152;190;101
-.btm 00;38;2;152;190;101
-.bat 00;38;2;152;190;101
+# Executables - Tokyo Night green: #9ece6a
+EXEC 01;38;2;158;206;106 # Files with exec flag
+.cmd 00;38;2;158;206;106
+.exe 00;38;2;158;206;106
+.com 00;38;2;158;206;106
+.btm 00;38;2;158;206;106
+.bat 00;38;2;158;206;106
 
-# Image formats - Doom One cyan: #46D9FF
-.jpg 00;38;2;70;175;255
-.jpeg 00;38;2;70;175;255
-.png 00;38;2;70;175;255
-.gif 00;38;2;70;175;255
-.bmp 00;38;2;70;175;255
-.xbm 00;38;2;70;175;255
-.xpm 00;38;2;70;175;255
-.tif 00;38;2;70;175;255
-.tiff 00;38;2;70;175;255
+# Image formats - Tokyo Night cyan: #7dcfff
+.jpg 00;38;2;125;207;255
+.jpeg 00;38;2;125;207;255
+.png 00;38;2;125;207;255
+.gif 00;38;2;125;207;255
+.bmp 00;38;2;125;207;255
+.xbm 00;38;2;125;207;255
+.xpm 00;38;2;125;207;255
+.tif 00;38;2;125;207;255
+.tiff 00;38;2;125;207;255
 
-# Document formats - Doom One magenta: #c678dd
-.pdf 00;38;2;198;120;221
-.odf 00;38;2;198;120;221
-.doc 00;38;2;198;120;221
-.ppt 00;38;2;198;120;221
-.pptx 00;38;2;198;120;221
-.db 00;38;2;198;120;221
+# Document formats - Tokyo Night magenta: #bb9af7
+.pdf 00;38;2;187;154;247
+.odf 00;38;2;187;154;247
+.doc 00;38;2;187;154;247
+.ppt 00;38;2;187;154;247
+.pptx 00;38;2;187;154;247
+.db 00;38;2;187;154;247
 
-# Audio formats - Doom One orange: #da8548
-.aac    00;38;2;218;133;72
-.au     00;38;2;218;133;72
-.flac   00;38;2;218;133;72
-.mid    00;38;2;218;133;72
-.midi   00;38;2;218;133;72
-.mka    00;38;2;218;133;72
-.mp3    00;38;2;218;133;72
-.mpc    00;38;2;218;133;72
-.ogg    00;38;2;218;133;72
-.ra     00;38;2;218;133;72
-.wav    00;38;2;218;133;72
-.m4a    00;38;2;218;133;72
+# Audio formats - Tokyo Night orange: #ff9e64
+.aac    00;38;2;255;158;100
+.au     00;38;2;255;158;100
+.flac   00;38;2;255;158;100
+.mid    00;38;2;255;158;100
+.midi   00;38;2;255;158;100
+.mka    00;38;2;255;158;100
+.mp3    00;38;2;255;158;100
+.mpc    00;38;2;255;158;100
+.ogg    00;38;2;255;158;100
+.ra     00;38;2;255;158;100
+.wav    00;38;2;255;158;100
+.m4a    00;38;2;255;158;100
 # http://wiki.xiph.org/index.php/MIME_Types_and_File_Extensions
-.axa    00;38;2;218;133;72
-.oga    00;38;2;218;133;72
-.spx    00;38;2;218;133;72
-.xspf   00;38;2;218;133;72
+.axa    00;38;2;255;158;100
+.oga    00;38;2;255;158;100
+.spx    00;38;2;255;158;100
+.xspf   00;38;2;255;158;100
 
-# Video formats (as audio + bold) - Doom One orange: #da8548
-.mov    01;38;2;218;133;72
-.mpg    01;38;2;218;133;72
-.mpeg   01;38;2;218;133;72
-.3gp	01;38;2;218;133;72
-.m2v    01;38;2;218;133;72
-.mkv    01;38;2;218;133;72
-.ogm    01;38;2;218;133;72
-.mp4    01;38;2;218;133;72
-.m4v    01;38;2;218;133;72
-.mp4v   01;38;2;218;133;72
-.vob    01;38;2;218;133;72
-.qt     01;38;2;218;133;72
-.nuv    01;38;2;218;133;72
-.wmv    01;38;2;218;133;72
-.asf    01;38;2;218;133;72
-.rm     01;38;2;218;133;72
-.rmvb   01;38;2;218;133;72
-.flc    01;38;2;218;133;72
-.avi    01;38;2;218;133;72
-.fli    01;38;2;218;133;72
-.flv    01;38;2;218;133;72
-.gl     01;38;2;218;133;72
-.m2ts   01;38;2;218;133;72
-.divx   01;38;2;218;133;72
+# Video formats (as audio + bold) - Tokyo Night orange: #ff9e64
+.mov    01;38;2;255;158;100
+.mpg    01;38;2;255;158;100
+.mpeg   01;38;2;255;158;100
+.3gp	01;38;2;255;158;100
+.m2v    01;38;2;255;158;100
+.mkv    01;38;2;255;158;100
+.ogm    01;38;2;255;158;100
+.mp4    01;38;2;255;158;100
+.m4v    01;38;2;255;158;100
+.mp4v   01;38;2;255;158;100
+.vob    01;38;2;255;158;100
+.qt     01;38;2;255;158;100
+.nuv    01;38;2;255;158;100
+.wmv    01;38;2;255;158;100
+.asf    01;38;2;255;158;100
+.rm     01;38;2;255;158;100
+.rmvb   01;38;2;255;158;100
+.flc    01;38;2;255;158;100
+.avi    01;38;2;255;158;100
+.fli    01;38;2;255;158;100
+.flv    01;38;2;255;158;100
+.gl     01;38;2;255;158;100
+.m2ts   01;38;2;255;158;100
+.divx   01;38;2;255;158;100
 
 # "unimportant" files as logs and backups (base01)
 .log        00;38;5;240
