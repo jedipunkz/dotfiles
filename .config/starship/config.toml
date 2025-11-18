@@ -32,6 +32,7 @@ format = """\
     $rust\
     $terraform\
     $zig\
+    $mise\
     $nix_shell\
     $conda\
     $memory_usage\
@@ -59,6 +60,7 @@ style = "#e0af68"
 truncation_length = 3
 truncate_to_repo = false
 style = "#7dcfff"
+format = "👻 [$path]($style)[$read_only]($read_only_style) "
 
 [time]
 disabled = false
@@ -143,8 +145,15 @@ pyenv_prefix = "foo "
 symbol = "🔺 "
 
 [terraform]
-#symbol = "🏎💨 "
-#show_version = true
+format = "via [$symbol$version]($style) "
+
+[mise]
+disabled = false
+symbol = 'mise '
+style = 'bold #ff9e64'
+format = 'on [$symbol$health]($style) '
+healthy_symbol = '✔️ '
+unhealthy_symbol = '❌ '
 
 [battery]
 disabled = true
@@ -192,7 +201,7 @@ disabled = true
 disabled = true
 
 [zig]
-disabled = true
+disabled = false
 
 [purescript]
 disabled = true

@@ -45,7 +45,7 @@ if test ! -d "$HOME/ghq"
 end
 
 # TokyoNight Night color palette
-set -l foreground c0c5db
+set -l foreground a0d8f0
 set -l selection 283457
 set -l comment 565f89
 set -l red f7768e
@@ -80,24 +80,20 @@ set -U fish_pager_color_completion $foreground
 set -U fish_pager_color_description $comment
 set -U fish_pager_color_selected_background --background=$selection
 
-set -l FZF_NON_COLOR_OPTS
+# Clear FZF_DEFAULT_OPTS to remove any old incompatible options
+set -e FZF_DEFAULT_OPTS
 
-for arg in (echo $FZF_DEFAULT_OPTS | tr " " "\n")
-    if not string match -q -- "--color*" $arg
-        set -a FZF_NON_COLOR_OPTS $arg
-    end
-end
+set -l FZF_NON_COLOR_OPTS
 
 # FZF TokyoNight Night color scheme
 set -Ux FZF_DEFAULT_OPTS "$FZF_NON_COLOR_OPTS"\
-" --highlight-line"\
 " --info=inline-right"\
 " --ansi"\
 " --border=none"\
 " --color=bg+:#283457"\
 " --color=bg:#1a1b26"\
 " --color=border:#7dcfff"\
-" --color=fg:#c0c5db"\
+" --color=fg:#a0d8f0"\
 " --color=gutter:#1a1b26"\
 " --color=header:#ff9e64"\
 " --color=hl+:#7dcfff"\
@@ -106,7 +102,7 @@ set -Ux FZF_DEFAULT_OPTS "$FZF_NON_COLOR_OPTS"\
 " --color=marker:#bb9af7"\
 " --color=pointer:#bb9af7"\
 " --color=prompt:#7aa2f7"\
-" --color=query:#c0c5db:regular"\
+" --color=query:#a0d8f0:regular"\
 " --color=scrollbar:#7dcfff"\
 " --color=separator:#ff9e64"\
 " --color=spinner:#bb9af7"
@@ -115,10 +111,11 @@ set -x STARSHIP_CONFIG ~/.config/starship/config.toml
 set -x AWS_PROFILE default
 starship init fish | source
 
-
 # pnpm
 set -gx PNPM_HOME "/Users/thirai/Library/pnpm"
 if not string match -q -- $PNPM_HOME $PATH
   set -gx PATH "$PNPM_HOME" $PATH
 end
 # pnpm end
+
+# string match -q "$TERM_PROGRAM" "kiro" and . (kiro --locate-shell-integration-path fish)
