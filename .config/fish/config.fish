@@ -4,7 +4,7 @@ end
 
 set -U fish_greeting ""
 
-set -x PATH /opt/homebrew/bin $HOME/.cargo/bin $HOME/.bin /usr/local/bin /usr/local/sbin /bin /usr/bin /sbin /usr/sbin /usr/local/sessionmanagerplugin/bin $HOME/google-cloud-sdk/bin $HOME/.local/bin $HOME/.lmstudio/bin
+set -x PATH $HOME/.local/share/aquaproj-aqua/bin /opt/homebrew/bin $HOME/.cargo/bin $HOME/.bin /usr/local/bin /usr/local/sbin /bin /usr/bin /sbin /usr/sbin /usr/local/sessionmanagerplugin/bin $HOME/google-cloud-sdk/bin $HOME/.local/bin $HOME/.lmstudio/bin
 
 if test (uname -s) = "Darwin"
     alias cat="bat"
@@ -117,4 +117,6 @@ if not string match -q -- $PNPM_HOME $PATH
 end
 # pnpm end
 
-# string match -q "$TERM_PROGRAM" "kiro" and . (kiro --locate-shell-integration-path fish)
+# if type -q kiro
+#     string match -q "$TERM_PROGRAM" "kiro" and . (kiro --locate-shell-integration-path fish)
+# end
