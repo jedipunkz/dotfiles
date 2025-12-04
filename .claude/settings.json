@@ -1,13 +1,5 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "statusLine": {
-    "type": "command",
-    "command": "~/.claude/scripts/statusline.sh"
-  },
-  "feedbackSurveyState": {
-    "lastShownTime": 1754085614062
-  },
-  "alwaysThinkingEnabled": true,
   "permissions": {
     "allow": [
       "Read",
@@ -19,7 +11,8 @@
       "Bash(head:*)",
       "Bash(tail:*)",
       "Bash(jq:*)",
-      "Skill"
+      "Skill",
+      "mcp__codex__*"
     ],
     "deny": [
       "Read(~/.aws/**)",
@@ -31,5 +24,22 @@
       "Bash(rm -rf:*)",
       "Bash(rm -r:*)"
     ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/scripts/statusline.sh"
+  },
+  "alwaysThinkingEnabled": true,
+  "feedbackSurveyState": {
+    "lastShownTime": 1754085614062
+  },
+  "mcpServers": {
+    "codex": {
+      "type": "stdio",
+      "command": "codex",
+      "args": [
+        "mcp-server"
+      ]
+    }
   }
 }
