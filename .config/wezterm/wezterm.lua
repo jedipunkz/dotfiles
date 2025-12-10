@@ -36,7 +36,7 @@ return {
   -- color_scheme = "Dracula (Gogh)",
   -- color_scheme = "Dracula (base16)",
   -- color_scheme = "Dracula (Official)",
-  color_scheme = "DoomOne",
+  color_scheme = "Catppuccin Macchiato",
   -- color_scheme = "Sakura",
   -- color_scheme = "Solarized Dark Higher Contrast",
   -- color_scheme = "terafox",

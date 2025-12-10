@@ -89,6 +89,7 @@ link .config/yabai $HOME/.config/yabai
 link .config/skhd $HOME/.config/skhd
 link .config/zellij $HOME/.config/zellij
 link .config/starship $HOME/.config/starship
+link .config/ghostty $HOME/.config/ghostty
 link .claude/settings.json $HOME/.claude/settings.json
 link .claude/scripts $HOME/.claude/scripts
 link .claude/skills $HOME/.claude/skills
