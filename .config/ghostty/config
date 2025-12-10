@@ -1,0 +1,11 @@
+# テーマ (Ghostty 1.2.0+ は Title Case)
+theme = Catppuccin Macchiato
+
+# マウス選択時に自動でコピー (システムクリップボードにも)
+copy-on-select = clipboard
+
+# 右クリックでペースト
+right-click-action = paste
+
+# 設定リロード
+keybind = ctrl+shift+r=reload_config
