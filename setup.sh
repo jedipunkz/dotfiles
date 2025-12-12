@@ -55,6 +55,7 @@ backup $HOME/.emacs.d $HOME/dotfiles.backup/.emacs.d
 backup $HOME/.claude/scripts $HOME/dotfiles.backup/scripts
 backup $HOME/.claude/skills $HOME/dotfiles.backup/skills
 backup $HOME/.hammerspoon $HOME/dotfiles.backup/.hammerspoon
+backup $HOME/aqua.yaml $HOME/dotfiles.backup/aqua.yaml
 
 makedir $HOME/.config 700
 makedir $HOME/.claude 700
@@ -95,6 +96,7 @@ link .claude/settings.json $HOME/.claude/settings.json
 link .claude/scripts $HOME/.claude/scripts
 link .claude/skills $HOME/.claude/skills
 link .hammerspoon $HOME/.hammerspoon
+link aqua.yaml $HOME/aqua.yaml
 
 gitclone $URL_TPM ~/.tmux/plugins/tpm
 # gitclone $URL_RBENV $HOME/.rbenv
