@@ -183,5 +183,10 @@ hs.hotkey.bind(hyper, "`", function()
   hs.alert.show("復元: " .. restoredCount .. " ウィンドウ")
 end)
 
+-- cmd+ctrl+enter: スリープ
+hs.hotkey.bind(hyper, "return", function()
+  hs.caffeinate.systemSleep()
+end)
+
 -- 設定リロード時の通知
 hs.alert.show("Hammerspoon 設定を読み込みました")
