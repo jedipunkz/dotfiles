@@ -104,5 +104,62 @@ hs.hotkey.bind(hyper, "s", function()
   end
 end)
 
+-- ウィンドウ位置の保存/復元
+local SAVED_WINDOWS_KEY = "savedWindowPositions"
+
+-- cmd+ctrl+\: 全ウィンドウの位置を一括保存
+hs.hotkey.bind(hyper, "\\", function()
+  local allWindows = hs.window.allWindows()
+  local savedWindows = {}
+  local count = 0
+
+  for _, win in ipairs(allWindows) do
+    local app = win:application()
+    if app and win:isStandard() then
+      local frame = win:frame()
+      local key = app:bundleID() .. ":" .. win:title()
+      savedWindows[key] = {
+        bundleID = app:bundleID(),
+        appName = app:name(),
+        title = win:title(),
+        x = frame.x,
+        y = frame.y,
+        w = frame.w,
+        h = frame.h
+      }
+      count = count + 1
+    end
+  end
+
+  hs.settings.set(SAVED_WINDOWS_KEY, savedWindows)
+  hs.alert.show("保存: " .. count .. " ウィンドウ")
+end)
+
+-- cmd+ctrl+`: 保存した位置を一括復元
+hs.hotkey.bind(hyper, "`", function()
+  local savedWindows = hs.settings.get(SAVED_WINDOWS_KEY)
+  if not savedWindows or next(savedWindows) == nil then
+    hs.alert.show("保存されたウィンドウ位置がありません")
+    return
+  end
+
+  local restoredCount = 0
+  for _, data in pairs(savedWindows) do
+    local app = hs.application.get(data.bundleID)
+    if app then
+      local wins = app:allWindows()
+      for _, win in ipairs(wins) do
+        if win:title() == data.title then
+          win:setFrame({x = data.x, y = data.y, w = data.w, h = data.h})
+          restoredCount = restoredCount + 1
+          break
+        end
+      end
+    end
+  end
+
+  hs.alert.show("復元: " .. restoredCount .. " ウィンドウ")
+end)
+
 -- 設定リロード時の通知
 hs.alert.show("Hammerspoon 設定を読み込みました")
