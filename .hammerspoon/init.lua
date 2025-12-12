@@ -188,5 +188,72 @@ hs.hotkey.bind(hyper, "return", function()
   hs.caffeinate.systemSleep()
 end)
 
+-- クリップボード履歴
+local clipboardHistory = {}
+local maxClipboardItems = 20
+local lastClipboard = ""
+
+-- クリップボード履歴を更新
+local function updateClipboardHistory()
+  local content = hs.pasteboard.getContents()
+  if content and content ~= "" and content ~= lastClipboard then
+    lastClipboard = content
+
+    -- 既に履歴にある場合は削除（重複を避ける）
+    for i, item in ipairs(clipboardHistory) do
+      if item == content then
+        table.remove(clipboardHistory, i)
+        break
+      end
+    end
+
+    -- 先頭に追加
+    table.insert(clipboardHistory, 1, content)
+
+    -- 最大数を超えたら古いものを削除
+    if #clipboardHistory > maxClipboardItems then
+      table.remove(clipboardHistory)
+    end
+  end
+end
+
+-- クリップボード監視ウォッチャー
+local clipboardWatcher = hs.pasteboard.watcher.new(updateClipboardHistory)
+clipboardWatcher:start()
+
+-- 初回実行
+updateClipboardHistory()
+
+-- クリップボード履歴を表示
+local clipboardChooser = hs.chooser.new(function(choice)
+  if choice then
+    hs.pasteboard.setContents(choice.text)
+    hs.eventtap.keyStroke({"cmd"}, "v")
+  end
+end)
+
+-- cmd+ctrl+v: クリップボード履歴を表示
+hs.hotkey.bind(hyper, "v", function()
+  local choices = {}
+  for i, item in ipairs(clipboardHistory) do
+    -- 改行を含む場合は省略表示
+    local display = item:gsub("\n", " "):sub(1, 100)
+    if #item > 100 then
+      display = display .. "..."
+    end
+
+    table.insert(choices, {
+      text = item,
+      subText = "(" .. #item .. " 文字)",
+      image = nil,
+      index = i,
+      display = display
+    })
+  end
+
+  clipboardChooser:choices(choices)
+  clipboardChooser:show()
+end)
+
 -- 設定リロード時の通知
 hs.alert.show("Hammerspoon 設定を読み込みました")
