@@ -34,3 +34,4 @@ brew install --cask claude-code
 brew install --cask ghostty
 brew install --cask alacritty
 brew install --cask wezterm
+brew install --cask hammerspoon
