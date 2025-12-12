@@ -126,11 +126,63 @@ hs.hotkey.bind(hyper, "f", function()
   end
 end)
 
--- ウィンドウ位置の保存/復元
-local SAVED_WINDOWS_KEY = "savedWindowPositions"
+-- ウィンドウ位置の保存/復元（WiFi SSID別）
+local WINDOW_LAYOUTS_FILE = os.getenv("HOME") .. "/.hammerspoon/window_layouts.json"
 
--- cmd+ctrl+\: 全ウィンドウの位置を一括保存
+-- JSONファイルからレイアウトを読み込む
+local function loadWindowLayouts()
+  local file = io.open(WINDOW_LAYOUTS_FILE, "r")
+  if not file then
+    return {}
+  end
+
+  local content = file:read("*all")
+  file:close()
+
+  if content == "" then
+    return {}
+  end
+
+  local success, layouts = pcall(hs.json.decode, content)
+  if success then
+    return layouts
+  else
+    hs.alert.show("レイアウトファイルの読み込みに失敗")
+    return {}
+  end
+end
+
+-- JSONファイルにレイアウトを保存
+local function saveWindowLayouts(layouts)
+  local success, jsonString = pcall(hs.json.encode, layouts)
+  if not success then
+    hs.alert.show("JSONエンコードに失敗")
+    return false
+  end
+
+  local file = io.open(WINDOW_LAYOUTS_FILE, "w")
+  if not file then
+    hs.alert.show("ファイルの書き込みに失敗")
+    return false
+  end
+
+  file:write(jsonString)
+  file:close()
+  return true
+end
+
+-- 現在のWiFi SSIDを取得
+local function getCurrentSSID()
+  local ssid = hs.wifi.currentNetwork()
+  if not ssid then
+    return "no_wifi"
+  end
+  return ssid
+end
+
+-- cmd+ctrl+\: 全ウィンドウの位置を現在のWiFi SSIDで保存
 hs.hotkey.bind(hyper, "\\", function()
+  local ssid = getCurrentSSID()
   local allWindows = hs.window.allWindows()
   local savedWindows = {}
   local count = 0
@@ -153,15 +205,23 @@ hs.hotkey.bind(hyper, "\\", function()
     end
   end
 
-  hs.settings.set(SAVED_WINDOWS_KEY, savedWindows)
-  hs.alert.show("保存: " .. count .. " ウィンドウ")
+  -- 既存のレイアウトを読み込んで更新
+  local layouts = loadWindowLayouts()
+  layouts[ssid] = savedWindows
+
+  if saveWindowLayouts(layouts) then
+    hs.alert.show("保存: " .. count .. " ウィンドウ (" .. ssid .. ")")
+  end
 end)
 
--- cmd+ctrl+`: 保存した位置を一括復元
+-- cmd+ctrl+`: 現在のWiFi SSIDに対応する位置を復元
 hs.hotkey.bind(hyper, "`", function()
-  local savedWindows = hs.settings.get(SAVED_WINDOWS_KEY)
+  local ssid = getCurrentSSID()
+  local layouts = loadWindowLayouts()
+  local savedWindows = layouts[ssid]
+
   if not savedWindows or next(savedWindows) == nil then
-    hs.alert.show("保存されたウィンドウ位置がありません")
+    hs.alert.show("保存されたレイアウトがありません (" .. ssid .. ")")
     return
   end
 
@@ -180,7 +240,7 @@ hs.hotkey.bind(hyper, "`", function()
     end
   end
 
-  hs.alert.show("復元: " .. restoredCount .. " ウィンドウ")
+  hs.alert.show("復元: " .. restoredCount .. " ウィンドウ (" .. ssid .. ")")
 end)
 
 -- cmd+ctrl+enter: スリープ
@@ -395,6 +455,43 @@ end)
 hs.hotkey.bind(hyper, "r", function()
   resizeModal:enter()
 end)
+
+-- WiFi切り替え時の自動レイアウト復元（オプション）
+-- 有効にするには下記のコメントを外してください
+--[[
+local lastSSID = getCurrentSSID()
+local wifiWatcher = hs.wifi.watcher.new(function()
+  local currentSSID = getCurrentSSID()
+  if currentSSID ~= lastSSID then
+    lastSSID = currentSSID
+    -- 2秒待ってから復元（WiFi接続が安定するまで）
+    hs.timer.doAfter(2, function()
+      local layouts = loadWindowLayouts()
+      local savedWindows = layouts[currentSSID]
+      if savedWindows and next(savedWindows) ~= nil then
+        local restoredCount = 0
+        for _, data in pairs(savedWindows) do
+          local app = hs.application.get(data.bundleID)
+          if app then
+            local wins = app:allWindows()
+            for _, win in ipairs(wins) do
+              if win:title() == data.title then
+                win:setFrame({x = data.x, y = data.y, w = data.w, h = data.h})
+                restoredCount = restoredCount + 1
+                break
+              end
+            end
+          end
+        end
+        if restoredCount > 0 then
+          hs.alert.show("自動復元: " .. restoredCount .. " ウィンドウ (" .. currentSSID .. ")")
+        end
+      end
+    end)
+  end
+end)
+wifiWatcher:start()
+--]]
 
 -- 自動リロード
 function reloadConfig(files)
