@@ -9,6 +9,7 @@ brew install \
     ghq \
     mercurial \
     fzf \
+    zoxide \
     fish \
     starship \
     coreutils \

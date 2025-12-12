@@ -1,0 +1,6 @@
+theme = Catppuccin Macchiato
+
+copy-on-select = clipboard
+right-click-action = paste
+
+keybind = ctrl+shift+r=reload_config

@@ -39,6 +39,9 @@ else if test (uname -s) = "Darwin"
     mise activate fish | source
 end
 
+# zoxide
+zoxide init fish | source
+
 if test ! -d "$HOME/ghq"
     mkdir $HOME/ghq
 end
@@ -115,7 +118,6 @@ set -gx PNPM_HOME "/Users/thirai/Library/pnpm"
 if not string match -q -- $PNPM_HOME $PATH
   set -gx PATH "$PNPM_HOME" $PATH
 end
-# pnpm end
 
 # if type -q kiro
 #     string match -q "$TERM_PROGRAM" "kiro" and . (kiro --locate-shell-integration-path fish)

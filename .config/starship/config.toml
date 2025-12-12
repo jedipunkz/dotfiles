@@ -1,6 +1,6 @@
 add_newline = false
 scan_timeout = 30
-command_timeout = 10000 # 重すぎることがあるので適宜調整
+command_timeout = 100
 format = """\
     $username\
     $hostname\
@@ -205,4 +205,3 @@ disabled = false
 
 [purescript]
 disabled = true
-
