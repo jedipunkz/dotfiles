@@ -288,5 +288,20 @@ hs.hotkey.bind(hyper, "v", function()
   clipboardChooser:show()
 end)
 
+-- 自動リロード
+local configWatcher = hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/", function(files)
+  local shouldReload = false
+  for _, file in pairs(files) do
+    if file:sub(-4) == ".lua" then
+      shouldReload = true
+      break
+    end
+  end
+  if shouldReload then
+    hs.reload()
+  end
+end)
+configWatcher:start()
+
 -- 設定リロード時の通知
 hs.alert.show("Hammerspoon 設定を読み込みました")
