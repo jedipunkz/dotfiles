@@ -397,19 +397,21 @@ hs.hotkey.bind(hyper, "r", function()
 end)
 
 -- 自動リロード
-local configWatcher = hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/", function(files)
-  local shouldReload = false
+function reloadConfig(files)
+  local doReload = false
   for _, file in pairs(files) do
     if file:sub(-4) == ".lua" then
-      shouldReload = true
+      doReload = true
       break
     end
   end
-  if shouldReload then
+  if doReload then
     hs.reload()
   end
-end)
-configWatcher:start()
+end
+
+-- グローバル変数に格納してガベージコレクトを防ぐ
+configWatcher = hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/", reloadConfig):start()
 
 -- 設定リロード時の通知
-hs.alert.show("Hammerspoon 設定を読み込みました")
+hs.alert.show("Hammerspoon 設定を読み込みました 🔄")
