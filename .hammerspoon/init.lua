@@ -104,6 +104,28 @@ hs.hotkey.bind(hyper, "s", function()
   end
 end)
 
+-- フルスクリーントグル用の元サイズ保存
+local originalFrames = {}
+
+-- cmd+ctrl+f: フルスクリーントグル（通常ウィンドウのまま最大化）
+hs.hotkey.bind(hyper, "f", function()
+  local win = hs.window.focusedWindow()
+  if not win then return end
+
+  local winID = win:id()
+  local screen = win:screen():fullFrame()
+
+  if originalFrames[winID] then
+    -- 元のサイズに戻す
+    win:setFrame(originalFrames[winID])
+    originalFrames[winID] = nil
+  else
+    -- 現在のサイズを保存してフルスクリーンに
+    originalFrames[winID] = win:frame()
+    win:setFrame(screen)
+  end
+end)
+
 -- ウィンドウ位置の保存/復元
 local SAVED_WINDOWS_KEY = "savedWindowPositions"
 
