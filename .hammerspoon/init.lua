@@ -460,8 +460,8 @@ hs.hotkey.bind(hyper, "v", function()
 
   -- 選択肢を設定
   clipboardChooser:choices(choices)
-  clipboardChooser:rows(15)
-  clipboardChooser:width(70)
+  clipboardChooser:rows(10)
+  clipboardChooser:width(50)
   clipboardChooser:searchSubText(false)
   clipboardChooser:show()
 end)
@@ -508,8 +508,8 @@ hs.hotkey.bind(hyper, "a", function()
 
   -- 選択肢を設定
   audioOutputChooser:choices(choices)
-  audioOutputChooser:rows(10)
-  audioOutputChooser:width(60)
+  audioOutputChooser:rows(7)
+  audioOutputChooser:width(40)
   audioOutputChooser:searchSubText(false)
   audioOutputChooser:show()
 end)
@@ -556,8 +556,8 @@ hs.hotkey.bind(hyper, "i", function()
 
   -- 選択肢を設定
   audioInputChooser:choices(choices)
-  audioInputChooser:rows(10)
-  audioInputChooser:width(60)
+  audioInputChooser:rows(7)
+  audioInputChooser:width(40)
   audioInputChooser:searchSubText(false)
   audioInputChooser:show()
 end)
