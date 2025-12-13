@@ -470,8 +470,8 @@ end)
 local audioOutputChooser = nil
 local audioOutputDevicesMap = {}  -- UIDとデバイスのマッピング
 
--- cmd+ctrl+a: オーディオ出力デバイスを選択
-hs.hotkey.bind(hyper, "a", function()
+-- cmd+ctrl+o: オーディオ出力デバイスを選択
+hs.hotkey.bind(hyper, "o", function()
   local choices = {}
   audioOutputDevicesMap = {}  -- マップをリセット
   local currentDevice = hs.audiodevice.defaultOutputDevice()
