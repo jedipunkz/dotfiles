@@ -126,11 +126,63 @@ hs.hotkey.bind(hyper, "f", function()
   end
 end)
 
--- ウィンドウ位置の保存/復元
-local SAVED_WINDOWS_KEY = "savedWindowPositions"
+-- ウィンドウ位置の保存/復元（WiFi SSID別）
+local WINDOW_LAYOUTS_FILE = os.getenv("HOME") .. "/.hammerspoon/window_layouts.json"
 
--- cmd+ctrl+\: 全ウィンドウの位置を一括保存
+-- JSONファイルからレイアウトを読み込む
+local function loadWindowLayouts()
+  local file = io.open(WINDOW_LAYOUTS_FILE, "r")
+  if not file then
+    return {}
+  end
+
+  local content = file:read("*all")
+  file:close()
+
+  if content == "" then
+    return {}
+  end
+
+  local success, layouts = pcall(hs.json.decode, content)
+  if success then
+    return layouts
+  else
+    hs.alert.show("レイアウトファイルの読み込みに失敗")
+    return {}
+  end
+end
+
+-- JSONファイルにレイアウトを保存
+local function saveWindowLayouts(layouts)
+  local success, jsonString = pcall(hs.json.encode, layouts)
+  if not success then
+    hs.alert.show("JSONエンコードに失敗")
+    return false
+  end
+
+  local file = io.open(WINDOW_LAYOUTS_FILE, "w")
+  if not file then
+    hs.alert.show("ファイルの書き込みに失敗")
+    return false
+  end
+
+  file:write(jsonString)
+  file:close()
+  return true
+end
+
+-- 現在のWiFi SSIDを取得
+local function getCurrentSSID()
+  local ssid = hs.wifi.currentNetwork()
+  if not ssid then
+    return "no_wifi"
+  end
+  return ssid
+end
+
+-- cmd+ctrl+\: 全ウィンドウの位置を現在のWiFi SSIDで保存（マルチモニター・Spaces対応）
 hs.hotkey.bind(hyper, "\\", function()
+  local ssid = getCurrentSSID()
   local allWindows = hs.window.allWindows()
   local savedWindows = {}
   local count = 0
@@ -139,29 +191,87 @@ hs.hotkey.bind(hyper, "\\", function()
     local app = win:application()
     if app and win:isStandard() then
       local frame = win:frame()
+      local screen = win:screen()
+      local screenFrame = screen:frame()
       local key = app:bundleID() .. ":" .. win:title()
+
+      -- スクリーン内の相対位置を計算（0.0 ~ 1.0）
+      local relativeX = (frame.x - screenFrame.x) / screenFrame.w
+      local relativeY = (frame.y - screenFrame.y) / screenFrame.h
+      local relativeW = frame.w / screenFrame.w
+      local relativeH = frame.h / screenFrame.h
+
+      -- Spaces情報を取得
+      local spaces = hs.spaces.windowSpaces(win:id())
+      local spaceID = spaces and spaces[1] or nil
+
       savedWindows[key] = {
         bundleID = app:bundleID(),
         appName = app:name(),
         title = win:title(),
+        -- 絶対座標（後方互換性のため残す）
         x = frame.x,
         y = frame.y,
         w = frame.w,
-        h = frame.h
+        h = frame.h,
+        -- スクリーン情報
+        screenUUID = screen:getUUID(),
+        screenName = screen:name(),
+        screenW = screenFrame.w,
+        screenH = screenFrame.h,
+        -- スクリーン内相対位置
+        relativeX = relativeX,
+        relativeY = relativeY,
+        relativeW = relativeW,
+        relativeH = relativeH,
+        -- Spaces情報
+        spaceID = spaceID
       }
       count = count + 1
     end
   end
 
-  hs.settings.set(SAVED_WINDOWS_KEY, savedWindows)
-  hs.alert.show("保存: " .. count .. " ウィンドウ")
+  -- 既存のレイアウトを読み込んで更新
+  local layouts = loadWindowLayouts()
+  layouts[ssid] = savedWindows
+
+  if saveWindowLayouts(layouts) then
+    hs.alert.show("保存: " .. count .. " ウィンドウ (" .. ssid .. ")")
+  end
 end)
 
--- cmd+ctrl+`: 保存した位置を一括復元
+-- 保存されたスクリーン情報から適切なスクリーンを見つける
+local function findScreen(savedScreenUUID, savedScreenName)
+  -- まずUUIDで探す
+  if savedScreenUUID then
+    for _, screen in ipairs(hs.screen.allScreens()) do
+      if screen:getUUID() == savedScreenUUID then
+        return screen
+      end
+    end
+  end
+
+  -- UUIDで見つからなければ名前で探す
+  if savedScreenName then
+    for _, screen in ipairs(hs.screen.allScreens()) do
+      if screen:name() == savedScreenName then
+        return screen
+      end
+    end
+  end
+
+  -- それでも見つからなければメインスクリーンを返す
+  return hs.screen.mainScreen()
+end
+
+-- cmd+ctrl+`: 現在のWiFi SSIDに対応する位置を復元（マルチモニター・Spaces対応）
 hs.hotkey.bind(hyper, "`", function()
-  local savedWindows = hs.settings.get(SAVED_WINDOWS_KEY)
+  local ssid = getCurrentSSID()
+  local layouts = loadWindowLayouts()
+  local savedWindows = layouts[ssid]
+
   if not savedWindows or next(savedWindows) == nil then
-    hs.alert.show("保存されたウィンドウ位置がありません")
+    hs.alert.show("保存されたレイアウトがありません (" .. ssid .. ")")
     return
   end
 
@@ -172,7 +282,50 @@ hs.hotkey.bind(hyper, "`", function()
       local wins = app:allWindows()
       for _, win in ipairs(wins) do
         if win:title() == data.title then
-          win:setFrame({x = data.x, y = data.y, w = data.w, h = data.h})
+          -- 適切なスクリーンを見つける
+          local targetScreen = findScreen(data.screenUUID, data.screenName)
+          local screenFrame = targetScreen:frame()
+
+          -- 相対位置が保存されている場合はそれを使用、なければ絶対座標を使用
+          local newFrame
+          if data.relativeX and data.relativeY and data.relativeW and data.relativeH then
+            -- 相対位置からフレームを計算
+            newFrame = {
+              x = screenFrame.x + (screenFrame.w * data.relativeX),
+              y = screenFrame.y + (screenFrame.h * data.relativeY),
+              w = screenFrame.w * data.relativeW,
+              h = screenFrame.h * data.relativeH
+            }
+          else
+            -- 後方互換性：絶対座標を使用
+            newFrame = {x = data.x, y = data.y, w = data.w, h = data.h}
+          end
+
+          win:setFrame(newFrame)
+
+          -- Spacesへの移動（保存されている場合）
+          if data.spaceID then
+            -- 現在のSpacesを取得
+            local allSpaces = hs.spaces.allSpaces()
+            local spaceExists = false
+
+            -- spaceIDが存在するか確認
+            for _, screenSpaces in pairs(allSpaces) do
+              for _, spaceID in ipairs(screenSpaces) do
+                if spaceID == data.spaceID then
+                  spaceExists = true
+                  break
+                end
+              end
+              if spaceExists then break end
+            end
+
+            -- Spaceが存在する場合のみ移動
+            if spaceExists then
+              hs.spaces.moveWindowToSpace(win:id(), data.spaceID)
+            end
+          end
+
           restoredCount = restoredCount + 1
           break
         end
@@ -180,7 +333,7 @@ hs.hotkey.bind(hyper, "`", function()
     end
   end
 
-  hs.alert.show("復元: " .. restoredCount .. " ウィンドウ")
+  hs.alert.show("復元: " .. restoredCount .. " ウィンドウ (" .. ssid .. ")")
 end)
 
 -- cmd+ctrl+enter: スリープ
@@ -395,6 +548,79 @@ end)
 hs.hotkey.bind(hyper, "r", function()
   resizeModal:enter()
 end)
+
+-- WiFi切り替え時の自動レイアウト復元（オプション、マルチモニター・Spaces対応）
+-- 有効にするには下記のコメントを外してください
+--[[
+local lastSSID = getCurrentSSID()
+local wifiWatcher = hs.wifi.watcher.new(function()
+  local currentSSID = getCurrentSSID()
+  if currentSSID ~= lastSSID then
+    lastSSID = currentSSID
+    -- 2秒待ってから復元（WiFi接続が安定するまで）
+    hs.timer.doAfter(2, function()
+      local layouts = loadWindowLayouts()
+      local savedWindows = layouts[currentSSID]
+      if savedWindows and next(savedWindows) ~= nil then
+        local restoredCount = 0
+        for _, data in pairs(savedWindows) do
+          local app = hs.application.get(data.bundleID)
+          if app then
+            local wins = app:allWindows()
+            for _, win in ipairs(wins) do
+              if win:title() == data.title then
+                -- 適切なスクリーンを見つける
+                local targetScreen = findScreen(data.screenUUID, data.screenName)
+                local screenFrame = targetScreen:frame()
+
+                -- 相対位置が保存されている場合はそれを使用、なければ絶対座標を使用
+                local newFrame
+                if data.relativeX and data.relativeY and data.relativeW and data.relativeH then
+                  newFrame = {
+                    x = screenFrame.x + (screenFrame.w * data.relativeX),
+                    y = screenFrame.y + (screenFrame.h * data.relativeY),
+                    w = screenFrame.w * data.relativeW,
+                    h = screenFrame.h * data.relativeH
+                  }
+                else
+                  newFrame = {x = data.x, y = data.y, w = data.w, h = data.h}
+                end
+
+                win:setFrame(newFrame)
+
+                -- Spacesへの移動（保存されている場合）
+                if data.spaceID then
+                  local allSpaces = hs.spaces.allSpaces()
+                  local spaceExists = false
+                  for _, screenSpaces in pairs(allSpaces) do
+                    for _, spaceID in ipairs(screenSpaces) do
+                      if spaceID == data.spaceID then
+                        spaceExists = true
+                        break
+                      end
+                    end
+                    if spaceExists then break end
+                  end
+                  if spaceExists then
+                    hs.spaces.moveWindowToSpace(win:id(), data.spaceID)
+                  end
+                end
+
+                restoredCount = restoredCount + 1
+                break
+              end
+            end
+          end
+        end
+        if restoredCount > 0 then
+          hs.alert.show("自動復元: " .. restoredCount .. " ウィンドウ (" .. currentSSID .. ")")
+        end
+      end
+    end)
+  end
+end)
+wifiWatcher:start()
+--]]
 
 -- 自動リロード
 function reloadConfig(files)
