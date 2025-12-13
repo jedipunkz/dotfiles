@@ -303,61 +303,88 @@ hs.hotkey.bind(hyper, "`", function()
     table.insert(allWindows, win)
   end
 
+  -- 保存データの数をカウント
+  local savedCount = 0
+  for _ in pairs(savedWindows) do
+    savedCount = savedCount + 1
+  end
+
+  print("=== ウィンドウ復元デバッグ ===")
+  print("保存データ数: " .. savedCount)
+  print("現在のウィンドウ数: " .. #allWindows)
+
   local restoredCount = 0
-  for _, data in pairs(savedWindows) do
+  for key, data in pairs(savedWindows) do
+    print("\n保存データ: " .. key)
+    print("  bundleID: " .. data.bundleID)
+    print("  title: " .. data.title)
+
+    local matched = false
     for _, win in ipairs(allWindows) do
       local app = win:application()
-      if app and app:bundleID() == data.bundleID and win:title() == data.title then
-        -- 適切なスクリーンを見つける
-        local targetScreen = findScreen(data.screenUUID, data.screenName)
-        local screenFrame = targetScreen:frame()
+      if app and app:bundleID() == data.bundleID then
+        print("  マッチ候補: " .. win:title())
 
-        -- 相対位置が保存されている場合はそれを使用、なければ絶対座標を使用
-        local newFrame
-        if data.relativeX and data.relativeY and data.relativeW and data.relativeH then
-          -- 相対位置からフレームを計算
-          newFrame = {
-            x = screenFrame.x + (screenFrame.w * data.relativeX),
-            y = screenFrame.y + (screenFrame.h * data.relativeY),
-            w = screenFrame.w * data.relativeW,
-            h = screenFrame.h * data.relativeH
-          }
-        else
-          -- 後方互換性：絶対座標を使用
-          newFrame = {x = data.x, y = data.y, w = data.w, h = data.h}
-        end
+        if win:title() == data.title then
+          print("  ✓ 完全一致で復元")
+          matched = true
 
-        win:setFrame(newFrame)
+          -- 適切なスクリーンを見つける
+          local targetScreen = findScreen(data.screenUUID, data.screenName)
+          local screenFrame = targetScreen:frame()
 
-        -- Spacesへの移動（保存されている場合）
-        if data.spaceID then
-          -- 現在のSpacesを取得
-          local allSpaces = hs.spaces.allSpaces()
-          local spaceExists = false
+          -- 相対位置が保存されている場合はそれを使用、なければ絶対座標を使用
+          local newFrame
+          if data.relativeX and data.relativeY and data.relativeW and data.relativeH then
+            -- 相対位置からフレームを計算
+            newFrame = {
+              x = screenFrame.x + (screenFrame.w * data.relativeX),
+              y = screenFrame.y + (screenFrame.h * data.relativeY),
+              w = screenFrame.w * data.relativeW,
+              h = screenFrame.h * data.relativeH
+            }
+          else
+            -- 後方互換性：絶対座標を使用
+            newFrame = {x = data.x, y = data.y, w = data.w, h = data.h}
+          end
 
-          -- spaceIDが存在するか確認
-          for _, screenSpaces in pairs(allSpaces) do
-            for _, spaceID in ipairs(screenSpaces) do
-              if spaceID == data.spaceID then
-                spaceExists = true
-                break
+          win:setFrame(newFrame)
+
+          -- Spacesへの移動（保存されている場合）
+          if data.spaceID then
+            -- 現在のSpacesを取得
+            local allSpaces = hs.spaces.allSpaces()
+            local spaceExists = false
+
+            -- spaceIDが存在するか確認
+            for _, screenSpaces in pairs(allSpaces) do
+              for _, spaceID in ipairs(screenSpaces) do
+                if spaceID == data.spaceID then
+                  spaceExists = true
+                  break
+                end
               end
+              if spaceExists then break end
             end
-            if spaceExists then break end
+
+            -- Spaceが存在する場合のみ移動
+            if spaceExists then
+              hs.spaces.moveWindowToSpace(win:id(), data.spaceID)
+            end
           end
 
-          -- Spaceが存在する場合のみ移動
-          if spaceExists then
-            hs.spaces.moveWindowToSpace(win:id(), data.spaceID)
-          end
+          restoredCount = restoredCount + 1
+          break
         end
-
-        restoredCount = restoredCount + 1
-        break
       end
+    end
+
+    if not matched then
+      print("  ✗ マッチするウィンドウが見つかりませんでした")
     end
   end
 
+  print("\n復元完了: " .. restoredCount .. " / " .. savedCount)
   hs.alert.show("復元: " .. restoredCount .. " ウィンドウ (" .. ssid .. ")")
 end)
 
