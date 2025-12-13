@@ -466,6 +466,54 @@ hs.hotkey.bind(hyper, "v", function()
   clipboardChooser:show()
 end)
 
+-- オーディオ出力デバイス選択
+local audioDeviceChooser = nil
+local audioDevicesMap = {}  -- UIDとデバイスのマッピング
+
+-- cmd+ctrl+a: オーディオ出力デバイスを選択
+hs.hotkey.bind(hyper, "a", function()
+  local choices = {}
+  audioDevicesMap = {}  -- マップをリセット
+  local currentDevice = hs.audiodevice.defaultOutputDevice()
+  local currentUID = currentDevice and currentDevice:uid() or nil
+
+  -- 全ての出力デバイスを取得
+  local devices = hs.audiodevice.allOutputDevices()
+
+  for i, device in ipairs(devices) do
+    local name = device:name()
+    local uid = device:uid()
+    local isCurrent = (uid == currentUID)
+
+    -- デバイスをマップに保存
+    audioDevicesMap[uid] = device
+
+    table.insert(choices, {
+      text = (isCurrent and "✓ " or "  ") .. name,
+      subText = uid,
+      uid = uid  -- 文字列として保存
+    })
+  end
+
+  -- 新しいchooserを作成
+  audioDeviceChooser = hs.chooser.new(function(choice)
+    if choice and choice.uid then
+      local device = audioDevicesMap[choice.uid]
+      if device then
+        device:setDefaultOutputDevice()
+        hs.alert.show("出力デバイス: " .. device:name())
+      end
+    end
+  end)
+
+  -- 選択肢を設定
+  audioDeviceChooser:choices(choices)
+  audioDeviceChooser:rows(10)
+  audioDeviceChooser:width(60)
+  audioDeviceChooser:searchSubText(false)
+  audioDeviceChooser:show()
+end)
+
 -- ウィンドウリサイズモード
 local resizeAmount = 50  -- ピクセル単位
 local edgeThreshold = 10  -- 画面端の判定閾値（ピクセル）
