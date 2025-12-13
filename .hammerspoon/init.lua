@@ -168,8 +168,8 @@ local function getCurrentSSID()
   return ssid
 end
 
--- cmd+ctrl+\: 全ウィンドウの位置を現在のWiFi SSIDで保存（マルチモニター・全Spaces対応）
-hs.hotkey.bind(hyper, "\\", function()
+-- cmd+ctrl+[: 全ウィンドウの位置を現在のWiFi SSIDで保存（マルチモニター・全Spaces対応）
+hs.hotkey.bind(hyper, "[", function()
   local ssid = getCurrentSSID()
   local savedWindows = {}
   local count = 0
@@ -265,8 +265,8 @@ local function findScreen(savedScreenUUID, savedScreenName)
   return hs.screen.mainScreen()
 end
 
--- cmd+ctrl+`: 現在のWiFi SSIDに対応する位置を復元（マルチモニター・全Spaces対応）
-hs.hotkey.bind(hyper, "`", function()
+-- cmd+ctrl+]: 現在のWiFi SSIDに対応する位置を復元（マルチモニター・全Spaces対応）
+hs.hotkey.bind(hyper, "]", function()
   local ssid = getCurrentSSID()
   local layouts = loadWindowLayouts()
   local savedWindows = layouts[ssid]
