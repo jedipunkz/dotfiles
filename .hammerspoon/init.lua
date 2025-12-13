@@ -1,5 +1,8 @@
 -- Hammerspoon ウィンドウ管理設定
 
+-- 位置情報サービスの権限をリクエスト（WiFi SSID取得に必要 - macOS 14+）
+hs.location.get()
+
 local hyper = {"cmd", "ctrl"}
 
 -- cmd+ctrl+h: 左半分
