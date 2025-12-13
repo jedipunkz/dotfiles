@@ -79,32 +79,17 @@ end)
 
 -- cmd+ctrl+t: Alacritty を起動/フォーカス
 hs.hotkey.bind(hyper, "t", function()
-  local app = hs.application.find("Alacritty")
-  if app then
-    app:activate()
-  else
-    hs.application.launchOrFocus("Alacritty")
-  end
+  hs.application.launchOrFocus("Alacritty")
 end)
 
 -- cmd+ctrl+g: Google Chrome を起動/フォーカス
 hs.hotkey.bind(hyper, "g", function()
-  local app = hs.application.find("Google Chrome")
-  if app then
-    app:activate()
-  else
-    hs.application.launchOrFocus("Google Chrome")
-  end
+  hs.application.launchOrFocus("Google Chrome")
 end)
 
 -- cmd+ctrl+s: Slack を起動/フォーカス
 hs.hotkey.bind(hyper, "s", function()
-  local app = hs.application.find("Slack")
-  if app then
-    app:activate()
-  else
-    hs.application.launchOrFocus("Slack")
-  end
+  hs.application.launchOrFocus("Slack")
 end)
 
 -- フルスクリーントグル用の元サイズ保存
@@ -313,21 +298,23 @@ hs.hotkey.bind(hyper, "`", function()
   print("保存データ数: " .. savedCount)
   print("現在のウィンドウ数: " .. #allWindows)
 
+  -- 復元済みウィンドウIDを記録
+  local restoredWindowIDs = {}
   local restoredCount = 0
+
+  -- フェーズ1: タイトル完全一致で復元
   for key, data in pairs(savedWindows) do
     print("\n保存データ: " .. key)
     print("  bundleID: " .. data.bundleID)
     print("  title: " .. data.title)
 
-    local matched = false
     for _, win in ipairs(allWindows) do
       local app = win:application()
-      if app and app:bundleID() == data.bundleID then
+      if app and app:bundleID() == data.bundleID and not restoredWindowIDs[win:id()] then
         print("  マッチ候補: " .. win:title())
 
         if win:title() == data.title then
           print("  ✓ 完全一致で復元")
-          matched = true
 
           -- 適切なスクリーンを見つける
           local targetScreen = findScreen(data.screenUUID, data.screenName)
@@ -336,7 +323,6 @@ hs.hotkey.bind(hyper, "`", function()
           -- 相対位置が保存されている場合はそれを使用、なければ絶対座標を使用
           local newFrame
           if data.relativeX and data.relativeY and data.relativeW and data.relativeH then
-            -- 相対位置からフレームを計算
             newFrame = {
               x = screenFrame.x + (screenFrame.w * data.relativeX),
               y = screenFrame.y + (screenFrame.h * data.relativeY),
@@ -344,19 +330,15 @@ hs.hotkey.bind(hyper, "`", function()
               h = screenFrame.h * data.relativeH
             }
           else
-            -- 後方互換性：絶対座標を使用
             newFrame = {x = data.x, y = data.y, w = data.w, h = data.h}
           end
 
           win:setFrame(newFrame)
 
-          -- Spacesへの移動（保存されている場合）
+          -- Spacesへの移動
           if data.spaceID then
-            -- 現在のSpacesを取得
             local allSpaces = hs.spaces.allSpaces()
             local spaceExists = false
-
-            -- spaceIDが存在するか確認
             for _, screenSpaces in pairs(allSpaces) do
               for _, spaceID in ipairs(screenSpaces) do
                 if spaceID == data.spaceID then
@@ -366,21 +348,75 @@ hs.hotkey.bind(hyper, "`", function()
               end
               if spaceExists then break end
             end
-
-            -- Spaceが存在する場合のみ移動
             if spaceExists then
               hs.spaces.moveWindowToSpace(win:id(), data.spaceID)
             end
           end
 
+          restoredWindowIDs[win:id()] = true
           restoredCount = restoredCount + 1
           break
         end
       end
     end
+  end
 
-    if not matched then
-      print("  ✗ マッチするウィンドウが見つかりませんでした")
+  -- フェーズ2: タイトルが一致しなかったものをbundleIDだけで復元
+  print("\n=== フェーズ2: bundleIDマッチング ===")
+  for key, data in pairs(savedWindows) do
+    -- まだ復元されていないウィンドウを探す
+    local alreadyRestored = false
+    for winID, _ in pairs(restoredWindowIDs) do
+      -- この保存データに対応するウィンドウが既に復元されているかチェック
+      -- （簡易的に、同じbundleIDで復元済みのものがあればスキップ）
+    end
+
+    for _, win in ipairs(allWindows) do
+      local app = win:application()
+      if app and app:bundleID() == data.bundleID and not restoredWindowIDs[win:id()] then
+        print("\n保存データ: " .. key)
+        print("  ✓ bundleIDマッチで復元: " .. win:title())
+
+        -- 適切なスクリーンを見つける
+        local targetScreen = findScreen(data.screenUUID, data.screenName)
+        local screenFrame = targetScreen:frame()
+
+        local newFrame
+        if data.relativeX and data.relativeY and data.relativeW and data.relativeH then
+          newFrame = {
+            x = screenFrame.x + (screenFrame.w * data.relativeX),
+            y = screenFrame.y + (screenFrame.h * data.relativeY),
+            w = screenFrame.w * data.relativeW,
+            h = screenFrame.h * data.relativeH
+          }
+        else
+          newFrame = {x = data.x, y = data.y, w = data.w, h = data.h}
+        end
+
+        win:setFrame(newFrame)
+
+        -- Spacesへの移動
+        if data.spaceID then
+          local allSpaces = hs.spaces.allSpaces()
+          local spaceExists = false
+          for _, screenSpaces in pairs(allSpaces) do
+            for _, spaceID in ipairs(screenSpaces) do
+              if spaceID == data.spaceID then
+                spaceExists = true
+                break
+              end
+            end
+            if spaceExists then break end
+          end
+          if spaceExists then
+            hs.spaces.moveWindowToSpace(win:id(), data.spaceID)
+          end
+        end
+
+        restoredWindowIDs[win:id()] = true
+        restoredCount = restoredCount + 1
+        break
+      end
     end
   end
 
