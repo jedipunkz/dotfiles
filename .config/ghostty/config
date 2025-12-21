@@ -4,7 +4,7 @@ theme = TokyoNight
 font-size = 14.5
 adjust-cell-width = -5%
 
-background-opacity = 0.85
+background-opacity = 0.90
 background-blur = false
 macos-titlebar-style = transparent
 macos-titlebar-proxy-icon = hidden
