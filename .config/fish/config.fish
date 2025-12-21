@@ -119,6 +119,9 @@ if not string match -q -- $PNPM_HOME $PATH
   set -gx PATH "$PNPM_HOME" $PATH
 end
 
+# git
+# set -x GIT_OPTIONAL_LOCKS 0
+
 # if type -q kiro
 #     string match -q "$TERM_PROGRAM" "kiro" and . (kiro --locate-shell-integration-path fish)
 # end
