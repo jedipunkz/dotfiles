@@ -97,6 +97,7 @@ link .claude/scripts $HOME/.claude/scripts
 link .claude/skills $HOME/.claude/skills
 link .hammerspoon $HOME/.hammerspoon
 link aqua.yaml $HOME/aqua.yaml
+link .config/opencode $HOME/.config/opencode
 
 gitclone $URL_TPM ~/.tmux/plugins/tpm
 # gitclone $URL_RBENV $HOME/.rbenv
