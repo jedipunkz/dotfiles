@@ -6,5 +6,10 @@
     "input_submit": "super+return",
     "input_newline": "return,shift+return,alt+return,ctrl+j",
     "input_backspace": "backspace,shift+backspace,ctrl+h"
+  },
+  "permission": {
+    "webfetch": "allow",
+    "edit": "ask",
+    "bash": "ask"
   }
 }
