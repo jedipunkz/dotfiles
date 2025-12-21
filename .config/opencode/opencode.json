@@ -11,5 +11,16 @@
     "webfetch": "allow",
     "edit": "ask",
     "bash": "ask"
+  },
+  "agent": {
+    "reviewer": {
+      "description": "Code review agent with read-only permissions for analyzing code quality",
+      "model": "anthropic/claude-sonnet-4-5",
+      "tools": {
+        "write": false,
+        "edit": false,
+        "bash": false
+      }
+    }
   }
 }
