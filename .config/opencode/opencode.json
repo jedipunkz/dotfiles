@@ -27,22 +27,6 @@
         "edit": "deny",
         "bash": "deny"
       }
-    },
-    "searcher": {
-      "description": "Web search agent specialized in finding information online",
-      "mode": "subagent",
-      "model": "anthropic/claude-sonnet-4-5",
-      "prompt": "You are a web search specialist. Your role is to search the internet for information, fetch web content, and provide comprehensive research results. You can use websearch and webfetch tools to gather information from the web. You cannot modify files or execute commands.",
-      "tools": {
-        "write": false,
-        "edit": false,
-        "bash": false
-      },
-      "permission": {
-        "edit": "deny",
-        "bash": "deny",
-        "webfetch": "allow"
-      }
     }
   }
 }
