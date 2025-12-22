@@ -4,7 +4,8 @@
   "keybinds": {
     "input_submit": "super+return",
     "input_newline": "return,shift+return,alt+return,ctrl+j",
-    "input_backspace": "backspace,shift+backspace,ctrl+h"
+    "input_backspace": "backspace,shift+backspace,ctrl+h",
+    "input_delete_to_line_end": "ctrl+k"
   },
   "permission": {
     "webfetch": "allow",
