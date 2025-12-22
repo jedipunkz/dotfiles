@@ -3,7 +3,7 @@
   "theme": "tokyonight",
   "plugin": ["opencode-skills"],
   "keybinds": {
-    "input_submit": "super+return",
+    "input_submit": "ctrl+return,super+return",
     "input_newline": "return,shift+return,alt+return,ctrl+j",
     "input_backspace": "backspace,shift+backspace,ctrl+h",
     "input_delete_to_line_end": "ctrl+k"
