@@ -5,6 +5,9 @@
 
 input=$(cat)
 
+# workarround .git/index.lock issue
+GIT_OPTIONAL_LOCKS=0
+
 # Extract values using jq
 MODEL=$(echo "$input" | jq -r '.model.display_name // "Claude"')
 CURRENT_DIR=$(echo "$input" | jq -r '.workspace.current_dir // "~"')
