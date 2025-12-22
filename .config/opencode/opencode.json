@@ -12,6 +12,12 @@
     "edit": "ask",
     "bash": "ask"
   },
+  "formatter": {
+    "gofmt": {
+      "command": ["gofmt", "-w", "$FILE"],
+      "extensions": [".go"]
+    }
+  },
   "lsp": {
     "gopls": {
       "command": ["gopls"],
