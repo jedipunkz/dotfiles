@@ -3,7 +3,7 @@ export PATH=$HOME/usr/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games:/
 
 # starship
 eval "$(starship init zsh)"
-export STARSHIP_CONFIG=~/.starship
+export STARSHIP_CONFIG=~/.config/starship/config.toml
 
 export HISTSIZE=10000
 export SAVEHIST=10000

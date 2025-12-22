@@ -1,0 +1,17 @@
+theme = TokyoNight
+
+#font-family = "Cousine Nerd Font Mono"
+font-size = 14.5
+adjust-cell-width = -5%
+
+background-opacity = 0.90
+background-blur = false
+macos-titlebar-style = transparent
+macos-titlebar-proxy-icon = hidden
+macos-non-native-fullscreen = true
+macos-window-buttons = hidden
+
+copy-on-select = clipboard
+right-click-action = paste
+
+keybind = ctrl+shift+r=reload_config

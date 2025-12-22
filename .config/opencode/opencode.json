@@ -1,0 +1,45 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "theme": "tokyonight",
+  "plugin": ["opencode-skills"],
+  "keybinds": {
+    "input_submit": "ctrl+return,super+return",
+    "input_newline": "return,shift+return,alt+return,ctrl+j",
+    "input_backspace": "backspace,shift+backspace,ctrl+h",
+    "input_delete_to_line_end": "ctrl+k"
+  },
+  "permission": {
+    "webfetch": "allow",
+    "edit": "ask",
+    "bash": "ask"
+  },
+  "formatter": {
+    "gofmt": {
+      "command": ["gofmt", "-w", "$FILE"],
+      "extensions": [".go"]
+    }
+  },
+  "lsp": {
+    "gopls": {
+      "command": ["gopls"],
+      "extensions": [".go"]
+    }
+  },
+  "agent": {
+    "reviewer": {
+      "description": "Code review agent with read-only permissions for analyzing code quality",
+      "mode": "subagent",
+      "model": "anthropic/claude-sonnet-4-5",
+      "prompt": "You are a code reviewer specialized in analyzing code quality, best practices, security vulnerabilities, and potential bugs. You can read files, search code patterns using glob and grep, and provide detailed feedback. You cannot modify files.",
+      "tools": {
+        "write": false,
+        "edit": false,
+        "bash": false
+      },
+      "permission": {
+        "edit": "deny",
+        "bash": "deny"
+      }
+    }
+  }
+}

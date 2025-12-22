@@ -41,9 +41,9 @@ return {
   {
     "juliosueiras/vim-terraform-completion",
   },
-  {
-    "nvie/vim-Flake8",
-  },
+  -- {
+  --   "nvie/vim-Flake8",
+  -- },
   {
     "mattn/vim-goimports",
   },

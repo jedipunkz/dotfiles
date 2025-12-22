@@ -72,6 +72,11 @@ return {
       { "<leader>fb", function() require("sidekick.cli").send({ name = "claude", msg = "{file}" }) end, desc = "Sidekick: Send Buffer to Claude" },
       { "<leader>fs", function() require("sidekick.cli").send({ name = "claude", msg = "{selection}" }) end, mode = "v", desc = "Sidekick: Send Selection to Claude" },
 
+      -- OpenCode specific keybindings
+      { "<leader>rr", function() require("sidekick.cli").show({ name = "opencode", focus = true }) end, desc = "Sidekick: OpenCode" },
+      { "<leader>rb", function() require("sidekick.cli").send({ name = "opencode", msg = "{file}" }) end, desc = "Sidekick: Send Buffer to OpenCode" },
+      { "<leader>rs", function() require("sidekick.cli").send({ name = "opencode", msg = "{selection}" }) end, mode = "v", desc = "Sidekick: Send Selection to OpenCode" },
+
       -- Focus switching
       { "<C-w>p", function() require("sidekick.cli").focus() end, mode = { "n", "t" }, desc = "Sidekick: Switch Focus" },
     },
