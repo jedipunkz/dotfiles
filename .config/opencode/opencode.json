@@ -1,7 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "theme": "tokyonight",
-  "model": "anthropic/claude-sonnet-4-5",
   "keybinds": {
     "input_submit": "super+return",
     "input_newline": "return,shift+return,alt+return,ctrl+j",
