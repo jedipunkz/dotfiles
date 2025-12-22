@@ -12,6 +12,12 @@
     "edit": "ask",
     "bash": "ask"
   },
+  "lsp": {
+    "gopls": {
+      "command": ["gopls"],
+      "extensions": [".go"]
+    }
+  },
   "agent": {
     "reviewer": {
       "description": "Code review agent with read-only permissions for analyzing code quality",
