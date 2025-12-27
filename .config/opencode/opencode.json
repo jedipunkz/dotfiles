@@ -25,6 +25,13 @@
       "extensions": [".go"]
     }
   },
+  "mcp": {
+    "chrome-devtools": {
+      "type": "local",
+      "command": ["npx", "-y", "chrome-devtools-mcp@latest"],
+      "enabled": true
+    }
+  },
   "agent": {
     "reviewer": {
       "description": "Code review agent with read-only permissions for analyzing code quality",
