@@ -564,6 +564,8 @@ decorations = "buttonless"
 dynamic_padding = false
 startup_mode = "Windowed"
 opacity = 1.0
+# Enable Option key as Alt key for key bindings like Ctrl+Alt+F
+option_as_alt = "Both"
 
 [window.dimensions]
 columns = 0
