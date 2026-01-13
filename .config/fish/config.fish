@@ -31,12 +31,13 @@ alias la="ls -a"
 alias l="ls -alF"
 alias ssh="ssh -o UserKnownHostsFile=/dev/null -o 'StrictHostKeyChecking no'"
 alias grep="grep --color"
+alias zz="bunx ccgwz"
 
 # mise
 if test (uname -s) = "Linux"
     /home/linuxbrew/.linuxbrew/bin/mise activate fish | source
 else if test (uname -s) = "Darwin"
-    mise activate fish | source
+    /opt/homebrew/bin/mise activate fish | source
 end
 
 # zoxide
