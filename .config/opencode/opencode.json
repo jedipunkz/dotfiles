@@ -10,12 +10,8 @@
   },
   "permission": {
     "webfetch": "allow",
-    "read": "allow",
     "edit": "ask",
-    "bash": {
-      "mode": "ask",
-      "allow_commands": ["ls", "cat", "grep"]
-    }
+    "bash": "ask"
   },
   "formatter": {
     "gofmt": {
