@@ -11,7 +11,12 @@
   "permission": {
     "webfetch": "allow",
     "edit": "ask",
-    "bash": "ask"
+    "bash": {
+      "ls": "allow",
+      "cat": "allow",
+      "grep": "allow",
+      "*": "ask"
+    }
   },
   "formatter": {
     "gofmt": {
