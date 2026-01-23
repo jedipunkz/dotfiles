@@ -16,10 +16,21 @@
     "webfetch": "allow",
     "edit": "ask",
     "bash": {
-      "ls": "allow",
-      "cat": "allow",
-      "grep": "allow",
-      "*": "ask"
+      "*": "ask",
+      "ls *": "allow",
+      "cat *": "allow",
+      "grep *": "allow",
+      "curl *": "allow",
+      "jq *": "allow",
+      "head *": "allow",
+      "tail *": "allow",
+      "wc *": "allow",
+      "file *": "allow",
+      "which *": "allow",
+      "pwd": "allow",
+      "echo *": "allow",
+      "find *": "allow",
+      "tree *": "allow"
     }
   },
   "formatter": {
