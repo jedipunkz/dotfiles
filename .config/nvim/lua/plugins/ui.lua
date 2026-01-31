@@ -63,7 +63,7 @@ return {
       local diff_component = {
         'diff',
         colored = false,
-        color = { fg = '#9ece6a', bg = '#24283b' },
+        color = { fg = '#c8a2ff', bg = '#3b3262' },
         symbols = { added = '+', modified = '~', removed = '-' },
         source = function()
           local gitsigns = vim.b.gitsigns_status_dict
@@ -98,7 +98,7 @@ return {
       local branch_component = {
         'branch',
         icon = '',
-        color = { fg = '#9ece6a', bg = '#24283b' },
+        color = { fg = '#c8a2ff', bg = '#3b3262' },
       }
 
       lualine.setup {
@@ -121,7 +121,23 @@ return {
           }
         },
         sections = {
-          lualine_a = { { 'mode', fmt = function(s) return s:sub(1, 1) end } },
+          lualine_a = { {
+            'mode',
+            fmt = function(s) return s:sub(1, 1) end,
+            color = function()
+              local mode_colors = {
+                n = { fg = '#3b3262', bg = '#c8a2ff' },  -- NORMAL: 紫
+                i = { fg = '#1a1b26', bg = '#ff9e9e' },  -- INSERT: ピンク
+                v = { fg = '#1a1b26', bg = '#9ece6a' },  -- VISUAL: 緑
+                V = { fg = '#1a1b26', bg = '#9ece6a' },  -- V-LINE: 緑
+                [''] = { fg = '#1a1b26', bg = '#9ece6a' },  -- V-BLOCK: 緑
+                c = { fg = '#1a1b26', bg = '#e0af68' },  -- COMMAND: 黄
+                R = { fg = '#1a1b26', bg = '#f7768e' },  -- REPLACE: 赤
+              }
+              local mode = vim.fn.mode()
+              return mode_colors[mode] or mode_colors.n
+            end,
+          } },
           lualine_b = { branch_component, diff_component, diagnostics_component },
           lualine_c = {
             {
@@ -136,12 +152,12 @@ return {
                 unnamed = '[No Name]',
                 newfile = '[New]',
               },
-              color = { fg = '#7dcfff', bg = '#24283b' },
+              color = { fg = '#ff9e9e', bg = '#3d2a3a' },
             }
           },
           lualine_x = {},
           lualine_y = {},
-          lualine_z = { function() return os.date('%H:%M') end }
+          lualine_z = { { function() return os.date('%H:%M') end, color = { fg = '#3b3262', bg = '#c8a2ff' } } }
         },
         inactive_sections = {
           lualine_a = {},
@@ -151,7 +167,18 @@ return {
           lualine_y = {},
           lualine_z = {}
         },
-        tabline = {},
+        tabline = {
+          lualine_a = {
+            {
+              'tabs',
+              mode = 1,
+              tabs_color = {
+                active = { fg = '#c8a2ff', bg = '#3b3262' },
+                inactive = { fg = '#9580b8', bg = '#252035' },
+              },
+            }
+          },
+        },
         winbar = {},
         inactive_winbar = {},
         extensions = {}
