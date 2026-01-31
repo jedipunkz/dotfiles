@@ -62,12 +62,8 @@ return {
       -- Custom diff component
       local diff_component = {
         'diff',
-        colored = true,
-        diff_color = {
-          added = { fg = colors.green },
-          modified = { fg = colors.yellow },
-          removed = { fg = colors.red },
-        },
+        colored = false,
+        color = { fg = '#9ece6a', bg = '#24283b' },
         symbols = { added = '+', modified = '~', removed = '-' },
         source = function()
           local gitsigns = vim.b.gitsigns_status_dict
@@ -101,14 +97,14 @@ return {
       -- Git branch component
       local branch_component = {
         'branch',
-        icon = '[git]',
-        color = { fg = colors.green },
+        icon = '',
+        color = { fg = '#9ece6a', bg = '#24283b' },
       }
 
       lualine.setup {
         options = {
           icons_enabled = true,
-          theme = 'dracula',
+          theme = 'tokyonight',
           component_separators = { left = '', right = '' },
           section_separators = { left = '', right = '' },
           disabled_filetypes = {
@@ -125,32 +121,33 @@ return {
           }
         },
         sections = {
-          lualine_a = { 'mode' },
+          lualine_a = { { 'mode', fmt = function(s) return s:sub(1, 1) end } },
           lualine_b = { branch_component, diff_component, diagnostics_component },
           lualine_c = {
             {
               'filename',
               file_status = true,
               newfile_status = false,
-              path = 1,
+              path = 3,
               shorting_target = 40,
               symbols = {
                 modified = '[+]',
                 readonly = '[-]',
                 unnamed = '[No Name]',
                 newfile = '[New]',
-              }
+              },
+              color = { fg = '#7dcfff', bg = '#24283b' },
             }
           },
-          lualine_x = { 'encoding', 'fileformat', 'filetype' },
-          lualine_y = { 'progress' },
-          lualine_z = { 'location' }
+          lualine_x = {},
+          lualine_y = {},
+          lualine_z = { function() return os.date('%H:%M') end }
         },
         inactive_sections = {
           lualine_a = {},
           lualine_b = {},
           lualine_c = { 'filename' },
-          lualine_x = { 'location' },
+          lualine_x = {},
           lualine_y = {},
           lualine_z = {}
         },
