@@ -97,7 +97,7 @@ return {
       -- Git branch component
       local branch_component = {
         'branch',
-        icon = '[git]',
+        icon = '',
         color = { fg = '#9ece6a', bg = '#24283b' },
       }
 
