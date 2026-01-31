@@ -62,12 +62,8 @@ return {
       -- Custom diff component
       local diff_component = {
         'diff',
-        colored = true,
-        diff_color = {
-          added = { fg = colors.green },
-          modified = { fg = colors.yellow },
-          removed = { fg = colors.red },
-        },
+        colored = false,
+        color = { fg = '#c8a2ff', bg = '#3b3262' },
         symbols = { added = '+', modified = '~', removed = '-' },
         source = function()
           local gitsigns = vim.b.gitsigns_status_dict
@@ -101,14 +97,14 @@ return {
       -- Git branch component
       local branch_component = {
         'branch',
-        icon = '[git]',
-        color = { fg = colors.green },
+        icon = '',
+        color = { fg = '#c8a2ff', bg = '#3b3262' },
       }
 
       lualine.setup {
         options = {
           icons_enabled = true,
-          theme = 'dracula',
+          theme = 'tokyonight',
           component_separators = { left = '', right = '' },
           section_separators = { left = '', right = '' },
           disabled_filetypes = {
@@ -125,36 +121,64 @@ return {
           }
         },
         sections = {
-          lualine_a = { 'mode' },
+          lualine_a = { {
+            'mode',
+            fmt = function(s) return s:sub(1, 1) end,
+            color = function()
+              local mode_colors = {
+                n = { fg = '#3b3262', bg = '#c8a2ff' },  -- NORMAL: 紫
+                i = { fg = '#1a1b26', bg = '#ff9e9e' },  -- INSERT: ピンク
+                v = { fg = '#1a1b26', bg = '#9ece6a' },  -- VISUAL: 緑
+                V = { fg = '#1a1b26', bg = '#9ece6a' },  -- V-LINE: 緑
+                [''] = { fg = '#1a1b26', bg = '#9ece6a' },  -- V-BLOCK: 緑
+                c = { fg = '#1a1b26', bg = '#e0af68' },  -- COMMAND: 黄
+                R = { fg = '#1a1b26', bg = '#f7768e' },  -- REPLACE: 赤
+              }
+              local mode = vim.fn.mode()
+              return mode_colors[mode] or mode_colors.n
+            end,
+          } },
           lualine_b = { branch_component, diff_component, diagnostics_component },
           lualine_c = {
             {
               'filename',
               file_status = true,
               newfile_status = false,
-              path = 1,
+              path = 3,
               shorting_target = 40,
               symbols = {
                 modified = '[+]',
                 readonly = '[-]',
                 unnamed = '[No Name]',
                 newfile = '[New]',
-              }
+              },
+              color = { fg = '#7aa2f7', bg = '#1e2030' },
             }
           },
-          lualine_x = { 'encoding', 'fileformat', 'filetype' },
-          lualine_y = { 'progress' },
-          lualine_z = { 'location' }
+          lualine_x = {},
+          lualine_y = {},
+          lualine_z = { { function() return os.date('%H:%M') end, color = { fg = '#c8a2ff', bg = '#3b3262' } } }
         },
         inactive_sections = {
           lualine_a = {},
           lualine_b = {},
           lualine_c = { 'filename' },
-          lualine_x = { 'location' },
+          lualine_x = {},
           lualine_y = {},
           lualine_z = {}
         },
-        tabline = {},
+        tabline = {
+          lualine_a = {
+            {
+              'tabs',
+              mode = 1,
+              tabs_color = {
+                active = { fg = '#c8a2ff', bg = '#3b3262' },
+                inactive = { fg = '#9580b8', bg = '#252035' },
+              },
+            }
+          },
+        },
         winbar = {},
         inactive_winbar = {},
         extensions = {}
