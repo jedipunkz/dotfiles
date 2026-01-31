@@ -120,7 +120,8 @@ return {
       }
 
       -- Enable configured LSP servers
-      vim.lsp.enable({'pyright', 'ts_ls', 'rust_analyzer', 'gopls', 'lua_ls', 'zls', 'copilot'})
+      -- Note: copilot_ls is enabled by copilot-lsp plugin
+      vim.lsp.enable({'pyright', 'ts_ls', 'rust_analyzer', 'gopls', 'lua_ls', 'zls'})
     end,
   },
   {
