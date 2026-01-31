@@ -1,9 +1,6 @@
 return {
   -- Language support
   {
-    "github/copilot.vim",
-  },
-  {
     "othree/yajs.vim",
   },
   {

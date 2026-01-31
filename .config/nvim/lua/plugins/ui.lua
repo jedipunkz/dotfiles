@@ -62,8 +62,12 @@ return {
       -- Custom diff component
       local diff_component = {
         'diff',
-        colored = false,
-        color = { fg = '#c8a2ff', bg = '#3b3262' },
+        colored = true,
+        diff_color = {
+          added = { fg = colors.blue },
+          modified = { fg = colors.yellow },
+          removed = { fg = colors.red },
+        },
         symbols = { added = '+', modified = '~', removed = '-' },
         source = function()
           local gitsigns = vim.b.gitsigns_status_dict
