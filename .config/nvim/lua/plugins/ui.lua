@@ -132,7 +132,7 @@ return {
               'filename',
               file_status = true,
               newfile_status = false,
-              path = 1,
+              path = 3,
               shorting_target = 40,
               symbols = {
                 modified = '[+]',
