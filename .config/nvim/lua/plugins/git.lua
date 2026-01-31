@@ -13,6 +13,14 @@ return {
     end,
   },
 
+  -- fuzz.nvim for git fuzzy finder
+  {
+    "jedipunkz/fuzz.nvim",
+    config = function()
+      require("fuzz").setup()
+    end,
+  },
+
   -- Git blame
   {
     "f-person/git-blame.nvim",
