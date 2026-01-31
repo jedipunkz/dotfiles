@@ -62,12 +62,8 @@ return {
       -- Custom diff component
       local diff_component = {
         'diff',
-        colored = true,
-        diff_color = {
-          added = { fg = colors.green },
-          modified = { fg = colors.yellow },
-          removed = { fg = colors.red },
-        },
+        colored = false,
+        color = { fg = '#9ece6a', bg = '#24283b' },
         symbols = { added = '+', modified = '~', removed = '-' },
         source = function()
           local gitsigns = vim.b.gitsigns_status_dict
@@ -102,7 +98,7 @@ return {
       local branch_component = {
         'branch',
         icon = '[git]',
-        color = { fg = colors.green },
+        color = { fg = '#9ece6a', bg = '#24283b' },
       }
 
       lualine.setup {
@@ -125,7 +121,7 @@ return {
           }
         },
         sections = {
-          lualine_a = { 'mode' },
+          lualine_a = { { 'mode', fmt = function(s) return s:sub(1, 1) end } },
           lualine_b = { branch_component, diff_component, diagnostics_component },
           lualine_c = {
             {
@@ -139,10 +135,11 @@ return {
                 readonly = '[-]',
                 unnamed = '[No Name]',
                 newfile = '[New]',
-              }
+              },
+              color = { fg = '#7dcfff', bg = '#24283b' },
             }
           },
-          lualine_x = { 'encoding', 'fileformat', 'filetype' },
+          lualine_x = {},
           lualine_y = { 'progress' },
           lualine_z = { function() return os.date('%H:%M') end }
         },
