@@ -152,12 +152,12 @@ return {
                 unnamed = '[No Name]',
                 newfile = '[New]',
               },
-              color = { fg = '#ff9e9e', bg = '#3d2a3a' },
+              color = { fg = '#7aa2f7', bg = '#1e2030' },
             }
           },
           lualine_x = {},
           lualine_y = {},
-          lualine_z = { { function() return os.date('%H:%M') end, color = { fg = '#3b3262', bg = '#c8a2ff' } } }
+          lualine_z = { { function() return os.date('%H:%M') end, color = { fg = '#c8a2ff', bg = '#3b3262' } } }
         },
         inactive_sections = {
           lualine_a = {},
