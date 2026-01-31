@@ -40,6 +40,8 @@ if test (uname -s) = "Linux"
 else if test (uname -s) = "Darwin"
     /opt/homebrew/bin/mise activate fish | source
 end
+# mise shims を PATH の先頭に追加（brew より優先）
+set -x PATH $HOME/.local/share/mise/shims $PATH
 
 # zoxide
 zoxide init fish | source
