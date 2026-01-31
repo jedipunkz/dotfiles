@@ -140,7 +140,7 @@ return {
             }
           },
           lualine_x = {},
-          lualine_y = { 'progress' },
+          lualine_y = {},
           lualine_z = { function() return os.date('%H:%M') end }
         },
         inactive_sections = {
