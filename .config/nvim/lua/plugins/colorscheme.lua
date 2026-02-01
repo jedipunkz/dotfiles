@@ -2,7 +2,7 @@ return {
   {
     "rebelot/kanagawa.nvim",
     priority = 1000,
-    lazy = false,
+    lazy = true,
     opts = {
       theme = "wave",
     },
@@ -39,14 +39,14 @@ return {
   {
     "EdenEast/nightfox.nvim",
     priority = 1000,
-    lazy = false,
+    lazy = true,
     opts = {},
   },
   {
     "catppuccin/nvim",
     priority = 1000,
     name = "catppuccin",
-    lazy = false,
+    lazy = true,
     config = function()
       require("catppuccin").setup({
         background = {
@@ -457,7 +457,7 @@ return {
   {
     "NTBBloodbath/doom-one.nvim",
     priority = 1000,
-    lazy = false,
+    lazy = true,
     config = function()
       vim.g.doom_one_cursor_coloring = false
       vim.g.doom_one_terminal_colors = true
@@ -470,12 +470,12 @@ return {
   {
     "nyoom-engineering/oxocarbon.nvim",
     priority = 1000,
-    lazy = false,
+    lazy = true,
   },
   {
     "sainnhe/gruvbox-material",
     priority = 1000,
-    lazy = false,
+    lazy = true,
     config = function()
       -- Set to 'hard' for darkest background, 'medium' (default), or 'soft'
       vim.g.gruvbox_material_background = 'hard'
@@ -490,7 +490,7 @@ return {
     "rose-pine/neovim",
     name = "rose-pine",
     priority = 1000,
-    lazy = false,
+    lazy = true,
     config = function()
       require("rose-pine").setup({
         variant = "auto",
@@ -511,7 +511,7 @@ return {
   {
     "AlexvZyl/nordic.nvim",
     priority = 1000,
-    lazy = false,
+    lazy = true,
     config = function()
       require("nordic").setup({
         bold_keywords = false,
@@ -527,7 +527,7 @@ return {
   {
     "maxmx03/solarized.nvim",
     priority = 1000,
-    lazy = false,
+    lazy = true,
     opts = {
       transparent = {
         enabled = false,
@@ -541,13 +541,13 @@ return {
   {
     "craftzdog/solarized-osaka.nvim",
     priority = 1000,
-    lazy = false,
+    lazy = true,
     opts = {},
   },
   {
     "neanias/everforest-nvim",
     priority = 1000,
-    lazy = false,
+    lazy = true,
     config = function()
       require("everforest").setup({
         background = "hard",
