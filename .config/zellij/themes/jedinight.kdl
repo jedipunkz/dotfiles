@@ -17,10 +17,10 @@ themes {
             emphasis_3 149 127 184 // purple #957fb8
         }
         ribbon_unselected {
-            base 149 128 184      // inactive light purple #9580b8
-            background 37 32 53   // inactive dark purple #252035
+            base 59 50 98         // dark purple #3b3262 (text)
+            background 200 162 255 // light purple #c8a2ff (bg)
             emphasis_0 195 64 67  // red #c34043
-            emphasis_1 220 215 186 // foreground #dcd7ba
+            emphasis_1 59 50 98   // dark purple #3b3262
             emphasis_2 126 156 216 // blue #7e9cd8
             emphasis_3 149 127 184 // purple #957fb8
         }
