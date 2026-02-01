@@ -42,20 +42,22 @@ return {
             indent = 2,
             padding = 1,
           },
-          {
-            pane = 2,
-            icon = " ",
-            title = "Git Status",
-            section = "terminal",
-            enabled = function()
-              return Snacks.git.get_root() ~= nil
-            end,
-            cmd = "git status --short --branch --renames",
-            height = 5,
-            padding = 1,
-            ttl = 5 * 60,
-            indent = 3,
-          },
+          -- NOTE: Git Status section disabled for startup performance
+          -- Executes external command which slows down dashboard loading
+          -- {
+          --   pane = 2,
+          --   icon = " ",
+          --   title = "Git Status",
+          --   section = "terminal",
+          --   enabled = function()
+          --     return Snacks.git.get_root() ~= nil
+          --   end,
+          --   cmd = "git status --short --branch --renames",
+          --   height = 5,
+          --   padding = 1,
+          --   ttl = 5 * 60,
+          --   indent = 3,
+          -- },
           { section = "startup" },
         },
       },
