@@ -73,7 +73,7 @@ themes {
             emphasis_3 149 127 184 // purple #957fb8
         }
         frame_selected {
-            base 26 188 156       // green #1ABC9C
+            base 0 255 127        // vivid green
             background 0
             emphasis_0 255 160 102 // orange #ffa066
             emphasis_1 127 180 202 // bright blue #7fb4ca
