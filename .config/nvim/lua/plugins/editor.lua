@@ -2,44 +2,38 @@ return {
   -- Editor utilities
   {
     "vim-scripts/tComment",
+    event = "VeryLazy",
   },
   {
     "nathanaelkane/vim-indent-guides",
+    event = "VeryLazy",
   },
   {
     "SirVer/ultisnips",
+    event = "InsertEnter",
   },
   {
     "honza/vim-snippets",
-  },
-  {
-    "prabirshrestha/async.vim",
-  },
-  {
-    "hrsh7th/vim-vsnip",
-  },
-  {
-    "hrsh7th/vim-vsnip-integ",
+    event = "InsertEnter",
   },
   {
     "sebdah/vim-delve",
-  },
-  {
-    "go-delve/delve",
+    ft = "go",
   },
   {
     "vim-test/vim-test",
+    cmd = { "TestNearest", "TestFile", "TestSuite", "TestLast", "TestVisit" },
   },
   {
     "tpope/vim-dispatch",
+    event = "VeryLazy",
   },
   {
     "nvim-lua/plenary.nvim",
-  },
-  {
-    "BurntSushi/ripgrep",
+    lazy = true,
   },
   {
     "folke/trouble.nvim",
+    cmd = "Trouble",
   },
 }

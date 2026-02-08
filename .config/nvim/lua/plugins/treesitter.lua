@@ -2,6 +2,7 @@ return {
   -- Treesitter for syntax highlighting and parsing
   {
     "nvim-treesitter/nvim-treesitter",
+    event = { "BufReadPost", "BufNewFile" },
     config = function()
       require("nvim-treesitter.configs").setup({
         -- Disable ensure_installed to prevent startup updates
@@ -19,6 +20,7 @@ return {
   -- TreeSJ for split/join syntax tree nodes
   {
     "Wansmer/treesj",
+    cmd = { "TSJToggle", "TSJJoin", "TSJSplit" },
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     config = function()
       require("treesj").setup()

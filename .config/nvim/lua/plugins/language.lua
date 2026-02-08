@@ -2,12 +2,15 @@ return {
   -- Language support
   {
     "othree/yajs.vim",
+    ft = { "javascript", "javascript.jsx" },
   },
   {
     "chase/vim-ansible-yaml",
+    ft = { "yaml.ansible", "yaml" },
   },
   {
     "hashivim/vim-terraform",
+    ft = { "terraform", "hcl" },
     config = function()
       -- vim-terraform settings
       vim.cmd([[silent! autocmd! filetypedetect BufRead,BufNewFile *.tf]])
@@ -37,17 +40,18 @@ return {
   },
   {
     "juliosueiras/vim-terraform-completion",
+    ft = { "terraform", "hcl" },
   },
-  -- {
-  --   "nvie/vim-Flake8",
-  -- },
   {
     "mattn/vim-goimports",
+    ft = "go",
   },
   {
     "rust-lang/rust.vim",
+    ft = "rust",
   },
   {
     "moll/vim-node",
+    ft = { "javascript", "typescript" },
   },
 }
