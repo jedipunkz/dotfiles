@@ -17,16 +17,16 @@ themes {
             emphasis_3 149 127 184 // purple #957fb8
         }
         ribbon_unselected {
-            base 59 50 98         // dark purple #3b3262 (text)
-            background 200 162 255 // light purple #c8a2ff (bg)
+            base 200 162 255      // light purple #c8a2ff (text)
+            background 59 50 98   // dark purple #3b3262 (bg)
             emphasis_0 195 64 67  // red #c34043
-            emphasis_1 59 50 98   // dark purple #3b3262
+            emphasis_1 200 162 255 // light purple #c8a2ff
             emphasis_2 126 156 216 // blue #7e9cd8
             emphasis_3 149 127 184 // purple #957fb8
         }
         ribbon_selected {
-            base 200 162 255      // light purple #c8a2ff
-            background 59 50 98   // dark purple #3b3262
+            base 59 50 98         // dark purple #3b3262
+            background 200 162 255 // light purple #c8a2ff (bg)
             emphasis_0 195 64 67  // red #c34043
             emphasis_1 255 160 102 // orange #ffa066
             emphasis_2 149 127 184 // purple #957fb8
