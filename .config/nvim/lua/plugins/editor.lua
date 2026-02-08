@@ -9,14 +9,6 @@ return {
     event = "VeryLazy",
   },
   {
-    "SirVer/ultisnips",
-    event = "InsertEnter",
-  },
-  {
-    "honza/vim-snippets",
-    event = "InsertEnter",
-  },
-  {
     "sebdah/vim-delve",
     ft = "go",
   },

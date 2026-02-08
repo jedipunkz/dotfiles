@@ -132,20 +132,6 @@ return {
       require("mason").setup()
     end,
   },
-  {
-    "jose-elias-alvarez/null-ls.nvim",
-    event = "VeryLazy",
-    dependencies = { "nvim-lua/plenary.nvim" },
-  },
-  {
-    "glepnir/lspsaga.nvim",
-    event = "VeryLazy",
-  },
-  {
-    "juliosueiras/terraform-lsp",
-    ft = { "terraform", "hcl" },
-  },
-
   -- Formatter
   {
     "MunifTanjim/prettier.nvim",
