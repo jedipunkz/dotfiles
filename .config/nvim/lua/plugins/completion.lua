@@ -2,6 +2,7 @@ return {
   {
     "saghen/blink.cmp",
     version = "1.*",
+    event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
       "hrsh7th/vim-vsnip",
       "fang2hou/blink-copilot",
@@ -66,5 +67,4 @@ return {
       })
     end,
   },
-  { "hrsh7th/vim-vsnip" },
 }

@@ -2,6 +2,7 @@ return {
   -- GitSigns for git integration
   {
     "lewis6991/gitsigns.nvim",
+    event = { "BufReadPre", "BufNewFile" },
     config = function()
       require("gitsigns").setup({
         current_line_blame = false,
@@ -16,6 +17,7 @@ return {
   -- fuzz.nvim for git fuzzy finder
   {
     "jedipunkz/fuzz.nvim",
+    event = "VeryLazy",
     config = function()
       require("fuzz").setup()
     end,
@@ -24,6 +26,7 @@ return {
   -- Git blame
   {
     "f-person/git-blame.nvim",
+    cmd = { "GitBlameToggle", "GitBlameCopyCommitURL", "GitBlameEnable", "GitBlameDisable" },
     config = function()
       require("gitblame").setup({
         enabled = true,
