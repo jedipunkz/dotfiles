@@ -2,6 +2,7 @@ return {
   -- Statusline
   {
     "nvim-lualine/lualine.nvim",
+    event = "VeryLazy",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
       local lualine = require("lualine")
@@ -192,15 +193,14 @@ return {
 
   -- Icons
   {
-    "ryanoasis/vim-devicons",
-  },
-  {
     "nvim-tree/nvim-web-devicons",
+    lazy = true,
   },
 
   -- Namu.nvim - Symbol navigator
   {
     "bassamsdata/namu.nvim",
+    cmd = "Namu",
     config = function()
       require("namu").setup({})
     end,
@@ -209,6 +209,7 @@ return {
   -- Chunk highlighting
   {
     "shellRaining/hlchunk.nvim",
+    event = { "BufReadPost", "BufNewFile" },
     config = function()
       require("hlchunk").setup({
         chunk = {
@@ -232,6 +233,7 @@ return {
   -- Modicator: カーソルライン番号の色をモードによって変更
   {
     "mawkler/modicator.nvim",
+    event = { "BufReadPost", "BufNewFile" },
     config = function()
       require("modicator").setup({
         show_warnings = false,
@@ -248,6 +250,7 @@ return {
   -- Scrollview: スクロールバーを表示
   {
     "dstein64/nvim-scrollview",
+    event = { "BufReadPost", "BufNewFile" },
     config = function()
       require("scrollview").setup({
         excluded_filetypes = { "nerdtree", "neo-tree", "neo-tree-popup" },

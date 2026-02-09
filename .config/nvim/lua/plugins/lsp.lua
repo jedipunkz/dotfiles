@@ -11,6 +11,7 @@ return {
   -- LSP
   {
     "neovim/nvim-lspconfig",
+    event = { "BufReadPre", "BufNewFile" },
     config = function()
       -- Disable default virtual text to use tiny-inline-diagnostic instead
       vim.diagnostic.config({ virtual_text = false })
@@ -126,29 +127,14 @@ return {
   },
   {
     "williamboman/mason.nvim",
+    cmd = "Mason",
     config = function()
       require("mason").setup()
     end,
   },
-  {
-    "jose-elias-alvarez/null-ls.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
-  },
-  {
-    "glepnir/lspsaga.nvim",
-  },
-  {
-    "juliosueiras/terraform-lsp",
-  },
-  {
-    "prabirshrestha/asyncomplete.vim",
-  },
-  {
-    "prabirshrestha/asyncomplete-lsp.vim",
-  },
-
   -- Formatter
   {
     "MunifTanjim/prettier.nvim",
+    ft = { "javascript", "typescript", "javascriptreact", "typescriptreact", "css", "html", "json", "yaml", "markdown" },
   },
 }
