@@ -40,6 +40,15 @@ keymap("n", "<C-a>", "gg<S-v>G", opts)
 -- Do not yank with x
 keymap("n", "x", '"_x', opts)
 
+-- Do not yank with c (ci", ciw 等でクリップボードを上書きしない)
+keymap("n", "c", '"_c', opts)
+keymap("n", "C", '"_C', opts)
+keymap("v", "c", '"_c', opts)
+
+-- Do not yank with s
+keymap("n", "s", '"_s', opts)
+keymap("n", "S", '"_S', opts)
+
 -- Delete a word backwards
 keymap("n", "dw", 'vb"_d', opts)
 

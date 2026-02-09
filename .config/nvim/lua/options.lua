@@ -3,7 +3,7 @@ local options = {
 	fileencoding = "utf-8",
 	title = true,
 	backup = false,
-	clipboard = "unnamedplus", -- yank した内容を clipboard にコピー
+	clipboard = "unnamedplus",
 	cmdheight = 2,
 	completeopt = { "menu", "menuone", "noselect" },
 	conceallevel = 0,
@@ -30,7 +30,7 @@ local options = {
 	relativenumber = false,
 	numberwidth = 4,
 	signcolumn = "yes",
-	wrap = true, 
+	wrap = true,
 	winblend = 0,
 	wildoptions = "pum",
 	pumblend = 5,
@@ -40,7 +40,7 @@ local options = {
 	guifont = "monospace:h17",
 	splitbelow = false, -- オンのとき、ウィンドウを横分割すると新しいウィンドウはカレントウィンドウの下に開かれる
 	splitright = false, -- オンのとき、ウィンドウを縦分割すると新しいウィンドウはカレントウィンドウの右に開かれる
-  mouse = "a",  -- Enable mouse support (required for scrolling in terminal apps) 
+  mouse = "a",  -- Enable mouse support (required for scrolling in terminal apps)
 }
 
 vim.opt.shortmess:append("c")
