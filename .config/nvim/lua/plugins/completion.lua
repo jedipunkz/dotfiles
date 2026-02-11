@@ -56,6 +56,8 @@ return {
         },
         cmdline = {
           enabled = true,
+          keymap = { preset = 'cmdline' },
+          completion = { menu = { auto_show = true } },
           sources = function()
             local t = vim.fn.getcmdtype()
             if t == '/' or t == '?' then return { 'buffer' } end

@@ -1,0 +1,186 @@
+# .tigrc - tig configuration file (v2.6+)
+# Modern configuration with improved cursor visibility
+
+#######################################
+# General Settings
+#######################################
+
+set mouse = yes
+set refresh-mode = auto
+set tab-size = 4
+set diff-context = 3
+set ignore-space = some
+set commit-order = topo
+set ignore-case = smart-case
+set wrap-lines = no
+set focus-child = yes
+set vertical-split = yes
+set split-view-height = 70%
+set horizontal-scroll = 33%
+set status-show-untracked-dirs = yes
+set git-colors = no
+set blame-options = -C -C -C
+
+
+#######################################
+# View Settings (Modern Syntax)
+#######################################
+
+# Main view
+set main-view = \
+    line-number:yes,interval=5 \
+    id:yes \
+    date:relative \
+    author:full \
+    commit-title:yes,graph,refs,overflow=no
+
+# Blame view
+set blame-view = \
+    line-number:yes,interval=5 \
+    id:yes \
+    date:relative \
+    author:full \
+    text
+
+# Tree view
+set tree-view = \
+    line-number:yes,interval=5 \
+    mode \
+    author:full \
+    date:relative \
+    file-size:units \
+    id:yes \
+    file-name
+
+# Blob view
+set blob-view = \
+    line-number:yes,interval=5 \
+    text
+
+# Diff view
+set diff-view = \
+    line-number:yes,interval=5 \
+    text:yes,commit-title-overflow=no
+
+# Log view
+set log-view = \
+    line-number:yes,interval=5 \
+    text
+
+# Refs view
+set refs-view = \
+    line-number:yes,interval=5 \
+    id:yes \
+    date:relative \
+    author:full \
+    ref \
+    commit-title
+
+# Stash view
+set stash-view = \
+    line-number:yes,interval=5 \
+    id:yes \
+    date:relative \
+    author:full \
+    commit-title
+
+# Status view
+set status-view = \
+    line-number:yes,interval=5 \
+    status:long \
+    file-name
+
+# Stage view
+set stage-view = \
+    line-number:yes,interval=5 \
+    text
+
+
+#######################################
+# Key Bindings
+#######################################
+
+# Reload .tigrc
+bind generic S :source ~/.tigrc
+
+# Copy commit hash to clipboard
+bind generic Y @sh -c "printf '%(commit)' | pbcopy"
+
+# Interactive rebase
+bind main R !git rebase -i %(commit)~
+
+# Cherry-pick
+bind main C !git cherry-pick %(commit)
+
+# Amend last commit
+bind status A !git commit --amend
+
+# Fetch and pull
+bind generic F !git fetch --all --prune
+bind generic P !git pull --rebase
+
+# Stage/unstage single line
+bind stage 1 stage-update-line
+
+
+#######################################
+# Color Settings - High Contrast
+#######################################
+
+# General UI - CURSOR with maximum contrast
+color default           white   black
+color cursor            black   cyan     bold
+color title-focus       black   cyan     bold
+color title-blur        white   black
+color search-result     black   yellow
+
+# Line numbers and delimiters
+color line-number       yellow  default
+color delimiter         cyan    default
+color id                blue    default
+
+# Dates and authors
+color date              cyan    default
+color author            green   default
+
+# Diff colors
+color diff-header       yellow  default
+color diff-index        blue    default
+color diff-chunk        magenta default
+color diff-add          green   default
+color diff-del          red     default
+color diff-oldmode      yellow  default
+color diff-newmode      yellow  default
+
+# Commit information
+color "Author: "        green   default
+color "Commit: "        cyan    default
+color "Date: "          yellow  default
+color "Merge: "         blue    default
+color "Reported-by: "   green   default
+color "Signed-off-by: " yellow  default
+color "Co-authored-by: " yellow default
+
+# Graph and references
+color graph-commit      cyan    default
+color main-head         cyan    default  bold
+color main-tag          yellow  default  bold
+color main-local-tag    yellow  default
+color main-remote       green   default
+color main-tracked      blue    default
+color main-ref          magenta default
+
+# Tree view
+color tree.header       yellow  default  bold
+color tree.directory    blue    default  bold
+color tree.file         white   default
+
+# Status view
+color status            cyan    default
+color stat-staged       green   default
+color stat-unstaged     red     default
+color stat-untracked    magenta default
+
+# Help view
+color help-group        blue    default  bold
+color help-action       yellow  default
