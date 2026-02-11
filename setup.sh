@@ -74,6 +74,7 @@ link .tmux.conf.macos "$HOME/.tmux.conf.macos"
 link .tmux.conf.linux "$HOME/.tmux.conf.linux"
 link .starship "$HOME/.starship"
 link .vim "$HOME/.vim"
+link .tigrc "$HOME/.tigrc"
 
 # .config directory links
 link .config/nvim "$HOME/.config/nvim"
