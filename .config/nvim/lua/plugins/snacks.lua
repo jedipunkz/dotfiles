@@ -10,6 +10,10 @@ return {
           files = {
             hidden = true,
           },
+          explorer = {
+            hidden = true,
+            ignored = true,
+          },
         },
       },
       dashboard = {
@@ -71,7 +75,7 @@ return {
       },
       explorer = {
         enabled = true,
-        hidden = true,
+        replace_netrw = true,
       },
       gitbrowse = {
         enabled = true,
