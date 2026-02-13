@@ -24,6 +24,11 @@ if test (uname -s) = "Linux"
     set -gx XMODIFIERS "@im=fcitx"
     # linux homebrew
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+    # win32yank for Windows clipboard integration
+    if test -f "$HOME/.local/bin/win32yank.exe"
+        set -gx CLIPBOARD "$HOME/.local/bin/win32yank.exe"
+    end
 end
 
 alias ls="eza"
