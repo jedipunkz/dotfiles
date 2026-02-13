@@ -48,6 +48,8 @@ keymap("v", "c", '"_c', opts)
 -- Do not yank with s
 keymap("n", "s", '"_s', opts)
 keymap("n", "S", '"_S', opts)
+keymap("v", "s", '"_s', opts)
+keymap("v", "S", '"_S', opts)
 
 -- Delete a word backwards
 keymap("n", "dw", 'vb"_d', opts)
