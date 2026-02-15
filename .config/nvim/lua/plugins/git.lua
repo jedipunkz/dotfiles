@@ -23,7 +23,7 @@ return {
         keymap = "<C-g>",
         pull_keymap = "<C-r>",
         push_keymap = "<C-y>",
-        featch_keymap = "<C-'>",
+        fetch_keymap = "<C-g>", -- same key with keymap
       })
     end,
   },
