@@ -19,7 +19,12 @@ return {
     "jedipunkz/fuzz.nvim",
     event = "VeryLazy",
     config = function()
-      require("fuzz").setup()
+      require("fuzz").setup({
+        keymap = "<C-g>",
+        pull_keymap = "<C-r>",
+        push_keymap = "<C-y>",
+        featch_keymap = "<C-'>",
+      })
     end,
   },
 
