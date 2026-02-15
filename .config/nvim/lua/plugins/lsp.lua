@@ -11,6 +11,7 @@ return {
   -- LSP
   {
     "neovim/nvim-lspconfig",
+    dependencies = { "saghen/blink.cmp", "williamboman/mason.nvim" },
     event = { "BufReadPre", "BufNewFile" },
     config = function()
       -- Disable default virtual text to use tiny-inline-diagnostic instead
@@ -51,74 +52,27 @@ return {
         debounce_text_changes = 150,
       }
 
-      -- Global LSP configuration
+      -- Global LSP configuration (applies to all servers)
       vim.lsp.config('*', {
         on_attach = on_attach,
         capabilities = capabilities,
         flags = lsp_flags,
       })
 
-      -- Pyright (Python)
-      vim.lsp.config.pyright = {
-        on_attach = on_attach,
-        capabilities = capabilities,
-        flags = lsp_flags,
-      }
-
-      -- TypeScript/JavaScript
-      vim.lsp.config.ts_ls = {
-        on_attach = on_attach,
-        capabilities = capabilities,
-        flags = lsp_flags,
-      }
-
-      -- Rust
-      vim.lsp.config.rust_analyzer = {
-        on_attach = on_attach,
-        capabilities = capabilities,
-        flags = lsp_flags,
-        settings = {
-          ["rust-analyzer"] = {}
-        }
-      }
-
-      -- Go
-      vim.lsp.config.gopls = {
-        on_attach = on_attach,
-        capabilities = capabilities,
-        flags = lsp_flags,
-      }
-
-      -- Lua (Neovim configuration)
-      vim.lsp.config.lua_ls = {
-        on_attach = on_attach,
-        capabilities = capabilities,
-        flags = lsp_flags,
+      -- Per-server settings (function call = deep merge with nvim-lspconfig defaults)
+      vim.lsp.config('lua_ls', {
         settings = {
           Lua = {
-            runtime = {
-              version = 'LuaJIT',
-            },
-            diagnostics = {
-              globals = { 'vim' },
-            },
+            runtime = { version = 'LuaJIT' },
+            diagnostics = { globals = { 'vim' } },
             workspace = {
               library = vim.api.nvim_get_runtime_file("", true),
               checkThirdParty = false,
             },
-            telemetry = {
-              enable = false,
-            },
+            telemetry = { enable = false },
           },
         },
-      }
-
-      -- Zig
-      vim.lsp.config.zls = {
-        on_attach = on_attach,
-        capabilities = capabilities,
-        flags = lsp_flags,
-      }
+      })
 
       -- Enable configured LSP servers
       -- Note: copilot_ls is enabled by copilot-lsp plugin
