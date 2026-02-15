@@ -93,6 +93,7 @@ link .config/zellij "$HOME/.config/zellij"
 link .config/starship "$HOME/.config/starship"
 link .config/ghostty "$HOME/.config/ghostty"
 link .config/opencode "$HOME/.config/opencode"
+link .config/eza "$HOME/.config/eza"
 
 # .claude directory links
 link .claude/settings.json "$HOME/.claude/settings.json"
