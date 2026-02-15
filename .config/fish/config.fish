@@ -26,6 +26,7 @@ if test (uname -s) = "Linux"
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 end
 
+set -gx EZA_CONFIG_DIR "$HOME/.config/eza"
 alias ls="eza"
 alias lt='eza -T -L 3 -a -I "node_modules|.git|.cache" --icons'
 alias la="ls -a"
