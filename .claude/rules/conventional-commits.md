@@ -1,15 +1,15 @@
 ---
-name: conventional-commits
-description: Enforces conventional commit message and branch naming conventions with specific prefixes (feat, fix, docs, style, refactor, perf, test, chore). Use when creating git commits, suggesting branch names, reviewing commit messages, or when the user asks about git workflow.
+description: git commit メッセージや branch 名を作成する際に適用する conventional commits ルール
+globs:
 ---
 
 # Conventional Commits & Branch Naming
 
-このスキルは、一貫性のあるgit commitメッセージとbranch名の作成を支援します。
+一貫性のある git commit メッセージと branch 名の規約。
 
 ## Commit Message Prefix Rules
 
-すべてのコミットメッセージは以下のprefixで始める必要があります：
+すべてのコミットメッセージは以下の prefix で始める:
 
 | Prefix | 用途 | 例 |
 |--------|------|-----|
@@ -24,22 +24,14 @@ description: Enforces conventional commit message and branch naming conventions 
 
 ## Branch Naming Convention
 
-ブランチ名も同じprefixを使用します：
+フォーマット: `<prefix>/<short-description>`
 
-### フォーマット
+例:
 ```
-<prefix>/<short-description>
-```
-
-### 例
-```bash
 feat/user-authentication
 fix/login-redirect
 docs/api-documentation
-style/prettier-formatting
 refactor/user-validation
-perf/database-optimization
-test/auth-unit-tests
 chore/dependency-updates
 ```
 
@@ -53,35 +45,7 @@ chore/dependency-updates
 <optional footer>
 ```
 
-### 例（フルフォーマット）
-```
-feat: add user authentication system
-
-Implement JWT-based authentication with refresh tokens.
-Includes login, logout, and token refresh endpoints.
-
-Closes #123
-```
-
-### 例（シンプル）
-```
-fix: resolve login redirect issue
-```
-
 ## 判断基準
-
-変更内容に応じて適切なprefixを選択：
-
-- **ユーザーに見える新機能** → `feat:`
-- **バグ修正** → `fix:`
-- **README、コメント、ドキュメント** → `docs:`
-- **コードフォーマット、空白、スタイル** → `style:`
-- **動作は同じだが実装を改善** → `refactor:`
-- **速度・メモリなど性能改善** → `perf:`
-- **テストコード追加・修正** → `test:`
-- **ビルドツール、CI、依存関係** → `chore:`
-
-## 迷った場合のフローチャート
 
 ```
 ユーザーに見える変更？
@@ -101,21 +65,18 @@ fix: resolve login redirect issue
 
 ## 実行時のルール
 
-### Commit作成時
+### Commit 作成時
 1. 変更内容を分析
-2. 上記の判断基準に従って適切なprefixを選択
+2. 上記の判断基準に従って適切な prefix を選択
 3. 簡潔で明確な説明を英語で記述
-4. 必要に応じてbodyを追加
+4. 必要に応じて body を追加
 
-### Branch作成時
-1. 作業内容から適切なprefixを選択
+### Branch 作成時
+1. 作業内容から適切な prefix を選択
 2. スラッシュ区切りで短い説明を追加
 3. ケバブケース（lowercase + ハイフン）を使用
 
 ### 例外
 - 初回コミット: `chore: initial commit`
-- マージコミット: prefix不要（自動生成されるため）
+- マージコミット: prefix 不要（自動生成されるため）
 - Revert: `revert: <元のコミットメッセージ>`
-
-## 参考資料
-- Conventional Commits: https://www.conventionalcommits.org/
