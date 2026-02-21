@@ -40,7 +40,7 @@ done
 
 ### Step 3: タスクファイル書き込み
 
-各 worktree に Write tool で以下の 2 ファイルを作成する。
+各 worktree に Write tool で以下の **3 ファイル** を作成する。
 
 **`.gitworktree/<agent>/CLAUDE.md`**:
 
@@ -78,6 +78,16 @@ done
 - [ ] <チェックリスト項目 2>
 ```
 
+**`.gitworktree/<agent>/.swarm-start.sh`**:
+
+```bash
+#!/bin/bash
+TASK=$(cat .claude-task.md)
+claude --dangerously-skip-permissions "$TASK"
+```
+
+作成後、Bash で `chmod +x .gitworktree/<agent>/.swarm-start.sh` を実行。
+
 ### Step 4: Zellij ペイン起動
 
 ```bash
@@ -85,39 +95,44 @@ REPO_ROOT=$(git rev-parse --show-toplevel)
 AGENTS=(agent-1 agent-2 agent-3)
 
 for agent in "${AGENTS[@]}"; do
+  chmod +x "$REPO_ROOT/.gitworktree/$agent/.swarm-start.sh"
   zellij action new-pane \
     --name "swarm:$agent" \
     --cwd "$REPO_ROOT/.gitworktree/$agent" \
-    -- claude --dangerously-skip-permissions
+    -- bash .swarm-start.sh
 done
 ```
 
-各ペインの Claude は起動時に CLAUDE.md を自動読み込みし、タスクを開始する。
+各ペインは `.swarm-start.sh` を経由して `.claude-task.md` の内容を初期プロンプトとして Claude に渡す。
 
 ### Step 5: 監視
 
-全エージェントが完了するまで定期的にステータスを確認する:
+以下のループを Bash で実行すると、全エージェント完了時に自動終了する:
 
 ```bash
 REPO_ROOT=$(git rev-parse --show-toplevel)
 AGENTS=(agent-1 agent-2 agent-3)
 
-all_done=true
-for agent in "${AGENTS[@]}"; do
-  status_file="$REPO_ROOT/.gitworktree/$agent/.swarm-status"
-  if [ -f "$status_file" ]; then
-    echo "$agent: $(cat "$status_file")"
-  else
-    echo "$agent: in progress"
-    git -C "$REPO_ROOT/.gitworktree/$agent" log --oneline -3 2>/dev/null || true
-    all_done=false
-  fi
+while true; do
+  clear
+  echo "=== Swarm Status $(date '+%H:%M:%S') ==="
+  all_done=true
+  for agent in "${AGENTS[@]}"; do
+    status_file="$REPO_ROOT/.gitworktree/$agent/.swarm-status"
+    if [ -f "$status_file" ]; then
+      echo "✓ $agent: $(cat "$status_file")"
+    else
+      echo "… $agent: in progress"
+      git -C "$REPO_ROOT/.gitworktree/$agent" log --oneline -3 2>/dev/null || true
+      all_done=false
+    fi
+  done
+  $all_done && echo "" && echo "All agents done!" && break
+  echo ""
+  echo "Next check in 30s... (Ctrl+C to stop)"
+  sleep 30
 done
-
-echo "All done: $all_done"
 ```
-
-未完了のエージェントがある場合は数分待って再確認する。
 
 ### Step 6: マージ
 
