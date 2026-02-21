@@ -130,6 +130,7 @@ bind stage 1 stage-update-line
 # General UI - CURSOR with maximum contrast
 color default           white   black
 color cursor            black   cyan     bold
+color cursor-blur       black   blue
 color title-focus       black   cyan     bold
 color title-blur        white   black
 color search-result     black   yellow
