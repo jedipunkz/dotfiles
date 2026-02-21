@@ -49,5 +49,6 @@
         "mcp-server"
       ]
     }
-  }
+  },
+  "model": "sonnet"
 }
