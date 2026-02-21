@@ -33,7 +33,11 @@
     "type": "command",
     "command": "~/.claude/scripts/statusline.sh"
   },
+  "enabledPlugins": {
+    "gopls-lsp@claude-plugins-official": true
+  },
   "alwaysThinkingEnabled": true,
+  "skipDangerousModePermissionPrompt": true,
   "feedbackSurveyState": {
     "lastShownTime": 1754085614062
   },

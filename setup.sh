@@ -49,6 +49,7 @@ backup "$HOME/.config" "$HOME/dotfiles.backup/.config"
 backup "$HOME/.emacs.d" "$HOME/dotfiles.backup/.emacs.d"
 backup "$HOME/.claude/scripts" "$HOME/dotfiles.backup/scripts"
 backup "$HOME/.claude/skills" "$HOME/dotfiles.backup/skills"
+backup "$HOME/.claude/rules" "$HOME/dotfiles.backup/rules"
 backup "$HOME/.hammerspoon" "$HOME/dotfiles.backup/.hammerspoon"
 backup "$HOME/aqua.yaml" "$HOME/dotfiles.backup/aqua.yaml"
 
@@ -93,11 +94,13 @@ link .config/zellij "$HOME/.config/zellij"
 link .config/starship "$HOME/.config/starship"
 link .config/ghostty "$HOME/.config/ghostty"
 link .config/opencode "$HOME/.config/opencode"
+link .config/eza "$HOME/.config/eza"
 
 # .claude directory links
 link .claude/settings.json "$HOME/.claude/settings.json"
 link .claude/scripts "$HOME/.claude/scripts"
 link .claude/skills "$HOME/.claude/skills"
+link .claude/rules "$HOME/.claude/rules"
 
 # Other application links
 link .hammerspoon "$HOME/.hammerspoon"
