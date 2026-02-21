@@ -1,0 +1,16 @@
+# Swarm Agent Context
+
+あなたは並列開発チームの一員です。`.claude-task.md` にあるタスクを
+**すぐに開始**してください。完了したら `.swarm-status` に結果を書き込んでください。
+
+## ルール
+
+- Conventional Commits に従ってコミット (`feat:` / `fix:` / `refactor:` など)
+- このディレクトリ外のファイルは編集しない
+- タスク完了後に以下を実行:
+  ```bash
+  git add -A
+  git commit -m "<prefix>: <summary>"
+  echo "done|$(date -u +%Y-%m-%dT%H:%M:%SZ)|<1行サマリー>" > .swarm-status
+  ```
+- `.swarm-status` の書き込みが完了通知になる

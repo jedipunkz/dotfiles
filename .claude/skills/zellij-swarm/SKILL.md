@@ -14,6 +14,22 @@ Zellij の pane 管理と git worktree を組み合わせ、複数の Claude Cod
 - git リポジトリ内で実行していること
 - `zellij` コマンドが PATH に存在すること
 
+## ファイル構成
+
+```
+.claude/skills/zellij-swarm/
+├── SKILL.md                    # このファイル
+├── templates/
+│   ├── CLAUDE.md.template      # エージェント用 CLAUDE.md テンプレート
+│   └── claude-task.md.template # タスク定義テンプレート
+└── scripts/
+    ├── setup-worktrees.sh      # Step 2: worktree 作成
+    ├── launch-panes.sh         # Step 4: Zellij ペイン起動
+    ├── monitor.sh              # Step 5: ステータス監視
+    ├── merge.sh                # Step 6: ブランチマージ
+    └── cleanup.sh              # Step 7 + 緊急クリーンアップ
+```
+
 ## 実行プロトコル
 
 ### Step 1: タスク分解
@@ -28,55 +44,27 @@ Zellij の pane 管理と git worktree を組み合わせ、複数の Claude Cod
 
 ### Step 2: セットアップ
 
-```bash
-REPO_ROOT=$(git rev-parse --show-toplevel)
-BRANCH_BASE=$(git rev-parse --abbrev-ref HEAD)
-AGENTS=(agent-1 agent-2 agent-3)  # 実際のエージェント数に合わせて調整
+`scripts/setup-worktrees.sh` を実行して worktree を作成する:
 
-for agent in "${AGENTS[@]}"; do
-  git worktree add "$REPO_ROOT/.gitworktree/$agent" -b "swarm/$agent"
-done
+```bash
+.claude/skills/zellij-swarm/scripts/setup-worktrees.sh agent-1 agent-2 agent-3
 ```
+
+スクリプトは以下を行う:
+- `REPO_ROOT` を自動取得
+- 各エージェント用の worktree を `.gitworktree/<agent>` に作成
+- `swarm/<agent>` ブランチを作成
+- 既存 worktree がある場合はスキップ (冪等)
 
 ### Step 3: タスクファイル書き込み
 
 各 worktree に Write tool で以下の **3 ファイル** を作成する。
 
 **`.gitworktree/<agent>/CLAUDE.md`**:
-
-```markdown
-# Swarm Agent Context
-
-あなたは並列開発チームの一員です。`.claude-task.md` にあるタスクを
-**すぐに開始**してください。完了したら `.swarm-status` に結果を書き込んでください。
-
-## ルール
-
-- Conventional Commits に従ってコミット (`feat:` / `fix:` / `refactor:` など)
-- このディレクトリ外のファイルは編集しない
-- タスク完了後に以下を実行:
-  ```bash
-  git add -A
-  git commit -m "<prefix>: <summary>"
-  echo "done|$(date -u +%Y-%m-%dT%H:%M:%SZ)|<1行サマリー>" > .swarm-status
-  ```
-- `.swarm-status` の書き込みが完了通知になる
-```
+`templates/CLAUDE.md.template` の内容を Read tool で読み取り、Write tool で書き込む。
 
 **`.gitworktree/<agent>/.claude-task.md`**:
-
-```markdown
-## タスク: <具体的なタスク内容>
-
-### 担当範囲
-
-<編集対象のファイルパスや機能>
-
-### 完了条件
-
-- [ ] <チェックリスト項目 1>
-- [ ] <チェックリスト項目 2>
-```
+`templates/claude-task.md.template` を参考に、具体的なタスク内容を記述して Write tool で書き込む。
 
 **`.gitworktree/<agent>/.swarm-start.sh`**:
 
@@ -90,79 +78,46 @@ claude --dangerously-skip-permissions "$TASK"
 
 ### Step 4: Zellij ペイン起動
 
-```bash
-REPO_ROOT=$(git rev-parse --show-toplevel)
-AGENTS=(agent-1 agent-2 agent-3)
+`scripts/launch-panes.sh` を実行してペインを起動する:
 
-for agent in "${AGENTS[@]}"; do
-  chmod +x "$REPO_ROOT/.gitworktree/$agent/.swarm-start.sh"
-  zellij action new-pane \
-    --name "swarm:$agent" \
-    --cwd "$REPO_ROOT/.gitworktree/$agent" \
-    -- bash .swarm-start.sh
-done
+```bash
+.claude/skills/zellij-swarm/scripts/launch-panes.sh agent-1 agent-2 agent-3
 ```
 
 各ペインは `.swarm-start.sh` を経由して `.claude-task.md` の内容を初期プロンプトとして Claude に渡す。
 
 ### Step 5: 監視
 
-以下のループを Bash で実行すると、全エージェント完了時に自動終了する:
+`scripts/monitor.sh` を実行して全エージェントのステータスを監視する:
 
 ```bash
-REPO_ROOT=$(git rev-parse --show-toplevel)
-AGENTS=(agent-1 agent-2 agent-3)
-
-while true; do
-  clear
-  echo "=== Swarm Status $(date '+%H:%M:%S') ==="
-  all_done=true
-  for agent in "${AGENTS[@]}"; do
-    status_file="$REPO_ROOT/.gitworktree/$agent/.swarm-status"
-    if [ -f "$status_file" ]; then
-      echo "✓ $agent: $(cat "$status_file")"
-    else
-      echo "… $agent: in progress"
-      git -C "$REPO_ROOT/.gitworktree/$agent" log --oneline -3 2>/dev/null || true
-      all_done=false
-    fi
-  done
-  $all_done && echo "" && echo "All agents done!" && break
-  echo ""
-  echo "Next check in 30s... (Ctrl+C to stop)"
-  sleep 30
-done
+.claude/skills/zellij-swarm/scripts/monitor.sh agent-1 agent-2 agent-3
 ```
+
+30 秒ごとにポーリングし、全エージェント完了時に自動終了する。
 
 ### Step 6: マージ
 
-全エージェント完了後、ベースブランチにマージする:
+全エージェント完了後、`scripts/merge.sh` を実行してベースブランチにマージする:
 
 ```bash
-REPO_ROOT=$(git rev-parse --show-toplevel)
-AGENTS=(agent-1 agent-2 agent-3)
-
-for agent in "${AGENTS[@]}"; do
-  git -C "$REPO_ROOT" merge --no-ff "swarm/$agent" \
-    -m "chore: merge swarm/$agent results"
-done
+.claude/skills/zellij-swarm/scripts/merge.sh agent-1 agent-2 agent-3
 ```
 
-競合が発生した場合は手動で解決してからマージを続行する。
+競合が発生した場合はエラーで停止するので、手動で解決してから再実行する。
 
 ### Step 7: クリーンアップ
 
+`scripts/cleanup.sh` を実行して worktree とブランチを削除する:
+
 ```bash
-REPO_ROOT=$(git rev-parse --show-toplevel)
-AGENTS=(agent-1 agent-2 agent-3)
+.claude/skills/zellij-swarm/scripts/cleanup.sh agent-1 agent-2 agent-3
+```
 
-for agent in "${AGENTS[@]}"; do
-  git -C "$REPO_ROOT" worktree remove ".gitworktree/$agent"
-  git -C "$REPO_ROOT" branch -d "swarm/$agent"
-done
+途中で中断した場合や worktree が壊れた場合は `--force` オプションを使用:
 
-# ディレクトリが残っている場合
-rmdir "$REPO_ROOT/.gitworktree" 2>/dev/null || true
+```bash
+.claude/skills/zellij-swarm/scripts/cleanup.sh --force agent-1 agent-2 agent-3
 ```
 
 ## ステータスファイル形式
@@ -185,25 +140,6 @@ done|2026-02-21T10:30:00Z|add user authentication module
 swarm/agent-1
 swarm/agent-2
 swarm/agent-N
-```
-
-## 緊急クリーンアップ
-
-途中で中断した場合や worktree が残った場合:
-
-```bash
-REPO_ROOT=$(git rev-parse --show-toplevel)
-
-# worktree 一覧確認
-git -C "$REPO_ROOT" worktree list
-
-# 残った worktree を強制削除
-for agent in agent-1 agent-2 agent-3 agent-4 agent-5 agent-6; do
-  git -C "$REPO_ROOT" worktree remove --force ".gitworktree/$agent" 2>/dev/null || true
-  git -C "$REPO_ROOT" branch -D "swarm/$agent" 2>/dev/null || true
-done
-
-rmdir "$REPO_ROOT/.gitworktree" 2>/dev/null || true
 ```
 
 ## 注意事項
