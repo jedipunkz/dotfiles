@@ -13,6 +13,14 @@ return {
           explorer = {
             hidden = true,
             ignored = true,
+            win = {
+              list = {
+                keys = {
+                  ["s"] = { "edit_split", mode = { "n" } },
+                  ["v"] = { "edit_vsplit", mode = { "n" } },
+                },
+              },
+            },
           },
         },
       },
