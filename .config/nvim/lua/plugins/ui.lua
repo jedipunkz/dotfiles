@@ -230,6 +230,20 @@ return {
     end,
   },
 
+  -- colorful-winsep: フォーカスされたウィンドウの枠を色付け
+  {
+    "nvim-zh/colorful-winsep.nvim",
+    event = { "WinLeave" },
+    config = function()
+      require("colorful-winsep").setup({
+        highlight = "#7aa2f7",
+        interval = 30,
+        no_exec_files = { "packer", "TelescopePrompt", "mason", "CompeDocumentation", "neo-tree" },
+        symbols = { "─", "│", "╭", "╮", "╰", "╯" },
+      })
+    end,
+  },
+
   -- Modicator: カーソルライン番号の色をモードによって変更
   {
     "mawkler/modicator.nvim",
