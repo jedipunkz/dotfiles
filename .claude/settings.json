@@ -41,6 +41,19 @@
   "feedbackSurveyState": {
     "lastShownTime": 1754085614062
   },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.claude/scripts/git-lock-cleanup.sh"
+          }
+        ]
+      }
+    ]
+  },
   "mcpServers": {
     "codex": {
       "type": "stdio",
