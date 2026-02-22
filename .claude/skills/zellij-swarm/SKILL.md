@@ -27,7 +27,8 @@ Zellij の pane 管理と git worktree を組み合わせ、複数の Claude Cod
     ├── launch-panes.sh         # Step 4: Zellij ペイン起動
     ├── monitor.sh              # Step 5: ステータス監視
     ├── merge.sh                # Step 6: ブランチマージ
-    └── cleanup.sh              # Step 7 + 緊急クリーンアップ
+    ├── cleanup.sh              # Step 7 + 緊急クリーンアップ
+    └── run-phase.sh            # フェーズ制御: monitor + merge + cleanup の一括実行
 ```
 
 ## 実行プロトコル
@@ -39,6 +40,12 @@ Zellij の pane 管理と git worktree を組み合わせ、複数の Claude Cod
 - 各サブタスクが **互いに依存しない** ことを確認
 - 同一ファイルを複数エージェントが編集しないよう担当範囲を明確に分離
 - エージェント数を決定 (推奨: 2〜4、最大: 6)
+
+タスク間に依存関係がある場合は **フェーズ** に分割する:
+
+- **同一フェーズ内**: 並列実行 (互いに独立)
+- **フェーズ間**: 直列実行 (前フェーズ完了 → 次フェーズ開始)
+- フェーズ図の例: `[a, b] → [c]` → Phase 1 で a,b を並列、Phase 2 で c を実行
 
 分割できない場合 (同一ファイルへの書き込みが必要など) は swarm を使わず通常実行する。
 
@@ -142,6 +149,70 @@ swarm/agent-2
 swarm/agent-N
 ```
 
+## フェーズ制御 (並列 + 直列)
+
+タスクに依存関係がある場合、`run-phase.sh` を使ってフェーズを直列に繋ぐ。
+
+### run-phase.sh の役割
+
+```
+setup-worktrees.sh + (Write task files) + launch-panes.sh
+  └─ run-phase.sh  ←  monitor.sh → merge.sh → cleanup.sh をまとめて実行
+```
+
+`run-phase.sh` はフェーズ内の全エージェント完了まで **ブロック** し、
+完了後に merge → cleanup を自動実行する。
+
+### フェーズ制御プロトコル
+
+**Phase 1: agent-a, agent-b を並列実行**
+
+```bash
+# 1. Phase 1 の worktree セットアップ
+.claude/skills/zellij-swarm/scripts/setup-worktrees.sh agent-a agent-b
+
+# 2. タスクファイルを Write tool で書き込む (agent-a, agent-b それぞれ)
+
+# 3. Phase 1 のペイン起動
+.claude/skills/zellij-swarm/scripts/launch-panes.sh agent-a agent-b
+
+# 4. Phase 1 完了まで待機 → 自動で merge + cleanup
+.claude/skills/zellij-swarm/scripts/run-phase.sh agent-a agent-b
+```
+
+**Phase 2: agent-c を実行 (agent-a, agent-b のマージ済み状態をベースに)**
+
+```bash
+# 5. Phase 2 の worktree セットアップ (現在の HEAD = Phase 1 マージ済みが起点)
+.claude/skills/zellij-swarm/scripts/setup-worktrees.sh agent-c
+
+# 6. タスクファイルを Write tool で書き込む (agent-c)
+
+# 7. Phase 2 のペイン起動
+.claude/skills/zellij-swarm/scripts/launch-panes.sh agent-c
+
+# 8. Phase 2 完了まで待機 → 自動で merge + cleanup
+.claude/skills/zellij-swarm/scripts/run-phase.sh agent-c
+```
+
+### フェーズ間のブランチ関係
+
+```
+main ──┬── swarm/agent-a ──┐
+       └── swarm/agent-b ──┴─ merge → main' ──── swarm/agent-c ─── merge → main''
+```
+
+`setup-worktrees.sh` は実行時の `HEAD` をベースに worktree を作成するため、
+Phase 1 のマージ後に Phase 2 をセットアップすれば自動的に Phase 1 の結果が引き継がれる。
+
+### エージェント名の命名例
+
+フェーズが複数ある場合はエージェント名にフェーズを含めると管理しやすい:
+
+```
+phase1-frontend, phase1-backend  →  phase2-integration
+```
+
 ## 注意事項
 
 1. **独立性の確認が最重要**: 同一ファイルを複数エージェントが編集すると競合が発生する
@@ -149,3 +220,4 @@ swarm/agent-N
 3. **監視は polling ベース**: 完了確認は手動または定期コマンド実行で行う
 4. **エージェント間通信なし**: タスク設計の段階で独立性を保証すること
 5. **`--dangerously-skip-permissions` 使用**: 子エージェントは確認なしで操作を実行する
+6. **フェーズ間は必ず cleanup を完了させる**: `run-phase.sh` が cleanup まで行うため、次フェーズ開始前に worktree が残らない
