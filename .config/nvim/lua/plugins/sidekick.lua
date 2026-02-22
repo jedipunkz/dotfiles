@@ -81,11 +81,11 @@ return {
       { "<C-w>p", function() require("sidekick.cli").focus() end, mode = { "n", "t" }, desc = "Sidekick: Switch Focus" },
     },
     opts = {
-      mux = {
-        backend = "zellij",
-        enabled = true,
-      },
       cli = {
+        mux = {
+          backend = "zellij",
+          enabled = true,
+        },
         tools = {
           ["claude-resume"] = {
             cmd = { "claude", "--resume" },
