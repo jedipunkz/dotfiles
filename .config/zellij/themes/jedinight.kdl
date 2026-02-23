@@ -1,35 +1,35 @@
 themes {
     jedinight {
         text_unselected {
-            base 187 154 247      // purple #bb9af7
+            base 0 255 200        // vivid teal #00ffc8 (session name)
             background 52 59 88   // dark #343b58
             emphasis_0 255 158 100 // orange #ff9e64
             emphasis_1 122 162 247 // blue #7aa2f7
             emphasis_2 158 206 106 // green #9ece6a
-            emphasis_3 187 154 247 // purple #bb9af7
+            emphasis_3 0 255 200   // vivid teal #00ffc8
         }
         text_selected {
-            base 187 154 247      // purple #bb9af7
+            base 0 255 200        // vivid teal #00ffc8 (session name)
             background 52 59 88   // dark #343b58
             emphasis_0 255 158 100 // orange #ff9e64
             emphasis_1 122 162 247 // blue #7aa2f7
             emphasis_2 158 206 106 // green #9ece6a
-            emphasis_3 187 154 247 // purple #bb9af7
+            emphasis_3 0 255 200   // vivid teal #00ffc8
         }
         ribbon_unselected {
-            base 192 202 245      // fg #c0caf5 (text)
+            base 0 255 200        // vivid teal #00ffc8 (same as frame_selected)
             background 52 59 88   // dark #343b58 (bg)
             emphasis_0 247 118 142 // red #f7768e
             emphasis_1 192 202 245 // fg #c0caf5
             emphasis_2 122 162 247 // blue #7aa2f7
-            emphasis_3 187 154 247 // purple #bb9af7
+            emphasis_3 0 255 200   // vivid teal #00ffc8 (session name)
         }
         ribbon_selected {
             base 26 27 38         // bg #1a1b26
-            background 187 154 247 // purple #bb9af7 (bg)
+            background 0 255 200   // vivid teal #00ffc8 (same as frame_selected)
             emphasis_0 247 118 142 // red #f7768e
             emphasis_1 255 158 100 // orange #ff9e64
-            emphasis_2 187 154 247 // purple #bb9af7
+            emphasis_2 0 255 200   // vivid teal #00ffc8 (session name)
             emphasis_3 122 162 247 // blue #7aa2f7
         }
         table_title {
