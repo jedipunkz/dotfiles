@@ -13,6 +13,10 @@ MODEL=$(echo "$input" | jq -r '.model.display_name // "Claude"')
 CURRENT_DIR=$(echo "$input" | jq -r '.workspace.current_dir // "~"')
 DIR_NAME=${CURRENT_DIR##*/}
 
+# Context window usage
+CTX_USED=$(echo "$input" | jq -r '.context_window.used_percentage // 0')
+CTX_USED_INT=$(printf "%.0f" "$CTX_USED" 2>/dev/null || echo "0")
+
 # Session cost and code statistics
 TOTAL_COST_USD=$(echo "$input" | jq -r '.cost.total_cost_usd // 0')
 LINES_ADDED=$(echo "$input" | jq -r '.cost.total_lines_added // 0')
@@ -23,7 +27,7 @@ CACHE_FILE="$HOME/.claude/usd_jpy_rate.cache"
 CACHE_AGE_HOURS=24
 
 if [ -f "$CACHE_FILE" ]; then
-  CACHE_AGE=$(($(date +%s) - $(stat -f %m "$CACHE_FILE" 2>/dev/null || stat -c %Y "$CACHE_FILE" 2>/dev/null)))
+  CACHE_AGE=$(($(date +%s) - $(stat -c %Y "$CACHE_FILE" 2>/dev/null || echo 0)))
   CACHE_AGE_HOURS_ACTUAL=$((CACHE_AGE / 3600))
 else
   CACHE_AGE_HOURS_ACTUAL=999
@@ -55,6 +59,15 @@ YELLOW='\033[38;2;224;175;104m'   # #e0af68 - Yellow for changes
 RED='\033[38;2;247;118;142m'      # #f7768e - Red for deletions
 GRAY='\033[38;2;86;95;137m'       # #565f89 - Gray for separators
 RESET='\033[0m'
+
+# Context color: green < 50%, yellow 50-80%, red > 80%
+if [ "$CTX_USED_INT" -ge 80 ]; then
+  CTX_COLOR="$RED"
+elif [ "$CTX_USED_INT" -ge 50 ]; then
+  CTX_COLOR="$YELLOW"
+else
+  CTX_COLOR="$GREEN"
+fi
 
 # Check if we're in a git repository
 if [ -d "$CURRENT_DIR/.git" ]; then
@@ -88,12 +101,12 @@ if [ -d "$CURRENT_DIR/.git" ]; then
     fi
 
     # Output with changes
-    printf "🤖 ${GREEN}$MODEL${RESET} ${GRAY}|${RESET} ${CYAN}👻 $DIR_NAME${RESET} ${GRAY}|${RESET} 🚀 ${PURPLE}$BRANCH${RESET}: ${YELLOW}${FILES_CHANGED:-0} changed${RESET}, ${GREEN}+${INSERTIONS:-0}${RESET} ${RED}-${DELETIONS:-0}${RESET}, ${YELLOW}${STAGED_FILES:-0} staged${RESET}, ${YELLOW}$UNTRACKED untracked${RESET} ${GRAY}|${RESET} ${YELLOW}💰 ¥${TOTAL_COST_JPY}${RESET} ${GRAY}|${RESET} 🍣 ${GREEN}+${LINES_ADDED}${RESET} ${RED}-${LINES_REMOVED}${RESET}"
+    printf "🤖 ${GREEN}$MODEL${RESET} ${GRAY}|${RESET} ${CYAN}👻 $DIR_NAME${RESET} ${GRAY}|${RESET} 🚀 ${PURPLE}$BRANCH${RESET}: ${YELLOW}${FILES_CHANGED:-0} changed${RESET}, ${GREEN}+${INSERTIONS:-0}${RESET} ${RED}-${DELETIONS:-0}${RESET}, ${YELLOW}${STAGED_FILES:-0} staged${RESET}, ${YELLOW}$UNTRACKED untracked${RESET} ${GRAY}|${RESET} ${CTX_COLOR}📊 ${CTX_USED_INT}%%${RESET} ${GRAY}|${RESET} ${YELLOW}💰 ¥${TOTAL_COST_JPY}${RESET} ${GRAY}|${RESET} 🍣 ${GREEN}+${LINES_ADDED}${RESET} ${RED}-${LINES_REMOVED}${RESET}"
   else
     # Clean working tree
-    printf "🤖 ${GREEN}$MODEL${RESET} ${GRAY}|${RESET} ${CYAN}👻 $DIR_NAME${RESET} ${GRAY}|${RESET} 🚀 ${PURPLE}$BRANCH${RESET}: ${GREEN}✓ Clean${RESET} ${GRAY}|${RESET} ${YELLOW}💰 ¥${TOTAL_COST_JPY}${RESET} ${GRAY}|${RESET} 🍣 ${GREEN}+${LINES_ADDED}${RESET} ${RED}-${LINES_REMOVED}${RESET}"
+    printf "🤖 ${GREEN}$MODEL${RESET} ${GRAY}|${RESET} ${CYAN}👻 $DIR_NAME${RESET} ${GRAY}|${RESET} 🚀 ${PURPLE}$BRANCH${RESET}: ${GREEN}✓ Clean${RESET} ${GRAY}|${RESET} ${CTX_COLOR}📊 ${CTX_USED_INT}%%${RESET} ${GRAY}|${RESET} ${YELLOW}💰 ¥${TOTAL_COST_JPY}${RESET} ${GRAY}|${RESET} 🍣 ${GREEN}+${LINES_ADDED}${RESET} ${RED}-${LINES_REMOVED}${RESET}"
   fi
 else
   # Not a git repository
-  printf "🤖 ${GREEN}$MODEL${RESET} ${GRAY}|${RESET} ${CYAN}👻 $DIR_NAME${RESET} ${GRAY}|${RESET} 🚀 ${GRAY}Not a Repo${RESET} ${GRAY}|${RESET} ${YELLOW}💰 ¥${TOTAL_COST_JPY}${RESET} ${GRAY}|${RESET} 🍣 ${GREEN}+${LINES_ADDED}${RESET} ${RED}-${LINES_REMOVED}${RESET}"
+  printf "🤖 ${GREEN}$MODEL${RESET} ${GRAY}|${RESET} ${CYAN}👻 $DIR_NAME${RESET} ${GRAY}|${RESET} 🚀 ${GRAY}Not a Repo${RESET} ${GRAY}|${RESET} ${CTX_COLOR}📊 ${CTX_USED_INT}%%${RESET} ${GRAY}|${RESET} ${YELLOW}💰 ¥${TOTAL_COST_JPY}${RESET} ${GRAY}|${RESET} 🍣 ${GREEN}+${LINES_ADDED}${RESET} ${RED}-${LINES_REMOVED}${RESET}"
 fi
