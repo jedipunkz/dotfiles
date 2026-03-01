@@ -39,6 +39,8 @@ alias l="ls -alF"
 alias ssh="ssh -o UserKnownHostsFile=/dev/null -o 'StrictHostKeyChecking no'"
 alias grep="grep --color"
 alias zz="bunx ccgwz"
+alias gs="git switch"
+alias gsc="git switch -c"
 
 # mise
 if test (uname -s) = "Linux"
