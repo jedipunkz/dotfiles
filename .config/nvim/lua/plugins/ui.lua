@@ -162,7 +162,7 @@ return {
           },
           lualine_x = {},
           lualine_y = {},
-          lualine_z = { { function() return os.date('%H:%M') end, color = { fg = '#c8a2ff', bg = '#3b3262' } } }
+          lualine_z = { { function() return os.date('%H:%M') end, color = { fg = '#ffffff', bg = '#3b3262' } } }
         },
         inactive_sections = {
           lualine_a = {},
