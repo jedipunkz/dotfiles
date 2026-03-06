@@ -98,6 +98,8 @@ return {
             nav_right = false,  -- Disable C-l navigation
             nav_down = false,   -- Disable C-j navigation
             nav_up = false,     -- Disable C-k navigation
+            files = false,      -- Disable C-f files picker
+            buffers = false,    -- Disable C-b buffers picker
           },
         },
       },
