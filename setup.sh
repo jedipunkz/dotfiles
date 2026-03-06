@@ -50,6 +50,7 @@ backup "$HOME/.emacs.d" "$HOME/dotfiles.backup/.emacs.d"
 backup "$HOME/.claude/scripts" "$HOME/dotfiles.backup/scripts"
 backup "$HOME/.claude/skills" "$HOME/dotfiles.backup/skills"
 backup "$HOME/.claude/rules" "$HOME/dotfiles.backup/rules"
+backup "$HOME/.claude/keybindings.json" "$HOME/dotfiles.backup/keybindings.json"
 backup "$HOME/.hammerspoon" "$HOME/dotfiles.backup/.hammerspoon"
 backup "$HOME/aqua.yaml" "$HOME/dotfiles.backup/aqua.yaml"
 
@@ -101,6 +102,7 @@ link .claude/settings.json "$HOME/.claude/settings.json"
 link .claude/scripts "$HOME/.claude/scripts"
 link .claude/skills "$HOME/.claude/skills"
 link .claude/rules "$HOME/.claude/rules"
+link .claude/keybindings.json "$HOME/.claude/keybindings.json"
 
 # Other application links
 link .hammerspoon "$HOME/.hammerspoon"
