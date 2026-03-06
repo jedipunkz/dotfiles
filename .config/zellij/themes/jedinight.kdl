@@ -72,6 +72,14 @@ themes {
             emphasis_2 158 206 106 // green #9ece6a
             emphasis_3 187 154 247 // purple #bb9af7
         }
+        frame_unselected {
+            base 90 90 90         // dark gray #5a5a5a
+            background 0
+            emphasis_0 90 90 90   // dark gray #5a5a5a
+            emphasis_1 90 90 90   // dark gray #5a5a5a
+            emphasis_2 90 90 90   // dark gray #5a5a5a
+            emphasis_3 90 90 90   // dark gray #5a5a5a
+        }
         frame_selected {
             base 0 255 200        // vivid teal #00ffc8
             background 0
