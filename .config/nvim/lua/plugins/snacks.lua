@@ -86,6 +86,10 @@ return {
       lazygit = {
         enabled = true,
         configure = true,
+        env = {
+          LANG = "en_US.UTF-8",
+          LC_ALL = "en_US.UTF-8",
+        },
         win = {
           style = "lazygit",
         },
