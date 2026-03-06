@@ -1,12 +1,17 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "theme": "tokyonight",
   "compaction": {
     "auto": true,
     "prune": true
   },
-  "plugin": [
-    "opencode-skills"
-  ],
+  "plugin": ["opencode-skills"],
+  "keybinds": {
+    "input_submit": "ctrl+return,super+return",
+    "input_newline": "return,shift+return,alt+return,ctrl+j",
+    "input_backspace": "backspace,shift+backspace,ctrl+h",
+    "input_delete_to_line_end": "ctrl+k"
+  },
   "permission": {
     "webfetch": "allow",
     "edit": "ask",

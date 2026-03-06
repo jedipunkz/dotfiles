@@ -74,12 +74,7 @@ return {
         },
       },
       terminal = {
-        enabled = true,
-        win = {
-          wo = {
-            winhl = "Normal:Normal,FloatBorder:FloatBorder",
-          },
-        },
+        enabled = false,
       },
       explorer = {
         enabled = true,
@@ -91,6 +86,10 @@ return {
       lazygit = {
         enabled = true,
         configure = true,
+        env = {
+          LANG = "en_US.UTF-8",
+          LC_ALL = "en_US.UTF-8",
+        },
         win = {
           style = "lazygit",
         },
@@ -101,8 +100,6 @@ return {
         pattern = "VeryLazy",
         callback = function()
           -- Setup keymaps after Snacks is fully loaded
-          vim.keymap.set("n", "<leader>st", function() Snacks.terminal() end, { desc = "Toggle terminal" })
-          vim.keymap.set("t", "<leader>st", function() Snacks.terminal() end, { desc = "Toggle terminal" })
           vim.keymap.set("n", "<leader>sf", function() Snacks.picker.smart() end, { desc = "Smart file search" })
           vim.keymap.set("n", "<leader>sg", function() Snacks.picker.grep() end, { desc = "Grep search" })
           vim.keymap.set("n", "<leader>sb", function() Snacks.gitbrowse() end, { desc = "Git browse" })
