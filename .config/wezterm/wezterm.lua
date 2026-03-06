@@ -13,6 +13,7 @@ end
 return {
   use_ime = true,
   macos_forward_to_ime_modifier_mask = "SHIFT|CTRL",
+  enable_kitty_keyboard = true,
 
   font = wezterm.font_with_fallback {
     -- 'JetBrains Mono',
