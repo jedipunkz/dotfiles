@@ -1,8 +1,3 @@
----
-description: gh pr create で GitHub PR を作成する際に適用するテンプレート
-globs:
----
-
 GitHub PR は gh コマンドで作成すること。
 
 `gh pr create` で PR を作成する際は、以下のテンプレートに従って body を構成すること。

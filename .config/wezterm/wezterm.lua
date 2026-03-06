@@ -6,13 +6,14 @@ if wezterm.target_triple:find("linux") then
   font_size = 12 -- Linux用のフォントサイズ
   window_background_opacity = 0.8 -- 透明化
 elseif wezterm.target_triple:find("darwin") then
-  font_size = 15 -- macOS用のフォントサイズ
+  font_size = 14 -- macOS用のフォントサイズ
   window_background_opacity = 1.0 -- 透明化せず
 end
 
 return {
   use_ime = true,
   macos_forward_to_ime_modifier_mask = "SHIFT|CTRL",
+  enable_kitty_keyboard = true,
 
   font = wezterm.font_with_fallback {
     -- 'JetBrains Mono',
