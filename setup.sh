@@ -109,8 +109,3 @@ link .hammerspoon "$HOME/.hammerspoon"
 gitclone "$URL_TPM" ~/.tmux/plugins/tpm
 gitclone "$URL_ZSHCOMP" "$HOME/.zsh-completions"
 
-# Install rustup safely via temp file
-rustup_installer=$(mktemp)
-curl https://sh.rustup.rs -sSf -o "$rustup_installer"
-sh "$rustup_installer"
-rm -f "$rustup_installer"
