@@ -52,7 +52,6 @@ backup "$HOME/.claude/skills" "$HOME/dotfiles.backup/skills"
 backup "$HOME/.claude/rules" "$HOME/dotfiles.backup/rules"
 backup "$HOME/.claude/keybindings.json" "$HOME/dotfiles.backup/keybindings.json"
 backup "$HOME/.hammerspoon" "$HOME/dotfiles.backup/.hammerspoon"
-backup "$HOME/aqua.yaml" "$HOME/dotfiles.backup/aqua.yaml"
 
 makedir "$HOME/.config" 700
 makedir "$HOME/.claude" 700
@@ -106,13 +105,7 @@ link .claude/keybindings.json "$HOME/.claude/keybindings.json"
 
 # Other application links
 link .hammerspoon "$HOME/.hammerspoon"
-link aqua.yaml "$HOME/aqua.yaml"
 
 gitclone "$URL_TPM" ~/.tmux/plugins/tpm
 gitclone "$URL_ZSHCOMP" "$HOME/.zsh-completions"
 
-# Install rustup safely via temp file
-rustup_installer=$(mktemp)
-curl https://sh.rustup.rs -sSf -o "$rustup_installer"
-sh "$rustup_installer"
-rm -f "$rustup_installer"

@@ -97,6 +97,42 @@ hs.hotkey.bind(hyper, "f", function()
   end
 end)
 
+-- ctrl+1: 左上 1/4
+hs.hotkey.bind(hyper, "1", function()
+  local win = hs.window.focusedWindow()
+  if win then
+    local screen = win:screen():frame()
+    win:setFrame({x = screen.x, y = screen.y, w = screen.w / 2, h = screen.h / 2})
+  end
+end)
+
+-- ctrl+2: 左下 1/4
+hs.hotkey.bind(hyper, "2", function()
+  local win = hs.window.focusedWindow()
+  if win then
+    local screen = win:screen():frame()
+    win:setFrame({x = screen.x, y = screen.y + screen.h / 2, w = screen.w / 2, h = screen.h / 2})
+  end
+end)
+
+-- ctrl+3: 右上 1/4
+hs.hotkey.bind(hyper, "3", function()
+  local win = hs.window.focusedWindow()
+  if win then
+    local screen = win:screen():frame()
+    win:setFrame({x = screen.x + screen.w / 2, y = screen.y, w = screen.w / 2, h = screen.h / 2})
+  end
+end)
+
+-- ctrl+4: 右下 1/4
+hs.hotkey.bind(hyper, "4", function()
+  local win = hs.window.focusedWindow()
+  if win then
+    local screen = win:screen():frame()
+    win:setFrame({x = screen.x + screen.w / 2, y = screen.y + screen.h / 2, w = screen.w / 2, h = screen.h / 2})
+  end
+end)
+
 -- cmd+ctrl+enter: スリープ
 hs.hotkey.bind(hyper, "return", function()
   hs.caffeinate.systemSleep()
