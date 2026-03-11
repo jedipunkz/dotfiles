@@ -55,6 +55,28 @@
       "extensions": [".ts", ".tsx", ".js", ".jsx"]
     }
   },
+  "watcher": {
+    "ignore": [
+      ".env",
+      ".env.*",
+      ".env.local",
+      ".env.production",
+      "node_modules/**",
+      ".git/**",
+      "dist/**",
+      "build/**",
+      "__pycache__/**",
+      "*.pyc",
+      ".venv/**",
+      "vendor/**",
+      "target/**",
+      ".next/**",
+      ".nuxt/**",
+      ".cache/**",
+      "coverage/**",
+      ".tox/**"
+    ]
+  },
   "mcp": {
     "chrome-devtools": {
       "type": "local",

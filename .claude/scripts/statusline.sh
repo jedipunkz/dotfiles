@@ -69,7 +69,104 @@ else
   CTX_COLOR="$GREEN"
 fi
 
-# Check if we're in a git repository
+# ── Usage bar helpers (from kamranahmedse/claude-statusline, JST display) ──
+color_for_pct() {
+  local pct=$1
+  if [ "$pct" -ge 90 ]; then printf "$RED"
+  elif [ "$pct" -ge 70 ]; then printf "$YELLOW"
+  elif [ "$pct" -ge 50 ]; then printf "$YELLOW"
+  else printf "$GREEN"
+  fi
+}
+
+build_bar() {
+  local pct=$1
+  local width=${2:-10}
+  [ "$pct" -lt 0 ] 2>/dev/null && pct=0
+  [ "$pct" -gt 100 ] 2>/dev/null && pct=100
+  local filled=$(( pct * width / 100 ))
+  local empty=$(( width - filled ))
+  local bar_color filled_str="" empty_str="" i
+  bar_color=$(color_for_pct "$pct")
+  for ((i=0; i<filled; i++)); do filled_str+="●"; done
+  for ((i=0; i<empty; i++)); do empty_str+="○"; done
+  printf "${bar_color}${filled_str}\033[2m${empty_str}${RESET}"
+}
+
+iso_to_epoch() {
+  # Strip fractional seconds and timezone → parse as UTC
+  local stripped="${1%%.*}"
+  stripped="${stripped%%Z}"; stripped="${stripped%%+*}"; stripped="${stripped%%-[0-9][0-9]:[0-9][0-9]}"
+  date -j -u -f "%Y-%m-%dT%H:%M:%S" "$stripped" +%s 2>/dev/null
+}
+
+format_reset_time() {
+  local iso_str="$1" style="$2"
+  [ -z "$iso_str" ] || [ "$iso_str" = "null" ] && return
+  local epoch
+  epoch=$(iso_to_epoch "$iso_str")
+  [ -z "$epoch" ] && return
+  case "$style" in
+    time)     TZ=Asia/Tokyo date -j -r "$epoch" +"%H:%M JST" 2>/dev/null ;;
+    datetime) local dt; dt=$(TZ=Asia/Tokyo date -j -r "$epoch" +"%b %-d, %H:%M" 2>/dev/null | tr '[:upper:]' '[:lower:]'); printf "%s JST" "$dt" ;;
+  esac
+}
+
+get_oauth_token() {
+  [ -n "$CLAUDE_CODE_OAUTH_TOKEN" ] && echo "$CLAUDE_CODE_OAUTH_TOKEN" && return
+  if command -v security >/dev/null 2>&1; then
+    local blob token
+    blob=$(security find-generic-password -s "Claude Code-credentials" -w 2>/dev/null)
+    token=$(echo "$blob" | jq -r '.claudeAiOauth.accessToken // empty' 2>/dev/null)
+    [ -n "$token" ] && [ "$token" != "null" ] && echo "$token" && return
+  fi
+  local creds="$HOME/.claude/.credentials.json"
+  if [ -f "$creds" ]; then
+    local token
+    token=$(jq -r '.claudeAiOauth.accessToken // empty' "$creds" 2>/dev/null)
+    [ -n "$token" ] && [ "$token" != "null" ] && echo "$token" && return
+  fi
+}
+
+# ── Fetch usage data (cached 60s) ───────────────────────────────────────────
+USAGE_CACHE="/tmp/claude_statusline_usage.json"
+USAGE_DATA=""
+
+if [ -f "$USAGE_CACHE" ]; then
+  cache_mtime=$(stat -f %m "$USAGE_CACHE" 2>/dev/null || stat -c %Y "$USAGE_CACHE" 2>/dev/null)
+  cache_age=$(( $(date +%s) - cache_mtime ))
+  if [ "$cache_age" -lt 60 ]; then
+    cached=$(cat "$USAGE_CACHE" 2>/dev/null)
+    resets_at=$(echo "$cached" | jq -r '.five_hour.resets_at // empty' 2>/dev/null)
+    if [ -n "$resets_at" ]; then
+      resets_epoch=$(iso_to_epoch "$resets_at")
+      [ -n "$resets_epoch" ] && [ "$(date +%s)" -lt "$resets_epoch" ] && USAGE_DATA="$cached"
+    else
+      USAGE_DATA="$cached"
+    fi
+  fi
+fi
+
+if [ -z "$USAGE_DATA" ]; then
+  token=$(get_oauth_token)
+  if [ -n "$token" ]; then
+    response=$(curl -s --max-time 5 \
+      -H "Accept: application/json" \
+      -H "Content-Type: application/json" \
+      -H "Authorization: Bearer $token" \
+      -H "anthropic-beta: oauth-2025-04-20" \
+      -H "User-Agent: claude-code/2.1.34" \
+      "https://api.anthropic.com/api/oauth/usage" 2>/dev/null)
+    if echo "$response" | jq -e '.five_hour' >/dev/null 2>&1; then
+      USAGE_DATA="$response"
+      mkdir -p "$(dirname "$USAGE_CACHE")"
+      echo "$response" > "$USAGE_CACHE"
+    fi
+  fi
+  [ -z "$USAGE_DATA" ] && [ -f "$USAGE_CACHE" ] && USAGE_DATA=$(cat "$USAGE_CACHE" 2>/dev/null)
+fi
+
+# ── Check if we're in a git repository
 if [ -d "$CURRENT_DIR/.git" ]; then
   cd "$CURRENT_DIR" || exit
 
@@ -109,4 +206,30 @@ if [ -d "$CURRENT_DIR/.git" ]; then
 else
   # Not a git repository
   printf "🤖 ${GREEN}$MODEL${RESET} ${GRAY}|${RESET} ${CYAN}👻 $DIR_NAME${RESET} ${GRAY}|${RESET} 🚀 ${GRAY}Not a Repo${RESET} ${GRAY}|${RESET} ${CTX_COLOR}📊 ${CTX_USED_INT}%%${RESET} ${GRAY}|${RESET} ${YELLOW}💰 ¥${TOTAL_COST_JPY}${RESET} ${GRAY}|${RESET} 🍣 ${GREEN}+${LINES_ADDED}${RESET} ${RED}-${LINES_REMOVED}${RESET}"
+fi
+
+# ── Usage rate limit bars ────────────────────────────────────────────────────
+if [ -n "$USAGE_DATA" ] && echo "$USAGE_DATA" | jq -e '.five_hour' >/dev/null 2>&1; then
+  five_pct=$(echo "$USAGE_DATA" | jq -r '.five_hour.utilization // 0' | awk '{printf "%.0f", $1}')
+  five_reset=$(format_reset_time "$(echo "$USAGE_DATA" | jq -r '.five_hour.resets_at // empty')" "time")
+  five_bar=$(build_bar "$five_pct" 10)
+  five_color=$(color_for_pct "$five_pct")
+
+  seven_pct=$(echo "$USAGE_DATA" | jq -r '.seven_day.utilization // 0' | awk '{printf "%.0f", $1}')
+  seven_reset=$(format_reset_time "$(echo "$USAGE_DATA" | jq -r '.seven_day.resets_at // empty')" "datetime")
+  seven_bar=$(build_bar "$seven_pct" 10)
+  seven_color=$(color_for_pct "$seven_pct")
+
+  printf "\n${GRAY}current${RESET} ${five_bar} ${five_color}$(printf '%3d' "$five_pct")%%${RESET} \033[2m⟳\033[0m ${GRAY}${five_reset}${RESET}"
+  printf "\n${GRAY}weekly${RESET}  ${seven_bar} ${seven_color}$(printf '%3d' "$seven_pct")%%${RESET} \033[2m⟳\033[0m ${GRAY}${seven_reset}${RESET}"
+
+  extra_enabled=$(echo "$USAGE_DATA" | jq -r '.extra_usage.is_enabled // false')
+  if [ "$extra_enabled" = "true" ]; then
+    extra_pct=$(echo "$USAGE_DATA" | jq -r '.extra_usage.utilization // 0' | awk '{printf "%.0f", $1}')
+    extra_used=$(echo "$USAGE_DATA" | jq -r '.extra_usage.used_credits // 0' | awk '{printf "%.2f", $1/100}')
+    extra_limit=$(echo "$USAGE_DATA" | jq -r '.extra_usage.monthly_limit // 0' | awk '{printf "%.2f", $1/100}')
+    extra_bar=$(build_bar "$extra_pct" 10)
+    extra_color=$(color_for_pct "$extra_pct")
+    printf "\n${GRAY}extra${RESET}   ${extra_bar} ${extra_color}\$${extra_used}\033[2m/\033[0m${GRAY}\$${extra_limit}${RESET}"
+  fi
 fi
