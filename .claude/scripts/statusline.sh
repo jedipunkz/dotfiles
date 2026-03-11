@@ -128,42 +128,52 @@ get_oauth_token() {
   fi
 }
 
-# ── Fetch usage data (cached 60s) ───────────────────────────────────────────
+# ── Fetch usage data (async background refresh) ─────────────────────────────
 USAGE_CACHE="/tmp/claude_statusline_usage.json"
+USAGE_LOCK="/tmp/claude_statusline_usage.lock"
 USAGE_DATA=""
+CACHE_TTL=300  # refresh every 5 minutes
 
+# Always use cached data immediately for display (no blocking)
+[ -f "$USAGE_CACHE" ] && USAGE_DATA=$(cat "$USAGE_CACHE" 2>/dev/null)
+
+# Check if background refresh is needed
+cache_stale=true
 if [ -f "$USAGE_CACHE" ]; then
   cache_mtime=$(stat -f %m "$USAGE_CACHE" 2>/dev/null || stat -c %Y "$USAGE_CACHE" 2>/dev/null)
-  cache_age=$(( $(date +%s) - cache_mtime ))
-  if [ "$cache_age" -lt 60 ]; then
-    cached=$(cat "$USAGE_CACHE" 2>/dev/null)
-    resets_at=$(echo "$cached" | jq -r '.five_hour.resets_at // empty' 2>/dev/null)
-    if [ -n "$resets_at" ]; then
-      resets_epoch=$(iso_to_epoch "$resets_at")
-      [ -n "$resets_epoch" ] && [ "$(date +%s)" -lt "$resets_epoch" ] && USAGE_DATA="$cached"
-    else
-      USAGE_DATA="$cached"
-    fi
-  fi
+  cache_age=$(( $(date +%s) - ${cache_mtime:-0} ))
+  [ "$cache_age" -lt $CACHE_TTL ] && cache_stale=false
 fi
 
-if [ -z "$USAGE_DATA" ]; then
-  token=$(get_oauth_token)
-  if [ -n "$token" ]; then
-    response=$(curl -s --max-time 5 \
-      -H "Accept: application/json" \
-      -H "Content-Type: application/json" \
-      -H "Authorization: Bearer $token" \
-      -H "anthropic-beta: oauth-2025-04-20" \
-      -H "User-Agent: claude-code/2.1.34" \
-      "https://api.anthropic.com/api/oauth/usage" 2>/dev/null)
-    if echo "$response" | jq -e '.five_hour' >/dev/null 2>&1; then
-      USAGE_DATA="$response"
-      mkdir -p "$(dirname "$USAGE_CACHE")"
-      echo "$response" > "$USAGE_CACHE"
+if [ "$cache_stale" = true ]; then
+  # Skip if another refresh is in progress (lock expires after 30s)
+  lock_ok=true
+  if [ -f "$USAGE_LOCK" ]; then
+    lock_mtime=$(stat -f %m "$USAGE_LOCK" 2>/dev/null || stat -c %Y "$USAGE_LOCK" 2>/dev/null)
+    lock_age=$(( $(date +%s) - ${lock_mtime:-0} ))
+    [ "$lock_age" -lt 30 ] && lock_ok=false
+  fi
+  if [ "$lock_ok" = true ]; then
+    token=$(get_oauth_token)
+    if [ -n "$token" ]; then
+      touch "$USAGE_LOCK"
+      (
+        response=$(curl -s --max-time 10 \
+          -H "Accept: application/json" \
+          -H "Content-Type: application/json" \
+          -H "Authorization: Bearer $token" \
+          -H "anthropic-beta: oauth-2025-04-20" \
+          -H "User-Agent: claude-code/2.1.34" \
+          "https://api.anthropic.com/api/oauth/usage" 2>/dev/null)
+        if echo "$response" | jq -e '.five_hour' >/dev/null 2>&1; then
+          mkdir -p "$(dirname "$USAGE_CACHE")"
+          echo "$response" > "$USAGE_CACHE"
+        fi
+        rm -f "$USAGE_LOCK"
+      ) &
+      disown
     fi
   fi
-  [ -z "$USAGE_DATA" ] && [ -f "$USAGE_CACHE" ] && USAGE_DATA=$(cat "$USAGE_CACHE" 2>/dev/null)
 fi
 
 # ── Check if we're in a git repository
