@@ -1,10 +1,12 @@
 theme = TokyoNight
 
-#font-family = "Cousine Nerd Font Mono"
-font-size = 14.5
-adjust-cell-width = -5%
+font-family = Consolas
+font-size = 14
+font-thicken = true
 
-background-opacity = 0.90
+scrollback-limit = 10000
+
+background-opacity = 1
 background-blur = false
 macos-titlebar-style = transparent
 macos-titlebar-proxy-icon = hidden
