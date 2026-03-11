@@ -28,7 +28,9 @@
       "pwd": "allow",
       "echo *": "allow",
       "find *": "allow",
-      "tree *": "allow"
+      "tree *": "allow",
+      "rg *": "allow",
+      "sort *": "allow"
     }
   },
   "formatter": {
