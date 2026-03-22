@@ -38,6 +38,21 @@
     "typescript-lsp@claude-plugins-official": true
   },
   "alwaysThinkingEnabled": true,
+  "spinnerVerbs": {
+    "mode": "replace",
+    "verbs": [
+      "了解されましたぁ！",
+      "ボク、考えてますよねえ？",
+      "並列思考中ですぅ",
+      "ゴーストが囁いてますよ",
+      "ねえねえ、処理していいですか",
+      "バトーさん、ちょっと待っててください",
+      "個別の意思で頑張ります！",
+      "自律思考モードで行きますよ",
+      "ボクたち、やってみますね！",
+      "メメントモリ…処理中"
+    ]
+  },
   "skipDangerousModePermissionPrompt": true,
   "feedbackSurveyState": {
     "lastShownTime": 1754085614062
