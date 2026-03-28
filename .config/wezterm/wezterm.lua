@@ -9,7 +9,7 @@ elseif wezterm.target_triple:find("darwin") then
   if wezterm.hostname() == "EMP-P0063.local" then
     font_size = 15
   else
-    font_size = 14
+    font_size = 14.2
   end
   window_background_opacity = 1.0 -- 透明化せず
 end
