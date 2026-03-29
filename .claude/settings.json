@@ -29,15 +29,16 @@
       "Bash(rm -r:*)"
     ]
   },
+  "model": "sonnet",
   "statusLine": {
     "type": "command",
     "command": "~/.claude/scripts/statusline.sh"
   },
   "enabledPlugins": {
     "gopls-lsp@claude-plugins-official": true,
-    "typescript-lsp@claude-plugins-official": true
+    "typescript-lsp@claude-plugins-official": true,
+    "rust-analyzer-lsp@claude-plugins-official": true
   },
-  "alwaysThinkingEnabled": true,
   "spinnerVerbs": {
     "mode": "replace",
     "verbs": [
@@ -53,6 +54,7 @@
       "メメントモリ…処理中"
     ]
   },
+  "alwaysThinkingEnabled": true,
   "skipDangerousModePermissionPrompt": true,
   "feedbackSurveyState": {
     "lastShownTime": 1754085614062
@@ -65,6 +67,5 @@
         "mcp-server"
       ]
     }
-  },
-  "model": "sonnet"
+  }
 }

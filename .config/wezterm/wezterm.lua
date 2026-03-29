@@ -9,7 +9,7 @@ elseif wezterm.target_triple:find("darwin") then
   if wezterm.hostname() == "EMP-P0063.local" then
     font_size = 15
   else
-    font_size = 14
+    font_size = 14.2
   end
   window_background_opacity = 1.0 -- 透明化せず
 end
@@ -58,17 +58,6 @@ return {
     cursor_fg = 'black',
     selection_fg = 'white',
     selection_bg = '#C2185B',
-  },
-
-  window_frame = {
-    border_left_width = '2px',
-    border_right_width = '2px',
-    border_top_height = '2px',
-    border_bottom_height = '2px',
-    border_left_color = '#00ffc8',
-    border_right_color = '#00ffc8',
-    border_top_color = '#00ffc8',
-    border_bottom_color = '#00ffc8',
   },
 
   window_background_opacity = window_background_opacity,
