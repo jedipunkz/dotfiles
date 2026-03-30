@@ -3,7 +3,7 @@
   "theme": "tokyonight",
   "keybinds": {
     "input_submit": "ctrl+return,super+return",
-    "input_newline": "return,shift+return,alt+return,ctrl+j",
+    "input_newline": "return,shift+return,alt+return",
     "input_backspace": "backspace,shift+backspace,ctrl+h",
     "input_delete_to_line_end": "ctrl+k"
   }
