@@ -28,6 +28,11 @@
       "Bash(gh release list:*)",
       "Bash(gh release view:*)",
       "Bash(rg:*)",
+      "Bash(git log:*)",
+      "Bash(git diff:*)",
+      "Bash(git status:*)",
+      "Bash(git show:*)",
+      "Bash(git branch:*)",
       "Skill",
       "mcp__codex__*"
     ],
@@ -67,6 +72,7 @@
       "メメントモリ…処理中"
     ]
   },
+  "language": "japanese",
   "alwaysThinkingEnabled": true,
   "skipDangerousModePermissionPrompt": true,
   "feedbackSurveyState": {
