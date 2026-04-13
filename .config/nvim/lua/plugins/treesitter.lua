@@ -3,18 +3,15 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     event = { "BufReadPost", "BufNewFile" },
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        -- Disable ensure_installed to prevent startup updates
-        ensure_installed = {},
-        sync_install = false,
-        auto_install = false,  -- Disable auto-install on startup
-        highlight = {
-          enable = true,
-          additional_vim_regex_highlighting = { "markdown" },
-        },
-      })
-    end,
+    opts = {
+      ensure_installed = {},
+      sync_install = false,
+      auto_install = false,
+      highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = { "markdown" },
+      },
+    },
   },
 
   -- TreeSJ for split/join syntax tree nodes

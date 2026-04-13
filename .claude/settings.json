@@ -47,7 +47,6 @@
       "Bash(rm -r:*)"
     ]
   },
-  "model": "sonnet",
   "statusLine": {
     "type": "command",
     "command": "~/.claude/scripts/statusline.sh"
