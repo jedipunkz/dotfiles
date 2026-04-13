@@ -4,7 +4,7 @@ end
 
 set -U fish_greeting ""
 
-set -x PATH $HOME/.bin $HOME/.local/share/aquaproj-aqua/bin /opt/homebrew/bin $HOME/.cargo/bin /usr/local/bin /usr/local/sbin /bin /usr/bin /sbin /usr/sbin /usr/local/sessionmanagerplugin/bin $HOME/google-cloud-sdk/bin $HOME/.local/bin $HOME/.lmstudio/bin
+set -x PATH $HOME/.bin $HOME/.local/share/aquaproj-aqua/bin /opt/homebrew/bin /opt/homebrew/opt/libpq/bin /opt/homebrew/opt/mysql-client/bin $HOME/.cargo/bin /usr/local/bin /usr/local/sbin /bin /usr/bin /sbin /usr/sbin /usr/local/sessionmanagerplugin/bin $HOME/google-cloud-sdk/bin $HOME/.local/bin $HOME/.lmstudio/bin
 
 if test (uname -s) = "Darwin"
     alias cat="bat"
@@ -137,3 +137,6 @@ end
 # if type -q kiro
 #     string match -q "$TERM_PROGRAM" "kiro" and . (kiro --locate-shell-integration-path fish)
 # end
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/thirai/google-cloud-sdk/path.fish.inc' ]; . '/Users/thirai/google-cloud-sdk/path.fish.inc'; end
