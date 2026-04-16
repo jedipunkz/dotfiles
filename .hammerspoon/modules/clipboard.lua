@@ -5,7 +5,7 @@ local hyper = {"cmd", "ctrl"}
 
 -- クリップボード履歴
 local clipboardHistory = {}
-local maxClipboardItems = 80
+local maxClipboardItems = 200
 local lastClipboard = ""
 
 -- クリップボード履歴を更新
