@@ -50,6 +50,8 @@ else if test (uname -s) = "Darwin"
 end
 # mise shims を PATH の先頭に追加（brew より優先）
 set -x PATH $HOME/.local/share/mise/shims $PATH
+# ~/.bin を最優先に（brew/mise より後に宣言して上書き）
+set -x PATH $HOME/.bin $PATH
 
 # zoxide
 zoxide init fish | source
