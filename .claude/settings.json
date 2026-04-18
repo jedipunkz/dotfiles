@@ -2,7 +2,8 @@
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "env": {
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
-    "CLAUDE_CODE_DISABLE_AUTO_MEMORY": "0"
+    "CLAUDE_CODE_DISABLE_AUTO_MEMORY": "0",
+    "CLAUDE_CODE_NO_FLICKER": "1"
   },
   "permissions": {
     "allow": [
@@ -19,20 +20,49 @@
       "Bash(gh pr view:*)",
       "Bash(gh pr status:*)",
       "Bash(gh pr checks:*)",
+      "Bash(gh pr diff:*)",
+      "Bash(gh pr comment list:*)",
       "Bash(gh issue list:*)",
       "Bash(gh issue view:*)",
+      "Bash(gh issue comment list:*)",
       "Bash(gh repo view:*)",
       "Bash(gh repo list:*)",
       "Bash(gh run list:*)",
       "Bash(gh run view:*)",
+      "Bash(gh run logs:*)",
       "Bash(gh release list:*)",
       "Bash(gh release view:*)",
+      "Bash(gh workflow list:*)",
+      "Bash(gh workflow view:*)",
+      "Bash(gh label list:*)",
+      "Bash(gh search repos:*)",
+      "Bash(gh search issues:*)",
+      "Bash(gh search prs:*)",
+      "Bash(gh api:*)",
       "Bash(rg:*)",
+      "Bash(grep:*)",
+      "Bash(diff:*)",
+      "Bash(wc:*)",
+      "Bash(which:*)",
+      "Bash(type:*)",
+      "Bash(pwd:*)",
+      "Bash(date:*)",
+      "Bash(uname:*)",
+      "Bash(file:*)",
+      "Bash(stat:*)",
+      "Bash(du:*)",
+      "Bash(df:*)",
+      "Bash(ps:*)",
+      "Bash(env:*)",
+      "Bash(echo:*)",
       "Bash(git log:*)",
       "Bash(git diff:*)",
       "Bash(git status:*)",
       "Bash(git show:*)",
       "Bash(git branch:*)",
+      "Bash(git remote:*)",
+      "Bash(git tag:*)",
+      "Bash(git stash list:*)",
       "Skill",
       "mcp__codex__*"
     ],
@@ -47,7 +77,6 @@
       "Bash(rm -r:*)"
     ]
   },
-  "model": "sonnet",
   "statusLine": {
     "type": "command",
     "command": "~/.claude/scripts/statusline.sh"
@@ -74,6 +103,7 @@
   },
   "language": "japanese",
   "alwaysThinkingEnabled": true,
+  "showThinkingSummaries": true,
   "skipDangerousModePermissionPrompt": true,
   "feedbackSurveyState": {
     "lastShownTime": 1754085614062
