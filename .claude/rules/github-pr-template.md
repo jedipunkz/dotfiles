@@ -22,10 +22,6 @@ gh repo view --json isPrivate --jq '.isPrivate'
 
 ```
 gh pr create --title "<PR タイトル>" --body "$(cat <<'EOF'
-## Summary
-
-<この PR の目的・背景を簡潔に記述>
-
 ## Why
 
 - <なぜこの PR を作っているかの背景>
@@ -47,10 +43,6 @@ EOF
 
 ```
 gh pr create --title "<PR title>" --body "$(cat <<'EOF'
-## Summary
-
-<Briefly describe the purpose and background of this PR>
-
 ## Why
 
 - <Background on why this PR is being made>
@@ -71,8 +63,7 @@ EOF
 ## 注意事項
 
 - タイトルは変更内容を端的に表す（70 文字以内）
-- Summary は変更の目的と背景を 1-3 行で書く
 - What は具体的な変更点を箇条書きにする
 - 対応チケットやリファレンスがない場合は「なし」（日本語）または「N/A」（英語）と明記する
-- PR Description に「Generated with Claude Code」は**絶対に記載しない**
-- 「Test Plan」セクションは**追加しない**
+- PR Description に「Generated with Claude Code」は記載しない
+- 「Test Plan」セクションは追加しない
