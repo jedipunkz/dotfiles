@@ -70,10 +70,22 @@
     "deny": [
       "Read(~/.aws/**)",
       "Read(~/.ssh/**)",
+      "Read(~/.gnupg/**)",
+      "Read(~/.netrc)",
+      "Read(~/.npmrc)",
+      "Read(~/.pypirc)",
+      "Read(~/.config/gh/**)",
       "Read(.env)",
       "Read(.env.*)",
       "Read(**/.env)",
       "Read(**/.env.*)",
+      "Read(**/*.pem)",
+      "Read(**/*.key)",
+      "Read(**/*.p12)",
+      "Read(**/*.pfx)",
+      "Read(**/credentials.json)",
+      "Read(**/secrets.json)",
+      "Read(**/service-account*.json)",
       "Bash(rm -rf:*)",
       "Bash(rm -r:*)",
       "Bash(git push --force:*)",
@@ -86,6 +98,15 @@
   },
   "hooks": {
     "PreToolUse": [
+      {
+        "matcher": "Read|Edit|Write|Bash|Grep",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/block-sensitive-access.sh"
+          }
+        ]
+      },
       {
         "matcher": "Bash",
         "hooks": [
@@ -105,7 +126,7 @@
         ]
       },
       {
-        "matcher": "Bash|Write|Edit",
+        "matcher": "Write|Edit",
         "hooks": [
           {
             "type": "command",

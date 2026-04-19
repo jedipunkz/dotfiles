@@ -1,0 +1,42 @@
+# Sensitive files - Claude Code must not read these
+# Note: permissions.deny + PreToolUse hooks are the reliable enforcement layers;
+# this file is an additional hint to Claude Code.
+
+# Environment / secrets
+.env
+.env.*
+*.env
+
+# Private keys & certificates
+*.pem
+*.key
+*.p12
+*.pfx
+*.cert
+*.crt
+
+# Cloud provider credentials
+.aws/
+.azure/
+
+# SSH
+.ssh/
+
+# GPG
+.gnupg/
+
+# Token / credential files
+.netrc
+.npmrc
+.pypirc
+credentials.json
+secrets.json
+secret.json
+service-account*.json
+
+# GitHub CLI credentials
+.config/gh/
+
+# macOS Keychain exports
+*.keychain
+*.keychain-db
