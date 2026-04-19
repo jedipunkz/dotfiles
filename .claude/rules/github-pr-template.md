@@ -25,18 +25,9 @@ gh repo view --json isPrivate --jq '.isPrivate'
 ```
 gh pr create --title "<PR タイトル>" --body "$(cat <<'EOF'
 ## Why
-<<<<<<< HEAD
-
-<この PR の目的・背景を簡潔に記述>
-<対応チケットがあればその URL も記す>
-
-
-=======
-
 - <なぜこの PR を作っているかの背景>
 - <関連する Issue やチケットへのリンク（なければ「なし」と記載）>
 
->>>>>>> main
 ## What
 
 - <変更内容を箇条書きで記述>
