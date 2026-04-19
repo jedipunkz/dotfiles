@@ -104,7 +104,7 @@
   "hooks": {
     "PreToolUse": [
       {
-        "matcher": "AskUserQuestion",
+        "matcher": "AskUserQuestion|Bash",
         "hooks": [
           {
             "type": "command",
@@ -181,7 +181,6 @@
     ],
     "Notification": [
       {
-        "matcher": "permission_prompt",
         "hooks": [
           {
             "type": "command",
