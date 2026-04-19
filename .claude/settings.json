@@ -87,7 +87,12 @@
       "Read(**/secrets.json)",
       "Read(**/service-account*.json)",
       "Bash(rm -rf:*)",
+      "Bash(rm -fr:*)",
       "Bash(rm -r:*)",
+      "Bash(rm -R:*)",
+      "Bash(rm -f:*)",
+      "Bash(rm --recursive:*)",
+      "Bash(rm --force:*)",
       "Bash(git push --force:*)",
       "Bash(git push -f:*)",
       "Bash(git reset --hard:*)",
@@ -104,6 +109,15 @@
           {
             "type": "command",
             "command": "~/.claude/hooks/block-sensitive-access.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/guard-rm.sh"
           }
         ]
       },
