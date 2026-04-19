@@ -101,7 +101,9 @@ link .claude/settings.json "$HOME/.claude/settings.json"
 link .claude/scripts "$HOME/.claude/scripts"
 link .claude/skills "$HOME/.claude/skills"
 link .claude/rules "$HOME/.claude/rules"
+link .claude/agents "$HOME/.claude/agents"
 link .claude/keybindings.json "$HOME/.claude/keybindings.json"
+link .claude/hooks "$HOME/.claude/hooks"
 
 # Other application links
 link .hammerspoon "$HOME/.hammerspoon"
