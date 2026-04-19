@@ -5,8 +5,8 @@
 
 input=$(cat)
 
-# workarround .git/index.lock issue
-GIT_OPTIONAL_LOCKS=0
+# Prevent opportunistic locking by background git operations (avoids stale .git/index.lock)
+export GIT_OPTIONAL_LOCKS=0
 
 # Extract values using jq
 MODEL=$(echo "$input" | jq -r '.model.display_name // "Claude"')
@@ -128,16 +128,17 @@ get_oauth_token() {
   fi
 }
 
-# ── Fetch usage data (async background refresh) ─────────────────────────────
-USAGE_CACHE="/tmp/claude_statusline_usage.json"
+# ── Fetch usage data ─────────────────────────────────────────────────────────
+# Cache in ~/.claude/ (persists across reboots, unlike /tmp/)
+USAGE_CACHE="$HOME/.claude/usage_cache.json"
 USAGE_LOCK="/tmp/claude_statusline_usage.lock"
 USAGE_DATA=""
 CACHE_TTL=300  # refresh every 5 minutes
 
-# Always use cached data immediately for display (no blocking)
+# Load cached data if available
 [ -f "$USAGE_CACHE" ] && USAGE_DATA=$(cat "$USAGE_CACHE" 2>/dev/null)
 
-# Check if background refresh is needed
+# Check if cache is stale
 cache_stale=true
 if [ -f "$USAGE_CACHE" ]; then
   cache_mtime=$(stat -f %m "$USAGE_CACHE" 2>/dev/null || stat -c %Y "$USAGE_CACHE" 2>/dev/null)
@@ -156,9 +157,10 @@ if [ "$cache_stale" = true ]; then
   if [ "$lock_ok" = true ]; then
     token=$(get_oauth_token)
     if [ -n "$token" ]; then
-      touch "$USAGE_LOCK"
-      (
-        response=$(curl -s --max-time 10 \
+      if [ -z "$USAGE_DATA" ]; then
+        # No cache at all: fetch synchronously (first run after reboot/clear)
+        touch "$USAGE_LOCK"
+        response=$(curl -s --max-time 5 \
           -H "Accept: application/json" \
           -H "Content-Type: application/json" \
           -H "Authorization: Bearer $token" \
@@ -166,12 +168,28 @@ if [ "$cache_stale" = true ]; then
           -H "User-Agent: claude-code/2.1.34" \
           "https://api.anthropic.com/api/oauth/usage" 2>/dev/null)
         if echo "$response" | jq -e '.five_hour' >/dev/null 2>&1; then
-          mkdir -p "$(dirname "$USAGE_CACHE")"
           echo "$response" > "$USAGE_CACHE"
+          USAGE_DATA="$response"
         fi
         rm -f "$USAGE_LOCK"
-      ) &
-      disown
+      else
+        # Cache exists but stale: refresh async in background
+        touch "$USAGE_LOCK"
+        (
+          response=$(curl -s --max-time 10 \
+            -H "Accept: application/json" \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Bearer $token" \
+            -H "anthropic-beta: oauth-2025-04-20" \
+            -H "User-Agent: claude-code/2.1.34" \
+            "https://api.anthropic.com/api/oauth/usage" 2>/dev/null)
+          if echo "$response" | jq -e '.five_hour' >/dev/null 2>&1; then
+            echo "$response" > "$USAGE_CACHE"
+          fi
+          rm -f "$USAGE_LOCK"
+        ) &
+        disown
+      fi
     fi
   fi
 fi
@@ -242,4 +260,9 @@ if [ -n "$USAGE_DATA" ] && echo "$USAGE_DATA" | jq -e '.five_hour' >/dev/null 2>
     extra_color=$(color_for_pct "$extra_pct")
     printf "\n${GRAY}extra${RESET}   ${extra_bar} ${extra_color}\$${extra_used}\033[2m/\033[0m${GRAY}\$${extra_limit}${RESET}"
   fi
+else
+  # Show placeholder bars when data is unavailable
+  empty_bar="${GRAY}○○○○○○○○○○${RESET}"
+  printf "\n${GRAY}current${RESET} ${empty_bar} ${GRAY}---%${RESET}"
+  printf "\n${GRAY}weekly${RESET}  ${empty_bar} ${GRAY}---%${RESET}"
 fi

@@ -2,7 +2,9 @@
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "env": {
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
-    "CLAUDE_CODE_DISABLE_AUTO_MEMORY": "0"
+    "CLAUDE_CODE_DISABLE_AUTO_MEMORY": "0",
+    "CLAUDE_CODE_NO_FLICKER": "1",
+    "GIT_OPTIONAL_LOCKS": "0"
   },
   "permissions": {
     "allow": [
@@ -20,33 +22,165 @@
       "Bash(gh pr diff:*)",
       "Bash(gh pr status:*)",
       "Bash(gh pr checks:*)",
+      "Bash(gh pr diff:*)",
+      "Bash(gh pr comment list:*)",
       "Bash(gh issue list:*)",
       "Bash(gh issue view:*)",
+      "Bash(gh issue comment list:*)",
       "Bash(gh repo view:*)",
       "Bash(gh repo list:*)",
       "Bash(gh run list:*)",
       "Bash(gh run view:*)",
+      "Bash(gh run logs:*)",
       "Bash(gh release list:*)",
       "Bash(gh release view:*)",
+      "Bash(gh workflow list:*)",
+      "Bash(gh workflow view:*)",
+      "Bash(gh label list:*)",
+      "Bash(gh search repos:*)",
+      "Bash(gh search issues:*)",
+      "Bash(gh search prs:*)",
+      "Bash(gh api:*)",
       "Bash(rg:*)",
+      "Bash(grep:*)",
+      "Bash(diff:*)",
+      "Bash(wc:*)",
+      "Bash(which:*)",
+      "Bash(type:*)",
+      "Bash(pwd:*)",
+      "Bash(date:*)",
+      "Bash(uname:*)",
+      "Bash(file:*)",
+      "Bash(stat:*)",
+      "Bash(du:*)",
+      "Bash(df:*)",
+      "Bash(ps:*)",
+      "Bash(env:*)",
+      "Bash(echo:*)",
       "Bash(git log:*)",
       "Bash(git diff:*)",
       "Bash(git status:*)",
       "Bash(git show:*)",
       "Bash(git branch:*)",
+      "Bash(git remote:*)",
+      "Bash(git tag:*)",
+      "Bash(git stash list:*)",
       "Skill",
       "mcp__codex__*"
     ],
     "deny": [
       "Read(~/.aws/**)",
       "Read(~/.ssh/**)",
+      "Read(~/.gnupg/**)",
+      "Read(~/.netrc)",
+      "Read(~/.npmrc)",
+      "Read(~/.pypirc)",
+      "Read(~/.config/gh/**)",
       "Read(.env)",
       "Read(.env.*)",
       "Read(**/.env)",
       "Read(**/.env.*)",
+      "Read(**/*.pem)",
+      "Read(**/*.key)",
+      "Read(**/*.p12)",
+      "Read(**/*.pfx)",
+      "Read(**/credentials.json)",
+      "Read(**/secrets.json)",
+      "Read(**/service-account*.json)",
       "Bash(rm -rf:*)",
-      "Bash(rm -r:*)"
+      "Bash(rm -fr:*)",
+      "Bash(rm -r:*)",
+      "Bash(rm -R:*)",
+      "Bash(rm -f:*)",
+      "Bash(rm --recursive:*)",
+      "Bash(rm --force:*)",
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(git reset --hard:*)",
+      "Bash(git clean -f:*)",
+      "Bash(chmod 777:*)",
+      "Bash(sudo rm:*)"
     ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "AskUserQuestion|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/notify-ask.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Read|Edit|Write|Bash|Grep",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/block-sensitive-access.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/guard-rm.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/clean-git-lock.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/block-force-push.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/check-secrets.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/lint-check.sh"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/notify-done.sh"
+          }
+        ]
+      }
+    ],
+    "Notification": []
   },
   "statusLine": {
     "type": "command",
@@ -65,7 +199,7 @@
       "並列思考中ですぅ",
       "ゴーストが囁いてますよ",
       "ねえねえ、処理していいですか",
-      "バトーさん、ちょっと待っててください",
+      "バトーさんちょっと待っててください",
       "個別の意思で頑張ります！",
       "自律思考モードで行きますよ",
       "ボクたち、やってみますね！",
@@ -74,6 +208,7 @@
   },
   "language": "japanese",
   "alwaysThinkingEnabled": true,
+  "showThinkingSummaries": true,
   "skipDangerousModePermissionPrompt": true,
   "feedbackSurveyState": {
     "lastShownTime": 1754085614062
