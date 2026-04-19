@@ -9,7 +9,7 @@
 
 INPUT=$(cat)
 
-SOUND="Submarine"
+SOUND="Frog"
 TITLE="Claude Code - 確認が必要"
 
 # ── Sound + notification in one osascript call (atomic, no sync issue) ────────
