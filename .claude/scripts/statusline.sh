@@ -5,8 +5,8 @@
 
 input=$(cat)
 
-# workarround .git/index.lock issue
-GIT_OPTIONAL_LOCKS=0
+# Prevent opportunistic locking by background git operations (avoids stale .git/index.lock)
+export GIT_OPTIONAL_LOCKS=0
 
 # Extract values using jq
 MODEL=$(echo "$input" | jq -r '.model.display_name // "Claude"')
