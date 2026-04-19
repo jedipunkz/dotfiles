@@ -25,7 +25,6 @@ gh repo view --json isPrivate --jq '.isPrivate'
 ```
 gh pr create --title "<PR タイトル>" --body "$(cat <<'EOF'
 ## Why
-
 - <なぜこの PR を作っているかの背景>
 - <関連する Issue やチケットへのリンク（なければ「なし」と記載）>
 
@@ -65,6 +64,7 @@ EOF
 ## 注意事項
 
 - タイトルは変更内容を端的に表す（70 文字以内）
+- 対応チケットやリファレンスがない場合は「なし」と明記する
 - What は具体的な変更点を箇条書きにする
 - 対応チケットやリファレンスがない場合は「なし」（日本語）または「N/A」（英語）と明記する
 - **PR Description に「Generated with Claude Code」や「Co-Authored-By」は絶対に記載しない**
