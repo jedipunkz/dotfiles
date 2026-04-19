@@ -179,16 +179,7 @@
         ]
       }
     ],
-    "Notification": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/notify-ask.sh"
-          }
-        ]
-      }
-    ]
+    "Notification": []
   },
   "statusLine": {
     "type": "command",
