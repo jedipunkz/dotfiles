@@ -12,16 +12,10 @@ INPUT=$(cat)
 SOUND="Submarine"
 TITLE="Claude Code - 確認が必要"
 
-# ── Sound: fire immediately in background (before any other processing) ───────
-_play() {
-  /usr/bin/afplay "/System/Library/Sounds/${SOUND}.aiff" 2>/dev/null &
-  disown $! 2>/dev/null
-}
-
-# ── Visual notification (async) ───────────────────────────────────────────────
+# ── Sound + notification in one osascript call (atomic, no sync issue) ────────
 _notify() {
   local msg="${1:0:120}"
-  /usr/bin/osascript -e "display notification \"$msg\" with title \"$TITLE\"" 2>/dev/null &
+  /usr/bin/osascript -e "display notification \"$msg\" with title \"$TITLE\" sound name \"$SOUND\"" 2>/dev/null &
   disown $! 2>/dev/null
 }
 
