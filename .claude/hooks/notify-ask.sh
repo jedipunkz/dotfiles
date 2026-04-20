@@ -30,7 +30,7 @@ _allow_pattern() {
     jq -r '
       [.permissions.allow[]?
        | select(startswith("Bash("))
-       | ltrimstr("Bash(") | rtrimstr(":*")
+       | ltrimstr("Bash(") | rtrimstr(":*)")
        | "^" + . + "( |$)"]
       | join("|")
     ' "$settings" 2>/dev/null > "$cache"
