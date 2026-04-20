@@ -9,14 +9,15 @@
 
 INPUT=$(cat)
 
-SOUND="Frog"
+SOUND_FILE="/System/Library/Sounds/Frog.aiff"
 TITLE="Claude Code - 確認が必要"
 
-# ── Sound + notification in one osascript call (atomic, no sync issue) ────────
+# ── Sound (afplay) + notification (osascript) ────────────────────────────────
 _notify() {
   local msg="${1:0:120}"
-  /usr/bin/osascript -e "display notification \"$msg\" with title \"$TITLE\" sound name \"$SOUND\"" 2>/dev/null &
-  disown $! 2>/dev/null
+  afplay "$SOUND_FILE" &
+  /usr/bin/osascript -e "display notification \"$msg\" with title \"$TITLE\"" 2>/dev/null &
+  disown 2>/dev/null
 }
 
 # ── Allow-list cache ──────────────────────────────────────────────────────────
