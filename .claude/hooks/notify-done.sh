@@ -7,16 +7,15 @@ IS_ERROR=$(echo "$INPUT" | jq -r '.is_error // false')
 if [ "$IS_ERROR" = "true" ]; then
   TITLE="Claude Code - エラー"
   MSG="タスクがエラーで終了しました"
-  SOUND="Basso"
+  SOUND_FILE="/System/Library/Sounds/Basso.aiff"
 else
   TITLE="Claude Code - 完了"
   MSG="タスクが完了しました"
-  SOUND="Glass"
+  SOUND_FILE="/System/Library/Sounds/Glass.aiff"
 fi
 
-# macOS notification with sound (sound name plays via Notification Center)
-if command -v osascript >/dev/null 2>&1; then
-  osascript -e "display notification \"$MSG\" with title \"$TITLE\" sound name \"$SOUND\"" 2>/dev/null || true
-fi
+# afplay for reliable sound, osascript for visual notification
+afplay "$SOUND_FILE" &
+osascript -e "display notification \"$MSG\" with title \"$TITLE\"" 2>/dev/null || true
 
 exit 0

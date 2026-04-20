@@ -9,14 +9,15 @@
 
 INPUT=$(cat)
 
-SOUND="Frog"
+SOUND_FILE="/System/Library/Sounds/Frog.aiff"
 TITLE="Claude Code - 確認が必要"
 
-# ── Sound + notification in one osascript call (atomic, no sync issue) ────────
+# ── Sound (afplay) + notification (osascript) ────────────────────────────────
 _notify() {
   local msg="${1:0:120}"
-  /usr/bin/osascript -e "display notification \"$msg\" with title \"$TITLE\" sound name \"$SOUND\"" 2>/dev/null &
-  disown $! 2>/dev/null
+  afplay "$SOUND_FILE" &
+  /usr/bin/osascript -e "display notification \"$msg\" with title \"$TITLE\"" 2>/dev/null &
+  disown 2>/dev/null
 }
 
 # ── Allow-list cache ──────────────────────────────────────────────────────────
@@ -29,7 +30,7 @@ _allow_pattern() {
     jq -r '
       [.permissions.allow[]?
        | select(startswith("Bash("))
-       | ltrimstr("Bash(") | rtrimstr(":*")
+       | ltrimstr("Bash(") | rtrimstr(":*)")
        | "^" + . + "( |$)"]
       | join("|")
     ' "$settings" 2>/dev/null > "$cache"
@@ -55,14 +56,12 @@ case "$TOOL_NAME" in
   Bash)
     CMD=$(printf '%s' "$INPUT" | jq -r '.tool_input.command // ""')
     _is_allowed "$CMD" && exit 0
-    _play
     _notify "承認が必要: ${CMD:0:80}"
     ;;
   AskUserQuestion)
     MSG=$(printf '%s' "$INPUT" | jq -r '
       .tool_input.question // (.tool_input.questions[0] // "質問があります")
     ')
-    _play
     _notify "$MSG"
     ;;
   *)
