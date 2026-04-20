@@ -55,14 +55,12 @@ case "$TOOL_NAME" in
   Bash)
     CMD=$(printf '%s' "$INPUT" | jq -r '.tool_input.command // ""')
     _is_allowed "$CMD" && exit 0
-    _play
     _notify "承認が必要: ${CMD:0:80}"
     ;;
   AskUserQuestion)
     MSG=$(printf '%s' "$INPUT" | jq -r '
       .tool_input.question // (.tool_input.questions[0] // "質問があります")
     ')
-    _play
     _notify "$MSG"
     ;;
   *)
