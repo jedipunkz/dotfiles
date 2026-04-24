@@ -207,6 +207,21 @@
       "メメントモリ…処理中"
     ]
   },
+  "spinnerTipsOverride": {
+    "excludeDefault": false,
+    "tips": [
+      "📖 Building Claude Code with Harness Engineering — https://levelup.gitconnected.com/building-claude-code-with-harness-engineering-d2e8c0da85f0",
+      "📖 What Is Harness Engineering? Complete Guide for AI Agent Development (2026) — https://www.nxcode.io/resources/news/what-is-harness-engineering-complete-guide-2026",
+      "📖 Skill Issue: Harness Engineering for Coding Agents — https://www.humanlayer.dev/blog/skill-issue-harness-engineering-for-coding-agents",
+      "📖 Harness Design for Long-Running Application Development — https://www.anthropic.com/engineering/harness-design-long-running-apps",
+      "📖 The Claude Code Leak: 10 Agentic AI Harness Patterns That Change Everything — https://kenhuangus.substack.com/p/the-claude-code-leak-10-agentic-ai",
+      "📖 Claude Code Agent Harness: Architecture Breakdown — https://wavespeed.ai/blog/posts/claude-code-agent-harness-architecture/",
+      "📖 Claude Code Hooks: A Practical Guide to Workflow Automation — https://www.datacamp.com/tutorial/claude-code-hooks",
+      "📖 Claude Code Subagents: The Complete Guide to AI Agent Delegation — https://medium.com/@sathishkraju/claude-code-subagents-the-complete-guide-to-ai-agent-delegation-d0a9aba419d0",
+      "📖 Collaborating with Agent Teams in Claude Code — https://heeki.medium.com/collaborating-with-agents-teams-in-claude-code-f64a465f3c11",
+      "📖 Inside the Agent Harness: How Codex and Claude Code Actually Work — https://medium.com/jonathans-musings/inside-the-agent-harness-how-codex-and-claude-code-actually-work-63593e26c176"
+    ]
+  },
   "language": "japanese",
   "alwaysThinkingEnabled": true,
   "showThinkingSummaries": true,
