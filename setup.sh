@@ -17,7 +17,7 @@ function chkcommand() {
 }
 
 function link() {
-    ln -f -s "$CONF_HOME/$1" "$2" || return 1
+    ln -sfn "$CONF_HOME/$1" "$2" || return 1
     return 0
 }
 
