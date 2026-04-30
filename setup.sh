@@ -51,10 +51,16 @@ backup "$HOME/.claude/scripts" "$HOME/dotfiles.backup/scripts"
 backup "$HOME/.claude/skills" "$HOME/dotfiles.backup/skills"
 backup "$HOME/.claude/rules" "$HOME/dotfiles.backup/rules"
 backup "$HOME/.claude/keybindings.json" "$HOME/dotfiles.backup/keybindings.json"
+backup "$HOME/.gemini/scripts" "$HOME/dotfiles.backup/gemini_scripts"
+backup "$HOME/.gemini/skills" "$HOME/dotfiles.backup/gemini_skills"
+backup "$HOME/.gemini/rules" "$HOME/dotfiles.backup/gemini_rules"
+backup "$HOME/.gemini/keybindings.json" "$HOME/dotfiles.backup/gemini_keybindings.json"
+backup "$HOME/.gemini/settings.json" "$HOME/dotfiles.backup/gemini_settings.json"
 backup "$HOME/.hammerspoon" "$HOME/dotfiles.backup/.hammerspoon"
 
 makedir "$HOME/.config" 700
 makedir "$HOME/.claude" 700
+makedir "$HOME/.gemini" 700
 
 # Linux-specific links
 if [[ "$(uname)" == "Linux" ]]; then
@@ -104,6 +110,15 @@ link .claude/rules "$HOME/.claude/rules"
 link .claude/agents "$HOME/.claude/agents"
 link .claude/keybindings.json "$HOME/.claude/keybindings.json"
 link .claude/hooks "$HOME/.claude/hooks"
+
+# .gemini directory links
+link .gemini/settings.json "$HOME/.gemini/settings.json"
+link .gemini/scripts "$HOME/.gemini/scripts"
+link .gemini/skills "$HOME/.gemini/skills"
+link .gemini/rules "$HOME/.gemini/rules"
+link .gemini/agents "$HOME/.gemini/agents"
+link .gemini/keybindings.json "$HOME/.gemini/keybindings.json"
+link .gemini/hooks "$HOME/.gemini/hooks"
 
 # Other application links
 link .hammerspoon "$HOME/.hammerspoon"
