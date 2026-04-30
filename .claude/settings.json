@@ -101,7 +101,8 @@
       "Bash(git clean -f:*)",
       "Bash(chmod 777:*)",
       "Bash(sudo rm:*)"
-    ]
+    ],
+    "defaultMode": "auto"
   },
   "hooks": {
     "PreToolUse": [
@@ -192,6 +193,7 @@
     "typescript-lsp@claude-plugins-official": true,
     "rust-analyzer-lsp@claude-plugins-official": true
   },
+  "language": "japanese",
   "spinnerVerbs": {
     "mode": "replace",
     "verbs": [
@@ -207,7 +209,6 @@
       "メメントモリ…処理中"
     ]
   },
-  "language": "japanese",
   "alwaysThinkingEnabled": true,
   "showThinkingSummaries": true,
   "skipDangerousModePermissionPrompt": true,
@@ -222,5 +223,6 @@
         "mcp-server"
       ]
     }
-  }
+  },
+  "skipAutoPermissionPrompt": true
 }
