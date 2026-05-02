@@ -25,7 +25,6 @@ end
 
 -- composing フラグを変化させないキー（ナビゲーション・削除系）
 local passthroughKeys = {
-    [48]  = true,  -- Tab
     [51]  = true,  -- Delete (Backspace)
     [117] = true,  -- Forward Delete
     [123] = true,  -- Left
@@ -37,6 +36,16 @@ local passthroughKeys = {
     [116] = true,  -- Page Up
     [121] = true,  -- Page Down
 }
+
+-- マウスクリックで変換が確定した場合もリセット
+local mouseWatcher = eventtap.new({
+    eventtap.event.types.leftMouseDown,
+    eventtap.event.types.rightMouseDown,
+}, function()
+    composing = false
+    return false
+end)
+mouseWatcher:start()
 
 local jpSpaceWatcher = eventtap.new({ eventtap.event.types.keyDown }, function(event)
     local keyCode = event:getKeyCode()
@@ -52,8 +61,8 @@ local jpSpaceWatcher = eventtap.new({ eventtap.event.types.keyDown }, function(e
         return false
     end
 
-    -- Enter / numpad Enter → 変換確定
-    if keyCode == 36 or keyCode == 76 then
+    -- Enter / numpad Enter / Tab → 変換確定またはフォーカス移動
+    if keyCode == 36 or keyCode == 76 or keyCode == 48 then
         composing = false
         return false
     end
