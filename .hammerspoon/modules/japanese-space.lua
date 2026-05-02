@@ -18,9 +18,8 @@ keycodes.inputSourceChanged(function()
 end)
 
 local function isJapaneseSource(source)
-    return source
-        and source:find("com.apple.inputmethod.Kotoeri")
-        and source:find("Japanese")
+    if not source then return false end
+    return source:find("Japanese") or source:find("Kotoeri")
 end
 
 -- composing フラグを変化させないキー（ナビゲーション・削除系）
