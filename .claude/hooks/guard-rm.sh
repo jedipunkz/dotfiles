@@ -21,6 +21,18 @@ COMMAND=$(echo "$INPUT" | jq -r '.tool_input.command // ""')
 # Only a segment whose FIRST token is "rm" is evaluated.
 STRIPPED=$(echo "$COMMAND" | sed "s/'[^']*'//g" | sed 's/"[^"]*"//g')
 
+if echo "$STRIPPED" | grep -qE '(^|[[:space:];&|])find([[:space:]]|$)[^;&|]*(^|[[:space:]])-delete([[:space:]]|$)'; then
+  echo "BLOCKED: find -delete is not allowed." >&2
+  echo "  Use a read-only find command, then ask the user before removing files." >&2
+  exit 2
+fi
+
+if echo "$STRIPPED" | grep -qE '(^|[[:space:];&|])find([[:space:]]|$)[^;&|]*(^|[[:space:]])-(exec|execdir)[[:space:]]+rm([[:space:]]|$)'; then
+  echo "BLOCKED: find -exec rm is not allowed." >&2
+  echo "  Use a read-only find command, then ask the user before removing files." >&2
+  exit 2
+fi
+
 while IFS= read -r segment; do
   segment="${segment#"${segment%%[![:space:]]*}"}"  # trim leading whitespace
   [ -z "$segment" ] && continue
