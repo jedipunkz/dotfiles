@@ -60,6 +60,7 @@ backup "$HOME/.hammerspoon" "$HOME/dotfiles.backup/.hammerspoon"
 backup "$HOME/.karabiner" "$HOME/dotfiles.backup/.karabiner"
 
 makedir "$HOME/.config" 700
+makedir "$HOME/.agents" 700
 makedir "$HOME/.claude" 700
 makedir "$HOME/.codex" 700
 makedir "$HOME/.gemini" 700
@@ -84,6 +85,9 @@ link .tmux.conf.linux "$HOME/.tmux.conf.linux"
 link .starship "$HOME/.starship"
 link .vim "$HOME/.vim"
 link .tigrc "$HOME/.tigrc"
+
+# .agents directory links
+link .agents/skills "$HOME/.agents/skills"
 
 # .config directory links
 link .config/nvim "$HOME/.config/nvim"
@@ -115,7 +119,11 @@ link .claude/keybindings.json "$HOME/.claude/keybindings.json"
 link .claude/hooks "$HOME/.claude/hooks"
 
 # .codex directory links
+link .codex/AGENTS.md "$HOME/.codex/AGENTS.md"
 link .codex/config.toml "$HOME/.codex/config.toml"
+link .codex/hooks "$HOME/.codex/hooks"
+link .codex/hooks.json "$HOME/.codex/hooks.json"
+link .codex/rules "$HOME/.codex/rules"
 
 # .gemini directory links
 link .gemini/settings.json "$HOME/.gemini/settings.json"

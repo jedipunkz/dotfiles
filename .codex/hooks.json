@@ -1,0 +1,81 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.codex/hooks/guard-rm.sh",
+            "statusMessage": "Checking rm command"
+          },
+          {
+            "type": "command",
+            "command": "bash ~/.codex/hooks/block-force-push.sh",
+            "statusMessage": "Checking git push command"
+          },
+          {
+            "type": "command",
+            "command": "bash ~/.codex/hooks/clean-git-lock.sh",
+            "statusMessage": "Checking git lock"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash|Edit|Write|apply_patch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.codex/hooks/block-sensitive-access.sh",
+            "statusMessage": "Checking sensitive paths"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write|apply_patch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.codex/hooks/check-secrets.sh",
+            "statusMessage": "Checking patch for secrets"
+          }
+        ]
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.codex/hooks/notify-permission.sh",
+            "statusMessage": "Sending permission notification"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|apply_patch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.codex/hooks/lint-check.sh",
+            "statusMessage": "Running shellcheck"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.codex/hooks/notify-done.sh",
+            "statusMessage": "Sending completion notification"
+          }
+        ]
+      }
+    ]
+  }
+}

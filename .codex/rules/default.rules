@@ -1,0 +1,68 @@
+# Codex exec policy for commands requested outside the sandbox.
+# Hooks provide broader pattern checks; these rules cover exact dangerous prefixes.
+
+prefix_rule(
+    pattern = ["git", "push", "--force"],
+    decision = "forbidden",
+    justification = "Force push is blocked. Use a normal push or ask the user for an explicit override.",
+    match = [
+        "git push --force",
+        "git push --force origin main",
+    ],
+)
+
+prefix_rule(
+    pattern = ["git", "push", "-f"],
+    decision = "forbidden",
+    justification = "Force push is blocked. Use a normal push or ask the user for an explicit override.",
+    match = [
+        "git push -f",
+        "git push -f origin main",
+    ],
+)
+
+prefix_rule(
+    pattern = ["git", "reset", "--hard"],
+    decision = "forbidden",
+    justification = "Hard reset is destructive and must not be run without an explicit user request.",
+    match = [
+        "git reset --hard",
+        "git reset --hard HEAD~1",
+    ],
+)
+
+prefix_rule(
+    pattern = ["git", "clean", "-f"],
+    decision = "forbidden",
+    justification = "git clean -f deletes untracked files and must not be run without an explicit user request.",
+    match = [
+        "git clean -f",
+    ],
+)
+
+prefix_rule(
+    pattern = ["rm", "-rf"],
+    decision = "forbidden",
+    justification = "rm -rf is blocked. Use a narrower non-recursive removal only when explicitly requested.",
+    match = [
+        "rm -rf tmp",
+    ],
+)
+
+prefix_rule(
+    pattern = ["rm", "-fr"],
+    decision = "forbidden",
+    justification = "rm -fr is blocked. Use a narrower non-recursive removal only when explicitly requested.",
+    match = [
+        "rm -fr tmp",
+    ],
+)
+
+prefix_rule(
+    pattern = ["chmod", "777"],
+    decision = "forbidden",
+    justification = "chmod 777 is overly broad. Use the minimum required permissions.",
+    match = [
+        "chmod 777 file",
+    ],
+)

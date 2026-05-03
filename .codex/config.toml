@@ -1,5 +1,9 @@
 model = "gpt-5.5"
 model_reasoning_effort = "medium"
+
+[features]
+codex_hooks = true
+
 [projects."/Users/thirai/dotfiles"]
 trust_level = "trusted"
 
