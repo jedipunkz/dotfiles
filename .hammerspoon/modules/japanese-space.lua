@@ -2,98 +2,49 @@
 -- Space       → 半角スペース（変換中は通常の変換・候補選択）
 -- Shift+Space → 全角スペース（変換中は通常のシフト＋スペース動作）
 --
--- AXMarkedRange はアプリによって動作しないため、キーイベントで変換状態を自前管理する:
---   文字キー入力     → composing = true
---   Enter / Escape  → composing = false
---   ナビゲーション系 → composing は変化させない
+-- AXMarkedTextRange でIME変換中を判定する。
+-- 半角スペース挿入には alt+space を使う（keyStrokes(" ") は IME に傍受されるため）。
 
 local eventtap = hs.eventtap
 local keycodes = hs.keycodes
-
-local composing = false
-
--- 入力ソース切り替え時に変換状態をリセット
-keycodes.inputSourceChanged(function()
-    composing = false
-end)
 
 local function isJapaneseSource(source)
     if not source then return false end
     return source:find("Japanese") or source:find("Kotoeri")
 end
 
--- composing フラグを変化させないキー（ナビゲーション・削除系）
-local passthroughKeys = {
-    [51]  = true,  -- Delete (Backspace)
-    [117] = true,  -- Forward Delete
-    [123] = true,  -- Left
-    [124] = true,  -- Right
-    [125] = true,  -- Down
-    [126] = true,  -- Up
-    [115] = true,  -- Home
-    [119] = true,  -- End
-    [116] = true,  -- Page Up
-    [121] = true,  -- Page Down
-}
-
--- マウスクリックで変換が確定した場合もリセット
-local mouseWatcher = eventtap.new({
-    eventtap.event.types.leftMouseDown,
-    eventtap.event.types.rightMouseDown,
-}, function()
-    composing = false
-    return false
-end)
-mouseWatcher:start()
+-- AXMarkedTextRange が空でなければ変換中
+local function isComposing()
+    local elem = hs.uielement.focusedElement()
+    if not elem then return false end
+    local ok, range = pcall(function()
+        return elem:attributeValue("AXMarkedTextRange")
+    end)
+    if not ok or range == nil then return false end
+    return (range.length or 0) > 0
+end
 
 local jpSpaceWatcher = eventtap.new({ eventtap.event.types.keyDown }, function(event)
     local keyCode = event:getKeyCode()
+    if keyCode ~= 49 then return false end  -- スペース以外はスルー
+
     local flags = event:getFlags()
+    if flags.cmd or flags.ctrl then return false end
+
+    -- alt+space は半角スペース挿入の内部経路として通過させる
+    if flags.alt then return false end
+
     local source = keycodes.currentSourceID()
+    if not isJapaneseSource(source) then return false end
 
-    if not isJapaneseSource(source) then
-        composing = false
-        return false
-    end
-
-    if flags.cmd or flags.ctrl then
-        return false
-    end
-
-    -- Enter / numpad Enter / Tab → 変換確定またはフォーカス移動
-    if keyCode == 36 or keyCode == 76 or keyCode == 48 then
-        composing = false
-        return false
-    end
-
-    -- Escape → 変換キャンセル
-    if keyCode == 53 then
-        composing = false
-        return false
-    end
-
-    -- スペース以外のキー: 文字キーなら変換開始とみなす
-    if keyCode ~= 49 then
-        if not passthroughKeys[keyCode] then
-            composing = true
-        end
-        return false
-    end
-
-    -- スペースキーの処理
-    if flags.alt then
-        return false
-    end
-
-    if composing then
-        -- 変換中はIMEに任せる（候補選択など）
-        return false
-    end
+    -- 変換中はIMEに任せる（候補選択など）
+    if isComposing() then return false end
 
     if flags.shift then
-        eventtap.keyStrokes("\u{3000}")  -- 全角スペース
+        eventtap.keyStrokes("\u{3000}")      -- Shift+Space → 全角スペース
     else
-        eventtap.keyStrokes(" ")         -- 半角スペース
+        -- keyStrokes(" ") はIMEに全角変換されるため alt+space で迂回
+        eventtap.keyStroke({"alt"}, "space") -- Space → 半角スペース
     end
     return true
 end)
