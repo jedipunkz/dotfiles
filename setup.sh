@@ -61,6 +61,7 @@ backup "$HOME/.karabiner" "$HOME/dotfiles.backup/.karabiner"
 
 makedir "$HOME/.config" 700
 makedir "$HOME/.claude" 700
+makedir "$HOME/.codex" 700
 makedir "$HOME/.gemini" 700
 
 # Linux-specific links
@@ -113,6 +114,9 @@ link .claude/agents "$HOME/.claude/agents"
 link .claude/keybindings.json "$HOME/.claude/keybindings.json"
 link .claude/hooks "$HOME/.claude/hooks"
 
+# .codex directory links
+link .codex/config.toml "$HOME/.codex/config.toml"
+
 # .gemini directory links
 link .gemini/settings.json "$HOME/.gemini/settings.json"
 link .gemini/scripts "$HOME/.gemini/scripts"
@@ -127,4 +131,3 @@ link .hammerspoon "$HOME/.hammerspoon"
 
 gitclone "$URL_TPM" ~/.tmux/plugins/tpm
 gitclone "$URL_ZSHCOMP" "$HOME/.zsh-completions"
-

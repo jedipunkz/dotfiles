@@ -1,0 +1,22 @@
+model = "gpt-5.5"
+model_reasoning_effort = "medium"
+[projects."/Users/thirai/dotfiles"]
+trust_level = "trusted"
+
+[projects."/Users/thirai/ghq/github.com/jedipunkz/jedipunkz.github.io"]
+trust_level = "trusted"
+
+[projects."/Users/thirai/ghq/github.com/jedipunkz/ax"]
+trust_level = "trusted"
+
+[projects."/Users/thirai/.config"]
+trust_level = "trusted"
+
+[tui.model_availability_nux]
+"gpt-5.5" = 4
+
+[tui.keymap.composer]
+submit = "ctrl-enter"
+
+[tui.keymap.editor]
+insert_newline = "enter"
