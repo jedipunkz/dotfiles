@@ -57,6 +57,7 @@ backup "$HOME/.gemini/rules" "$HOME/dotfiles.backup/gemini_rules"
 backup "$HOME/.gemini/keybindings.json" "$HOME/dotfiles.backup/gemini_keybindings.json"
 backup "$HOME/.gemini/settings.json" "$HOME/dotfiles.backup/gemini_settings.json"
 backup "$HOME/.hammerspoon" "$HOME/dotfiles.backup/.hammerspoon"
+backup "$HOME/.karabiner" "$HOME/dotfiles.backup/.karabiner"
 
 makedir "$HOME/.config" 700
 makedir "$HOME/.claude" 700
@@ -101,6 +102,7 @@ link .config/starship "$HOME/.config/starship"
 link .config/ghostty "$HOME/.config/ghostty"
 link .config/opencode "$HOME/.config/opencode"
 link .config/eza "$HOME/.config/eza"
+link .config/karabiner "$HOME/.config/karabiner"
 
 # .claude directory links
 link .claude/settings.json "$HOME/.claude/settings.json"
