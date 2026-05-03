@@ -4,6 +4,17 @@ model_reasoning_effort = "medium"
 [features]
 codex_hooks = true
 
+[tui]
+status_line = [
+    "model-with-reasoning",
+    "git-branch",
+    "context-remaining",
+    "used-tokens",
+    "five-hour-limit",
+    "weekly-limit",
+    "current-dir",
+]
+
 [projects."/Users/thirai/dotfiles"]
 trust_level = "trusted"
 
