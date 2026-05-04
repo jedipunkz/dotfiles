@@ -7,7 +7,6 @@
     "GIT_OPTIONAL_LOCKS": "0"
   },
   "permissions": {
-    "defaultMode": "auto",
     "allow": [
       "Read",
       "WebSearch",
@@ -191,7 +190,8 @@
   "enabledPlugins": {
     "gopls-lsp@claude-plugins-official": true,
     "typescript-lsp@claude-plugins-official": true,
-    "rust-analyzer-lsp@claude-plugins-official": true
+    "rust-analyzer-lsp@claude-plugins-official": true,
+    "swift-lsp@claude-plugins-official": true
   },
   "language": "japanese",
   "spinnerVerbs": {
@@ -212,6 +212,7 @@
   "alwaysThinkingEnabled": true,
   "showThinkingSummaries": true,
   "skipDangerousModePermissionPrompt": true,
+  "skipAutoPermissionPrompt": true,
   "feedbackSurveyState": {
     "lastShownTime": 1754085614062
   },
@@ -223,6 +224,5 @@
         "mcp-server"
       ]
     }
-  },
-  "skipAutoPermissionPrompt": true
+  }
 }
