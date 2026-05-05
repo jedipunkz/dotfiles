@@ -57,9 +57,12 @@ backup "$HOME/.gemini/rules" "$HOME/dotfiles.backup/gemini_rules"
 backup "$HOME/.gemini/keybindings.json" "$HOME/dotfiles.backup/gemini_keybindings.json"
 backup "$HOME/.gemini/settings.json" "$HOME/dotfiles.backup/gemini_settings.json"
 backup "$HOME/.hammerspoon" "$HOME/dotfiles.backup/.hammerspoon"
+backup "$HOME/.karabiner" "$HOME/dotfiles.backup/.karabiner"
 
 makedir "$HOME/.config" 700
+makedir "$HOME/.agents" 700
 makedir "$HOME/.claude" 700
+makedir "$HOME/.codex" 700
 makedir "$HOME/.gemini" 700
 
 # Linux-specific links
@@ -83,6 +86,9 @@ link .starship "$HOME/.starship"
 link .vim "$HOME/.vim"
 link .tigrc "$HOME/.tigrc"
 
+# .agents directory links
+link .agents/skills "$HOME/.agents/skills"
+
 # .config directory links
 link .config/nvim "$HOME/.config/nvim"
 link .config/fish "$HOME/.config/fish"
@@ -101,6 +107,7 @@ link .config/starship "$HOME/.config/starship"
 link .config/ghostty "$HOME/.config/ghostty"
 link .config/opencode "$HOME/.config/opencode"
 link .config/eza "$HOME/.config/eza"
+link .config/karabiner "$HOME/.config/karabiner"
 
 # .claude directory links
 link .claude/settings.json "$HOME/.claude/settings.json"
@@ -110,6 +117,13 @@ link .claude/rules "$HOME/.claude/rules"
 link .claude/agents "$HOME/.claude/agents"
 link .claude/keybindings.json "$HOME/.claude/keybindings.json"
 link .claude/hooks "$HOME/.claude/hooks"
+
+# .codex directory links
+link .codex/AGENTS.md "$HOME/.codex/AGENTS.md"
+link .codex/config.toml "$HOME/.codex/config.toml"
+link .codex/hooks "$HOME/.codex/hooks"
+link .codex/hooks.json "$HOME/.codex/hooks.json"
+link .codex/rules "$HOME/.codex/rules"
 
 # .gemini directory links
 link .gemini/settings.json "$HOME/.gemini/settings.json"
@@ -125,4 +139,3 @@ link .hammerspoon "$HOME/.hammerspoon"
 
 gitclone "$URL_TPM" ~/.tmux/plugins/tpm
 gitclone "$URL_ZSHCOMP" "$HOME/.zsh-completions"
-

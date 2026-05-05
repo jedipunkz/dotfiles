@@ -1,0 +1,47 @@
+model = "gpt-5.5"
+model_reasoning_effort = "medium"
+sandbox_mode = "danger-full-access"
+
+[sandbox_workspace_write]
+network_access = true
+
+[features]
+codex_hooks = true
+
+[tui]
+status_line = [
+    "model-with-reasoning",
+    "git-branch",
+    "context-remaining",
+    "used-tokens",
+    "five-hour-limit",
+    "weekly-limit",
+    "current-dir",
+]
+
+[projects."/Users/thirai/dotfiles"]
+trust_level = "trusted"
+
+[projects."/Users/thirai/ghq/github.com/jedipunkz/jedipunkz.github.io"]
+trust_level = "trusted"
+
+[projects."/Users/thirai/ghq/github.com/jedipunkz/ax"]
+trust_level = "trusted"
+
+[projects."/Users/thirai/.config"]
+trust_level = "trusted"
+
+[projects."/Users/thirai/Desktop/UnNatural/UnNatural"]
+trust_level = "trusted"
+
+[projects."/Users/thirai/ghq/github.com/jedipunkz/UnNatural"]
+trust_level = "trusted"
+
+[tui.model_availability_nux]
+"gpt-5.5" = 4
+
+[tui.keymap.composer]
+submit = "ctrl-enter"
+
+[tui.keymap.editor]
+insert_newline = "enter"

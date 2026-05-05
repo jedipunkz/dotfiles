@@ -4,18 +4,15 @@
 # Triggered by PreToolUse only (Notification hook removed — it caused double-firing
 # alongside PreToolUse, resulting in two sounds per confirmation).
 #
-# Latency optimisation: afplay fires in background as the very first action,
-# before any allow-list check or osascript, so sound plays at earliest opportunity.
+# Sound removed — completion sound (notify-done.sh) is sufficient.
 
 INPUT=$(cat)
 
-SOUND_FILE="/System/Library/Sounds/Frog.aiff"
 TITLE="Claude Code - 確認が必要"
 
-# ── Sound (afplay) + notification (osascript) ────────────────────────────────
+# ── Notification (osascript) ─────────────────────────────────────────────────
 _notify() {
   local msg="${1:0:120}"
-  afplay "$SOUND_FILE" &
   /usr/bin/osascript -e "display notification \"$msg\" with title \"$TITLE\"" 2>/dev/null &
   disown 2>/dev/null
 }
