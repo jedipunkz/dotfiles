@@ -8,6 +8,10 @@ network_access = true
 [features]
 codex_hooks = true
 
+[mcp_servers.chrome-devtools]
+command = "npx"
+args = ["-y", "chrome-devtools-mcp@latest"]
+
 [tui]
 status_line = [
     "model-with-reasoning",
