@@ -8,6 +8,10 @@ network_access = true
 [features]
 codex_hooks = true
 
+[mcp_servers.chrome-devtools]
+command = "npx"
+args = ["-y", "chrome-devtools-mcp@latest"]
+
 [tui]
 status_line = [
     "model-with-reasoning",
@@ -35,6 +39,9 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/Users/thirai/ghq/github.com/jedipunkz/UnNatural"]
+trust_level = "trusted"
+
+[projects."/Users/thirai/ghq/github.com/jedipunkz/rebind"]
 trust_level = "trusted"
 
 [tui.model_availability_nux]
