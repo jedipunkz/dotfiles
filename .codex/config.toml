@@ -44,6 +44,9 @@ trust_level = "trusted"
 [projects."/Users/thirai/ghq/github.com/jedipunkz/rebind"]
 trust_level = "trusted"
 
+[projects."/Users/thirai/ghq/github.com/knowledge-work/knowledgework"]
+trust_level = "trusted"
+
 [tui.model_availability_nux]
 "gpt-5.5" = 4
 
