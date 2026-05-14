@@ -41,6 +41,8 @@ alias grep="grep --color"
 alias zz="bunx ccgwz"
 alias gs="git switch"
 alias gsc="git switch -c"
+alias pm="echo 'pull main' && git pull origin main"
+alias pms="echo 'pull master' && git pull origin master"
 
 # mise
 if test (uname -s) = "Linux"
