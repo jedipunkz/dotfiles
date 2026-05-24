@@ -1,32 +1,15 @@
-# Claude Code - Dotfiles Harness
+@AGENTS.md
 
-## Project Context
-Personal dotfiles for macOS. Managed via `setup.sh` symlinks into `~/`.
-Language: Japanese for all responses.
+# Claude Code Specific Instructions
 
-## Architecture
-```
-dotfiles/
-├── .config/       # User-specific configs (~/.config/ symlinked)
-├── .claude/       # Claude Code harness (hooks, rules, skills, settings)
-├── bin/           # Personal binaries
-└── setup.sh       # Symlink installer
-```
+## Rules
 
-## Rules (auto-loaded from .claude/rules/)
-- `conventional-commits.md` — commit prefix and branch naming
-- `github-pr-template.md` — PR format (private=日本語, public=English)
+Claude Code also loads detailed rules from `.claude/rules/`:
 
-## Non-obvious Conventions
-
-**Symlinks**: `setup.sh` links `.claude/` → `~/.claude/`, `.config/*` → `~/.config/*`.
-Always verify symlink targets exist before creating new ones.
-
-**Shell scripts**: POSIX-compliant, `#!/usr/bin/env bash`. No zsh-specific syntax.
-
-**Secrets**: Never write `.env` or credential values inline. Use env vars.
-
-**Destructive ops**: `git reset --hard`, `rm -rf`, force push are blocked by hooks/deny rules. Do not attempt to bypass.
+- `conventional-commits.md` - commit prefix and branch naming details.
+- `git-commit.md` - commit granularity, command form, and message rules.
+- `github-pr-template.md` - PR format; private repositories use Japanese, public repositories use English.
+- `harness-references.md` - harness engineering references and local configuration notes.
 
 ## Multi-Agent Dispatch Rules
 
@@ -41,6 +24,8 @@ Custom subagents live in `.claude/agents/`. **Use them proactively.**
 | Research needed before implementation | Delegate to `researcher` first, then implement |
 | Shell script written or modified | Delegate review to `shell-reviewer` |
 | Go file written or modified | Delegate review to `go-reviewer` |
+| Terraform file needs to be written or scaffolded | Delegate authoring to `terraform-writer` |
+| Terraform file written or modified | Delegate review to `terraform-reviewer` |
 | New hook or permission rule added | Delegate audit to `security-auditor` |
 | Single small change (<2 min) | No dispatch — do it directly |
 
@@ -65,5 +50,6 @@ researcher → findings → implement → shell-reviewer → verdict → commit
 - Task takes under 30 seconds
 
 ## Available Skills
-- `/codex-review` — Codex CLI code review
-- `/zellij-swarm` — Parallel agent orchestration
+
+- `/codex-review` - Codex CLI code review.
+- `/zellij-swarm` - Parallel agent orchestration.
