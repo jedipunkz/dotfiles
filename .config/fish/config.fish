@@ -12,7 +12,11 @@ if test (uname -s) = "Darwin"
     set -x EDITOR nvim
     alias vim="nvim"
 else
-    alias cat="batcat"
+    if type -q bat
+        alias cat="bat"
+    else if type -q batcat
+        alias cat="batcat"
+    end
     alias vim="nvim"
     alias code="/mnt/c/Users/tomok/AppData/Local/Programs/Microsoft\ VS\ Code/bin/code"
 end
