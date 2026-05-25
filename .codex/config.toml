@@ -47,10 +47,25 @@ trust_level = "trusted"
 [projects."/Users/thirai/ghq/github.com/knowledge-work/knowledgework"]
 trust_level = "trusted"
 
+[projects."/Users/thirai/ghq/github.com/jedipunkz/keyboard-checker"]
+trust_level = "trusted"
+
+[projects."/Users/thirai/tmp/gh-review-cli"]
+trust_level = "trusted"
+
+[projects."/Users/thirai/tmp/gh-review"]
+trust_level = "trusted"
+
 [projects."/Users/thirai/ghq/github.com/jedipunkz/gh-review"]
 trust_level = "trusted"
 
 [projects."/Users/thirai/ghq/github.com/knowledge-work/experimental"]
+trust_level = "trusted"
+
+[projects."/Users/thirai/ghq/github.com/jedipunkz/philosophy"]
+trust_level = "trusted"
+
+[projects."/Users/thirai/tmp/amazon-coupon-extension"]
 trust_level = "trusted"
 
 [tui.model_availability_nux]
@@ -61,6 +76,11 @@ submit = "ctrl-enter"
 
 [tui.keymap.editor]
 insert_newline = "enter"
+
+[plugins."vercel-plugin@plugins-cli"]
+enabled = true
+
+[hooks.state]
 
 [hooks.state."/Users/thirai/.codex/hooks.json:pre_tool_use:0:0"]
 trusted_hash = "sha256:b4485494b4f7928c4d1fc7b7c345e16904e086a43f58323ebcae5a430a3ef1ca"
@@ -85,6 +105,15 @@ trusted_hash = "sha256:cdbbce7cb77c91ce94bfe52d2b2ed777ddc8331435ac0eaa519c1a2ac
 
 [hooks.state."/Users/thirai/.codex/hooks.json:stop:0:0"]
 trusted_hash = "sha256:09b74a8c0cb61994da746641439f5551ffedf843bad4fd42d9950d5612a1c19c"
+
+[hooks.state."vercel-plugin@plugins-cli:hooks/hooks.json:session_start:0:0"]
+trusted_hash = "sha256:146eedfa10f48cfcb6d2cfb2c8fc36e8d8bb8751d2167ba205fa0b967c8a7f6e"
+
+[hooks.state."vercel-plugin@plugins-cli:hooks/hooks.json:session_start:0:1"]
+trusted_hash = "sha256:1b7bf88920f9d93c5bd508088299ba969739865da51a3043b931819328abf7d5"
+
+[hooks.state."vercel-plugin@plugins-cli:hooks/hooks.json:session_start:0:2"]
+trusted_hash = "sha256:7c0c78b3d111a81aed993357e32d997f3996cf32bbf4ab475efe9ce08772673a"
 
 [hooks.state."/Users/thirai/dotfiles/.codex/hooks.json:pre_tool_use:0:0"]
 trusted_hash = "sha256:b4485494b4f7928c4d1fc7b7c345e16904e086a43f58323ebcae5a430a3ef1ca"
