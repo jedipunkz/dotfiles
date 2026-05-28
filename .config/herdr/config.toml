@@ -6,6 +6,9 @@ new_cwd = "follow"
 [ui.toast]
 delivery = "terminal"
 
+[ui.sound]
+enabled = false
+
 [ui]
 show_agent_labels_on_pane_borders = true
 sidebar_width = 22
