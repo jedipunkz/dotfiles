@@ -6,8 +6,8 @@ if wezterm.target_triple:find("linux") then
   font_size = 12 -- Linux用のフォントサイズ
   window_background_opacity = 0.8 -- 透明化
 elseif wezterm.target_triple:find("darwin") then
-  if wezterm.hostname() == "EMP-P0063.local" then
-    font_size = 15
+  if wezterm.hostname() == "bob-san.local" then
+    font_size = 15.4
   else
     font_size = 14.2
   end

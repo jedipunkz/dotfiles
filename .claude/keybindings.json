@@ -5,9 +5,16 @@
     {
       "context": "Chat",
       "bindings": {
-        "enter": "chat:submit",
+        "enter": "chat:newline",
         "ctrl+enter": "chat:submit",
         "shift+enter": "chat:newline"
+      }
+    },
+    {
+      "context": "Autocomplete",
+      "bindings": {
+        "enter": "autocomplete:accept",
+        "ctrl+enter": "autocomplete:accept"
       }
     }
   ]

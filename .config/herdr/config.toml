@@ -1,0 +1,18 @@
+onboarding = false
+
+[ui.toast]
+delivery = "terminal"
+
+[ui]
+show_agent_labels_on_pane_borders = true
+
+[theme]
+name = "catppuccin"
+
+[keys]
+prefix = "ctrl+t"
+split_vertical = "prefix+|"
+split_horizontal = "prefix+\""
+previous_workspace = "prefix+["
+next_workspace = "prefix+]"
+detach = "prefix+d"

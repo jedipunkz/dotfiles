@@ -68,14 +68,10 @@ makedir "$HOME/.gemini" 700
 # Linux-specific links
 if [[ "$(uname)" == "Linux" ]]; then
     link .gtkrc-2.0 "$HOME/.gtkrc-2.0"
-    link .Xresources "$HOME/.Xresources"
-    link .imwheelrc "$HOME/.imwheelrc"
     link .config/regolith "$HOME/.config/regolith"
 fi
 
 # Common dotfiles
-link .xbindkeysrc "$HOME/.xbindkeysrc"
-link .xinitrc "$HOME/.xinitrc"
 link .emacs.d "$HOME/.emacs.d"
 link .zshrc "$HOME/.zshrc"
 link .dir_colors "$HOME/.dir_colors"
@@ -83,7 +79,6 @@ link .tmux.conf "$HOME/.tmux.conf"
 link .tmux.conf.macos "$HOME/.tmux.conf.macos"
 link .tmux.conf.linux "$HOME/.tmux.conf.linux"
 link .starship "$HOME/.starship"
-link .vim "$HOME/.vim"
 link .tigrc "$HOME/.tigrc"
 
 # .agents directory links
@@ -109,7 +104,13 @@ link .config/opencode "$HOME/.config/opencode"
 link .config/eza "$HOME/.config/eza"
 link .config/karabiner "$HOME/.config/karabiner"
 
+# herdr stores runtime state (sockets, logs, session.json) under ~/.config/herdr,
+# so link only the config.toml file rather than the directory.
+makedir "$HOME/.config/herdr" 700
+link .config/herdr/config.toml "$HOME/.config/herdr/config.toml"
+
 # .claude directory links
+link .claude/CLAUDE.md "$HOME/.claude/CLAUDE.md"
 link .claude/settings.json "$HOME/.claude/settings.json"
 link .claude/scripts "$HOME/.claude/scripts"
 link .claude/skills "$HOME/.claude/skills"
