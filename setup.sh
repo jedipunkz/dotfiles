@@ -104,6 +104,11 @@ link .config/opencode "$HOME/.config/opencode"
 link .config/eza "$HOME/.config/eza"
 link .config/karabiner "$HOME/.config/karabiner"
 
+# herdr stores runtime state (sockets, logs, session.json) under ~/.config/herdr,
+# so link only the config.toml file rather than the directory.
+makedir "$HOME/.config/herdr" 700
+link .config/herdr/config.toml "$HOME/.config/herdr/config.toml"
+
 # .claude directory links
 link .claude/CLAUDE.md "$HOME/.claude/CLAUDE.md"
 link .claude/settings.json "$HOME/.claude/settings.json"
