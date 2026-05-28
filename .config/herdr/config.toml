@@ -7,7 +7,7 @@ delivery = "terminal"
 show_agent_labels_on_pane_borders = true
 
 [theme]
-name = "catppuccin"
+name = "tokyo-night"
 
 [keys]
 prefix = "ctrl+t"
