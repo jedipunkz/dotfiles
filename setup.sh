@@ -105,6 +105,7 @@ link .config/eza "$HOME/.config/eza"
 link .config/karabiner "$HOME/.config/karabiner"
 
 # .claude directory links
+link .claude/CLAUDE.md "$HOME/.claude/CLAUDE.md"
 link .claude/settings.json "$HOME/.claude/settings.json"
 link .claude/scripts "$HOME/.claude/scripts"
 link .claude/skills "$HOME/.claude/skills"
