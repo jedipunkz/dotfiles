@@ -1,0 +1,29 @@
+onboarding = false
+
+[terminal]
+new_cwd = "follow"
+
+[ui.toast]
+delivery = "terminal"
+
+[ui]
+show_agent_labels_on_pane_borders = true
+sidebar_width = 28
+accent = "#7aa2f7"
+
+[theme]
+name = "tokyo-night"
+
+[worktrees]
+directory = "~/.ax/worktrees"
+
+[advanced]
+scrollback_limit_bytes = 524288000
+
+[keys]
+prefix = "ctrl+t"
+split_vertical = "prefix+|"
+split_horizontal = "prefix+\""
+previous_workspace = "prefix+["
+next_workspace = "prefix+]"
+detach = "prefix+d"

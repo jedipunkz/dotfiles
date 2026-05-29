@@ -6,7 +6,7 @@ sandbox_mode = "danger-full-access"
 network_access = true
 
 [features]
-codex_hooks = true
+hooks = true
 
 [mcp_servers.chrome-devtools]
 command = "npx"
@@ -44,6 +44,9 @@ trust_level = "trusted"
 [projects."/Users/thirai/ghq/github.com/jedipunkz/rebind"]
 trust_level = "trusted"
 
+[projects."/Users/thirai/ghq/github.com/knowledge-work/knowledgework"]
+trust_level = "trusted"
+
 [projects."/Users/thirai/ghq/github.com/jedipunkz/keyboard-checker"]
 trust_level = "trusted"
 
@@ -56,13 +59,16 @@ trust_level = "trusted"
 [projects."/Users/thirai/ghq/github.com/jedipunkz/gh-review"]
 trust_level = "trusted"
 
+[projects."/Users/thirai/ghq/github.com/knowledge-work/experimental"]
+trust_level = "trusted"
+
 [projects."/Users/thirai/ghq/github.com/jedipunkz/philosophy"]
 trust_level = "trusted"
 
 [projects."/Users/thirai/tmp/amazon-coupon-extension"]
 trust_level = "trusted"
 
-[projects."/home/thirai/ghq/github.com/jedipunkz/philosophy"]
+[projects."/Users/thirai/ghq/github.com/jedipunkz/fuzz.fish"]
 trust_level = "trusted"
 
 [tui.model_availability_nux]
