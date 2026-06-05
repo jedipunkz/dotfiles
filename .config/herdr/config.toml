@@ -6,9 +6,12 @@ new_cwd = "follow"
 [ui.toast]
 delivery = "terminal"
 
+[ui.sound]
+enabled = false
+
 [ui]
 show_agent_labels_on_pane_borders = true
-sidebar_width = 28
+sidebar_width = 22
 accent = "#7aa2f7"
 
 [theme]
@@ -24,6 +27,6 @@ scrollback_limit_bytes = 524288000
 prefix = "ctrl+t"
 split_vertical = "prefix+|"
 split_horizontal = "prefix+\""
-previous_workspace = "prefix+["
-next_workspace = "prefix+]"
+previous_workspace = "prefix+comma"
+next_workspace = "prefix+period"
 detach = "prefix+d"
