@@ -55,15 +55,6 @@
       {
         "hooks": [
           {
-            "command": "~/.claude/hooks/notify-ask.sh",
-            "type": "command"
-          }
-        ],
-        "matcher": "AskUserQuestion|Bash"
-      },
-      {
-        "hooks": [
-          {
             "command": "~/.claude/hooks/block-sensitive-access.sh",
             "type": "command"
           }
