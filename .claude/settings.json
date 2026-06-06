@@ -2,6 +2,23 @@
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "agentPushNotifEnabled": true,
   "alwaysThinkingEnabled": true,
+  "autoMode": {
+    "hard_deny": [
+      "Do not read, write, or modify any file under ~/.aws, ~/.ssh, ~/.gnupg, ~/.config/gh, ~/.netrc, ~/.npmrc, or ~/.pypirc.",
+      "Do not push to remote branches named main, master, production, or release/*. Pushing to feature branches is allowed.",
+      "Do not run terraform apply, terraform destroy, kubectl apply, kubectl delete, or any deploy command against production environments.",
+      "Do not run database destructive statements such as DROP, TRUNCATE, DELETE without WHERE, or migrations marked irreversible.",
+      "Do not install, uninstall, or modify system-wide packages via sudo, brew uninstall, or pkg removal.",
+      "Do not modify global git config or replace SSH config files."
+    ],
+    "soft_deny": [
+      "Confirm before installing global packages (brew install, npm install -g, pip install --user, cargo install).",
+      "Confirm before modifying files outside the current working directory tree or additional directories.",
+      "Confirm before running long-lived background processes, daemons, or services.",
+      "Confirm before sending requests to external APIs that may incur cost or rate-limit consumption.",
+      "Confirm before rewriting git history (rebase, amend on pushed commits, force-with-lease)."
+    ]
+  },
   "enabledPlugins": {
     "gopls-lsp@claude-plugins-official": true,
     "rust-analyzer-lsp@claude-plugins-official": true,
@@ -27,6 +44,17 @@
     "lastShownTime": 1754085614062
   },
   "hooks": {
+    "CwdChanged": [
+      {
+        "hooks": [
+          {
+            "command": "~/.claude/hooks/log-event.sh",
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ],
     "Notification": [],
     "PermissionRequest": [
       {
@@ -152,12 +180,45 @@
         "matcher": "*"
       }
     ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "command": "~/.claude/hooks/log-event.sh",
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ],
     "UserPromptSubmit": [
       {
         "hooks": [
           {
             "command": "bash '/Users/thirai/.claude/hooks/herdr-agent-state.sh' working",
             "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ],
+    "WorktreeCreate": [
+      {
+        "hooks": [
+          {
+            "command": "~/.claude/hooks/log-event.sh",
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ],
+    "WorktreeRemove": [
+      {
+        "hooks": [
+          {
+            "command": "~/.claude/hooks/log-event.sh",
             "type": "command"
           }
         ],
@@ -177,15 +238,14 @@
   },
   "model": "opus",
   "permissions": {
+    "additionalDirectories": [
+      "~/.ax/worktrees",
+      "~/ghq"
+    ],
     "allow": [
       "Read",
       "WebSearch",
       "WebFetch",
-      "Bash(ls:*)",
-      "Bash(find:*)",
-      "Bash(cat:*)",
-      "Bash(head:*)",
-      "Bash(tail:*)",
       "Bash(jq:*)",
       "Bash(gh pr list:*)",
       "Bash(gh pr view:*)",
@@ -212,21 +272,13 @@
       "Bash(gh search prs:*)",
       "Bash(gh api:*)",
       "Bash(rg:*)",
-      "Bash(grep:*)",
-      "Bash(diff:*)",
-      "Bash(wc:*)",
-      "Bash(which:*)",
       "Bash(type:*)",
-      "Bash(pwd:*)",
       "Bash(date:*)",
       "Bash(uname:*)",
       "Bash(file:*)",
-      "Bash(stat:*)",
-      "Bash(du:*)",
       "Bash(df:*)",
       "Bash(ps:*)",
       "Bash(env:*)",
-      "Bash(echo:*)",
       "Bash(git log:*)",
       "Bash(git diff:*)",
       "Bash(git status:*)",
