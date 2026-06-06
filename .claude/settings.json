@@ -1,11 +1,190 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "agentPushNotifEnabled": true,
+  "alwaysThinkingEnabled": true,
+  "enabledPlugins": {
+    "gopls-lsp@claude-plugins-official": true,
+    "rust-analyzer-lsp@claude-plugins-official": true,
+    "swift-lsp@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "vercel@claude-plugins-official": true
+  },
   "env": {
-    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
     "CLAUDE_CODE_DISABLE_AUTO_MEMORY": "0",
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
     "CLAUDE_CODE_NO_FLICKER": "1",
     "GIT_OPTIONAL_LOCKS": "0"
   },
+  "extraKnownMarketplaces": {
+    "claude-plugins-official": {
+      "source": {
+        "repo": "anthropics/claude-plugins-official",
+        "source": "github"
+      }
+    }
+  },
+  "feedbackSurveyState": {
+    "lastShownTime": 1754085614062
+  },
+  "hooks": {
+    "Notification": [],
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "command": "bash '/Users/thirai/.claude/hooks/herdr-agent-state.sh' blocked",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "~/.claude/hooks/lint-check.sh",
+            "type": "command"
+          }
+        ],
+        "matcher": "Write|Edit"
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "~/.claude/hooks/notify-ask.sh",
+            "type": "command"
+          }
+        ],
+        "matcher": "AskUserQuestion|Bash"
+      },
+      {
+        "hooks": [
+          {
+            "command": "~/.claude/hooks/block-sensitive-access.sh",
+            "type": "command"
+          }
+        ],
+        "matcher": "Read|Edit|Write|Bash|Grep"
+      },
+      {
+        "hooks": [
+          {
+            "command": "~/.claude/hooks/guard-rm.sh",
+            "type": "command"
+          }
+        ],
+        "matcher": "Bash"
+      },
+      {
+        "hooks": [
+          {
+            "command": "~/.claude/hooks/clean-git-lock.sh",
+            "type": "command"
+          }
+        ],
+        "matcher": "Bash"
+      },
+      {
+        "hooks": [
+          {
+            "command": "~/.claude/hooks/block-force-push.sh",
+            "type": "command"
+          }
+        ],
+        "matcher": "Bash"
+      },
+      {
+        "hooks": [
+          {
+            "command": "~/.claude/hooks/check-secrets.sh",
+            "type": "command"
+          }
+        ],
+        "matcher": "Write|Edit"
+      },
+      {
+        "hooks": [
+          {
+            "command": "bash '/Users/thirai/.claude/hooks/herdr-agent-state.sh' working",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "command": "bash '/Users/thirai/.claude/hooks/herdr-agent-state.sh' release",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "bash '/Users/thirai/.claude/hooks/herdr-agent-state.sh' idle",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "command": "~/.claude/hooks/notify-done.sh",
+            "type": "command"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "command": "bash '/Users/thirai/.claude/hooks/herdr-agent-state.sh' idle",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "command": "bash '/Users/thirai/.claude/hooks/herdr-agent-state.sh' working",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ]
+  },
+  "language": "japanese",
+  "mcpServers": {
+    "codex": {
+      "args": [
+        "mcp-server"
+      ],
+      "command": "codex",
+      "type": "stdio"
+    }
+  },
+  "model": "opus",
   "permissions": {
     "allow": [
       "Read",
@@ -68,6 +247,7 @@
       "Skill",
       "mcp__codex__*"
     ],
+    "defaultMode": "auto",
     "deny": [
       "Read(~/.aws/**)",
       "Read(~/.ssh/**)",
@@ -100,110 +280,11 @@
       "Bash(git clean -f:*)",
       "Bash(chmod 777:*)",
       "Bash(sudo rm:*)"
-    ],
-    "defaultMode": "auto"
+    ]
   },
-  "model": "opus",
-  "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "AskUserQuestion|Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/notify-ask.sh"
-          }
-        ]
-      },
-      {
-        "matcher": "Read|Edit|Write|Bash|Grep",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/block-sensitive-access.sh"
-          }
-        ]
-      },
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/guard-rm.sh"
-          }
-        ]
-      },
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/clean-git-lock.sh"
-          }
-        ]
-      },
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/block-force-push.sh"
-          }
-        ]
-      },
-      {
-        "matcher": "Write|Edit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/check-secrets.sh"
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "matcher": "Write|Edit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/lint-check.sh"
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/notify-done.sh"
-          }
-        ]
-      }
-    ],
-    "Notification": []
-  },
-  "statusLine": {
-    "type": "command",
-    "command": "~/.claude/scripts/statusline.sh"
-  },
-  "enabledPlugins": {
-    "gopls-lsp@claude-plugins-official": true,
-    "typescript-lsp@claude-plugins-official": true,
-    "rust-analyzer-lsp@claude-plugins-official": true,
-    "swift-lsp@claude-plugins-official": true,
-    "vercel@claude-plugins-official": true
-  },
-  "extraKnownMarketplaces": {
-    "claude-plugins-official": {
-      "source": {
-        "source": "github",
-        "repo": "anthropics/claude-plugins-official"
-      }
-    }
-  },
-  "language": "japanese",
+  "showThinkingSummaries": true,
+  "skipAutoPermissionPrompt": true,
+  "skipDangerousModePermissionPrompt": true,
   "spinnerVerbs": {
     "mode": "replace",
     "verbs": [
@@ -219,21 +300,8 @@
       "メメントモリ…処理中"
     ]
   },
-  "alwaysThinkingEnabled": true,
-  "showThinkingSummaries": true,
-  "skipDangerousModePermissionPrompt": true,
-  "skipAutoPermissionPrompt": true,
-  "feedbackSurveyState": {
-    "lastShownTime": 1754085614062
-  },
-  "mcpServers": {
-    "codex": {
-      "type": "stdio",
-      "command": "codex",
-      "args": [
-        "mcp-server"
-      ]
-    }
-  },
-  "agentPushNotifEnabled": true
+  "statusLine": {
+    "command": "~/.claude/scripts/statusline.sh",
+    "type": "command"
+  }
 }
