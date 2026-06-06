@@ -1,16 +1,53 @@
 model = "gpt-5.5"
 model_reasoning_effort = "medium"
-sandbox_mode = "danger-full-access"
+sandbox_mode = "workspace-write"
+default_permissions = "project-edit"
+personality = "pragmatic"
+model_verbosity = "medium"
+plan_mode_reasoning_effort = "high"
+web_search = "cached"
 
 [sandbox_workspace_write]
 network_access = true
 
 [features]
 hooks = true
+memories = true
+network_proxy = true
+
+[memories]
+generate_memories = true
+use_memories = true
+disable_on_external_context = true
+
+[shell_environment_policy]
+inherit = "core"
+ignore_default_excludes = false
+exclude = ["AWS_*", "AZURE_*", "GITHUB_TOKEN", "*SECRET*", "*TOKEN*", "*KEY*"]
+
+[permissions.project-edit]
+extends = ":workspace"
+
+[permissions.project-edit.filesystem.":workspace_roots"]
+"**/*.env" = "deny"
+"**/.env.*" = "deny"
+
+[permissions.project-edit.network]
+enabled = true
+
+[permissions.project-edit.network.domains]
+"api.openai.com" = "allow"
+"registry.npmjs.org" = "allow"
+"github.com" = "allow"
+"*.github.com" = "allow"
 
 [mcp_servers.chrome-devtools]
+enabled = true
+required = false
 command = "npx"
 args = ["-y", "chrome-devtools-mcp@latest"]
+startup_timeout_sec = 20
+tool_timeout_sec = 120
 
 [tui]
 status_line = [
@@ -23,63 +60,6 @@ status_line = [
     "current-dir",
 ]
 
-[projects."/Users/thirai/dotfiles"]
-trust_level = "trusted"
-
-[projects."/Users/thirai/ghq/github.com/jedipunkz/jedipunkz.github.io"]
-trust_level = "trusted"
-
-[projects."/Users/thirai/ghq/github.com/jedipunkz/ax"]
-trust_level = "trusted"
-
-[projects."/Users/thirai/.config"]
-trust_level = "trusted"
-
-[projects."/Users/thirai/Desktop/UnNatural/UnNatural"]
-trust_level = "trusted"
-
-[projects."/Users/thirai/ghq/github.com/jedipunkz/UnNatural"]
-trust_level = "trusted"
-
-[projects."/Users/thirai/ghq/github.com/jedipunkz/rebind"]
-trust_level = "trusted"
-
-[projects."/Users/thirai/ghq/github.com/knowledge-work/knowledgework"]
-trust_level = "trusted"
-
-[projects."/Users/thirai/ghq/github.com/jedipunkz/keyboard-checker"]
-trust_level = "trusted"
-
-[projects."/Users/thirai/tmp/gh-review-cli"]
-trust_level = "trusted"
-
-[projects."/Users/thirai/tmp/gh-review"]
-trust_level = "trusted"
-
-[projects."/Users/thirai/ghq/github.com/jedipunkz/gh-review"]
-trust_level = "trusted"
-
-[projects."/Users/thirai/ghq/github.com/knowledge-work/experimental"]
-trust_level = "trusted"
-
-[projects."/Users/thirai/ghq/github.com/jedipunkz/philosophy"]
-trust_level = "trusted"
-
-[projects."/Users/thirai/tmp/amazon-coupon-extension"]
-trust_level = "trusted"
-
-[projects."/Users/thirai/ghq/github.com/jedipunkz/fuzz.fish"]
-trust_level = "trusted"
-
-[projects."/Users/thirai/ghq/github.com/jedipunkz/mattari"]
-trust_level = "trusted"
-
-[projects."/Users/thirai/ghq/github.com/jedipunkz/hn-digest"]
-trust_level = "trusted"
-
-[tui.model_availability_nux]
-"gpt-5.5" = 4
-
 [tui.keymap.composer]
 submit = "ctrl-enter"
 
@@ -88,77 +68,3 @@ insert_newline = "enter"
 
 [plugins."vercel-plugin@plugins-cli"]
 enabled = true
-
-[hooks.state]
-
-[hooks.state."/Users/thirai/.codex/hooks.json:pre_tool_use:0:0"]
-trusted_hash = "sha256:b4485494b4f7928c4d1fc7b7c345e16904e086a43f58323ebcae5a430a3ef1ca"
-
-[hooks.state."/Users/thirai/.codex/hooks.json:pre_tool_use:0:1"]
-trusted_hash = "sha256:5fcf840a81f2840cde327696a7430f4e8560cb6fb05310c8512474a94b112fdc"
-
-[hooks.state."/Users/thirai/.codex/hooks.json:pre_tool_use:0:2"]
-trusted_hash = "sha256:9a33e0fa348f1ab61348fb0fd6f1a8eae88c0fd68065f13dfbb116f63241e9f7"
-
-[hooks.state."/Users/thirai/.codex/hooks.json:pre_tool_use:1:0"]
-trusted_hash = "sha256:723d49f93dc92bed71c504b2a57f9a802f64058bbc84b619c7627bfb7ec77aa5"
-
-[hooks.state."/Users/thirai/.codex/hooks.json:pre_tool_use:2:0"]
-trusted_hash = "sha256:63bbc0fc6ed9f1ad92fac4f9ef60ae540fa550fb12fd5d54cc3d2a7d1e2ce986"
-
-[hooks.state."/Users/thirai/.codex/hooks.json:permission_request:0:0"]
-trusted_hash = "sha256:781934f9ec5576989be611e8794f76614249a89c243268d1c7b858f7f17e5dbd"
-
-[hooks.state."/Users/thirai/.codex/hooks.json:post_tool_use:0:0"]
-trusted_hash = "sha256:cdbbce7cb77c91ce94bfe52d2b2ed777ddc8331435ac0eaa519c1a2ac4fa82b7"
-
-[hooks.state."/Users/thirai/.codex/hooks.json:stop:0:0"]
-trusted_hash = "sha256:09b74a8c0cb61994da746641439f5551ffedf843bad4fd42d9950d5612a1c19c"
-
-[hooks.state."vercel-plugin@plugins-cli:hooks/hooks.json:session_start:0:0"]
-trusted_hash = "sha256:146eedfa10f48cfcb6d2cfb2c8fc36e8d8bb8751d2167ba205fa0b967c8a7f6e"
-
-[hooks.state."vercel-plugin@plugins-cli:hooks/hooks.json:session_start:0:1"]
-trusted_hash = "sha256:1b7bf88920f9d93c5bd508088299ba969739865da51a3043b931819328abf7d5"
-
-[hooks.state."vercel-plugin@plugins-cli:hooks/hooks.json:session_start:0:2"]
-trusted_hash = "sha256:7c0c78b3d111a81aed993357e32d997f3996cf32bbf4ab475efe9ce08772673a"
-
-[hooks.state."/Users/thirai/dotfiles/.codex/hooks.json:pre_tool_use:0:0"]
-trusted_hash = "sha256:b4485494b4f7928c4d1fc7b7c345e16904e086a43f58323ebcae5a430a3ef1ca"
-
-[hooks.state."/Users/thirai/dotfiles/.codex/hooks.json:pre_tool_use:0:1"]
-trusted_hash = "sha256:5fcf840a81f2840cde327696a7430f4e8560cb6fb05310c8512474a94b112fdc"
-
-[hooks.state."/Users/thirai/dotfiles/.codex/hooks.json:pre_tool_use:0:2"]
-trusted_hash = "sha256:9a33e0fa348f1ab61348fb0fd6f1a8eae88c0fd68065f13dfbb116f63241e9f7"
-
-[hooks.state."/Users/thirai/dotfiles/.codex/hooks.json:pre_tool_use:1:0"]
-trusted_hash = "sha256:723d49f93dc92bed71c504b2a57f9a802f64058bbc84b619c7627bfb7ec77aa5"
-
-[hooks.state."/Users/thirai/dotfiles/.codex/hooks.json:pre_tool_use:2:0"]
-trusted_hash = "sha256:63bbc0fc6ed9f1ad92fac4f9ef60ae540fa550fb12fd5d54cc3d2a7d1e2ce986"
-
-[hooks.state."/Users/thirai/dotfiles/.codex/hooks.json:permission_request:0:0"]
-trusted_hash = "sha256:781934f9ec5576989be611e8794f76614249a89c243268d1c7b858f7f17e5dbd"
-
-[hooks.state."/Users/thirai/dotfiles/.codex/hooks.json:post_tool_use:0:0"]
-trusted_hash = "sha256:cdbbce7cb77c91ce94bfe52d2b2ed777ddc8331435ac0eaa519c1a2ac4fa82b7"
-
-[hooks.state."/Users/thirai/dotfiles/.codex/hooks.json:stop:0:0"]
-trusted_hash = "sha256:09b74a8c0cb61994da746641439f5551ffedf843bad4fd42d9950d5612a1c19c"
-
-[hooks.state."/Users/thirai/.codex/hooks.json:pre_tool_use:3:0"]
-trusted_hash = "sha256:977bd9e617c9d8fa34ce9a579ee7647d1297768fd55c29d47661660c27072a3b"
-
-[hooks.state."/Users/thirai/.codex/hooks.json:permission_request:1:0"]
-trusted_hash = "sha256:27369c2de9f70ada72c577acaf0530fd5f694904375e58097f8920c167e476f9"
-
-[hooks.state."/Users/thirai/.codex/hooks.json:session_start:0:0"]
-trusted_hash = "sha256:38d88e2ebfffb7d2ec14704ab5874ebc7f874d3b674c9eb7f3ce561082184c09"
-
-[hooks.state."/Users/thirai/.codex/hooks.json:user_prompt_submit:0:0"]
-trusted_hash = "sha256:553305a926d9933af0485104c29059206c48b0590a39b16d7ee964ca5d78f10b"
-
-[hooks.state."/Users/thirai/.codex/hooks.json:stop:1:0"]
-trusted_hash = "sha256:9844bad58b93ee69f1f3b9c9a9ac5096b09c93ad12890e975ca25aa3063373d0"

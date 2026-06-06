@@ -21,6 +21,21 @@ function link() {
     return 0
 }
 
+function copy_if_missing() {
+    local src="$CONF_HOME/$1"
+    local dest="$2"
+
+    if [[ -L "$dest" ]]; then
+        unlink "$dest" || return 1
+    fi
+
+    if [[ ! -e "$dest" ]]; then
+        cp "$src" "$dest" || return 1
+    fi
+
+    return 0
+}
+
 function gitclone() {
     if [[ ! -d "$2" ]]; then
         git clone "$1" "$2" || return 1
@@ -121,7 +136,9 @@ link .claude/hooks "$HOME/.claude/hooks"
 
 # .codex directory links
 link .codex/AGENTS.md "$HOME/.codex/AGENTS.md"
-link .codex/config.toml "$HOME/.codex/config.toml"
+# Codex stores mutable user state such as trusted projects in config.toml.
+# Keep this as a real file so Codex does not write runtime state into dotfiles.
+copy_if_missing .codex/config.toml "$HOME/.codex/config.toml"
 link .codex/hooks "$HOME/.codex/hooks"
 link .codex/hooks.json "$HOME/.codex/hooks.json"
 link .codex/rules "$HOME/.codex/rules"
