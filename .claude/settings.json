@@ -236,7 +236,7 @@
       "type": "stdio"
     }
   },
-  "model": "opus",
+  "model": "claude-opus-4-8",
   "permissions": {
     "additionalDirectories": [
       "~/.ax/worktrees",
