@@ -1,21 +1,251 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "agentPushNotifEnabled": true,
+  "alwaysThinkingEnabled": true,
+  "autoMode": {
+    "hard_deny": [
+      "Do not read, write, or modify any file under ~/.aws, ~/.ssh, ~/.gnupg, ~/.config/gh, ~/.netrc, ~/.npmrc, or ~/.pypirc.",
+      "Do not push to remote branches named main, master, production, or release/*. Pushing to feature branches is allowed.",
+      "Do not run terraform apply, terraform destroy, kubectl apply, kubectl delete, or any deploy command against production environments.",
+      "Do not run database destructive statements such as DROP, TRUNCATE, DELETE without WHERE, or migrations marked irreversible.",
+      "Do not install, uninstall, or modify system-wide packages via sudo, brew uninstall, or pkg removal.",
+      "Do not modify global git config or replace SSH config files."
+    ],
+    "soft_deny": [
+      "Confirm before installing global packages (brew install, npm install -g, pip install --user, cargo install).",
+      "Confirm before modifying files outside the current working directory tree or additional directories.",
+      "Confirm before running long-lived background processes, daemons, or services.",
+      "Confirm before sending requests to external APIs that may incur cost or rate-limit consumption.",
+      "Confirm before rewriting git history (rebase, amend on pushed commits, force-with-lease)."
+    ]
+  },
+  "enabledPlugins": {
+    "gopls-lsp@claude-plugins-official": true,
+    "rust-analyzer-lsp@claude-plugins-official": true,
+    "swift-lsp@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "vercel@claude-plugins-official": true
+  },
   "env": {
-    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
     "CLAUDE_CODE_DISABLE_AUTO_MEMORY": "0",
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
     "CLAUDE_CODE_NO_FLICKER": "1",
     "GIT_OPTIONAL_LOCKS": "0"
   },
+  "extraKnownMarketplaces": {
+    "claude-plugins-official": {
+      "source": {
+        "repo": "anthropics/claude-plugins-official",
+        "source": "github"
+      }
+    }
+  },
+  "feedbackSurveyState": {
+    "lastShownTime": 1754085614062
+  },
+  "hooks": {
+    "CwdChanged": [
+      {
+        "hooks": [
+          {
+            "command": "~/.claude/hooks/log-event.sh",
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ],
+    "Notification": [],
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "command": "bash '/Users/thirai/.claude/hooks/herdr-agent-state.sh' blocked",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "~/.claude/hooks/lint-check.sh",
+            "type": "command"
+          }
+        ],
+        "matcher": "Write|Edit"
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "~/.claude/hooks/block-sensitive-access.sh",
+            "type": "command"
+          }
+        ],
+        "matcher": "Read|Edit|Write|Bash|Grep"
+      },
+      {
+        "hooks": [
+          {
+            "command": "~/.claude/hooks/guard-rm.sh",
+            "type": "command"
+          }
+        ],
+        "matcher": "Bash"
+      },
+      {
+        "hooks": [
+          {
+            "command": "~/.claude/hooks/clean-git-lock.sh",
+            "type": "command"
+          }
+        ],
+        "matcher": "Bash"
+      },
+      {
+        "hooks": [
+          {
+            "command": "~/.claude/hooks/block-force-push.sh",
+            "type": "command"
+          }
+        ],
+        "matcher": "Bash"
+      },
+      {
+        "hooks": [
+          {
+            "command": "~/.claude/hooks/check-secrets.sh",
+            "type": "command"
+          }
+        ],
+        "matcher": "Write|Edit"
+      },
+      {
+        "hooks": [
+          {
+            "command": "bash '/Users/thirai/.claude/hooks/herdr-agent-state.sh' working",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "command": "bash '/Users/thirai/.claude/hooks/herdr-agent-state.sh' release",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "bash '/Users/thirai/.claude/hooks/herdr-agent-state.sh' idle",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "command": "~/.claude/hooks/notify-done.sh",
+            "type": "command"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "command": "bash '/Users/thirai/.claude/hooks/herdr-agent-state.sh' idle",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "command": "~/.claude/hooks/log-event.sh",
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "command": "bash '/Users/thirai/.claude/hooks/herdr-agent-state.sh' working",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ],
+    "WorktreeCreate": [
+      {
+        "hooks": [
+          {
+            "command": "~/.claude/hooks/log-event.sh",
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ],
+    "WorktreeRemove": [
+      {
+        "hooks": [
+          {
+            "command": "~/.claude/hooks/log-event.sh",
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ]
+  },
+  "language": "japanese",
+  "mcpServers": {
+    "codex": {
+      "args": [
+        "mcp-server"
+      ],
+      "command": "codex",
+      "type": "stdio"
+    }
+  },
+  "model": "opus",
   "permissions": {
+    "additionalDirectories": [
+      "~/.ax/worktrees",
+      "~/ghq"
+    ],
     "allow": [
       "Read",
       "WebSearch",
       "WebFetch",
-      "Bash(ls:*)",
-      "Bash(find:*)",
-      "Bash(cat:*)",
-      "Bash(head:*)",
-      "Bash(tail:*)",
       "Bash(jq:*)",
       "Bash(gh pr list:*)",
       "Bash(gh pr view:*)",
@@ -42,21 +272,13 @@
       "Bash(gh search prs:*)",
       "Bash(gh api:*)",
       "Bash(rg:*)",
-      "Bash(grep:*)",
-      "Bash(diff:*)",
-      "Bash(wc:*)",
-      "Bash(which:*)",
       "Bash(type:*)",
-      "Bash(pwd:*)",
       "Bash(date:*)",
       "Bash(uname:*)",
       "Bash(file:*)",
-      "Bash(stat:*)",
-      "Bash(du:*)",
       "Bash(df:*)",
       "Bash(ps:*)",
       "Bash(env:*)",
-      "Bash(echo:*)",
       "Bash(git log:*)",
       "Bash(git diff:*)",
       "Bash(git status:*)",
@@ -68,6 +290,7 @@
       "Skill",
       "mcp__codex__*"
     ],
+    "defaultMode": "auto",
     "deny": [
       "Read(~/.aws/**)",
       "Read(~/.ssh/**)",
@@ -100,110 +323,11 @@
       "Bash(git clean -f:*)",
       "Bash(chmod 777:*)",
       "Bash(sudo rm:*)"
-    ],
-    "defaultMode": "auto"
+    ]
   },
-  "model": "opus",
-  "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "AskUserQuestion|Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/notify-ask.sh"
-          }
-        ]
-      },
-      {
-        "matcher": "Read|Edit|Write|Bash|Grep",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/block-sensitive-access.sh"
-          }
-        ]
-      },
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/guard-rm.sh"
-          }
-        ]
-      },
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/clean-git-lock.sh"
-          }
-        ]
-      },
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/block-force-push.sh"
-          }
-        ]
-      },
-      {
-        "matcher": "Write|Edit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/check-secrets.sh"
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "matcher": "Write|Edit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/lint-check.sh"
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/notify-done.sh"
-          }
-        ]
-      }
-    ],
-    "Notification": []
-  },
-  "statusLine": {
-    "type": "command",
-    "command": "~/.claude/scripts/statusline.sh"
-  },
-  "enabledPlugins": {
-    "gopls-lsp@claude-plugins-official": true,
-    "typescript-lsp@claude-plugins-official": true,
-    "rust-analyzer-lsp@claude-plugins-official": true,
-    "swift-lsp@claude-plugins-official": true,
-    "vercel@claude-plugins-official": true
-  },
-  "extraKnownMarketplaces": {
-    "claude-plugins-official": {
-      "source": {
-        "source": "github",
-        "repo": "anthropics/claude-plugins-official"
-      }
-    }
-  },
-  "language": "japanese",
+  "showThinkingSummaries": true,
+  "skipAutoPermissionPrompt": true,
+  "skipDangerousModePermissionPrompt": true,
   "spinnerVerbs": {
     "mode": "replace",
     "verbs": [
@@ -219,21 +343,8 @@
       "メメントモリ…処理中"
     ]
   },
-  "alwaysThinkingEnabled": true,
-  "showThinkingSummaries": true,
-  "skipDangerousModePermissionPrompt": true,
-  "skipAutoPermissionPrompt": true,
-  "feedbackSurveyState": {
-    "lastShownTime": 1754085614062
-  },
-  "mcpServers": {
-    "codex": {
-      "type": "stdio",
-      "command": "codex",
-      "args": [
-        "mcp-server"
-      ]
-    }
-  },
-  "agentPushNotifEnabled": true
+  "statusLine": {
+    "command": "~/.claude/scripts/statusline.sh",
+    "type": "command"
+  }
 }
