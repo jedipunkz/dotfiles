@@ -1,16 +1,53 @@
 model = "gpt-5.5"
 model_reasoning_effort = "medium"
-sandbox_mode = "danger-full-access"
+sandbox_mode = "workspace-write"
+default_permissions = "project-edit"
+personality = "pragmatic"
+model_verbosity = "medium"
+plan_mode_reasoning_effort = "high"
+web_search = "cached"
 
 [sandbox_workspace_write]
 network_access = true
 
 [features]
 hooks = true
+memories = true
+network_proxy = true
+
+[memories]
+generate_memories = true
+use_memories = true
+disable_on_external_context = true
+
+[shell_environment_policy]
+inherit = "core"
+ignore_default_excludes = false
+exclude = ["AWS_*", "AZURE_*", "GITHUB_TOKEN", "*SECRET*", "*TOKEN*", "*KEY*"]
+
+[permissions.project-edit]
+extends = ":workspace"
+
+[permissions.project-edit.filesystem.":workspace_roots"]
+"**/*.env" = "deny"
+"**/.env.*" = "deny"
+
+[permissions.project-edit.network]
+enabled = true
+
+[permissions.project-edit.network.domains]
+"api.openai.com" = "allow"
+"registry.npmjs.org" = "allow"
+"github.com" = "allow"
+"*.github.com" = "allow"
 
 [mcp_servers.chrome-devtools]
+enabled = true
+required = false
 command = "npx"
 args = ["-y", "chrome-devtools-mcp@latest"]
+startup_timeout_sec = 20
+tool_timeout_sec = 120
 
 [tui]
 status_line = [
@@ -22,57 +59,6 @@ status_line = [
     "weekly-limit",
     "current-dir",
 ]
-
-[projects."/Users/thirai/dotfiles"]
-trust_level = "trusted"
-
-[projects."/Users/thirai/ghq/github.com/jedipunkz/jedipunkz.github.io"]
-trust_level = "trusted"
-
-[projects."/Users/thirai/ghq/github.com/jedipunkz/ax"]
-trust_level = "trusted"
-
-[projects."/Users/thirai/.config"]
-trust_level = "trusted"
-
-[projects."/Users/thirai/Desktop/UnNatural/UnNatural"]
-trust_level = "trusted"
-
-[projects."/Users/thirai/ghq/github.com/jedipunkz/UnNatural"]
-trust_level = "trusted"
-
-[projects."/Users/thirai/ghq/github.com/jedipunkz/rebind"]
-trust_level = "trusted"
-
-[projects."/Users/thirai/ghq/github.com/knowledge-work/knowledgework"]
-trust_level = "trusted"
-
-[projects."/Users/thirai/ghq/github.com/jedipunkz/keyboard-checker"]
-trust_level = "trusted"
-
-[projects."/Users/thirai/tmp/gh-review-cli"]
-trust_level = "trusted"
-
-[projects."/Users/thirai/tmp/gh-review"]
-trust_level = "trusted"
-
-[projects."/Users/thirai/ghq/github.com/jedipunkz/gh-review"]
-trust_level = "trusted"
-
-[projects."/Users/thirai/ghq/github.com/knowledge-work/experimental"]
-trust_level = "trusted"
-
-[projects."/Users/thirai/ghq/github.com/jedipunkz/philosophy"]
-trust_level = "trusted"
-
-[projects."/Users/thirai/tmp/amazon-coupon-extension"]
-trust_level = "trusted"
-
-[projects."/Users/thirai/ghq/github.com/jedipunkz/fuzz.fish"]
-trust_level = "trusted"
-
-[tui.model_availability_nux]
-"gpt-5.5" = 4
 
 [tui.keymap.composer]
 submit = "ctrl-enter"

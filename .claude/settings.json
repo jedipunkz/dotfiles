@@ -1,8 +1,8 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "env": {
-    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
     "CLAUDE_CODE_DISABLE_AUTO_MEMORY": "0",
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
     "CLAUDE_CODE_NO_FLICKER": "1",
     "GIT_OPTIONAL_LOCKS": "0"
   },
@@ -11,11 +11,6 @@
       "Read",
       "WebSearch",
       "WebFetch",
-      "Bash(ls:*)",
-      "Bash(find:*)",
-      "Bash(cat:*)",
-      "Bash(head:*)",
-      "Bash(tail:*)",
       "Bash(jq:*)",
       "Bash(gh pr list:*)",
       "Bash(gh pr view:*)",
@@ -42,21 +37,13 @@
       "Bash(gh search prs:*)",
       "Bash(gh api:*)",
       "Bash(rg:*)",
-      "Bash(grep:*)",
-      "Bash(diff:*)",
-      "Bash(wc:*)",
-      "Bash(which:*)",
       "Bash(type:*)",
-      "Bash(pwd:*)",
       "Bash(date:*)",
       "Bash(uname:*)",
       "Bash(file:*)",
-      "Bash(stat:*)",
-      "Bash(du:*)",
       "Bash(df:*)",
       "Bash(ps:*)",
       "Bash(env:*)",
-      "Bash(echo:*)",
       "Bash(git log:*)",
       "Bash(git diff:*)",
       "Bash(git status:*)",
@@ -101,20 +88,50 @@
       "Bash(chmod 777:*)",
       "Bash(sudo rm:*)"
     ],
-    "defaultMode": "auto"
+    "defaultMode": "auto",
+    "additionalDirectories": [
+      "~/.ax/worktrees",
+      "~/ghq"
+    ]
   },
-  "model": "opus",
+  "model": "claude-opus-4-7",
   "hooks": {
-    "PreToolUse": [
+    "CwdChanged": [
       {
-        "matcher": "AskUserQuestion|Bash",
+        "matcher": "*",
         "hooks": [
           {
             "type": "command",
-            "command": "~/.claude/hooks/notify-ask.sh"
+            "command": "~/.claude/hooks/log-event.sh"
           }
         ]
-      },
+      }
+    ],
+    "Notification": [],
+    "PermissionRequest": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash '/Users/thirai/.claude/hooks/herdr-agent-state.sh' blocked",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/lint-check.sh"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
       {
         "matcher": "Read|Edit|Write|Bash|Grep",
         "hooks": [
@@ -159,15 +176,38 @@
             "command": "~/.claude/hooks/check-secrets.sh"
           }
         ]
-      }
-    ],
-    "PostToolUse": [
+      },
       {
-        "matcher": "Write|Edit",
+        "matcher": "*",
         "hooks": [
           {
             "type": "command",
-            "command": "~/.claude/hooks/lint-check.sh"
+            "command": "bash '/Users/thirai/.claude/hooks/herdr-agent-state.sh' working",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash '/Users/thirai/.claude/hooks/herdr-agent-state.sh' release",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash '/Users/thirai/.claude/hooks/herdr-agent-state.sh' idle",
+            "timeout": 10
           }
         ]
       }
@@ -180,9 +220,63 @@
             "command": "~/.claude/hooks/notify-done.sh"
           }
         ]
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash '/Users/thirai/.claude/hooks/herdr-agent-state.sh' idle",
+            "timeout": 10
+          }
+        ]
       }
     ],
-    "Notification": []
+    "SubagentStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/log-event.sh"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash '/Users/thirai/.claude/hooks/herdr-agent-state.sh' working",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "WorktreeCreate": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/log-event.sh"
+          }
+        ]
+      }
+    ],
+    "WorktreeRemove": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/log-event.sh"
+          }
+        ]
+      }
+    ]
   },
   "statusLine": {
     "type": "command",
@@ -190,9 +284,9 @@
   },
   "enabledPlugins": {
     "gopls-lsp@claude-plugins-official": true,
-    "typescript-lsp@claude-plugins-official": true,
     "rust-analyzer-lsp@claude-plugins-official": true,
     "swift-lsp@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
     "vercel@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
@@ -222,18 +316,35 @@
   "alwaysThinkingEnabled": true,
   "showThinkingSummaries": true,
   "skipDangerousModePermissionPrompt": true,
+  "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true,
+  "autoMode": {
+    "soft_deny": [
+      "Confirm before installing global packages (brew install, npm install -g, pip install --user, cargo install).",
+      "Confirm before modifying files outside the current working directory tree or additional directories.",
+      "Confirm before running long-lived background processes, daemons, or services.",
+      "Confirm before sending requests to external APIs that may incur cost or rate-limit consumption.",
+      "Confirm before rewriting git history (rebase, amend on pushed commits, force-with-lease)."
+    ],
+    "hard_deny": [
+      "Do not read, write, or modify any file under ~/.aws, ~/.ssh, ~/.gnupg, ~/.config/gh, ~/.netrc, ~/.npmrc, or ~/.pypirc.",
+      "Do not push to remote branches named main, master, production, or release/*. Pushing to feature branches is allowed.",
+      "Do not run terraform apply, terraform destroy, kubectl apply, kubectl delete, or any deploy command against production environments.",
+      "Do not run database destructive statements such as DROP, TRUNCATE, DELETE without WHERE, or migrations marked irreversible.",
+      "Do not install, uninstall, or modify system-wide packages via sudo, brew uninstall, or pkg removal.",
+      "Do not modify global git config or replace SSH config files."
+    ]
+  },
   "feedbackSurveyState": {
     "lastShownTime": 1754085614062
   },
   "mcpServers": {
     "codex": {
-      "type": "stdio",
-      "command": "codex",
       "args": [
         "mcp-server"
-      ]
+      ],
+      "command": "codex",
+      "type": "stdio"
     }
-  },
-  "agentPushNotifEnabled": true
+  }
 }
