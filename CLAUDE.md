@@ -53,3 +53,4 @@ researcher → findings → implement → shell-reviewer → verdict → commit
 
 - `/codex-review` - Codex CLI code review.
 - `/zellij-swarm` - Parallel agent orchestration.
+- `/finance-mcp` - Market and financial data via alphavantage / twelvedata / edinetdb MCP servers.
