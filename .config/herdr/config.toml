@@ -12,7 +12,7 @@ enabled = false
 [ui]
 show_agent_labels_on_pane_borders = true
 sidebar_width = 22
-accent = "#ff007c"
+accent = "#775CE0"
 
 [theme]
 name = "tokyo-night"
