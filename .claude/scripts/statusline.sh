@@ -10,6 +10,8 @@ export GIT_OPTIONAL_LOCKS=0
 
 # Extract values using jq
 MODEL=$(echo "$input" | jq -r '.model.display_name // "Claude"')
+# Reasoning effort level (low/medium/high/xhigh/max); absent when model lacks effort support
+EFFORT=$(echo "$input" | jq -r '.effort.level // empty')
 CURRENT_DIR=$(echo "$input" | jq -r '.workspace.current_dir // "~"')
 DIR_NAME=${CURRENT_DIR##*/}
 
@@ -59,6 +61,18 @@ YELLOW='\033[38;2;224;175;104m'   # #e0af68 - Yellow for changes
 RED='\033[38;2;247;118;142m'      # #f7768e - Red for deletions
 GRAY='\033[38;2;86;95;137m'       # #565f89 - Gray for separators
 RESET='\033[0m'
+
+# Effort segment: color by level, shown to the right of the model name
+if [ -n "$EFFORT" ]; then
+  case "$EFFORT" in
+    max|xhigh) EFFORT_COLOR="$RED" ;;
+    high)      EFFORT_COLOR="$YELLOW" ;;
+    *)         EFFORT_COLOR="$GREEN" ;;
+  esac
+  EFFORT_SEG=" ${EFFORT_COLOR}🧠 ${EFFORT}${RESET}"
+else
+  EFFORT_SEG=""
+fi
 
 # Context color: green < 50%, yellow 50-80%, red > 80%
 if [ "$CTX_USED_INT" -ge 80 ]; then
@@ -226,14 +240,14 @@ if [ -d "$CURRENT_DIR/.git" ]; then
     fi
 
     # Output with changes
-    printf "🤖 ${GREEN}$MODEL${RESET} ${GRAY}|${RESET} ${CYAN}👻 $DIR_NAME${RESET} ${GRAY}|${RESET} 🚀 ${PURPLE}$BRANCH${RESET}: ${YELLOW}${FILES_CHANGED:-0} changed${RESET}, ${GREEN}+${INSERTIONS:-0}${RESET} ${RED}-${DELETIONS:-0}${RESET}, ${YELLOW}${STAGED_FILES:-0} staged${RESET}, ${YELLOW}$UNTRACKED untracked${RESET} ${GRAY}|${RESET} ${CTX_COLOR}⚡ ${CTX_USED_INT}%%${RESET} ${GRAY}|${RESET} ${YELLOW}💰 ¥${TOTAL_COST_JPY}${RESET} ${GRAY}|${RESET} 🍣 ${GREEN}+${LINES_ADDED}${RESET} ${RED}-${LINES_REMOVED}${RESET}"
+    printf "🤖 ${GREEN}$MODEL${RESET}${EFFORT_SEG} ${GRAY}|${RESET} ${CYAN}👻 $DIR_NAME${RESET} ${GRAY}|${RESET} 🚀 ${PURPLE}$BRANCH${RESET}\n${YELLOW}${FILES_CHANGED:-0} changed${RESET}, ${GREEN}+${INSERTIONS:-0}${RESET} ${RED}-${DELETIONS:-0}${RESET}, ${YELLOW}${STAGED_FILES:-0} staged${RESET}, ${YELLOW}$UNTRACKED untracked${RESET} ${GRAY}|${RESET} ${CTX_COLOR}⚡ ${CTX_USED_INT}%%${RESET} ${GRAY}|${RESET} ${YELLOW}💰 ¥${TOTAL_COST_JPY}${RESET} ${GRAY}|${RESET} 🍣 ${GREEN}+${LINES_ADDED}${RESET} ${RED}-${LINES_REMOVED}${RESET}"
   else
     # Clean working tree
-    printf "🤖 ${GREEN}$MODEL${RESET} ${GRAY}|${RESET} ${CYAN}👻 $DIR_NAME${RESET} ${GRAY}|${RESET} 🚀 ${PURPLE}$BRANCH${RESET}: ${GREEN}✓ Clean${RESET} ${GRAY}|${RESET} ${CTX_COLOR}⚡ ${CTX_USED_INT}%%${RESET} ${GRAY}|${RESET} ${YELLOW}💰 ¥${TOTAL_COST_JPY}${RESET} ${GRAY}|${RESET} 🍣 ${GREEN}+${LINES_ADDED}${RESET} ${RED}-${LINES_REMOVED}${RESET}"
+    printf "🤖 ${GREEN}$MODEL${RESET}${EFFORT_SEG} ${GRAY}|${RESET} ${CYAN}👻 $DIR_NAME${RESET} ${GRAY}|${RESET} 🚀 ${PURPLE}$BRANCH${RESET}\n${GREEN}✓ Clean${RESET} ${GRAY}|${RESET} ${CTX_COLOR}⚡ ${CTX_USED_INT}%%${RESET} ${GRAY}|${RESET} ${YELLOW}💰 ¥${TOTAL_COST_JPY}${RESET} ${GRAY}|${RESET} 🍣 ${GREEN}+${LINES_ADDED}${RESET} ${RED}-${LINES_REMOVED}${RESET}"
   fi
 else
   # Not a git repository
-  printf "🤖 ${GREEN}$MODEL${RESET} ${GRAY}|${RESET} ${CYAN}👻 $DIR_NAME${RESET} ${GRAY}|${RESET} 🚀 ${GRAY}Not a Repo${RESET} ${GRAY}|${RESET} ${CTX_COLOR}⚡ ${CTX_USED_INT}%%${RESET} ${GRAY}|${RESET} ${YELLOW}💰 ¥${TOTAL_COST_JPY}${RESET} ${GRAY}|${RESET} 🍣 ${GREEN}+${LINES_ADDED}${RESET} ${RED}-${LINES_REMOVED}${RESET}"
+  printf "🤖 ${GREEN}$MODEL${RESET}${EFFORT_SEG} ${GRAY}|${RESET} ${CYAN}👻 $DIR_NAME${RESET} ${GRAY}|${RESET} 🚀 ${GRAY}Not a Repo${RESET}\n${CTX_COLOR}⚡ ${CTX_USED_INT}%%${RESET} ${GRAY}|${RESET} ${YELLOW}💰 ¥${TOTAL_COST_JPY}${RESET} ${GRAY}|${RESET} 🍣 ${GREEN}+${LINES_ADDED}${RESET} ${RED}-${LINES_REMOVED}${RESET}"
 fi
 
 # ── Usage rate limit bars ────────────────────────────────────────────────────
@@ -248,8 +262,7 @@ if [ -n "$USAGE_DATA" ] && echo "$USAGE_DATA" | jq -e '.five_hour' >/dev/null 2>
   seven_bar=$(build_bar "$seven_pct" 10)
   seven_color=$(color_for_pct "$seven_pct")
 
-  printf "\n${GRAY}current${RESET} ${five_bar} ${five_color}$(printf '%3d' "$five_pct")%%${RESET} \033[2m⟳\033[0m ${GRAY}${five_reset}${RESET}"
-  printf "\n${GRAY}weekly${RESET}  ${seven_bar} ${seven_color}$(printf '%3d' "$seven_pct")%%${RESET} \033[2m⟳\033[0m ${GRAY}${seven_reset}${RESET}"
+  printf "\n${GRAY}current${RESET} ${five_bar} ${five_color}$(printf '%3d' "$five_pct")%%${RESET} \033[2m⟳\033[0m ${GRAY}${five_reset}${RESET} ${GRAY}|${RESET} ${GRAY}weekly${RESET} ${seven_bar} ${seven_color}$(printf '%3d' "$seven_pct")%%${RESET} \033[2m⟳\033[0m ${GRAY}${seven_reset}${RESET}"
 
   extra_enabled=$(echo "$USAGE_DATA" | jq -r '.extra_usage.is_enabled // false')
   if [ "$extra_enabled" = "true" ]; then
@@ -263,6 +276,5 @@ if [ -n "$USAGE_DATA" ] && echo "$USAGE_DATA" | jq -e '.five_hour' >/dev/null 2>
 else
   # Show placeholder bars when data is unavailable
   empty_bar="${GRAY}○○○○○○○○○○${RESET}"
-  printf "\n${GRAY}current${RESET} ${empty_bar} ${GRAY}---%${RESET}"
-  printf "\n${GRAY}weekly${RESET}  ${empty_bar} ${GRAY}---%${RESET}"
+  printf "\n${GRAY}current${RESET} ${empty_bar} ${GRAY}---%${RESET} ${GRAY}|${RESET} ${GRAY}weekly${RESET} ${empty_bar} ${GRAY}---%${RESET}"
 fi
