@@ -24,7 +24,7 @@ claude mcp get <name>  # 個別の詳細
 
 ### 現在登録済みのサーバ(再登録コマンド)
 
-すべて user スコープ。`alphavantage` の apikey と `edinetdb` の Bearer トークンは実値に置き換える。
+すべて user スコープ。`alphavantage` の apikey と `edinetdb` の Bearer トークンは実値に置き換える。API キー取得先: [Alpha Vantage](https://www.alphavantage.co/support/#api-key) / [EDINET DB](https://edinetdb.jp/developers)。
 
 ```bash
 # 株価・財務 (apikey は URL クエリ)

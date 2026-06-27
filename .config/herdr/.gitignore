@@ -1,0 +1,5 @@
+# Ignore herdr runtime state; keep config.toml tracked
+*.log
+*.sock
+session.json
+sessions/
