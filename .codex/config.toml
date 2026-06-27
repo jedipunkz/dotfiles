@@ -68,3 +68,86 @@ insert_newline = "enter"
 
 [plugins."vercel-plugin@plugins-cli"]
 enabled = true
+
+[hooks.state]
+
+[hooks.state."/Users/thirai/.codex/hooks.json:pre_tool_use:0:0"]
+trusted_hash = "sha256:b4485494b4f7928c4d1fc7b7c345e16904e086a43f58323ebcae5a430a3ef1ca"
+
+[hooks.state."/Users/thirai/.codex/hooks.json:pre_tool_use:0:1"]
+trusted_hash = "sha256:5fcf840a81f2840cde327696a7430f4e8560cb6fb05310c8512474a94b112fdc"
+
+[hooks.state."/Users/thirai/.codex/hooks.json:pre_tool_use:0:2"]
+trusted_hash = "sha256:9a33e0fa348f1ab61348fb0fd6f1a8eae88c0fd68065f13dfbb116f63241e9f7"
+
+[hooks.state."/Users/thirai/.codex/hooks.json:pre_tool_use:1:0"]
+trusted_hash = "sha256:723d49f93dc92bed71c504b2a57f9a802f64058bbc84b619c7627bfb7ec77aa5"
+
+[hooks.state."/Users/thirai/.codex/hooks.json:pre_tool_use:2:0"]
+trusted_hash = "sha256:63bbc0fc6ed9f1ad92fac4f9ef60ae540fa550fb12fd5d54cc3d2a7d1e2ce986"
+
+[hooks.state."/Users/thirai/.codex/hooks.json:permission_request:0:0"]
+trusted_hash = "sha256:781934f9ec5576989be611e8794f76614249a89c243268d1c7b858f7f17e5dbd"
+
+[hooks.state."/Users/thirai/.codex/hooks.json:post_tool_use:0:0"]
+trusted_hash = "sha256:cdbbce7cb77c91ce94bfe52d2b2ed777ddc8331435ac0eaa519c1a2ac4fa82b7"
+
+[hooks.state."/Users/thirai/.codex/hooks.json:stop:0:0"]
+trusted_hash = "sha256:09b74a8c0cb61994da746641439f5551ffedf843bad4fd42d9950d5612a1c19c"
+
+[hooks.state."vercel-plugin@plugins-cli:hooks/hooks.json:session_start:0:0"]
+trusted_hash = "sha256:146eedfa10f48cfcb6d2cfb2c8fc36e8d8bb8751d2167ba205fa0b967c8a7f6e"
+
+[hooks.state."vercel-plugin@plugins-cli:hooks/hooks.json:session_start:0:1"]
+trusted_hash = "sha256:1b7bf88920f9d93c5bd508088299ba969739865da51a3043b931819328abf7d5"
+
+[hooks.state."vercel-plugin@plugins-cli:hooks/hooks.json:session_start:0:2"]
+trusted_hash = "sha256:7c0c78b3d111a81aed993357e32d997f3996cf32bbf4ab475efe9ce08772673a"
+
+[hooks.state."/Users/thirai/dotfiles/.codex/hooks.json:pre_tool_use:0:0"]
+trusted_hash = "sha256:b4485494b4f7928c4d1fc7b7c345e16904e086a43f58323ebcae5a430a3ef1ca"
+
+[hooks.state."/Users/thirai/dotfiles/.codex/hooks.json:pre_tool_use:0:1"]
+trusted_hash = "sha256:5fcf840a81f2840cde327696a7430f4e8560cb6fb05310c8512474a94b112fdc"
+
+[hooks.state."/Users/thirai/dotfiles/.codex/hooks.json:pre_tool_use:0:2"]
+trusted_hash = "sha256:9a33e0fa348f1ab61348fb0fd6f1a8eae88c0fd68065f13dfbb116f63241e9f7"
+
+[hooks.state."/Users/thirai/dotfiles/.codex/hooks.json:pre_tool_use:1:0"]
+trusted_hash = "sha256:723d49f93dc92bed71c504b2a57f9a802f64058bbc84b619c7627bfb7ec77aa5"
+
+[hooks.state."/Users/thirai/dotfiles/.codex/hooks.json:pre_tool_use:2:0"]
+trusted_hash = "sha256:63bbc0fc6ed9f1ad92fac4f9ef60ae540fa550fb12fd5d54cc3d2a7d1e2ce986"
+
+[hooks.state."/Users/thirai/dotfiles/.codex/hooks.json:permission_request:0:0"]
+trusted_hash = "sha256:781934f9ec5576989be611e8794f76614249a89c243268d1c7b858f7f17e5dbd"
+
+[hooks.state."/Users/thirai/dotfiles/.codex/hooks.json:post_tool_use:0:0"]
+trusted_hash = "sha256:cdbbce7cb77c91ce94bfe52d2b2ed777ddc8331435ac0eaa519c1a2ac4fa82b7"
+
+[hooks.state."/Users/thirai/dotfiles/.codex/hooks.json:stop:0:0"]
+trusted_hash = "sha256:09b74a8c0cb61994da746641439f5551ffedf843bad4fd42d9950d5612a1c19c"
+
+[hooks.state."/home/thirai/.codex/hooks.json:pre_tool_use:0:0"]
+trusted_hash = "sha256:b4485494b4f7928c4d1fc7b7c345e16904e086a43f58323ebcae5a430a3ef1ca"
+
+[hooks.state."/home/thirai/.codex/hooks.json:pre_tool_use:0:1"]
+trusted_hash = "sha256:5fcf840a81f2840cde327696a7430f4e8560cb6fb05310c8512474a94b112fdc"
+
+[hooks.state."/home/thirai/.codex/hooks.json:pre_tool_use:0:2"]
+trusted_hash = "sha256:9a33e0fa348f1ab61348fb0fd6f1a8eae88c0fd68065f13dfbb116f63241e9f7"
+
+[hooks.state."/home/thirai/.codex/hooks.json:pre_tool_use:1:0"]
+trusted_hash = "sha256:723d49f93dc92bed71c504b2a57f9a802f64058bbc84b619c7627bfb7ec77aa5"
+
+[hooks.state."/home/thirai/.codex/hooks.json:pre_tool_use:2:0"]
+trusted_hash = "sha256:63bbc0fc6ed9f1ad92fac4f9ef60ae540fa550fb12fd5d54cc3d2a7d1e2ce986"
+
+[hooks.state."/home/thirai/.codex/hooks.json:permission_request:0:0"]
+trusted_hash = "sha256:781934f9ec5576989be611e8794f76614249a89c243268d1c7b858f7f17e5dbd"
+
+[hooks.state."/home/thirai/.codex/hooks.json:post_tool_use:0:0"]
+trusted_hash = "sha256:cdbbce7cb77c91ce94bfe52d2b2ed777ddc8331435ac0eaa519c1a2ac4fa82b7"
+
+[hooks.state."/home/thirai/.codex/hooks.json:stop:0:0"]
+trusted_hash = "sha256:09b74a8c0cb61994da746641439f5551ffedf843bad4fd42d9950d5612a1c19c"
