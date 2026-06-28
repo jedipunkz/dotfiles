@@ -51,14 +51,14 @@ TERM rxvt-unicode-256color
 NORMAL 00;38;2;192;202;245 # Tokyo Night fg: #c0caf5
 #FILE 00 # regular file: use no color at all
 RESET 0 # reset to "normal" color
-DIR 01;38;2;125;207;255 # directory - Tokyo Night cyan: #7dcfff
-LINK 01;38;2;122;162;247 # symbolic link - Tokyo Night blue: #7aa2f7
+DIR 00;38;2;125;207;255 # directory - Tokyo Night cyan: #7dcfff
+LINK 00;38;2;122;162;247 # symbolic link - Tokyo Night blue: #7aa2f7
 MULTIHARDLINK 00 # regular file with more than one link
-FIFO 48;5;230;38;5;136;01 # pipe
-SOCK 48;5;230;38;5;136;01 # socket
-DOOR 48;5;230;38;5;136;01 # door
-BLK 48;5;230;38;5;244;01 # block device driver
-CHR 48;5;230;38;5;244;01 # character device driver
+FIFO 48;5;230;38;5;136 # pipe
+SOCK 48;5;230;38;5;136 # socket
+DOOR 48;5;230;38;5;136 # door
+BLK 48;5;230;38;5;244 # block device driver
+CHR 48;5;230;38;5;244 # character device driver
 ORPHAN 48;5;235;38;5;160 # symlink to nonexistent file, or non-stat'able file
 SETUID 48;5;160;38;5;230 # file that is setuid (u+s)
 SETGID 48;5;136;38;5;230 # file that is setgid (g+s)
@@ -74,18 +74,18 @@ STICKY 48;5;33;38;5;230 # dir with the sticky bit set (+t) and not other-writabl
 # List any file extensions like '.gz' or '.tar' that you would like ls
 # to colorize below. Put the extension, a space, and the color init string.
 # (and any comments you want to add after a '#')
-.tar 01;38;2;247;118;142 # archives or compressed - Tokyo Night red: #f7768e
-.tgz 01;38;2;247;118;142
-.arj 01;38;2;247;118;142
-.taz 01;38;2;247;118;142
-.lzh 01;38;2;247;118;142
-.zip 01;38;2;247;118;142
-.z   01;38;2;247;118;142
-.Z   01;38;2;247;118;142
-.gz  01;38;2;247;118;142
+.tar 00;38;2;247;118;142 # archives or compressed - Tokyo Night red: #f7768e
+.tgz 00;38;2;247;118;142
+.arj 00;38;2;247;118;142
+.taz 00;38;2;247;118;142
+.lzh 00;38;2;247;118;142
+.zip 00;38;2;247;118;142
+.z   00;38;2;247;118;142
+.Z   00;38;2;247;118;142
+.gz  00;38;2;247;118;142
 
 # Executables - Tokyo Night green: #9ece6a
-EXEC 01;38;2;158;206;106 # Files with exec flag
+EXEC 00;38;2;158;206;106 # Files with exec flag
 .cmd 00;38;2;158;206;106
 .exe 00;38;2;158;206;106
 .com 00;38;2;158;206;106
@@ -131,30 +131,30 @@ EXEC 01;38;2;158;206;106 # Files with exec flag
 .xspf   00;38;2;255;158;100
 
 # Video formats (as audio + bold) - Tokyo Night orange: #ff9e64
-.mov    01;38;2;255;158;100
-.mpg    01;38;2;255;158;100
-.mpeg   01;38;2;255;158;100
-.3gp	01;38;2;255;158;100
-.m2v    01;38;2;255;158;100
-.mkv    01;38;2;255;158;100
-.ogm    01;38;2;255;158;100
-.mp4    01;38;2;255;158;100
-.m4v    01;38;2;255;158;100
-.mp4v   01;38;2;255;158;100
-.vob    01;38;2;255;158;100
-.qt     01;38;2;255;158;100
-.nuv    01;38;2;255;158;100
-.wmv    01;38;2;255;158;100
-.asf    01;38;2;255;158;100
-.rm     01;38;2;255;158;100
-.rmvb   01;38;2;255;158;100
-.flc    01;38;2;255;158;100
-.avi    01;38;2;255;158;100
-.fli    01;38;2;255;158;100
-.flv    01;38;2;255;158;100
-.gl     01;38;2;255;158;100
-.m2ts   01;38;2;255;158;100
-.divx   01;38;2;255;158;100
+.mov    00;38;2;255;158;100
+.mpg    00;38;2;255;158;100
+.mpeg   00;38;2;255;158;100
+.3gp	00;38;2;255;158;100
+.m2v    00;38;2;255;158;100
+.mkv    00;38;2;255;158;100
+.ogm    00;38;2;255;158;100
+.mp4    00;38;2;255;158;100
+.m4v    00;38;2;255;158;100
+.mp4v   00;38;2;255;158;100
+.vob    00;38;2;255;158;100
+.qt     00;38;2;255;158;100
+.nuv    00;38;2;255;158;100
+.wmv    00;38;2;255;158;100
+.asf    00;38;2;255;158;100
+.rm     00;38;2;255;158;100
+.rmvb   00;38;2;255;158;100
+.flc    00;38;2;255;158;100
+.avi    00;38;2;255;158;100
+.fli    00;38;2;255;158;100
+.flv    00;38;2;255;158;100
+.gl     00;38;2;255;158;100
+.m2ts   00;38;2;255;158;100
+.divx   00;38;2;255;158;100
 
 # "unimportant" files as logs and backups (base01)
 .log        00;38;5;240
