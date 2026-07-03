@@ -27,3 +27,6 @@ auto-save-list
 .env.*
 **/.env
 **/.env.*
+
+# kw
+.claude/skills/notify-monitor-triage/
