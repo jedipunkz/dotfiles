@@ -67,7 +67,7 @@ submit = "ctrl-enter"
 insert_newline = "enter"
 
 [tui.model_availability_nux]
-"gpt-5.5" = 2
+"gpt-5.5" = 4
 
 [plugins."vercel-plugin@plugins-cli"]
 enabled = true
