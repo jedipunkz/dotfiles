@@ -30,3 +30,4 @@ auto-save-list
 
 # kw
 .claude/skills/monitor-triage/
+.claude/skills/renovate-auto-merge/

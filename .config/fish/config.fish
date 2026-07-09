@@ -148,3 +148,7 @@ end
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/thirai/google-cloud-sdk/path.fish.inc' ]; . '/Users/thirai/google-cloud-sdk/path.fish.inc'; end
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+set --export --prepend PATH "/Users/thirai/.rd/bin"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
