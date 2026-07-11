@@ -14,7 +14,7 @@ show_agent_labels_on_pane_borders = true
 sidebar_width = 18
 sidebar_min_width = 18
 sidebar_collapsed_mode = "compact"
-accent = "#775CE0"
+accent = "#9D7CFF"
 
 [theme]
 name = "tokyo-night"
