@@ -27,3 +27,7 @@ auto-save-list
 .env.*
 **/.env
 **/.env.*
+
+# kw
+.claude/skills/monitor-triage/
+.claude/skills/renovate-auto-merge/

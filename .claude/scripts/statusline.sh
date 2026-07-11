@@ -271,7 +271,7 @@ if [ -n "$USAGE_DATA" ] && echo "$USAGE_DATA" | jq -e '.five_hour' >/dev/null 2>
     extra_limit=$(echo "$USAGE_DATA" | jq -r '.extra_usage.monthly_limit // 0' | awk '{printf "%.2f", $1/100}')
     extra_bar=$(build_bar "$extra_pct" 10)
     extra_color=$(color_for_pct "$extra_pct")
-    printf "\n${GRAY}extra${RESET}   ${extra_bar} ${extra_color}\$${extra_used}\033[2m/\033[0m${GRAY}\$${extra_limit}${RESET}"
+    printf " ${GRAY}|${RESET} ${GRAY}extra${RESET} ${extra_bar} ${extra_color}\$${extra_used}\033[2m/\033[0m${GRAY}\$${extra_limit}${RESET}"
   fi
 else
   # Show placeholder bars when data is unavailable

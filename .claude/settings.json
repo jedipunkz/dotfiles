@@ -94,7 +94,7 @@
       "~/ghq"
     ]
   },
-  "model": "claude-opus-4-8",
+  "model": "claude-fable-5[1m]",
   "hooks": {
     "CwdChanged": [
       {
@@ -314,7 +314,7 @@
     ]
   },
   "alwaysThinkingEnabled": true,
-  "effortLevel": "high",
+  "effortLevel": "xhigh",
   "showThinkingSummaries": true,
   "skipDangerousModePermissionPrompt": true,
   "agentPushNotifEnabled": true,

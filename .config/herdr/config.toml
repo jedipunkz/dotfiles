@@ -17,6 +17,14 @@ accent = "#775CE0"
 [theme]
 name = "tokyo-night"
 
+[theme.custom]
+# 非アクティブタブの背景を薄いグレー紫にして視認できるようにする
+surface0 = "#4c4869"
+surface1 = "#5a5680"
+# 非アクティブタブの文字色を白にする (overlay1=通常タブ文字)
+# overlay0 は非フォーカスのペイン枠にも使われるため上書きしない
+overlay1 = "#ffffff"
+
 [worktrees]
 directory = "~/.ax/worktrees"
 
