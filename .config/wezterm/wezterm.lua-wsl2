@@ -1,0 +1,18 @@
+local wezterm = require 'wezterm'
+local config = wezterm.config_builder()
+
+config.default_prog = { "wsl.exe", "-d", "Ubuntu-26.04", "--cd", "/home/thirai" }
+
+config.color_scheme = "Catppuccin Mocha"
+
+config.enable_tab_bar = false
+
+config.keys = {
+  {
+    key = 'Enter',
+    mods = 'CTRL',
+    action = wezterm.action.SendString '\x1b[13;5u',
+  },
+}
+
+return config
