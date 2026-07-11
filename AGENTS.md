@@ -116,5 +116,6 @@ Do not include `Generated with Claude Code`, `Co-Authored-By`, `Summary`, or `Te
 
 ## Available Skills
 
+- `$github-publish` - Stable GitHub publish workflow for branch push and PR creation with `gh`.
 - `$zellij-swarm` - Parallel Codex orchestration through Zellij panes and git worktrees.
 - `$codex-review` - Nested Codex CLI review workflow; prefer Codex built-in review unless explicitly requested.
