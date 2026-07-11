@@ -1,32 +1,30 @@
 ---
 name: github-publish
-description: GitHub へ現在の変更を publish するため、branch 作成、commit、通常 push、gh pr create を安定して実行する Codex 用 workflow。ユーザーが「push」「PR 作成」「branch を GitHub に上げる」「publish」などを依頼した場合に使います。
+description: GitHub へローカル変更を公開する workflow。ユーザーが commit、branch push、PR 作成、publish を依頼した場合に、通常の git と gh pr create で安全に実行します。
 ---
 
 # GitHub Publish Skill
 
-ローカル変更を GitHub に push し、Pull Request を作成するための workflow です。
-この skill は GitHub への通常 push と `gh pr create` を安定して実行することを目的にします。
-GitHub Git Data API で commit や branch を直接作る workflow ではありません。
+ローカル変更を commit し、branch を GitHub に push して、Pull Request を作成するための workflow です。
+目的は publish 操作を通常の Git/GitHub CLI 手順に揃え、Codex の permission 判定や shell の癖で失敗しにくくすることです。
 
-## 前提
+## 使う場面
 
-- `gh` コマンドが PATH に存在すること。
-- `gh auth status` が成功すること。
-- GitHub remote が設定された git repository 内で実行していること。
-- scope が混在している場合は、stage するファイルをユーザーに確認すること。
+- ユーザーが「commit して」「push して」「PR 作成して」「publish して」と依頼した場合。
+- 既に作成済みの PR branch に追加修正を反映する場合。
+- 作業 branch を GitHub に上げ、PR URL まで返す必要がある場合。
 
-## 安全ルール
+## 原則
 
-- force push は実行しない。`git push --force` と `git push -f` は禁止。
-- commit と branch 作成は local `git` で行い、remote 反映は `git push` で行う。
+- commit と branch 作成は local `git` で行う。
+- remote 反映は通常の `git push` で行う。
+- PR 作成は `gh pr create` で行う。
 - publish 目的で `gh api` を使って commit、tree、ref、PR を作らない。
-- `git add -A` は、worktree 全体が対象だと確認できた場合だけ使う。
-- 既存のユーザー変更を勝手に戻さない。
-- PR 作成前に `gh repo view --json isPrivate --jq '.isPrivate'` で公開範囲を確認する。
-- private repository の PR 本文は日本語、public repository の PR 本文は英語で書く。
+- force push は実行しない。`git push --force` と `git push -f` は禁止。
+- 既存のユーザー変更を勝手に stage、revert、削除しない。
+- worktree に対象外の変更が混在している場合は、stage するファイルを明示的に限定する。
 
-## Workflow
+## 事前確認
 
 1. GitHub CLI と認証状態を確認する。
 
@@ -35,48 +33,69 @@ gh --version
 gh auth status
 ```
 
-2. 作業内容と remote を確認する。
+2. repository と作業状態を確認する。
 
 ```bash
 git status -sb
 git diff
 git remote -v
-gh repo view --json isPrivate --jq '.isPrivate'
+gh repo view --json isPrivate,defaultBranchRef,nameWithOwner
 ```
 
-3. branch 方針を決める。
+3. current branch を確認し、既存 PR の有無を確認する。
 
-- `main`、`master`、remote default branch 上の場合は、`<prefix>/<short-description>` の新規 branch を作る。
+```bash
+git branch --show-current
+gh pr list --head <branch> --state open
+```
+
+## Branch
+
+- default branch 上で作業している場合は、`<prefix>/<short-description>` 形式の新規 branch を作る。
 - 既に作業 branch 上なら、原則その branch を使う。
-- 新規 branch 作成は `git switch -c <branch>` を使う。
+- 既存 PR に反映する場合は、その PR の head branch を使う。
 
-4. 意図したファイルだけを stage し、commit する。
+```bash
+git branch --show-current
+git switch -c <branch>
+```
+
+## Commit
+
+- `git add -A` は、worktree 全体が今回の scope だと確認できた場合だけ使う。
+- 混在 worktree では対象ファイルを明示して stage する。
+- commit message は project `AGENTS.md` の規則に従う。
 
 ```bash
 git add <path> ...
 git commit -m "<type>: <imperative subject>"
 ```
 
-5. push する branch 名を別コマンドで取得する。
+## Push
 
-コマンド置換は permission prefix 判定を外しやすいため使わない。
+- push する branch 名は `git branch --show-current` で確認し、次のコマンドに明示的に書く。
+- shell command substitution を使った `git push -u origin $(git branch --show-current)` は避ける。
 
 ```bash
 git branch --show-current
-```
-
-6. 取得した branch 名を明示して通常 push する。
-
-```bash
 git push -u origin <branch>
 ```
 
-7. PR を作成する。
-
-PR 本文は repository の公開範囲に合わせ、project `AGENTS.md` の構造を使う。
+既存 remote branch へ追加 commit を反映する場合:
 
 ```bash
-gh pr create --title "<title>" --body "<body>"
+git push origin <branch>
+```
+
+## PR
+
+- PR 作成前に repository の公開範囲を確認する。
+- private repository の PR 本文は日本語、public repository の PR 本文は英語で書く。
+- PR body は project `AGENTS.md` の構造に従う。
+
+```bash
+gh repo view --json isPrivate --jq '.isPrivate'
+gh pr create --base <base> --head <branch> --title "<title>" --body "<body>"
 ```
 
 本文構造:
@@ -96,9 +115,9 @@ gh pr create --title "<title>" --body "<body>"
 - <reference or N/A>
 ```
 
-## 詰まった時の扱い
+## 失敗時
 
-- local `git add`、`git commit`、`git push` が sandbox、filesystem permission、認証、remote 設定の問題で失敗した場合は、`gh api` で代替実装せずに停止し、失敗したコマンドと原因を具体的に伝える。
-- `git push -u origin <branch>` が権限や認証で失敗した場合は、`gh auth status` と remote URL を確認し、認証問題としてユーザーに具体的に伝える。
-- PR が既に存在する可能性がある場合は、`gh pr list --head <branch>` で確認してから新規作成する。
+- `git add`、`git commit`、`git push` が sandbox、filesystem permission、認証、remote 設定の問題で失敗した場合は、`gh api` で代替せず、失敗したコマンドと原因を具体的に報告する。
+- 現在の checkout の `.git` に書けないがユーザーが PR 反映の継続を求めている場合は、書き込み可能な一時 clone または worktree を作り、そこで通常の `git commit` と `git push` を実行する。
+- HTTPS remote で認証に失敗し、`gh auth status` が Git operations protocol を `ssh` と示す場合は、remote URL を SSH に変更して通常の `git push` を再試行する。
 - fork や cross-repository PR で `gh pr create` が base/head を推測できない場合は、`--base <branch>` と `--head <owner>:<branch>` を明示する。
