@@ -38,11 +38,13 @@ Linux
 
 AI
 - [Claude Code](https://claude.ai/claude-code) — settings, scripts, skills, rules
+- [Codex](https://openai.com/codex/) — AGENTS.md, hooks, rules, shared skills
 - OpenCode
 
 Tools
 - [aqua](https://aquaproj.github.io/) — CLI version manager (terraform, go, ...)
 - [ghq](https://github.com/x-motemen/ghq) — repo manager
+- herdr — terminal agent state, pane labels, and runtime UI config
 - [fzf](https://github.com/junegunn/fzf)
 - [eza](https://github.com/eza-community/eza)
 

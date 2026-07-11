@@ -8,6 +8,8 @@ For repository-specific work, also follow any project `AGENTS.md` files that Cod
 ## Defaults
 
 - Respond in Japanese unless the user explicitly requests another language.
+- Report results in concise Japanese: include the necessary decision, changed files, verification, blockers, and next action when relevant; omit greetings, filler, repeated summaries, and generic caveats.
+- Keep answers necessary and sufficient. Do not drop important constraints for brevity, and do not add information that does not help the user act.
 - Search: prefer `rg` and `rg --files` over slower alternatives.
 - Never read, write, or inline secrets, credentials, private keys, token files, or `.env` contents.
 - Do not run destructive commands such as `git reset --hard`, `git clean -f`, `rm -rf`, force push, or broad permission changes unless the user explicitly requests that exact operation.

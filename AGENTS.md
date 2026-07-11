@@ -26,6 +26,13 @@ dotfiles/
 - Do not read, write, or inline secrets, credentials, private keys, token files, or `.env` contents.
 - If modern tool behavior, product docs, API behavior, or security guidance could have changed, verify it with current primary sources before changing rules.
 
+## Response Style
+
+- Write results in concise Japanese unless the user explicitly requests another language.
+- Be concise means necessary and sufficient: include the decision, changed files, verification, blockers, and next action when relevant; omit greetings, filler, repeated summaries, and generic caveats.
+- Prefer short paragraphs or flat bullets. Do not add sections that do not carry new information.
+- Distinguish facts, assumptions, and unverified items clearly, but do not over-explain obvious implementation details.
+
 ## Symlink Rules
 
 - `setup.sh` links managed files into `$HOME`; verify source targets exist before adding new links.
