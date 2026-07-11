@@ -16,5 +16,6 @@ For repository-specific work, also follow any project `AGENTS.md` files that Cod
 
 ## Available Skills
 
+- `$github-publish` - Stable GitHub publish workflow for branch push and PR creation with `gh`.
 - `$codex-review` - Nested Codex CLI review workflow; prefer Codex built-in review unless explicitly requested.
 - `$zellij-swarm` - Parallel Codex orchestration through Zellij panes and git worktrees.
