@@ -314,7 +314,7 @@
     ]
   },
   "alwaysThinkingEnabled": true,
-  "effortLevel": "xhigh",
+  "effortLevel": "high",
   "showThinkingSummaries": true,
   "skipDangerousModePermissionPrompt": true,
   "agentPushNotifEnabled": true,
