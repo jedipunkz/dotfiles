@@ -62,6 +62,9 @@ set -x PATH $HOME/.bin $PATH
 # zoxide
 zoxide init fish | source
 
+# sponge: remove failed/matched commands before the next prompt.
+set -g sponge_delay 0
+
 if test ! -d "$HOME/ghq"
     mkdir $HOME/ghq
 end
