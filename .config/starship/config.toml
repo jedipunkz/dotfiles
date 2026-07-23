@@ -73,7 +73,7 @@ style = "#565f89"
 symbol = '️🇬️ '
 #format = 'on [$symbol$account(@$domain)(\($region\))(\($project\))]($style) '
 format = 'on [(\($region\))(\($project\))]($style) '
-style = 'bold #7aa2f7'
+style = '#7aa2f7'
 # detect_env_vars = ['GOOGLE_APPLICATION_CREDENTIALS']
 [gcloud.region_aliases]
 us-central1 = 'uc1'
@@ -150,7 +150,7 @@ format = "via [$symbol$version]($style) "
 [mise]
 disabled = false
 symbol = 'mise '
-style = 'bold #ff9e64'
+style = '#ff9e64'
 format = 'on [$symbol$health]($style) '
 healthy_symbol = '✔️ '
 unhealthy_symbol = '❌ '
