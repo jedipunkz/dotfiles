@@ -42,10 +42,17 @@ Claude Code がセッション開始時に自動ロードし、設定改善・�
 
 | エージェント | 役割 | 自動ディスパッチ条件 |
 |---|---|---|
+| `architect` | 設計・リポジトリ構造・大きめの計画判断（読み取り専用） | 複数ファイル/モジュールに跨る変更の設計時 |
+| `debugger` | エラー・失敗コマンド・hook 不調の原因調査と修正 | テスト/ビルド/スクリプトの失敗時 |
+| `docs-writer` | 既存コード・設定からのドキュメント作成・更新 | README / 運用ドキュメントの更新が必要なとき |
 | `researcher` | 調査・Web検索・コード探索（読み取り専用） | 実装前に調査が必要なとき |
 | `security-auditor` | hooks・settings のセキュリティ監査 | 新しい hook / permission rule 追加時 |
 | `shell-reviewer` | シェルスクリプトのレビュー（golangci-lint相当） | `.sh/.bash` ファイル修正時 |
+| `go-writer` | Go コードの作成・修正 | `.go` ファイルの新規作成・機能追加時 |
 | `go-reviewer` | Go コードのレビュー（golangci-lint 実行含む） | `.go` ファイル修正時 |
+| `terraform-writer` | Terraform コードの作成・修正 | `.tf/.tfvars/.hcl` の新規作成・リソース追加時 |
+| `terraform-reviewer` | Terraform コードのレビュー（IAM・network・secrets 重点） | `.tf/.tfvars/.hcl` ファイル修正時 |
+| `test-runner` | 変更に対する最小限のテスト実行・検証 | コード/スクリプト変更後の検証が必要なとき |
 
 ### Skills（`.claude/skills/`）
 
