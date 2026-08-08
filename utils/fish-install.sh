@@ -8,4 +8,5 @@ fisher install dracula/fish
 fisher install jedipunkz/fuzz.fish
 fisher install edc/bass
 fisher install decors/fish-ghq
-fisher install z11i/github-copilot-cli.fish
+fisher install meaningful-ooo/sponge
+fisher install nickeb96/puffer-fish
