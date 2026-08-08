@@ -94,7 +94,7 @@
       "~/ghq"
     ]
   },
-  "model": "claude-fable-5[1m]",
+  "model": "claude-opus-5",
   "hooks": {
     "CwdChanged": [
       {
@@ -114,7 +114,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash '/Users/thirai/.claude/hooks/herdr-agent-state.sh' blocked",
+            "command": "bash ~/.claude/hooks/herdr-agent-state.sh blocked",
             "timeout": 10
           }
         ]
@@ -182,7 +182,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash '/Users/thirai/.claude/hooks/herdr-agent-state.sh' working",
+            "command": "bash ~/.claude/hooks/herdr-agent-state.sh working",
             "timeout": 10
           }
         ]
@@ -194,7 +194,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash '/Users/thirai/.claude/hooks/herdr-agent-state.sh' release",
+            "command": "bash ~/.claude/hooks/herdr-agent-state.sh release",
             "timeout": 10
           }
         ]
@@ -206,7 +206,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash '/Users/thirai/.claude/hooks/herdr-agent-state.sh' idle",
+            "command": "bash ~/.claude/hooks/herdr-agent-state.sh idle",
             "timeout": 10
           }
         ]
@@ -226,7 +226,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash '/Users/thirai/.claude/hooks/herdr-agent-state.sh' idle",
+            "command": "bash ~/.claude/hooks/herdr-agent-state.sh idle",
             "timeout": 10
           }
         ]
@@ -249,7 +249,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash '/Users/thirai/.claude/hooks/herdr-agent-state.sh' working",
+            "command": "bash ~/.claude/hooks/herdr-agent-state.sh working",
             "timeout": 10
           }
         ]
@@ -287,13 +287,20 @@
     "rust-analyzer-lsp@claude-plugins-official": true,
     "swift-lsp@claude-plugins-official": true,
     "typescript-lsp@claude-plugins-official": true,
-    "vercel@claude-plugins-official": true
+    "vercel@claude-plugins-official": true,
+    "ponytail@ponytail": true
   },
   "extraKnownMarketplaces": {
     "claude-plugins-official": {
       "source": {
         "source": "github",
         "repo": "anthropics/claude-plugins-official"
+      }
+    },
+    "ponytail": {
+      "source": {
+        "source": "github",
+        "repo": "DietrichGebert/ponytail"
       }
     }
   },
