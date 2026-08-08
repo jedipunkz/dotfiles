@@ -43,16 +43,19 @@ Claude Code が全プロジェクト共通で従う最上位ルール。プロ�
 
 ## Branch Creation
 
-作業を始める際は必ず新しい branch を作成する。命名は `<prefix>/<short-kebab>` 規約に従う。
+作業開始前に必ず現在の branch を確認する（`git branch --show-current`）。
 
-現在 `main` / `master` にいる場合は、branch を切る前に最新化する。
+現在 `main` / `master` にいる場合のみ、最新化してから新しい branch を作る。命名は
+`<prefix>/<short-kebab>` 規約に従う。
 
 ```bash
 git pull --ff-only
 git switch -c <prefix>/<short-description>
 ```
 
-既に作業用 branch 上にいる場合は最新化不要。そのまま作業を続ける。
+`main` / `master` 以外の branch にいる場合は既に作業用 branch とみなし、新しい branch を
+作らずそのまま作業を続ける。最新化も不要。別 branch が必要かどうか迷ったらユーザーに確認する。
+例外は次節の `ax` 自動生成 branch で、この場合は作成ではなくリネームする。
 
 ## Branch Renaming for `ax agent new`
 
