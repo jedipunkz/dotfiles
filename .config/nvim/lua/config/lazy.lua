@@ -26,4 +26,6 @@ require("lazy").setup({
   install = { colorscheme = { "doom-one" } },
   -- automatically check for plugin updates
   checker = { enabled = true, notify = false },
+  -- no plugin in use requires luarocks; disable to avoid hererocks build failures
+  rocks = { enabled = false },
 })

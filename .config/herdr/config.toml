@@ -16,6 +16,7 @@ sidebar_width = 18
 sidebar_min_width = 18
 sidebar_start_collapsed = true
 sidebar_collapsed_mode = "compact"
+#accent = "#A78BFA"
 accent = "#9D7CFF"
 
 [theme]
