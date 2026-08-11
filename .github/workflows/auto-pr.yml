@@ -1,0 +1,58 @@
+name: Auto PR
+
+on:
+  push:
+    branches:
+      - deathstar
+      - chewbacca
+      - darth
+      - kw
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Create PR if diff exists
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          if git diff --quiet "origin/main...origin/${BRANCH}"; then
+            echo "No diff between ${BRANCH} and main. Skipping."
+            exit 0
+          fi
+
+          open_prs=$(gh pr list --head "${BRANCH}" --base main --state open --json number --jq 'length')
+          if [ "${open_prs}" != "0" ]; then
+            echo "An open PR from ${BRANCH} to main already exists. Skipping."
+            exit 0
+          fi
+
+          {
+            echo "## Why"
+            echo ""
+            echo "- Automated PR: \`${BRANCH}\` has changes not yet merged into \`main\`"
+            echo ""
+            echo "## What"
+            echo ""
+            git log --format='- %s' "origin/main..origin/${BRANCH}"
+            echo ""
+            echo "## Reference"
+            echo ""
+            echo "- N/A"
+          } > /tmp/pr_body.md
+
+          gh pr create \
+            --base main \
+            --head "${BRANCH}" \
+            --title "Merge ${BRANCH} into main" \
+            --body-file /tmp/pr_body.md

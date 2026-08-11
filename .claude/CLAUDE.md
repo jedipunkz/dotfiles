@@ -41,6 +41,22 @@ Claude Code が全プロジェクト共通で従う最上位ルール。プロ�
 - ブランチ: `<prefix>/<short-kebab>`。
 - PR description: private リポジトリは日本語、public は英語。`Generated with Claude Code` / `Co-Authored-By` / `Summary` / `Test Plan` セクションは追加しない。
 
+## Branch Creation
+
+作業開始前に必ず現在の branch を確認する（`git branch --show-current`）。
+
+現在 `main` / `master` にいる場合のみ、最新化してから新しい branch を作る。命名は
+`<prefix>/<short-kebab>` 規約に従う。
+
+```bash
+git pull --ff-only
+git switch -c <prefix>/<short-description>
+```
+
+`main` / `master` 以外の branch にいる場合は既に作業用 branch とみなし、新しい branch を
+作らずそのまま作業を続ける。最新化も不要。別 branch が必要かどうか迷ったらユーザーに確認する。
+例外は次節の `ax` 自動生成 branch で、この場合は作成ではなくリネームする。
+
 ## Branch Renaming for `ax agent new`
 
 [`ax`](https://github.com/jedipunkz/ax)（自作ツール）の `ax agent new` は `ax/ax-NNNNNNNN-XNNN`
