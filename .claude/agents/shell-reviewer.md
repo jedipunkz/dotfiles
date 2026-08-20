@@ -9,6 +9,12 @@ description: |
   - setup.sh or any installer script is modified
   Returns a structured review report; the orchestrator decides whether to apply fixes.
 model: claude-haiku-4-5-20251001
+memory: project
+disallowedTools:
+  - Write
+  - Edit
+  - MultiEdit
+  - NotebookEdit
 tools:
   - Read
   - Glob
