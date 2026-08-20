@@ -9,6 +9,11 @@ description: |
   - setup.sh or symlink scripts are modified (verify no sensitive paths exposed)
   Reports findings only; does NOT modify files.
 model: claude-haiku-4-5-20251001
+disallowedTools:
+  - Write
+  - Edit
+  - MultiEdit
+  - NotebookEdit
 tools:
   - Read
   - Glob

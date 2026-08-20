@@ -9,6 +9,12 @@ description: |
   - A refactor should be scoped before editing begins
   This agent is read-only and returns concrete implementation guidance.
 model: claude-haiku-4-5-20251001
+effort: high
+disallowedTools:
+  - Write
+  - Edit
+  - MultiEdit
+  - NotebookEdit
 tools:
   - Read
   - Glob

@@ -10,6 +10,7 @@ description: |
   This agent writes / edits Terraform files. After it finishes, the orchestrator
   should delegate to `terraform-reviewer` for verification.
 model: claude-haiku-4-5-20251001
+isolation: worktree
 tools:
   - Read
   - Write
