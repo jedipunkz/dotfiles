@@ -1,3 +1,13 @@
+---
+paths:
+  - "**/.claude/**"
+  - "**/.codex/**"
+  - "**/.gemini/**"
+  - "**/.agents/**"
+  - "**/CLAUDE.md"
+  - "**/AGENTS.md"
+---
+
 # Harness Engineering — Reference
 
 このファイルはハーネスエンジニアリングの概念定義・現在の設定構成・参照記事をまとめた資料。
