@@ -24,6 +24,13 @@ Custom subagents live in `.claude/agents/`. **Use them proactively.**
 | Research needed before implementation | Delegate to `researcher` first, then implement |
 | Shell script written or modified | Delegate review to `shell-reviewer` |
 | Go file written or modified | Delegate review to `go-reviewer` |
+| TypeScript file needs to be written or scaffolded | Delegate authoring to `typescript-writer` |
+| TypeScript file written or modified | Delegate review to `typescript-reviewer` |
+| Python file needs to be written or scaffolded | Delegate authoring to `python-writer` |
+| Python file written or modified | Delegate review to `python-reviewer` |
+| Dart file written or modified | Delegate review to `dart-reviewer` |
+| Proto file written or modified | Delegate review to `proto-reviewer` |
+| SQL file or migration written or modified | Delegate review to `sql-reviewer` |
 | Terraform file needs to be written or scaffolded | Delegate authoring to `terraform-writer` |
 | Terraform file written or modified | Delegate review to `terraform-reviewer` |
 | New hook or permission rule added | Delegate audit to `security-auditor` |

@@ -15,6 +15,13 @@ EFFORT=$(echo "$input" | jq -r '.effort.level // empty')
 CURRENT_DIR=$(echo "$input" | jq -r '.workspace.current_dir // "~"')
 DIR_NAME=${CURRENT_DIR##*/}
 
+# Worktree name: git_worktree covers any linked worktree, worktree.name only --worktree sessions
+WORKTREE=$(echo "$input" | jq -r '.workspace.git_worktree // .worktree.name // empty')
+
+# Open PR for the current branch; absent until one is found
+PR_NUMBER=$(echo "$input" | jq -r '.pr.number // empty')
+PR_REVIEW=$(echo "$input" | jq -r '.pr.review_state // empty')
+
 # Context window usage
 CTX_USED=$(echo "$input" | jq -r '.context_window.used_percentage // 0')
 CTX_USED_INT=$(printf "%.0f" "$CTX_USED" 2>/dev/null || echo "0")
@@ -23,6 +30,13 @@ CTX_USED_INT=$(printf "%.0f" "$CTX_USED" 2>/dev/null || echo "0")
 TOTAL_COST_USD=$(echo "$input" | jq -r '.cost.total_cost_usd // 0')
 LINES_ADDED=$(echo "$input" | jq -r '.cost.total_lines_added // 0')
 LINES_REMOVED=$(echo "$input" | jq -r '.cost.total_lines_removed // 0')
+
+# Rate limits (Claude.ai subscribers only, populated after the first API response).
+# resets_at is Unix epoch seconds.
+FIVE_PCT=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // empty')
+FIVE_RESET=$(echo "$input" | jq -r '.rate_limits.five_hour.resets_at // empty')
+SEVEN_PCT=$(echo "$input" | jq -r '.rate_limits.seven_day.used_percentage // empty')
+SEVEN_RESET=$(echo "$input" | jq -r '.rate_limits.seven_day.resets_at // empty')
 
 # Get USD/JPY exchange rate (cached for 24 hours)
 CACHE_FILE="$HOME/.claude/usd_jpy_rate.cache"
@@ -107,18 +121,8 @@ build_bar() {
   printf "${bar_color}${filled_str}\033[2m${empty_str}${RESET}"
 }
 
-iso_to_epoch() {
-  # Strip fractional seconds and timezone → parse as UTC
-  local stripped="${1%%.*}"
-  stripped="${stripped%%Z}"; stripped="${stripped%%+*}"; stripped="${stripped%%-[0-9][0-9]:[0-9][0-9]}"
-  date -j -u -f "%Y-%m-%dT%H:%M:%S" "$stripped" +%s 2>/dev/null
-}
-
 format_reset_time() {
-  local iso_str="$1" style="$2"
-  [ -z "$iso_str" ] || [ "$iso_str" = "null" ] && return
-  local epoch
-  epoch=$(iso_to_epoch "$iso_str")
+  local epoch="$1" style="$2"
   [ -z "$epoch" ] && return
   case "$style" in
     time)     TZ=Asia/Tokyo date -j -r "$epoch" +"%H:%M JST" 2>/dev/null ;;
@@ -126,104 +130,51 @@ format_reset_time() {
   esac
 }
 
-get_oauth_token() {
-  [ -n "$CLAUDE_CODE_OAUTH_TOKEN" ] && echo "$CLAUDE_CODE_OAUTH_TOKEN" && return
-  if command -v security >/dev/null 2>&1; then
-    local blob token
-    blob=$(security find-generic-password -s "Claude Code-credentials" -w 2>/dev/null)
-    token=$(echo "$blob" | jq -r '.claudeAiOauth.accessToken // empty' 2>/dev/null)
-    [ -n "$token" ] && [ "$token" != "null" ] && echo "$token" && return
-  fi
-  local creds="$HOME/.claude/.credentials.json"
-  if [ -f "$creds" ]; then
-    local token
-    token=$(jq -r '.claudeAiOauth.accessToken // empty' "$creds" 2>/dev/null)
-    [ -n "$token" ] && [ "$token" != "null" ] && echo "$token" && return
+# Pace delta: usage % vs elapsed % of the window. ⇡ = burning faster than the
+# window refills, ⇣ = headroom. Result is assigned (not printed) so the doubled
+# %% survives until the caller's printf renders it as a single %.
+pace_seg() {
+  local pct=$1 resets_at=$2 window=$3
+  PACE_SEG=""
+  [ -z "$resets_at" ] && return
+  local elapsed=$(( (window - (resets_at - $(date +%s))) * 100 / window ))
+  [ "$elapsed" -lt 0 ] && elapsed=0
+  [ "$elapsed" -gt 100 ] && elapsed=100
+  local delta=$(( pct - elapsed ))
+  if [ "$delta" -gt 0 ]; then
+    PACE_SEG=" ${RED}⇡${delta}%%${RESET}"
+  else
+    PACE_SEG=" ${GREEN}⇣$(( -delta ))%%${RESET}"
   fi
 }
 
-# ── Fetch usage data ─────────────────────────────────────────────────────────
-# Cache in ~/.claude/ (persists across reboots, unlike /tmp/)
-USAGE_CACHE="$HOME/.claude/usage_cache.json"
-USAGE_LOCK="/tmp/claude_statusline_usage.lock"
-USAGE_DATA=""
-CACHE_TTL=300  # refresh every 5 minutes
+# ── Worktree and PR segments ─────────────────────────────────────────────────
+WORKTREE_SEG=""
+[ -n "$WORKTREE" ] && WORKTREE_SEG=" ${GRAY}|${RESET} ${BLUE}🌿 $WORKTREE${RESET}"
 
-# Load cached data if available
-[ -f "$USAGE_CACHE" ] && USAGE_DATA=$(cat "$USAGE_CACHE" 2>/dev/null)
-
-# Check if cache is stale
-cache_stale=true
-if [ -f "$USAGE_CACHE" ]; then
-  cache_mtime=$(stat -f %m "$USAGE_CACHE" 2>/dev/null || stat -c %Y "$USAGE_CACHE" 2>/dev/null)
-  cache_age=$(( $(date +%s) - ${cache_mtime:-0} ))
-  [ "$cache_age" -lt $CACHE_TTL ] && cache_stale=false
+PR_SEG=""
+if [ -n "$PR_NUMBER" ]; then
+  case "$PR_REVIEW" in
+    approved)          PR_COLOR="$GREEN"; PR_MARK="✓" ;;
+    changes_requested) PR_COLOR="$RED";   PR_MARK="✗" ;;
+    draft)             PR_COLOR="$GRAY";  PR_MARK="○" ;;
+    *)                 PR_COLOR="$YELLOW"; PR_MARK="•" ;;
+  esac
+  PR_SEG=" ${GRAY}|${RESET} ${PR_COLOR}⑂ #${PR_NUMBER} ${PR_MARK}${RESET}"
 fi
 
-if [ "$cache_stale" = true ]; then
-  # Skip if another refresh is in progress (lock expires after 30s)
-  lock_ok=true
-  if [ -f "$USAGE_LOCK" ]; then
-    lock_mtime=$(stat -f %m "$USAGE_LOCK" 2>/dev/null || stat -c %Y "$USAGE_LOCK" 2>/dev/null)
-    lock_age=$(( $(date +%s) - ${lock_mtime:-0} ))
-    [ "$lock_age" -lt 30 ] && lock_ok=false
-  fi
-  if [ "$lock_ok" = true ]; then
-    token=$(get_oauth_token)
-    if [ -n "$token" ]; then
-      if [ -z "$USAGE_DATA" ]; then
-        # No cache at all: fetch synchronously (first run after reboot/clear)
-        touch "$USAGE_LOCK"
-        response=$(curl -s --max-time 5 \
-          -H "Accept: application/json" \
-          -H "Content-Type: application/json" \
-          -H "Authorization: Bearer $token" \
-          -H "anthropic-beta: oauth-2025-04-20" \
-          -H "User-Agent: claude-code/2.1.34" \
-          "https://api.anthropic.com/api/oauth/usage" 2>/dev/null)
-        if echo "$response" | jq -e '.five_hour' >/dev/null 2>&1; then
-          echo "$response" > "$USAGE_CACHE"
-          USAGE_DATA="$response"
-        fi
-        rm -f "$USAGE_LOCK"
-      else
-        # Cache exists but stale: refresh async in background
-        touch "$USAGE_LOCK"
-        (
-          response=$(curl -s --max-time 10 \
-            -H "Accept: application/json" \
-            -H "Content-Type: application/json" \
-            -H "Authorization: Bearer $token" \
-            -H "anthropic-beta: oauth-2025-04-20" \
-            -H "User-Agent: claude-code/2.1.34" \
-            "https://api.anthropic.com/api/oauth/usage" 2>/dev/null)
-          if echo "$response" | jq -e '.five_hour' >/dev/null 2>&1; then
-            echo "$response" > "$USAGE_CACHE"
-          fi
-          rm -f "$USAGE_LOCK"
-        ) &
-        disown
-      fi
-    fi
-  fi
-fi
+# ── Git status ───────────────────────────────────────────────────────────────
+# rev-parse (not `-d .git`) so linked worktrees, where .git is a file, are detected
+if git -C "$CURRENT_DIR" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  BRANCH=$(git -C "$CURRENT_DIR" rev-parse --abbrev-ref HEAD 2>/dev/null)
+  BRANCH_SEG="${PURPLE}$BRANCH${RESET}"
 
-# ── Check if we're in a git repository
-if [ -d "$CURRENT_DIR/.git" ]; then
-  cd "$CURRENT_DIR" || exit
-
-  # Get current branch
-  BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
-
-  # Get git stats
-  GIT_STATUS=$(git diff --stat 2>/dev/null)
-  STAGED_STATUS=$(git diff --cached --stat 2>/dev/null)
-  UNTRACKED=$(git status --porcelain 2>/dev/null | grep -c '^??' 2>/dev/null || true)
+  GIT_STATUS=$(git -C "$CURRENT_DIR" diff --stat 2>/dev/null)
+  STAGED_STATUS=$(git -C "$CURRENT_DIR" diff --cached --stat 2>/dev/null)
+  UNTRACKED=$(git -C "$CURRENT_DIR" status --porcelain 2>/dev/null | grep -c '^??' 2>/dev/null || true)
   UNTRACKED=${UNTRACKED:-0}
 
-  # Check if there are any changes
   if [ -n "$GIT_STATUS" ] || [ -n "$STAGED_STATUS" ] || [ "$UNTRACKED" -gt 0 ]; then
-    # Parse changes
     INSERTIONS=0
     DELETIONS=0
     FILES_CHANGED=0
@@ -239,42 +190,33 @@ if [ -d "$CURRENT_DIR/.git" ]; then
       STAGED_FILES=$(echo "$STAGED_STATUS" | tail -1 | grep -o '[0-9]\+ file' | cut -d' ' -f1 || echo 0)
     fi
 
-    # Output with changes
-    printf "🤖 ${GREEN}$MODEL${RESET}${EFFORT_SEG} ${GRAY}|${RESET} ${CYAN}👻 $DIR_NAME${RESET} ${GRAY}|${RESET} 🚀 ${PURPLE}$BRANCH${RESET}\n${YELLOW}${FILES_CHANGED:-0} changed${RESET}, ${GREEN}+${INSERTIONS:-0}${RESET} ${RED}-${DELETIONS:-0}${RESET}, ${YELLOW}${STAGED_FILES:-0} staged${RESET}, ${YELLOW}$UNTRACKED untracked${RESET} ${GRAY}|${RESET} ${CTX_COLOR}⚡ ${CTX_USED_INT}%%${RESET} ${GRAY}|${RESET} ${YELLOW}💰 ¥${TOTAL_COST_JPY}${RESET} ${GRAY}|${RESET} 🍣 ${GREEN}+${LINES_ADDED}${RESET} ${RED}-${LINES_REMOVED}${RESET}"
+    DIFF_SEG="${YELLOW}${FILES_CHANGED:-0} changed${RESET}, ${GREEN}+${INSERTIONS:-0}${RESET} ${RED}-${DELETIONS:-0}${RESET}, ${YELLOW}${STAGED_FILES:-0} staged${RESET}, ${YELLOW}$UNTRACKED untracked${RESET} ${GRAY}|${RESET} "
   else
-    # Clean working tree
-    printf "🤖 ${GREEN}$MODEL${RESET}${EFFORT_SEG} ${GRAY}|${RESET} ${CYAN}👻 $DIR_NAME${RESET} ${GRAY}|${RESET} 🚀 ${PURPLE}$BRANCH${RESET}\n${GREEN}✓ Clean${RESET} ${GRAY}|${RESET} ${CTX_COLOR}⚡ ${CTX_USED_INT}%%${RESET} ${GRAY}|${RESET} ${YELLOW}💰 ¥${TOTAL_COST_JPY}${RESET} ${GRAY}|${RESET} 🍣 ${GREEN}+${LINES_ADDED}${RESET} ${RED}-${LINES_REMOVED}${RESET}"
+    DIFF_SEG="${GREEN}✓ Clean${RESET} ${GRAY}|${RESET} "
   fi
 else
-  # Not a git repository
-  printf "🤖 ${GREEN}$MODEL${RESET}${EFFORT_SEG} ${GRAY}|${RESET} ${CYAN}👻 $DIR_NAME${RESET} ${GRAY}|${RESET} 🚀 ${GRAY}Not a Repo${RESET}\n${CTX_COLOR}⚡ ${CTX_USED_INT}%%${RESET} ${GRAY}|${RESET} ${YELLOW}💰 ¥${TOTAL_COST_JPY}${RESET} ${GRAY}|${RESET} 🍣 ${GREEN}+${LINES_ADDED}${RESET} ${RED}-${LINES_REMOVED}${RESET}"
+  BRANCH_SEG="${GRAY}Not a Repo${RESET}"
+  DIFF_SEG=""
 fi
+
+printf "🤖 ${GREEN}$MODEL${RESET}${EFFORT_SEG} ${GRAY}|${RESET} ${CYAN}👻 $DIR_NAME${RESET} ${GRAY}|${RESET} 🚀 ${BRANCH_SEG}${WORKTREE_SEG}${PR_SEG}\n${DIFF_SEG}${CTX_COLOR}⚡ ${CTX_USED_INT}%%${RESET} ${GRAY}|${RESET} ${YELLOW}💰 ¥${TOTAL_COST_JPY}${RESET} ${GRAY}|${RESET} 🍣 ${GREEN}+${LINES_ADDED}${RESET} ${RED}-${LINES_REMOVED}${RESET}"
 
 # ── Usage rate limit bars ────────────────────────────────────────────────────
-if [ -n "$USAGE_DATA" ] && echo "$USAGE_DATA" | jq -e '.five_hour' >/dev/null 2>&1; then
-  five_pct=$(echo "$USAGE_DATA" | jq -r '.five_hour.utilization // 0' | awk '{printf "%.0f", $1}')
-  five_reset=$(format_reset_time "$(echo "$USAGE_DATA" | jq -r '.five_hour.resets_at // empty')" "time")
-  five_bar=$(build_bar "$five_pct" 10)
-  five_color=$(color_for_pct "$five_pct")
-
-  seven_pct=$(echo "$USAGE_DATA" | jq -r '.seven_day.utilization // 0' | awk '{printf "%.0f", $1}')
-  seven_reset=$(format_reset_time "$(echo "$USAGE_DATA" | jq -r '.seven_day.resets_at // empty')" "datetime")
-  seven_bar=$(build_bar "$seven_pct" 10)
-  seven_color=$(color_for_pct "$seven_pct")
-
-  printf "\n${GRAY}current${RESET} ${five_bar} ${five_color}$(printf '%3d' "$five_pct")%%${RESET} \033[2m⟳\033[0m ${GRAY}${five_reset}${RESET} ${GRAY}|${RESET} ${GRAY}weekly${RESET} ${seven_bar} ${seven_color}$(printf '%3d' "$seven_pct")%%${RESET} \033[2m⟳\033[0m ${GRAY}${seven_reset}${RESET}"
-
-  extra_enabled=$(echo "$USAGE_DATA" | jq -r '.extra_usage.is_enabled // false')
-  if [ "$extra_enabled" = "true" ]; then
-    extra_pct=$(echo "$USAGE_DATA" | jq -r '.extra_usage.utilization // 0' | awk '{printf "%.0f", $1}')
-    extra_used=$(echo "$USAGE_DATA" | jq -r '.extra_usage.used_credits // 0' | awk '{printf "%.2f", $1/100}')
-    extra_limit=$(echo "$USAGE_DATA" | jq -r '.extra_usage.monthly_limit // 0' | awk '{printf "%.2f", $1/100}')
-    extra_bar=$(build_bar "$extra_pct" 10)
-    extra_color=$(color_for_pct "$extra_pct")
-    printf " ${GRAY}|${RESET} ${GRAY}extra${RESET} ${extra_bar} ${extra_color}\$${extra_used}\033[2m/\033[0m${GRAY}\$${extra_limit}${RESET}"
+# Assigns WINDOW_SEG. Each window may be absent independently (and the whole
+# rate_limits object is absent for API-key users and before the first API response).
+window_seg() {
+  local label=$1 pct=$2 resets_at=$3 window=$4 style=$5
+  if [ -z "$pct" ]; then
+    WINDOW_SEG="${GRAY}${label}${RESET} ${GRAY}○○○○○○○○○○${RESET} ${GRAY}---%%${RESET}"
+    return
   fi
-else
-  # Show placeholder bars when data is unavailable
-  empty_bar="${GRAY}○○○○○○○○○○${RESET}"
-  printf "\n${GRAY}current${RESET} ${empty_bar} ${GRAY}---%${RESET} ${GRAY}|${RESET} ${GRAY}weekly${RESET} ${empty_bar} ${GRAY}---%${RESET}"
-fi
+  pct=$(printf "%.0f" "$pct")
+  pace_seg "$pct" "$resets_at" "$window"
+  WINDOW_SEG="${GRAY}${label}${RESET} $(build_bar "$pct" 10) $(color_for_pct "$pct")$(printf '%3d' "$pct")%%${RESET}${PACE_SEG} \033[2m⟳\033[0m ${GRAY}$(format_reset_time "$resets_at" "$style")${RESET}"
+}
+
+window_seg "current" "$FIVE_PCT" "$FIVE_RESET" 18000 "time"        # 5 hours
+five_seg="$WINDOW_SEG"
+window_seg "weekly" "$SEVEN_PCT" "$SEVEN_RESET" 604800 "datetime"  # 7 days
+
+printf "\n${five_seg} ${GRAY}|${RESET} ${WINDOW_SEG}"
