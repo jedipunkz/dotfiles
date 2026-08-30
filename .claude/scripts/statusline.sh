@@ -26,8 +26,7 @@ PR_REVIEW=$(echo "$input" | jq -r '.pr.review_state // empty')
 CTX_USED=$(echo "$input" | jq -r '.context_window.used_percentage // 0')
 CTX_USED_INT=$(printf "%.0f" "$CTX_USED" 2>/dev/null || echo "0")
 
-# Session cost and code statistics
-TOTAL_COST_USD=$(echo "$input" | jq -r '.cost.total_cost_usd // 0')
+# Code statistics
 LINES_ADDED=$(echo "$input" | jq -r '.cost.total_lines_added // 0')
 LINES_REMOVED=$(echo "$input" | jq -r '.cost.total_lines_removed // 0')
 
@@ -37,34 +36,6 @@ FIVE_PCT=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // empt
 FIVE_RESET=$(echo "$input" | jq -r '.rate_limits.five_hour.resets_at // empty')
 SEVEN_PCT=$(echo "$input" | jq -r '.rate_limits.seven_day.used_percentage // empty')
 SEVEN_RESET=$(echo "$input" | jq -r '.rate_limits.seven_day.resets_at // empty')
-
-# Get USD/JPY exchange rate (cached for 24 hours)
-CACHE_FILE="$HOME/.claude/usd_jpy_rate.cache"
-CACHE_AGE_HOURS=24
-
-if [ -f "$CACHE_FILE" ]; then
-  CACHE_AGE=$(($(date +%s) - $(stat -c %Y "$CACHE_FILE" 2>/dev/null || echo 0)))
-  CACHE_AGE_HOURS_ACTUAL=$((CACHE_AGE / 3600))
-else
-  CACHE_AGE_HOURS_ACTUAL=999
-fi
-
-if [ $CACHE_AGE_HOURS_ACTUAL -ge $CACHE_AGE_HOURS ]; then
-  # Fetch new rate
-  USD_JPY=$(curl -s --max-time 2 "https://open.er-api.com/v6/latest/USD" 2>/dev/null | jq -r '.rates.JPY // empty')
-  if [ -n "$USD_JPY" ] && [ "$USD_JPY" != "null" ]; then
-    echo "$USD_JPY" > "$CACHE_FILE"
-  else
-    USD_JPY=150  # Fallback rate
-  fi
-else
-  # Use cached rate
-  USD_JPY=$(cat "$CACHE_FILE" 2>/dev/null || echo 150)
-fi
-
-# Calculate cost in JPY
-TOTAL_COST_JPY=$(echo "$TOTAL_COST_USD * $USD_JPY" | bc 2>/dev/null || echo "0")
-TOTAL_COST_JPY=$(printf "%.0f" "$TOTAL_COST_JPY" 2>/dev/null || echo "0")
 
 # TokyoNight color palette (RGB ANSI codes)
 PURPLE='\033[38;2;187;154;247m'   # #bb9af7 - Purple for model
@@ -199,7 +170,7 @@ else
   DIFF_SEG=""
 fi
 
-printf "🤖 ${GREEN}$MODEL${RESET}${EFFORT_SEG} ${GRAY}|${RESET} ${CYAN}👻 $DIR_NAME${RESET} ${GRAY}|${RESET} 🚀 ${BRANCH_SEG}${WORKTREE_SEG}${PR_SEG}\n${DIFF_SEG}${CTX_COLOR}⚡ ${CTX_USED_INT}%%${RESET} ${GRAY}|${RESET} ${YELLOW}💰 ¥${TOTAL_COST_JPY}${RESET} ${GRAY}|${RESET} 🍣 ${GREEN}+${LINES_ADDED}${RESET} ${RED}-${LINES_REMOVED}${RESET}"
+printf "🤖 ${GREEN}$MODEL${RESET}${EFFORT_SEG} ${GRAY}|${RESET} ${CYAN}👻 $DIR_NAME${RESET} ${GRAY}|${RESET} 🚀 ${BRANCH_SEG}${WORKTREE_SEG}${PR_SEG}\n${DIFF_SEG}${CTX_COLOR}⚡ ${CTX_USED_INT}%%${RESET} ${GRAY}|${RESET} 🍣 ${GREEN}+${LINES_ADDED}${RESET} ${RED}-${LINES_REMOVED}${RESET}"
 
 # ── Usage rate limit bars ────────────────────────────────────────────────────
 # Assigns WINDOW_SEG. Each window may be absent independently (and the whole
