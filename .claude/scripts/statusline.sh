@@ -26,8 +26,7 @@ PR_REVIEW=$(echo "$input" | jq -r '.pr.review_state // empty')
 CTX_USED=$(echo "$input" | jq -r '.context_window.used_percentage // 0')
 CTX_USED_INT=$(printf "%.0f" "$CTX_USED" 2>/dev/null || echo "0")
 
-# Session cost and code statistics
-TOTAL_COST_USD=$(echo "$input" | jq -r '.cost.total_cost_usd // 0')
+# Code statistics
 LINES_ADDED=$(echo "$input" | jq -r '.cost.total_lines_added // 0')
 LINES_REMOVED=$(echo "$input" | jq -r '.cost.total_lines_removed // 0')
 
@@ -37,34 +36,6 @@ FIVE_PCT=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // empt
 FIVE_RESET=$(echo "$input" | jq -r '.rate_limits.five_hour.resets_at // empty')
 SEVEN_PCT=$(echo "$input" | jq -r '.rate_limits.seven_day.used_percentage // empty')
 SEVEN_RESET=$(echo "$input" | jq -r '.rate_limits.seven_day.resets_at // empty')
-
-# Get USD/JPY exchange rate (cached for 24 hours)
-CACHE_FILE="$HOME/.claude/usd_jpy_rate.cache"
-CACHE_AGE_HOURS=24
-
-if [ -f "$CACHE_FILE" ]; then
-  CACHE_AGE=$(($(date +%s) - $(stat -c %Y "$CACHE_FILE" 2>/dev/null || echo 0)))
-  CACHE_AGE_HOURS_ACTUAL=$((CACHE_AGE / 3600))
-else
-  CACHE_AGE_HOURS_ACTUAL=999
-fi
-
-if [ $CACHE_AGE_HOURS_ACTUAL -ge $CACHE_AGE_HOURS ]; then
-  # Fetch new rate
-  USD_JPY=$(curl -s --max-time 2 "https://open.er-api.com/v6/latest/USD" 2>/dev/null | jq -r '.rates.JPY // empty')
-  if [ -n "$USD_JPY" ] && [ "$USD_JPY" != "null" ]; then
-    echo "$USD_JPY" > "$CACHE_FILE"
-  else
-    USD_JPY=150  # Fallback rate
-  fi
-else
-  # Use cached rate
-  USD_JPY=$(cat "$CACHE_FILE" 2>/dev/null || echo 150)
-fi
-
-# Calculate cost in JPY
-TOTAL_COST_JPY=$(echo "$TOTAL_COST_USD * $USD_JPY" | bc 2>/dev/null || echo "0")
-TOTAL_COST_JPY=$(printf "%.0f" "$TOTAL_COST_JPY" 2>/dev/null || echo "0")
 
 # TokyoNight color palette (RGB ANSI codes)
 PURPLE='\033[38;2;187;154;247m'   # #bb9af7 - Purple for model
@@ -169,28 +140,32 @@ if git -C "$CURRENT_DIR" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   BRANCH=$(git -C "$CURRENT_DIR" rev-parse --abbrev-ref HEAD 2>/dev/null)
   BRANCH_SEG="${PURPLE}$BRANCH${RESET}"
 
-  GIT_STATUS=$(git -C "$CURRENT_DIR" diff --stat 2>/dev/null)
-  STAGED_STATUS=$(git -C "$CURRENT_DIR" diff --cached --stat 2>/dev/null)
-  UNTRACKED=$(git -C "$CURRENT_DIR" status --porcelain 2>/dev/null | grep -c '^??' 2>/dev/null || true)
+  summarize_diff() {
+    local numstat files insertions deletions
+    numstat=$(git -C "$CURRENT_DIR" diff "$@" --numstat 2>/dev/null)
+    if [ -z "$numstat" ]; then
+      printf "0 0 0"
+      return
+    fi
+    files=$(printf "%s\n" "$numstat" | wc -l | tr -d ' ')
+    insertions=$(printf "%s\n" "$numstat" | awk '$1 ~ /^[0-9]+$/ { total += $1 } END { print total + 0 }')
+    deletions=$(printf "%s\n" "$numstat" | awk '$2 ~ /^[0-9]+$/ { total += $2 } END { print total + 0 }')
+    printf "%s %s %s" "$files" "$insertions" "$deletions"
+  }
+
+  TRACKED_STATUS=$(git -C "$CURRENT_DIR" status --porcelain=v1 --untracked-files=no 2>/dev/null)
+  TRACKED_CHANGED=$(printf "%s\n" "$TRACKED_STATUS" | grep -c '^[^?]' 2>/dev/null || true)
+  UNTRACKED=$(git -C "$CURRENT_DIR" status --porcelain=v1 2>/dev/null | grep -c '^??' 2>/dev/null || true)
+  read -r WORKTREE_FILES WORKTREE_INSERTIONS WORKTREE_DELETIONS <<< "$(summarize_diff)"
+  read -r STAGED_FILES STAGED_INSERTIONS STAGED_DELETIONS <<< "$(summarize_diff --cached)"
   UNTRACKED=${UNTRACKED:-0}
+  TRACKED_CHANGED=${TRACKED_CHANGED:-0}
 
-  if [ -n "$GIT_STATUS" ] || [ -n "$STAGED_STATUS" ] || [ "$UNTRACKED" -gt 0 ]; then
-    INSERTIONS=0
-    DELETIONS=0
-    FILES_CHANGED=0
+  if [ "$TRACKED_CHANGED" -gt 0 ] || [ "$UNTRACKED" -gt 0 ]; then
+    INSERTIONS=$((WORKTREE_INSERTIONS + STAGED_INSERTIONS))
+    DELETIONS=$((WORKTREE_DELETIONS + STAGED_DELETIONS))
 
-    if [ -n "$GIT_STATUS" ]; then
-      INSERTIONS=$(echo "$GIT_STATUS" | tail -1 | grep -o '[0-9]\+ insertion' | cut -d' ' -f1 || echo 0)
-      DELETIONS=$(echo "$GIT_STATUS" | tail -1 | grep -o '[0-9]\+ deletion' | cut -d' ' -f1 || echo 0)
-      FILES_CHANGED=$(echo "$GIT_STATUS" | tail -1 | grep -o '[0-9]\+ file' | cut -d' ' -f1 || echo 0)
-    fi
-
-    STAGED_FILES=0
-    if [ -n "$STAGED_STATUS" ]; then
-      STAGED_FILES=$(echo "$STAGED_STATUS" | tail -1 | grep -o '[0-9]\+ file' | cut -d' ' -f1 || echo 0)
-    fi
-
-    DIFF_SEG="${YELLOW}${FILES_CHANGED:-0} changed${RESET}, ${GREEN}+${INSERTIONS:-0}${RESET} ${RED}-${DELETIONS:-0}${RESET}, ${YELLOW}${STAGED_FILES:-0} staged${RESET}, ${YELLOW}$UNTRACKED untracked${RESET} ${GRAY}|${RESET} "
+    DIFF_SEG="${YELLOW}${TRACKED_CHANGED:-0} changed${RESET}, ${GREEN}+${INSERTIONS:-0}${RESET} ${RED}-${DELETIONS:-0}${RESET}, ${YELLOW}${STAGED_FILES:-0} staged${RESET}, ${YELLOW}$UNTRACKED untracked${RESET} ${GRAY}|${RESET} "
   else
     DIFF_SEG="${GREEN}✓ Clean${RESET} ${GRAY}|${RESET} "
   fi
@@ -199,7 +174,7 @@ else
   DIFF_SEG=""
 fi
 
-printf "🤖 ${GREEN}$MODEL${RESET}${EFFORT_SEG} ${GRAY}|${RESET} ${CYAN}👻 $DIR_NAME${RESET} ${GRAY}|${RESET} 🚀 ${BRANCH_SEG}${WORKTREE_SEG}${PR_SEG}\n${DIFF_SEG}${CTX_COLOR}⚡ ${CTX_USED_INT}%%${RESET} ${GRAY}|${RESET} ${YELLOW}💰 ¥${TOTAL_COST_JPY}${RESET} ${GRAY}|${RESET} 🍣 ${GREEN}+${LINES_ADDED}${RESET} ${RED}-${LINES_REMOVED}${RESET}"
+printf "🤖 ${GREEN}$MODEL${RESET}${EFFORT_SEG} ${GRAY}|${RESET} ${CYAN}👻 $DIR_NAME${RESET} ${GRAY}|${RESET} 🚀 ${BRANCH_SEG}${WORKTREE_SEG}${PR_SEG}\n${DIFF_SEG}${CTX_COLOR}⚡ ${CTX_USED_INT}%%${RESET} ${GRAY}|${RESET} 🍣 ${GREEN}+${LINES_ADDED}${RESET} ${RED}-${LINES_REMOVED}${RESET}"
 
 # ── Usage rate limit bars ────────────────────────────────────────────────────
 # Assigns WINDOW_SEG. Each window may be absent independently (and the whole
