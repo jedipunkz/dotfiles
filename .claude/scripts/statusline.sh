@@ -140,28 +140,32 @@ if git -C "$CURRENT_DIR" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   BRANCH=$(git -C "$CURRENT_DIR" rev-parse --abbrev-ref HEAD 2>/dev/null)
   BRANCH_SEG="${PURPLE}$BRANCH${RESET}"
 
-  GIT_STATUS=$(git -C "$CURRENT_DIR" diff --stat 2>/dev/null)
-  STAGED_STATUS=$(git -C "$CURRENT_DIR" diff --cached --stat 2>/dev/null)
-  UNTRACKED=$(git -C "$CURRENT_DIR" status --porcelain 2>/dev/null | grep -c '^??' 2>/dev/null || true)
+  summarize_diff() {
+    local numstat files insertions deletions
+    numstat=$(git -C "$CURRENT_DIR" diff "$@" --numstat 2>/dev/null)
+    if [ -z "$numstat" ]; then
+      printf "0 0 0"
+      return
+    fi
+    files=$(printf "%s\n" "$numstat" | wc -l | tr -d ' ')
+    insertions=$(printf "%s\n" "$numstat" | awk '$1 ~ /^[0-9]+$/ { total += $1 } END { print total + 0 }')
+    deletions=$(printf "%s\n" "$numstat" | awk '$2 ~ /^[0-9]+$/ { total += $2 } END { print total + 0 }')
+    printf "%s %s %s" "$files" "$insertions" "$deletions"
+  }
+
+  TRACKED_STATUS=$(git -C "$CURRENT_DIR" status --porcelain=v1 --untracked-files=no 2>/dev/null)
+  TRACKED_CHANGED=$(printf "%s\n" "$TRACKED_STATUS" | grep -c '^[^?]' 2>/dev/null || true)
+  UNTRACKED=$(git -C "$CURRENT_DIR" status --porcelain=v1 2>/dev/null | grep -c '^??' 2>/dev/null || true)
+  read -r WORKTREE_FILES WORKTREE_INSERTIONS WORKTREE_DELETIONS <<< "$(summarize_diff)"
+  read -r STAGED_FILES STAGED_INSERTIONS STAGED_DELETIONS <<< "$(summarize_diff --cached)"
   UNTRACKED=${UNTRACKED:-0}
+  TRACKED_CHANGED=${TRACKED_CHANGED:-0}
 
-  if [ -n "$GIT_STATUS" ] || [ -n "$STAGED_STATUS" ] || [ "$UNTRACKED" -gt 0 ]; then
-    INSERTIONS=0
-    DELETIONS=0
-    FILES_CHANGED=0
+  if [ "$TRACKED_CHANGED" -gt 0 ] || [ "$UNTRACKED" -gt 0 ]; then
+    INSERTIONS=$((WORKTREE_INSERTIONS + STAGED_INSERTIONS))
+    DELETIONS=$((WORKTREE_DELETIONS + STAGED_DELETIONS))
 
-    if [ -n "$GIT_STATUS" ]; then
-      INSERTIONS=$(echo "$GIT_STATUS" | tail -1 | grep -o '[0-9]\+ insertion' | cut -d' ' -f1 || echo 0)
-      DELETIONS=$(echo "$GIT_STATUS" | tail -1 | grep -o '[0-9]\+ deletion' | cut -d' ' -f1 || echo 0)
-      FILES_CHANGED=$(echo "$GIT_STATUS" | tail -1 | grep -o '[0-9]\+ file' | cut -d' ' -f1 || echo 0)
-    fi
-
-    STAGED_FILES=0
-    if [ -n "$STAGED_STATUS" ]; then
-      STAGED_FILES=$(echo "$STAGED_STATUS" | tail -1 | grep -o '[0-9]\+ file' | cut -d' ' -f1 || echo 0)
-    fi
-
-    DIFF_SEG="${YELLOW}${FILES_CHANGED:-0} changed${RESET}, ${GREEN}+${INSERTIONS:-0}${RESET} ${RED}-${DELETIONS:-0}${RESET}, ${YELLOW}${STAGED_FILES:-0} staged${RESET}, ${YELLOW}$UNTRACKED untracked${RESET} ${GRAY}|${RESET} "
+    DIFF_SEG="${YELLOW}${TRACKED_CHANGED:-0} changed${RESET}, ${GREEN}+${INSERTIONS:-0}${RESET} ${RED}-${DELETIONS:-0}${RESET}, ${YELLOW}${STAGED_FILES:-0} staged${RESET}, ${YELLOW}$UNTRACKED untracked${RESET} ${GRAY}|${RESET} "
   else
     DIFF_SEG="${GREEN}✓ Clean${RESET} ${GRAY}|${RESET} "
   fi
