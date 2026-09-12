@@ -21,6 +21,7 @@ auto-save-list
 .config/nvim/plugin/packer_compiled.lua
 .config/nvim/lazy-lock.json
 .hammerspoon/window_layouts.json
+.config/herdr/release-notes.json
 
 # Sensitive files
 .env
@@ -33,3 +34,4 @@ auto-save-list
 .claude/skills/renovate-auto-merge/
 .claude/skills/weekly-report/
 .claude/skills/weekly-thanks/
+
