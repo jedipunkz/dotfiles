@@ -17,7 +17,9 @@ end
 return {
   use_ime = true,
   macos_forward_to_ime_modifier_mask = "SHIFT|CTRL",
-  enable_kitty_keyboard = true,
+  -- herdr 0.9.0 が WezTerm の kitty CSI-u 報告を取りこぼし Enter/BS/Ctrl 系が
+  -- 死ぬため無効化 (herdrdev/herdr#3589)。修正リリース後に true へ戻す
+  enable_kitty_keyboard = false,
 
   font = wezterm.font_with_fallback {
     -- 'JetBrains Mono',
