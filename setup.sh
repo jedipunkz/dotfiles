@@ -4,6 +4,12 @@ set -euo pipefail
 # set envs
 CONF_HOME=$(cd "$(dirname "$0")" && pwd)
 
+BACKUP_DIR="$HOME/dotfiles.backup"
+# Written after the first backup pass. Its presence means every backup target is
+# now either a symlink this script created or already saved, so re-runs skip them.
+BACKUP_MARKER="$BACKUP_DIR/.initial-backup-done"
+SKIPPED_LINKS=()
+
 URL_TPM="https://github.com/tmux-plugins/tpm"
 URL_ZSHCOMP="https://github.com/zsh-users/zsh-completions.git"
 
@@ -17,8 +23,22 @@ function chkcommand() {
 }
 
 function link() {
-    ln -sfn "$CONF_HOME/$1" "$2" || return 1
-    return 0
+    local src="$CONF_HOME/$1"
+    local dest="$2"
+
+    if [[ ! -e "$src" ]]; then
+        SKIPPED_LINKS+=("$dest (source missing: $src)")
+        return 0
+    fi
+
+    # ln puts the link inside dest when dest is a real directory, which silently
+    # creates a nested link instead of replacing it. Refuse and report instead.
+    if [[ -d "$dest" && ! -L "$dest" ]]; then
+        SKIPPED_LINKS+=("$dest (real directory; move it aside and re-run)")
+        return 0
+    fi
+
+    ln -sfn "$src" "$dest"
 }
 
 function copy_if_missing() {
@@ -45,21 +65,34 @@ function gitclone() {
 
 function makedir() {
     if [[ ! -d "$1" ]]; then
-        mkdir "$1" && chmod "$2" "$1" || return 1
+        mkdir -p "$1" && chmod "$2" "$1" || return 1
     fi
 }
 
+# Move pre-existing user state aside exactly once. Never overwrite an existing
+# backup: after the first run the targets are this script's own symlinks, and
+# overwriting would replace the real originals with links into this repository.
 function backup() {
-    if [[ -d "$1" ]]; then
-        rm -rf "$2"
-        mv "$1" "$2"
+    local src="$1"
+    local dest="$2"
+
+    if [[ -e "$BACKUP_MARKER" ]]; then
+        return 0
     fi
+    if [[ -L "$src" ]] || [[ ! -e "$src" ]]; then
+        return 0
+    fi
+    if [[ -e "$dest" ]]; then
+        return 0
+    fi
+
+    mv "$src" "$dest"
 }
 
 chkcommand curl
 chkcommand git
 
-makedir "$HOME/dotfiles.backup" 0755
+makedir "$BACKUP_DIR" 0755
 backup "$HOME/.config" "$HOME/dotfiles.backup/.config"
 backup "$HOME/.emacs.d" "$HOME/dotfiles.backup/.emacs.d"
 backup "$HOME/.claude/scripts" "$HOME/dotfiles.backup/scripts"
@@ -73,6 +106,8 @@ backup "$HOME/.gemini/keybindings.json" "$HOME/dotfiles.backup/gemini_keybinding
 backup "$HOME/.gemini/settings.json" "$HOME/dotfiles.backup/gemini_settings.json"
 backup "$HOME/.hammerspoon" "$HOME/dotfiles.backup/.hammerspoon"
 backup "$HOME/.karabiner" "$HOME/dotfiles.backup/.karabiner"
+
+touch "$BACKUP_MARKER"
 
 makedir "$HOME/.config" 700
 makedir "$HOME/.agents" 700
@@ -93,7 +128,6 @@ link .dir_colors "$HOME/.dir_colors"
 link .tmux.conf "$HOME/.tmux.conf"
 link .tmux.conf.macos "$HOME/.tmux.conf.macos"
 link .tmux.conf.linux "$HOME/.tmux.conf.linux"
-link .starship "$HOME/.starship"
 link .tigrc "$HOME/.tigrc"
 
 # .agents directory links
@@ -157,3 +191,10 @@ link .hammerspoon "$HOME/.hammerspoon"
 
 gitclone "$URL_TPM" ~/.tmux/plugins/tpm
 gitclone "$URL_ZSHCOMP" "$HOME/.zsh-completions"
+
+if [[ ${#SKIPPED_LINKS[@]} -gt 0 ]]; then
+    echo
+    echo "skipped ${#SKIPPED_LINKS[@]} link(s):"
+    printf '  %s\n' "${SKIPPED_LINKS[@]}"
+    exit 1
+fi
