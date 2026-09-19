@@ -5,70 +5,208 @@ CONF_HOME=$(cd "$(dirname "$0")" && pwd)
 
 BACKUP_DIR="$HOME/dotfiles.backup"
 BACKUP_MARKER="$BACKUP_DIR/.initial-backup-done"
-SKIPPED_LINKS=()
 
 URL_TPM="https://github.com/tmux-plugins/tpm"
 URL_ZSHCOMP="https://github.com/zsh-users/zsh-completions.git"
+
+DRY_RUN=0
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        -n|--dry-run)
+            DRY_RUN=1
+            ;;
+        -h|--help)
+            echo "usage: $0 [-n|--dry-run]"
+            exit 0
+            ;;
+        *)
+            echo "unknown option: $1" >&2
+            echo "usage: $0 [-n|--dry-run]" >&2
+            exit 2
+            ;;
+    esac
+    shift
+done
+
+case "$(uname)" in
+    Darwin)
+        OS=macos
+        ;;
+    Linux)
+        OS=linux
+        ;;
+    *)
+        echo "unsupported platform: $(uname)" >&2
+        exit 1
+        ;;
+esac
+
+N_CREATE=0
+N_REPLACE=0
+N_OK=0
+N_SKIP=0
+N_BACKUP=0
+PROBLEMS=()
+
+function report() {
+    local state="$1"
+    local path="$2"
+    local detail="${3:-}"
+
+    case "$state" in
+        create)
+            N_CREATE=$((N_CREATE + 1))
+            ;;
+        replace)
+            N_REPLACE=$((N_REPLACE + 1))
+            ;;
+        backup)
+            N_BACKUP=$((N_BACKUP + 1))
+            ;;
+        ok)
+            N_OK=$((N_OK + 1))
+            if [[ $DRY_RUN -eq 0 ]]; then
+                return 0
+            fi
+            ;;
+        skip)
+            N_SKIP=$((N_SKIP + 1))
+            if [[ $DRY_RUN -eq 0 ]]; then
+                return 0
+            fi
+            ;;
+    esac
+
+    if [[ -n "$detail" ]]; then
+        printf '  %-8s %s (%s)\n' "$state" "$path" "$detail"
+    else
+        printf '  %-8s %s\n' "$state" "$path"
+    fi
+}
+
+function problem() {
+    PROBLEMS+=("$1 — $2")
+    printf '  %-8s %s (%s)\n' "blocked" "$1" "$2"
+}
 
 function chkcommand() {
     if hash "$1" 2>/dev/null; then
         return 0
     else
-        echo "you need $1 command"
+        echo "you need $1 command" >&2
         exit 1
     fi
 }
 
 function link() {
-    local src="$CONF_HOME/$1"
-    local dest="$HOME/$1"
+    local rel="$1"
+    local src="$CONF_HOME/$rel"
+    local dest="$HOME/$rel"
 
     if [[ ! -e "$src" ]]; then
-        SKIPPED_LINKS+=("$dest (source missing: $src)")
+        problem "$rel" "source missing in repository"
         return 0
     fi
 
-    if [[ -d "$dest" && ! -L "$dest" ]]; then
-        SKIPPED_LINKS+=("$dest (real directory; move it aside and re-run)")
+    if [[ -L "$dest" ]]; then
+        if [[ "$(readlink "$dest")" == "$src" ]]; then
+            report ok "$rel"
+            return 0
+        fi
+        report replace "$rel" "was -> $(readlink "$dest")"
+    elif [[ -d "$dest" ]]; then
+        problem "$rel" "real directory in the way; move it aside"
         return 0
+    elif [[ -e "$dest" ]]; then
+        problem "$rel" "real file in the way; move it aside"
+        return 0
+    else
+        report create "$rel"
     fi
 
-    ln -sfn "$src" "$dest"
+    if [[ $DRY_RUN -eq 0 ]]; then
+        ln -sfn "$src" "$dest"
+    fi
+}
+
+function link_macos() {
+    if [[ "$OS" == macos ]]; then
+        link "$1"
+    else
+        report skip "$1" "macos only"
+    fi
+}
+
+function link_linux() {
+    if [[ "$OS" == linux ]]; then
+        link "$1"
+    else
+        report skip "$1" "linux only"
+    fi
 }
 
 function copy_if_missing() {
-    local src="$CONF_HOME/$1"
-    local dest="$HOME/$1"
+    local rel="$1"
+    local src="$CONF_HOME/$rel"
+    local dest="$HOME/$rel"
 
     if [[ -L "$dest" ]]; then
-        unlink "$dest"
+        report replace "$rel" "symlink replaced by a real copy"
+        if [[ $DRY_RUN -eq 0 ]]; then
+            unlink "$dest"
+            cp "$src" "$dest"
+        fi
+        return 0
     fi
 
-    if [[ ! -e "$dest" ]]; then
+    if [[ -e "$dest" ]]; then
+        report ok "$rel" "real file kept"
+        return 0
+    fi
+
+    report create "$rel" "copy, not symlink"
+    if [[ $DRY_RUN -eq 0 ]]; then
         cp "$src" "$dest"
     fi
 }
 
 function gitclone() {
-    local dest="$HOME/$2"
+    local url="$1"
+    local rel="$2"
+    local dest="$HOME/$rel"
 
-    if [[ ! -d "$dest" ]]; then
-        git clone "$1" "$dest"
+    if [[ -d "$dest" ]]; then
+        report ok "$rel"
+        return 0
+    fi
+
+    report create "$rel" "git clone"
+    if [[ $DRY_RUN -eq 0 ]]; then
+        git clone "$url" "$dest"
     fi
 }
 
 function makedir() {
-    local dir="$HOME/$1"
+    local rel="$1"
+    local mode="$2"
+    local dir="$HOME/$rel"
 
-    if [[ ! -d "$dir" ]]; then
+    if [[ -d "$dir" ]]; then
+        report ok "$rel/"
+        return 0
+    fi
+
+    report create "$rel/" "mkdir $mode"
+    if [[ $DRY_RUN -eq 0 ]]; then
         mkdir -p "$dir"
-        chmod "$2" "$dir"
+        chmod "$mode" "$dir"
     fi
 }
 
 function backup() {
-    local src="$HOME/$1"
-    local dest="$BACKUP_DIR/${2:-${1##*/}}"
+    local rel="$1"
+    local src="$HOME/$rel"
+    local dest="$BACKUP_DIR/${2:-${rel##*/}}"
 
     if [[ -e "$BACKUP_MARKER" ]]; then
         return 0
@@ -80,11 +218,21 @@ function backup() {
         return 0
     fi
 
-    mv "$src" "$dest"
+    report backup "$rel" "moved to $dest"
+    if [[ $DRY_RUN -eq 0 ]]; then
+        mv "$src" "$dest"
+    fi
 }
 
 chkcommand curl
 chkcommand git
+
+if [[ $DRY_RUN -eq 1 ]]; then
+    echo "dry run on $OS: nothing will be changed"
+else
+    echo "installing on $OS"
+fi
+echo
 
 makedir dotfiles.backup 0755
 backup .config
@@ -101,18 +249,15 @@ backup .gemini/settings.json gemini_settings.json
 backup .hammerspoon
 backup .karabiner
 
-touch "$BACKUP_MARKER"
+if [[ $DRY_RUN -eq 0 ]]; then
+    touch "$BACKUP_MARKER"
+fi
 
 makedir .config 0700
 makedir .agents 0700
 makedir .claude 0700
 makedir .codex 0700
 makedir .gemini 0700
-
-if [[ "$(uname)" == "Linux" ]]; then
-    link .gtkrc-2.0
-    link .config/regolith
-fi
 
 link .emacs.d
 link .zshrc
@@ -127,21 +272,26 @@ link .agents/skills
 link .config/nvim
 link .config/fish
 link .config/wezterm
-link .config/i3
-link .config/sway
-link .config/waybar
-link .config/polybar
 link .config/alacritty
-link .config/gtk-3.0
-link .config/xremap
-link .config/yabai
-link .config/skhd
+link .config/ghostty
 link .config/zellij
 link .config/starship
-link .config/ghostty
 link .config/opencode
 link .config/eza
-link .config/karabiner
+
+link_macos .config/yabai
+link_macos .config/skhd
+link_macos .config/karabiner
+link_macos .hammerspoon
+
+link_linux .gtkrc-2.0
+link_linux .config/gtk-3.0
+link_linux .config/i3
+link_linux .config/sway
+link_linux .config/waybar
+link_linux .config/polybar
+link_linux .config/xremap
+link_linux .config/regolith
 
 makedir .config/herdr 0700
 link .config/herdr/config.toml
@@ -169,14 +319,16 @@ link .gemini/agents
 link .gemini/keybindings.json
 link .gemini/hooks
 
-link .hammerspoon
-
 gitclone "$URL_TPM" .tmux/plugins/tpm
 gitclone "$URL_ZSHCOMP" .zsh-completions
 
-if [[ ${#SKIPPED_LINKS[@]} -gt 0 ]]; then
+echo
+printf 'created %d, replaced %d, unchanged %d, skipped %d, backed up %d\n' \
+    "$N_CREATE" "$N_REPLACE" "$N_OK" "$N_SKIP" "$N_BACKUP"
+
+if [[ ${#PROBLEMS[@]} -gt 0 ]]; then
     echo
-    echo "skipped ${#SKIPPED_LINKS[@]} link(s):"
-    printf '  %s\n' "${SKIPPED_LINKS[@]}"
+    echo "${#PROBLEMS[@]} problem(s) need a decision:"
+    printf '  %s\n' "${PROBLEMS[@]}"
     exit 1
 fi
