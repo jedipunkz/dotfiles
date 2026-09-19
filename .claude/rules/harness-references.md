@@ -37,6 +37,9 @@ Claude Code がセッション開始時に自動ロードし、設定改善・�
 
 ### Hooks（`.claude/hooks/`）
 
+hooks は `settings.json` の `hooks` キーにのみ定義する。専用の `hooks.json` は plugin 用であり、
+user / project スコープには存在しない（[Hooks reference](https://code.claude.com/docs/en/hooks)、2026-09 確認）。
+
 | ファイル | Event | Matcher | 役割 |
 |---|---|---|---|
 | `block-force-push.sh` | PreToolUse | Bash | `git push --force/-f` をブロック |
@@ -45,8 +48,14 @@ Claude Code がセッション開始時に自動ロードし、設定改善・�
 | `clean-git-lock.sh` | PreToolUse | Bash | stale な `.git/index.lock` を自動削除 |
 | `guard-rm.sh` | PreToolUse | Bash | `rm -rf/-f/--recursive/--force` をブロック |
 | `lint-check.sh` | PostToolUse | Write/Edit | `.sh/.bash` 修正後に `shellcheck` を自動実行 |
-| `notify-ask.sh` | PreToolUse | AskUserQuestion/Bash | 承認が必要な操作で macOS 通知 + 音声アラート |
+| `herdr-agent-state.sh` | SessionStart / SessionEnd / UserPromptSubmit / PreToolUse / PermissionRequest / Stop | `*` | herdr にエージェント状態（idle/working/blocked/release）を通知 |
+| `log-event.sh` | CwdChanged / SubagentStart / WorktreeCreate / WorktreeRemove | `*` | イベントログ記録 |
 | `notify-done.sh` | Stop | — | タスク完了時に macOS 通知（成功: Glass / エラー: Basso） |
+| `notify-ask.sh` | 未登録 | — | 承認要求時の macOS 通知。`settings.json` にも `.codex/hooks.json` にも登録されていない死んだファイル。使うなら `PermissionRequest` に登録する |
+
+2026-09 時点で利用可能なイベントは 33 種。未使用で有用な候補: `PermissionDenied`（classifier の
+denial を `tool_input` 付きで捕捉）、`PostToolUseFailure`、`StopFailure`、`PreCompact` / `PostCompact`、
+`SubagentStop`、`TeammateIdle`。
 
 ### Agents（`.claude/agents/`）
 
@@ -99,17 +108,50 @@ Codex にも必要なルールは `.claude/CLAUDE.md` 側か `.agents/skills/` �
 
 ### Settings（`.claude/settings.json`）
 
-- `permissions.defaultMode: "auto"` — デフォルト auto mode
+`~/.claude/settings.json` はこのファイルへの symlink。auto mode classifier は `autoMode` を
+user settings と managed settings からのみ読み、project settings からは読まない。
+
+- `permissions.defaultMode: "auto"` — auto mode。2026-08-14 以降 Pro/Max/Team の既定値
 - `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` — Agent Teams 有効化
-- `permissions.allow` — 安全な読み取り系 Bash コマンドを事前承認
-- `permissions.deny` — 危険な操作（rm -rf, git push --force 等）を明示拒否
+- `permissions.allow` — 事前承認。auto mode では narrow な Bash allow rule は classifier を
+  スキップするため、書き込み可能なコマンド（`gh api` 等）を入れると classifier の検査を素通りする
+- `permissions.deny` — classifier より前に評価される、上書き不可の最終防壁
+- `permissions.ask` — classifier より前に評価され必ずプロンプトを出す。push / PR 作成の
+  human checkpoint はここで作る
+- `autoMode.soft_deny` / `hard_deny` / `allow` / `environment` — classifier の追加ルール
 - `spinnerVerbs` — 攻殻機動隊ネタの日本語 spinner
 - `language: "japanese"` — 応答言語
-- LSP plugins: gopls / TypeScript / Rust Analyzer
+- LSP plugins: gopls / TypeScript / Rust Analyzer / Swift
+
+`autoMode` の落とし穴: `soft_deny` / `hard_deny` / `allow` / `environment` のいずれかを
+`"$defaults"` を含めずに設定すると、そのセクションの組み込みルールが全て消える。組み込みは
+soft_deny 69 件・hard_deny 1 件（データ持ち出し禁止）。自前ルールを足すときは必ず配列の先頭に
+`"$defaults"` を置く。
+
+検証コマンド:
+
+```bash
+claude auto-mode defaults   # 組み込みルール
+claude auto-mode config     # 実効ルール（設定適用後）
+claude auto-mode critique   # 自前ルールへの AI レビュー
+```
 
 ---
 
 ## 参照記事（2025〜2026、実在確認済み）
+
+### 公式ドキュメント（2026-09-19 に一次情報で再確認）
+
+- **Hooks reference** — イベント 33 種。hooks の定義場所は settings.json のみで、`hooks/hooks.json` は plugin 専用。
+  https://code.claude.com/docs/en/hooks
+- **Configure auto mode** — `autoMode` の `environment` / `allow` / `soft_deny` / `hard_deny`、`"$defaults"` の挙動、`claude auto-mode` サブコマンド。
+  https://code.claude.com/docs/en/auto-mode-config
+- **Choose a permission mode** — classifier の評価順、`permissions.ask` による human checkpoint。
+  https://code.claude.com/docs/en/permission-modes
+- **Create custom subagents** — frontmatter 全キー（`model` / `memory` / `disallowedTools` / `isolation` / `effort` / `maxTurns` / `skills` / `omitClaudeMd` ほか）。`omitClaudeMd` は v2.1.271 以降、`experimental.cacheTtl` は v2.1.248 以降。並行 20・深度 3、セッション総数の上限なし。
+  https://code.claude.com/docs/en/sub-agents
+- **All settings** — 廃止キー: `disableArtifact` / `includeCoAuthoredBy` / `keybindingFlavor` / `permissionExplainerEnabled`（v2.1.257 で削除）。
+  https://code.claude.com/docs/en/settings-reference
 
 ### 概念・設計理論
 
