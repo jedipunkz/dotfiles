@@ -3,7 +3,7 @@ set -euo pipefail
 
 CONF_HOME=$(cd "$(dirname "$0")" && pwd)
 
-BACKUP_DIR="$HOME/dotfiles.backup"
+BACKUP_DIR="$CONF_HOME/backup"
 BACKUP_MARKER="$BACKUP_DIR/.initial-backup-done"
 
 URL_TPM="https://github.com/tmux-plugins/tpm"
@@ -234,7 +234,9 @@ else
 fi
 echo
 
-makedir dotfiles.backup 0755
+if [[ $DRY_RUN -eq 0 ]]; then
+    mkdir -p "$BACKUP_DIR"
+fi
 backup .config
 backup .emacs.d
 backup .claude/scripts

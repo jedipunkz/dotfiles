@@ -35,3 +35,6 @@ auto-save-list
 .claude/skills/weekly-report/
 .claude/skills/weekly-thanks/
 
+
+# setup.sh backup destination
+/backup/
