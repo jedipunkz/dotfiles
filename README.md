@@ -11,7 +11,7 @@ bash setup.sh
 
 `--dry-run` reports every action without changing anything.
 
-Backs up existing configs to `~/dotfiles.backup` before linking, once. A real file or
+Backs up existing configs to `<repo>/backup` (gitignored) before linking, once. A real file or
 directory already occupying a link destination is reported and left untouched.
 Platform-specific configs are linked only on macOS or Linux as appropriate.
 
