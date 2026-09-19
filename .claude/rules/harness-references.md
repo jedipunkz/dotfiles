@@ -76,9 +76,19 @@ Claude Code がセッション開始時に自動ロードし、設定改善・�
 | スキル | 役割 |
 |---|---|
 | `codex-review` | OpenAI Codex CLI によるコード・設定ファイルレビュー |
+| `finance-mcp` | 株価・為替・暗号資産・財務データを MCP 経由で取得・分析 |
 | `zellij-swarm` | Zellij pane + git worktree で複数 Claude を並列オーケストレート |
 
+Codex 側の skill は `.agents/skills/`（`~/.agents/skills` へリンク）に置き、`$<name>` で呼び出す。
+`codex-review` / `finance-mcp` / `zellij-swarm` は両方に存在し、`github-publish` /
+`systematic-debugging` / `test-driven-development` / `verification-before-completion` /
+`web-research` は Codex 側のみ。
+
 ### Rules（`.claude/rules/`）
+
+共通ルール本体は `.claude/CLAUDE.md` に単一ソースで置く。`.codex/AGENTS.md` はそのファイルへの
+symlink で、Claude Code と Codex が同じ実体を読む。`.claude/rules/` は Claude Code のみが読むため、
+Codex にも必要なルールは `.claude/CLAUDE.md` 側か `.agents/skills/` に置く。
 
 | ルール | 内容 |
 |---|---|
