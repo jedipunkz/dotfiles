@@ -1,6 +1,10 @@
-# Global Instructions
+# Agent Global Instructions
 
-Claude Code が全プロジェクト共通で従う最上位ルール。プロジェクト固有の `CLAUDE.md` / `AGENTS.md` はこれを補完する。
+Claude Code と Codex が全プロジェクト共通で従う最上位ルール。プロジェクト固有の `CLAUDE.md` / `AGENTS.md` はこれを補完する。
+
+このファイル（dotfiles の `.claude/CLAUDE.md`）が共通ルールの単一ソース。Claude Code は `~/.claude/CLAUDE.md`、
+Codex は `~/.codex/AGENTS.md` として同じ実体を読む（`.codex/AGENTS.md` はこのファイルへの symlink）。
+ルールを変更するときはこのファイルだけを編集する。
 
 ## Core Principles
 
@@ -72,10 +76,12 @@ Claude Code が全プロジェクト共通で従う最上位ルール。プロ�
 ## Reliability
 
 - 変更前に現状を読む。前提を `git status` / `rg` / 該当ファイル読込で確認する。
+- 検索は `rg` と `rg --files` を使う。遅い代替手段を選ばない。
 - 副作用のある操作（migration, 設定変更, インストール）は dry-run / preview を先に取る。
 - エラーは握り潰さず原因を特定する。`|| true` や `--no-verify` で隠さない。
 - 一度に一つの変更。複数の論理変更を 1 commit に混ぜない。
 - テスト・lint・型チェックの失敗は修正してから完了報告する。スキップする場合は理由を明記。
+- ツールの挙動・製品仕様・API・セキュリティ指針が変わりうる場合は、ルールを変える前に一次情報で確認する。
 
 ## Security
 
@@ -106,7 +112,7 @@ Claude Code が全プロジェクト共通で従う最上位ルール。プロ�
 ## Defaults
 
 - 応答言語: 日本語（明示指示がある場合を除く）。
-- コミットメッセージ: 英語、Conventional Commits prefix、imperative。
+- コミットメッセージ: 英語、Conventional Commits prefix、imperative。`git commit -m` の 1 行形式を使い、heredoc は使わない。body は `-m` の追加で渡す。
 - ブランチ: `<prefix>/<short-kebab>`。
 - PR description: private リポジトリは日本語、public は英語。`Generated with Claude Code` / `Co-Authored-By` / `Summary` / `Test Plan` セクションは追加しない。
 
@@ -139,6 +145,22 @@ git branch -m <prefix>/<short-description>
 ```
 
 commit を作る前に proactive に実行する。既に意味のある名前（自動生成パターンでない）ならそのままにする。
+
+## Skills
+
+呼び出しは Codex が `$<name>`、Claude Code が `/<name>`。定義の場所は Codex が `~/.agents/skills/`、
+Claude Code が `~/.claude/skills/`。
+
+| skill | 内容 | Codex | Claude Code |
+|---|---|---|---|
+| `codex-review` | Codex CLI によるコード・設定レビュー | 有 | 有 |
+| `finance-mcp` | 株価・為替・財務データを MCP 経由で取得（MCP サーバ登録が前提） | 有 | 有 |
+| `zellij-swarm` | Zellij pane + git worktree で複数エージェントを並列実行 | 有 | 有 |
+| `github-publish` | branch push と PR 作成の workflow | 有 | 無 |
+| `systematic-debugging` | 仮説検証を段階化した debug 手順 | 有 | 無 |
+| `test-driven-development` | テストを先に書く実装手順 | 有 | 無 |
+| `verification-before-completion` | 完了報告前の検証チェック | 有 | 無 |
+| `web-research` | 一次情報を優先した web 調査手順 | 有 | 無 |
 
 ## When in Doubt
 
