@@ -9,6 +9,7 @@ format = """\
     $git_commit\
     $git_state\
     $git_status\
+    $git_metrics\
     $hg_branch\
     $env_var\
     $docker_context\
@@ -46,20 +47,36 @@ format = """\
     $character\
 """
 
+palette = "tokyonight"
+
+[palettes.tokyonight]
+red = "#f7768e"
+orange = "#ff9e64"
+yellow = "#e0af68"
+green = "#9ece6a"
+cyan = "#7dcfff"
+blue = "#7aa2f7"
+magenta = "#bb9af7"
+comment = "#565f89"
+
+[profiles]
+# transient prompt (fish): 過去のプロンプトを時刻と character だけに圧縮する
+transient = "$time$character"
+
 [character]
-success_symbol = "[ ::](#9ece6a)"
-error_symbol = "[ ERROR](#f7768e)"
-vicmd_symbol = "[ ::](#9ece6a)"
+success_symbol = "[ ::](green)"
+error_symbol = "[ ✗](red)"
+vicmd_symbol = "[ ::](green)"
 
 [hostname]
 ssh_only = true
 disabled = false
-style = "#e0af68"
+style = "yellow"
 
 [directory]
 truncation_length = 3
 truncate_to_repo = false
-style = "#7dcfff"
+style = "cyan"
 format = "👻 [$path]($style)[$read_only]($read_only_style) "
 
 [time]
@@ -67,13 +84,13 @@ disabled = false
 format = "[$time]($style)"
 time_format = "%T"
 utc_time_offset = "+9"
-style = "#565f89"
+style = "comment"
 
 [gcloud]
 symbol = '️🇬️ '
 #format = 'on [$symbol$account(@$domain)(\($region\))(\($project\))]($style) '
 format = 'on [(\($region\))(\($project\))]($style) '
-style = '#7aa2f7'
+style = 'blue'
 # detect_env_vars = ['GOOGLE_APPLICATION_CREDENTIALS']
 [gcloud.region_aliases]
 us-central1 = 'uc1'
@@ -81,7 +98,7 @@ asia-northeast1 = 'an1'
 
 [aws]
 symbol = "☁️ "
-style = "#ff9e64"
+style = "orange"
 [aws.region_aliases]
 ap-northeast-1 = "tokyo"
 ap-northeast-3 = "osaka"
@@ -99,7 +116,7 @@ symbol = "🐋 "
 symbol = "🚀 "
 #truncation_length = 2
 #truncation_symbol = ""
-style = "#bb9af7"
+style = "magenta"
 
 [git_state]
 format = '[\($state( $progress_current of $progress_total)\)]($style) '
@@ -112,19 +129,23 @@ behind = ""
 diverged = "⇕"
 conflicted = "="
 untracked = "?"
-stashed = "$"
+# stash があっても git status が clean なら branch 名だけにする
+stashed = ""
 modified = "!"
 staged = "+"
 renamed = "»"
 deleted = "✘"
 
+[git_metrics]
+disabled = false
+
 [golang]
 #symbol = "🏎💨 "
-style = "#7dcfff"
+style = "cyan"
 
 [kubernetes]
 symbol = "🥑 "
-style = "#e0af68"
+style = "yellow"
 disabled = false
 format = '[$symbol$context( \($namespace\))]($style) in '
 detect_extensions = []
@@ -148,9 +169,10 @@ symbol = "🔺 "
 format = "via [$symbol$version]($style) "
 
 [mise]
-disabled = false
+# プロンプト描画の約 30ms を占めるため無効化（表示は health の ✔️/❌ のみ）
+disabled = true
 symbol = 'mise '
-style = '#ff9e64'
+style = 'orange'
 format = 'on [$symbol$health]($style) '
 healthy_symbol = '✔️ '
 unhealthy_symbol = '❌ '
