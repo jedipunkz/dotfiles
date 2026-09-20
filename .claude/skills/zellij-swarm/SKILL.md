@@ -1,16 +1,16 @@
 ---
 name: zellij-swarm
-description: Zellij の pane 管理を使って複数の Claude Code エージェントを並列起動し、タスクを分散実行するオーケストレータースキル。「swarm で」「並列エージェントで」「zellij swarm」「エージェントを N 個起動」「複数エージェントに分けて」などのリクエストがあった場合に使用します。
+description: Zellij の pane 管理を使って複数のコーディングエージェント (Claude Code / Codex) を並列起動し、タスクを分散実行するオーケストレータースキル。「swarm で」「並列エージェントで」「zellij swarm」「エージェントを N 個起動」「複数エージェントに分けて」などのリクエストがあった場合に使用します。
 ---
 
 # Zellij Swarm Skill
 
-Zellij の pane 管理と git worktree を組み合わせ、複数の Claude Code エージェントが
-独立したタスクを並列実行するワークフローです。
+Zellij の pane 管理と git worktree を組み合わせ、複数のコーディングエージェントが
+独立したタスクを並列実行するワークフローです。Claude Code と Codex のどちらから呼ばれても動く。
 
 ## 前提条件
 
-- Zellij セッション内で Claude を起動していること (`$ZELLIJ` 環境変数が存在)
+- Zellij セッション内でエージェント CLI を起動していること (`$ZELLIJ` 環境変数が存在)
 - git リポジトリ内で実行していること
 - `zellij` コマンドが PATH に存在すること
 
@@ -20,8 +20,10 @@ Zellij の pane 管理と git worktree を組み合わせ、複数の Claude Cod
 .claude/skills/zellij-swarm/
 ├── SKILL.md                    # このファイル
 ├── templates/
-│   ├── CLAUDE.md.template      # エージェント用 CLAUDE.md テンプレート
-│   └── claude-task.md.template # タスク定義テンプレート
+│   ├── CLAUDE.md.template      # Claude Code 用 CLAUDE.md テンプレート
+│   ├── claude-task.md.template # Claude Code 用タスク定義テンプレート
+│   ├── AGENTS.md.template      # Codex 用 AGENTS.md テンプレート
+│   └── codex-task.md.template  # Codex 用タスク定義テンプレート
 └── scripts/
     ├── setup-worktrees.sh      # Step 2: worktree 作成
     ├── launch-panes.sh         # Step 4: Zellij ペイン起動
@@ -67,18 +69,33 @@ Zellij の pane 管理と git worktree を組み合わせ、複数の Claude Cod
 
 各 worktree に Write tool で以下の **3 ファイル** を作成する。
 
-**`.gitworktree/<agent>/CLAUDE.md`**:
-`templates/CLAUDE.md.template` の内容を Read tool で読み取り、Write tool で書き込む。
+使うテンプレートと起動コマンドは、**このスキルを実行しているエージェント自身**に合わせる。
 
-**`.gitworktree/<agent>/.claude-task.md`**:
-`templates/claude-task.md.template` を参考に、具体的なタスク内容を記述して Write tool で書き込む。
+| 実行中のエージェント | 指示ファイル | タスクファイル | 起動コマンド |
+|---|---|---|---|
+| Claude Code | `CLAUDE.md` | `.claude-task.md` | `claude --dangerously-skip-permissions "$TASK"` |
+| Codex | `AGENTS.md` | `.codex-task.md` | `codex --ask-for-approval never --sandbox workspace-write "$TASK"` |
 
-**`.gitworktree/<agent>/.swarm-start.sh`**:
+**`.gitworktree/<agent>/<CLAUDE.md or AGENTS.md>`**:
+対応する `templates/*.template` の内容を Read tool で読み取り、Write tool で書き込む。
+
+**`.gitworktree/<agent>/<.claude-task.md or .codex-task.md>`**:
+対応する `templates/*-task.md.template` を参考に、具体的なタスク内容を記述して Write tool で書き込む。
+
+**`.gitworktree/<agent>/.swarm-start.sh`** (Claude Code の場合):
 
 ```bash
 #!/bin/bash
 TASK=$(cat .claude-task.md)
 claude --dangerously-skip-permissions "$TASK"
+```
+
+Codex の場合:
+
+```bash
+#!/bin/bash
+TASK=$(cat .codex-task.md)
+codex --ask-for-approval never --sandbox workspace-write "$TASK"
 ```
 
 作成後、Bash で `chmod +x .gitworktree/<agent>/.swarm-start.sh` を実行。
@@ -91,7 +108,7 @@ claude --dangerously-skip-permissions "$TASK"
 .claude/skills/zellij-swarm/scripts/launch-panes.sh agent-1 agent-2 agent-3
 ```
 
-各ペインは `.swarm-start.sh` を経由して `.claude-task.md` の内容を初期プロンプトとして Claude に渡す。
+各ペインは `.swarm-start.sh` を経由してタスクファイルの内容を初期プロンプトとしてエージェントに渡す。
 
 ### Step 5: 監視
 
@@ -219,5 +236,5 @@ phase1-frontend, phase1-backend  →  phase2-integration
 2. **Zellij 内での実行が必須**: `$ZELLIJ` 環境変数が存在しない場合は動作しない
 3. **監視は polling ベース**: 完了確認は手動または定期コマンド実行で行う
 4. **エージェント間通信なし**: タスク設計の段階で独立性を保証すること
-5. **`--dangerously-skip-permissions` 使用**: 子エージェントは確認なしで操作を実行する
+5. **承認スキップで動く**: 子エージェントは `--dangerously-skip-permissions` (Claude Code) / `--ask-for-approval never` (Codex) により確認なしで操作を実行する
 6. **フェーズ間は必ず cleanup を完了させる**: `run-phase.sh` が cleanup まで行うため、次フェーズ開始前に worktree が残らない
