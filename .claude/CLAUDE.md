@@ -133,7 +133,7 @@ git switch -c <prefix>/<short-description>
 
 ## Branch Renaming for `ax agent new`
 
-[`agx`](https://github.com/jedipunkz/agx)（自作ツール）の `ax agent new` は `ax/ax-NNNNNNNN-XNNN`
+[`agx`](https://github.com/jedipunkz/agx)（自作ツール）の `ax agent new` は `agx/agx-NNNNNNNN-XNNN`
 形式（timestamp + random suffix）の自動生成ブランチを作る。
 
 
