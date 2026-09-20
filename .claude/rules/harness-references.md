@@ -39,19 +39,28 @@ Claude Code がセッション開始時に自動ロードし、設定改善・�
 
 hooks は `settings.json` の `hooks` キーにのみ定義する。専用の `hooks.json` は plugin 用であり、
 user / project スコープには存在しない（[Hooks reference](https://code.claude.com/docs/en/hooks)、2026-09 確認）。
+これは Claude Code の話で、Codex は `~/.codex/hooks.json` を使う。
+
+スクリプト本体は `.claude/hooks/` の 1 箇所に集約し、Claude Code の `settings.json` と
+Codex の `.codex/hooks.json` の両方が同じファイルを絶対パスで呼ぶ。各スクリプトは
+両エージェントの tool 語彙を和集合で扱う（Claude Code: `Read` / `Edit` / `Write` / `Grep`、
+Codex: `apply_patch`。patch 本文は `.tool_input.command` に入る）。
+`notify-done.sh` と `notify-permission.sh` はエージェント名を `$1` で受け取り通知タイトルに使う。
+編集後は `.claude/hooks/hooks_test.sh` で 22 ケースの回帰テストを実行する。
 
 | ファイル | Event | Matcher | 役割 |
 |---|---|---|---|
 | `block-force-push.sh` | PreToolUse | Bash | `git push --force/-f` をブロック |
-| `block-sensitive-access.sh` | PreToolUse | Read/Edit/Write/Bash/Grep | `.env`、秘密鍵、`.aws/.ssh` へのアクセスをブロック |
-| `check-secrets.sh` | PreToolUse | Write/Edit | ハードコードされた認証情報パターンを検出 |
+| `block-sensitive-access.sh` | PreToolUse | Read/Edit/Write/Grep/Bash/apply_patch | `.env`、秘密鍵、`.aws/.ssh` へのアクセスをブロック |
+| `check-secrets.sh` | PreToolUse | Write/Edit/Bash/apply_patch | ハードコードされた認証情報パターンを検出 |
 | `clean-git-lock.sh` | PreToolUse | Bash | stale な `.git/index.lock` を自動削除 |
 | `guard-rm.sh` | PreToolUse | Bash | `rm -rf/-f/--recursive/--force` をブロック |
-| `lint-check.sh` | PostToolUse | Write/Edit | `.sh/.bash` 修正後に `shellcheck` を自動実行 |
-| `herdr-agent-state.sh` | SessionStart / SessionEnd / UserPromptSubmit / PreToolUse / PermissionRequest / Stop | `*` | herdr にエージェント状態（idle/working/blocked/release）を通知 |
+| `lint-check.sh` | PostToolUse | Write/Edit/apply_patch | `.sh/.bash` 修正後に `shellcheck` を自動実行 |
+| `herdr-agent-state.sh` | SessionStart / SessionEnd / UserPromptSubmit / PreToolUse / PermissionRequest / Stop | `*` | herdr にエージェント状態（idle/working/blocked/release）を通知。herdr が integration ごとに別ファイルを配布し `agent` 名をハードコードするため共通化しない。Codex 用は `.codex/herdr-agent-state.sh` |
 | `log-event.sh` | CwdChanged / SubagentStart / WorktreeCreate / WorktreeRemove | `*` | イベントログ記録 |
-| `notify-done.sh` | Stop | — | タスク完了時に macOS 通知（成功: Glass / エラー: Basso） |
-| `notify-ask.sh` | 未登録 | — | 承認要求時の macOS 通知。`settings.json` にも `.codex/hooks.json` にも登録されていない死んだファイル。使うなら `PermissionRequest` に登録する |
+| `notify-done.sh` | Stop | — | タスク完了時に macOS 通知（成功: Glass / エラー: Basso）。エージェント名を `$1` で受ける |
+| `notify-permission.sh` | PermissionRequest | Claude=`*` / Codex=`Bash` | 承認要求時の macOS 通知。エージェント名を `$1` で受ける |
+| `hooks_test.sh` | — | — | hook ではなく回帰テスト。両エージェントの tool 語彙で 22 ケースを検証する |
 
 2026-09 時点で利用可能なイベントは 33 種。未使用で有用な候補: `PermissionDenied`（classifier の
 denial を `tool_input` 付きで捕捉）、`PostToolUseFailure`、`StopFailure`、`PreCompact` / `PostCompact`、
@@ -82,22 +91,27 @@ denial を `tool_input` 付きで捕捉）、`PostToolUseFailure`、`StopFailure
 
 ### Skills（`.claude/skills/`）
 
+skill の実体はここ 1 箇所。Claude Code は `~/.claude/skills` を直接読み、Codex と Gemini は
+`~/.agents/skills`（setup.sh が張る symlink）経由で同じ実体を読む。3 つとも同じ 7 件を見る。
+
 | スキル | 役割 |
 |---|---|
 | `codex-review` | OpenAI Codex CLI によるコード・設定ファイルレビュー |
 | `finance-mcp` | 株価・為替・暗号資産・財務データを MCP 経由で取得・分析 |
-| `zellij-swarm` | Zellij pane + git worktree で複数 Claude を並列オーケストレート |
+| `github-publish` | branch push と PR 作成の workflow |
+| `systematic-debugging` | 仮説検証を段階化した debug 手順 |
+| `test-driven-development` | テストを先に書く実装手順 |
+| `verification-before-completion` | 完了報告前の検証チェック |
+| `web-research` | 一次情報を優先した web 調査手順 |
 
-Codex 側の skill は `.agents/skills/`（`~/.agents/skills` へリンク）に置き、`$<name>` で呼び出す。
-`codex-review` / `finance-mcp` / `zellij-swarm` は両方に存在し、`github-publish` /
-`systematic-debugging` / `test-driven-development` / `verification-before-completion` /
-`web-research` は Codex 側のみ。
+Claude Code は `~/.agents/skills` を読まないため、逆向き（`.agents/skills` を正とする）は成立しない。
+検証: `gemini skills list` と `codex debug prompt-input` の `Skill roots` で実体パスを確認できる。
 
 ### Rules（`.claude/rules/`）
 
 共通ルール本体は `.claude/CLAUDE.md` に単一ソースで置く。`.codex/AGENTS.md` はそのファイルへの
 symlink で、Claude Code と Codex が同じ実体を読む。`.claude/rules/` は Claude Code のみが読むため、
-Codex にも必要なルールは `.claude/CLAUDE.md` 側か `.agents/skills/` に置く。
+Codex にも必要なルールは `.claude/CLAUDE.md` 側か `.claude/skills/` に置く。
 
 | ルール | 内容 |
 |---|---|

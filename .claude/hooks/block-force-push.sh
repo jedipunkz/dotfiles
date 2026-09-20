@@ -1,14 +1,16 @@
 #!/bin/bash
 # PreToolUse hook: block git force push
-# Reads JSON from stdin: {"tool_name": "Bash", "tool_input": {"command": "..."}, ...}
-INPUT=$(cat)
-TOOL_NAME=$(echo "$INPUT" | jq -r '.tool_name // ""')
+# Shared by Claude Code and Codex — both send {"tool_name": "Bash", "tool_input": {"command": "..."}}
+set -uo pipefail
 
-if [ "$TOOL_NAME" = "Bash" ]; then
-  COMMAND=$(echo "$INPUT" | jq -r '.tool_input.command // ""')
-  if echo "$COMMAND" | grep -qE "git\s+push.*(--force|-f)(\s|$)"; then
-    echo "BLOCKED: Force push is not allowed. Use standard push without --force." >&2
-    exit 2
-  fi
+INPUT=$(cat)
+TOOL_NAME=$(printf '%s' "$INPUT" | jq -r '.tool_name // ""')
+[ "$TOOL_NAME" = "Bash" ] || exit 0
+
+COMMAND=$(printf '%s' "$INPUT" | jq -r '.tool_input.command // ""')
+if printf '%s' "$COMMAND" | grep -qE '(^|[;&|[:space:]])git[[:space:]]+push([^;&|]*[[:space:]])(--force|-f)([[:space:]]|$)'; then
+  echo "BLOCKED: Force push is not allowed. Use standard push without --force." >&2
+  exit 2
 fi
+
 exit 0

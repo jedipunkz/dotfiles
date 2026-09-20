@@ -1,6 +1,6 @@
 ---
 name: codex-review
-description: OpenAI Codex CLI を使ってコード、設定ファイル、ドキュメントのレビューを実行します。「Codex にレビューして」「Codex でレビュー」「OpenAI にレビューしてもらって」「codex review」などのリクエストがあった場合に使用します。
+description: OpenAI Codex CLI (codex exec) でコード、設定ファイル、ドキュメントのレビューを実行します。「Codex にレビューして」「Codex でレビュー」「OpenAI にレビューしてもらって」「codex review」などのリクエストがあった場合に使用します。Codex 自身で実行中の場合は組み込みの /review を優先し、ユーザーが明示的に「別 Codex でレビュー」と頼んだ場合にだけ使用します。
 ---
 
 # Codex Review Skill
