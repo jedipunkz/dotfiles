@@ -128,7 +128,8 @@ behind = ""
 diverged = "⇕"
 conflicted = "="
 untracked = "?"
-stashed = '\$'
+# stash があっても git status が clean なら branch 名だけにする
+stashed = ""
 modified = "!"
 staged = "+"
 renamed = "»"
