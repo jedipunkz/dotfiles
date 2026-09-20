@@ -20,7 +20,8 @@ case "$TOOL_NAME" in
     MSG=$(printf '%s' "$INPUT" | jq -r '.tool_input.command // "承認が必要です"' | tr '\n' ' ' | cut -c 1-120)
     ;;
   AskUserQuestion)
-    MSG=$(printf '%s' "$INPUT" | jq -r '.tool_input.question // .tool_input.questions[0]? // "質問があります"' | tr '\n' ' ' | cut -c 1-120)
+    # Claude Code sends questions[] as objects; take the text, not the raw JSON.
+    MSG=$(printf '%s' "$INPUT" | jq -r '.tool_input.question // .tool_input.questions[0].question? // "質問があります"' | tr '\n' ' ' | cut -c 1-120)
     ;;
   *)
     MSG="$TOOL_NAME の承認が必要です"

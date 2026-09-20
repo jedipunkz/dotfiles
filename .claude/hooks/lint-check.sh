@@ -6,9 +6,10 @@
 #   apply_patch   — Codex, no path field, so fall back to the git working-tree diff
 set -uo pipefail
 
+# Drain stdin before any early exit so the caller never sees a broken pipe.
+INPUT=$(cat)
 command -v shellcheck >/dev/null 2>&1 || exit 0
 
-INPUT=$(cat)
 TOOL_NAME=$(printf '%s' "$INPUT" | jq -r '.tool_name // ""')
 
 case "$TOOL_NAME" in

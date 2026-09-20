@@ -237,6 +237,16 @@
         ]
       }
     ],
+    "StopFailure": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/notify-done.sh \"Claude Code\""
+          }
+        ]
+      }
+    ],
     "SubagentStart": [
       {
         "matcher": "*",
