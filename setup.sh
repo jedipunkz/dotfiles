@@ -98,30 +98,35 @@ function chkcommand() {
     fi
 }
 
+# link <repo-path> [dest-path]
+# dest-path defaults to repo-path. Pass it when one file in the repository has
+# to appear under a second name in $HOME, e.g. the shared skills directory that
+# Codex and Gemini look for at ~/.agents/skills.
 function link() {
     local rel="$1"
+    local dest_rel="${2:-$rel}"
     local src="$CONF_HOME/$rel"
-    local dest="$HOME/$rel"
+    local dest="$HOME/$dest_rel"
 
     if [[ ! -e "$src" ]]; then
-        problem "$rel" "source missing in repository"
+        problem "$dest_rel" "source $rel missing in repository"
         return 0
     fi
 
     if [[ -L "$dest" ]]; then
         if [[ "$(readlink "$dest")" == "$src" ]]; then
-            report ok "$rel"
+            report ok "$dest_rel"
             return 0
         fi
-        report replace "$rel" "was -> $(readlink "$dest")"
+        report replace "$dest_rel" "was -> $(readlink "$dest")"
     elif [[ -d "$dest" ]]; then
-        problem "$rel" "real directory in the way; move it aside"
+        problem "$dest_rel" "real directory in the way; move it aside"
         return 0
     elif [[ -e "$dest" ]]; then
-        problem "$rel" "real file in the way; move it aside"
+        problem "$dest_rel" "real file in the way; move it aside"
         return 0
     else
-        report create "$rel"
+        report create "$dest_rel"
     fi
 
     if [[ $DRY_RUN -eq 0 ]]; then
@@ -269,8 +274,6 @@ link .tmux.conf.macos
 link .tmux.conf.linux
 link .tigrc
 
-link .agents/skills
-
 link .config/nvim
 link .config/fish
 link .config/wezterm
@@ -307,10 +310,14 @@ link .claude/agents
 link .claude/keybindings.json
 link .claude/hooks
 
+# Codex and Gemini discover personal skills at ~/.agents/skills; Claude Code
+# reads ~/.claude/skills. One directory, two names.
+link .claude/skills .agents/skills
+
 link .codex/AGENTS.md
 copy_if_missing .codex/config.toml
-link .codex/hooks
 link .codex/hooks.json
+link .codex/herdr-agent-state.sh
 link .codex/rules
 
 link .gemini/settings.json

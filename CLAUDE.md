@@ -58,6 +58,13 @@ researcher → findings → implement → shell-reviewer → verdict → commit
 
 ## Available Skills
 
+Defined once in `.claude/skills/`; Codex and Gemini see the same set via `~/.agents/skills`.
+
 - `/codex-review` - Codex CLI code review.
-- `/zellij-swarm` - Parallel agent orchestration.
 - `/finance-mcp` - Market and financial data via alphavantage / twelvedata / edinetdb MCP servers.
+- `/github-publish` - Branch push and PR creation workflow.
+- `/systematic-debugging` - Evidence-first root-cause workflow.
+- `/test-driven-development` - Red-green-refactor workflow.
+- `/verification-before-completion` - Verification checklist before reporting work done.
+- `/web-research` - Primary-source-first web research.
+- `/zellij-swarm` - Parallel agent orchestration.

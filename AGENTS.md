@@ -9,10 +9,9 @@ Respond in Japanese unless the user explicitly requests another language.
 
 ```
 dotfiles/
-|-- .agents/       # Shared Codex agent skills
-|-- .codex/        # Codex config, hooks, exec rules, and global AGENTS.md
+|-- .codex/        # Codex config, exec rules, hook wiring, and global AGENTS.md
 |-- .config/       # User-specific configs linked under ~/.config/
-|-- .claude/       # Claude Code hooks, rules, skills, agents, and settings
+|-- .claude/       # Hooks, skills, rules, agents, and settings — shared by all agents
 |-- .gemini/       # Gemini CLI harness files
 `-- setup.sh       # Symlink installer
 ```
@@ -116,13 +115,21 @@ Do not include `Generated with Claude Code`, `Co-Authored-By`, `Summary`, or `Te
 - `AGENTS.md`: shared project guidance for Codex and other AGENTS.md-aware tools.
 - `CLAUDE.md`: imports `AGENTS.md` and adds Claude Code-specific behavior.
 - `.claude/rules/`: Claude Code rule details that are more verbose than this shared file.
-- `.claude/skills/` and `.agents/skills/`: on-demand workflows; keep each skill focused.
+- `.claude/skills/`: on-demand workflows, one source for every agent. Claude Code reads it directly; Codex and Gemini reach it through the `~/.agents/skills` symlink that `setup.sh` creates. Keep each skill agent-neutral.
 - `.claude/agents/`: Claude Code subagents for isolated review, research, and implementation tasks.
-- `.claude/hooks/` and `.codex/hooks/`: deterministic checks and notifications.
+- `.claude/hooks/`: deterministic checks and notifications, one source for every agent. `.codex/hooks.json` points straight at these scripts. Each script handles both tool vocabularies (Claude Code's `Read`/`Edit`/`Write`/`Grep`, Codex's `apply_patch`). `.claude/hooks/hooks_test.sh` covers them; run it after editing a hook.
 - `.codex/rules/`: Codex command permission policy.
 
 ## Available Skills
 
-- `$github-publish` - Stable GitHub publish workflow for branch push and PR creation with `gh`.
-- `$zellij-swarm` - Parallel Codex orchestration through Zellij panes and git worktrees.
-- `$codex-review` - Nested Codex CLI review workflow; prefer Codex built-in review unless explicitly requested.
+All eight live in `.claude/skills/` and are visible to Claude Code, Codex, and Gemini.
+Codex and Gemini invoke them as `$<name>`, Claude Code as `/<name>`.
+
+- `codex-review` - Nested Codex CLI review workflow; prefer Codex built-in review unless explicitly requested.
+- `finance-mcp` - Market and financial data via alphavantage / twelvedata / edinetdb MCP servers.
+- `github-publish` - Stable GitHub publish workflow for branch push and PR creation with `gh`.
+- `systematic-debugging` - Evidence-first root-cause workflow for failures.
+- `test-driven-development` - Red-green-refactor workflow for behavior changes.
+- `verification-before-completion` - Verification checklist before reporting work done.
+- `web-research` - Primary-source-first web research workflow.
+- `zellij-swarm` - Parallel agent orchestration through Zellij panes and git worktrees.

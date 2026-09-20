@@ -146,18 +146,32 @@ commit を作る前に proactive に実行する。既に意味のある名前�
 
 ## Skills
 
-呼び出しは Codex が `$<name>`、Claude Code が `/<name>`。定義の場所は Codex が `~/.agents/skills/`、 Claude Code が `~/.claude/skills/`。
+定義の場所は `~/.claude/skills/` の 1 箇所。Claude Code はそこを直接読み、Codex と Gemini は
+`~/.agents/skills`（setup.sh が張る symlink）経由で同じ実体を読む。
+呼び出しは Codex / Gemini が `$<name>`、Claude Code が `/<name>`。
+skill を書くときは特定のエージェントに依存しない書き方にする。
 
-| skill | 内容 | Codex | Claude Code |
-|---|---|---|---|
-| `codex-review` | Codex CLI によるコード・設定レビュー | 有 | 有 |
-| `finance-mcp` | 株価・為替・財務データを MCP 経由で取得（MCP サーバ登録が前提） | 有 | 有 |
-| `zellij-swarm` | Zellij pane + git worktree で複数エージェントを並列実行 | 有 | 有 |
-| `github-publish` | branch push と PR 作成の workflow | 有 | 無 |
-| `systematic-debugging` | 仮説検証を段階化した debug 手順 | 有 | 無 |
-| `test-driven-development` | テストを先に書く実装手順 | 有 | 無 |
-| `verification-before-completion` | 完了報告前の検証チェック | 有 | 無 |
-| `web-research` | 一次情報を優先した web 調査手順 | 有 | 無 |
+| skill | 内容 |
+|---|---|
+| `codex-review` | Codex CLI によるコード・設定レビュー |
+| `finance-mcp` | 株価・為替・財務データを MCP 経由で取得（MCP サーバ登録が前提） |
+| `github-publish` | branch push と PR 作成の workflow |
+| `systematic-debugging` | 仮説検証を段階化した debug 手順 |
+| `test-driven-development` | テストを先に書く実装手順 |
+| `verification-before-completion` | 完了報告前の検証チェック |
+| `web-research` | 一次情報を優先した web 調査手順 |
+| `zellij-swarm` | Zellij pane + git worktree で複数エージェントを並列実行 |
+
+## Hooks
+
+実体は `~/.claude/hooks/` の 1 箇所。Claude Code は `~/.claude/settings.json`、Codex は
+`~/.codex/hooks.json` から、どちらも同じスクリプトを絶対パスで呼ぶ（symlink ではない）。
+各スクリプトは両方の tool 語彙を扱う: Claude Code の `Read` / `Edit` / `Write` / `Grep` と、
+Codex の `apply_patch`（patch 本文が `.tool_input.command` に入る）。
+hook を編集したら `.claude/hooks/hooks_test.sh` を実行する。
+
+例外は `herdr-agent-state.sh`。herdr が integration ごとに別ファイルを配布し `agent` 名を
+ハードコードするため、Claude 用は `.claude/hooks/`、Codex 用は `.codex/` に分けたままにする。
 
 ## When in Doubt
 
