@@ -36,5 +36,9 @@ auto-save-list
 .claude/skills/weekly-thanks/
 
 
+# Codex rewrites this file itself (hooks.state, projects, marketplaces).
+# The repository tracks .codex/config.toml.example instead.
+/.codex/config.toml
+
 # setup.sh backup destination
 /backup/
