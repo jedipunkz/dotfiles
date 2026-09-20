@@ -110,15 +110,43 @@ Use this body structure:
 
 Do not include `Generated with Claude Code`, `Co-Authored-By`, `Summary`, or `Test Plan` sections unless the user explicitly asks for them.
 
-## Agent Harness Layout
+## ハーネス構成の管理方針
 
-- `AGENTS.md`: shared project guidance for Codex and other AGENTS.md-aware tools.
-- `CLAUDE.md`: imports `AGENTS.md` and adds Claude Code-specific behavior.
-- `.claude/rules/`: Claude Code rule details that are more verbose than this shared file.
-- `.claude/skills/`: on-demand workflows, one source for every agent. Claude Code reads it directly; Codex and Gemini reach it through the `~/.agents/skills` symlink that `setup.sh` creates. Keep each skill agent-neutral.
-- `.claude/agents/`: Claude Code subagents for isolated review, research, and implementation tasks.
-- `.claude/hooks/`: deterministic checks and notifications, one source for every agent. `.codex/hooks.json` points straight at these scripts. Each script handles both tool vocabularies (Claude Code's `Read`/`Edit`/`Write`/`Grep`, Codex's `apply_patch`). `.claude/hooks/hooks_test.sh` covers them; run it after editing a hook.
-- `.codex/rules/`: Codex command permission policy.
+実体は 1 箇所に置く。`setup.sh` が `$HOME` に別名を張るのは、ツールが別の探索パスを要求する場合だけ。
+
+| 対象 | 実体 | 読み手 | 追加時に setup.sh を触るか |
+|---|---|---|---|
+| skill | `.claude/skills/<name>/SKILL.md` | Claude Code / Codex / Gemini | 不要 |
+| hook | `.claude/hooks/<name>.sh` | Claude Code / Codex | 不要。ただし両方の設定への登録は必要 |
+| subagent | `.claude/agents/<name>.md` | Claude Code（他エージェントは未確認） | 不要 |
+| 詳細ルール | `.claude/rules/<name>.md` | Claude Code のみ | 不要 |
+| コマンド権限ポリシー | `.codex/rules/` | Codex のみ | 不要 |
+
+指示ファイルの役割分担:
+
+- `AGENTS.md`: Codex と AGENTS.md 対応ツール向けの共通指針。全エージェントに効かせたいルールはここに書く。
+- `CLAUDE.md`: `AGENTS.md` を import し、Claude Code 固有の挙動だけを足す。
+- `.claude/CLAUDE.md`: Claude Code と Codex が共通で読む最上位ルール。`.codex/AGENTS.md` はこのファイルへの symlink。
+
+### skill
+
+- 実体は `.claude/skills/` の 1 箇所。Claude Code は `~/.claude/skills` を直接読み、Codex と Gemini は `~/.agents/skills`（setup.sh が同じ実体に張る別名）を読む。
+- Claude Code は `~/.agents/skills` を読まない。そのため `.agents/skills` を正とする逆向きは成立しない。検証は `gemini skills list` と `codex debug prompt-input` の `Skill roots`。
+- 3 エージェントが同じ `SKILL.md` を読むため、特定のエージェントに依存する書き方をしない。CLI 名が必要なときは実行中のエージェントで分岐させる（`zellij-swarm` が例）。
+
+### hook
+
+- 実体は `.claude/hooks/` の 1 箇所。symlink ではなく、`.claude/settings.json` と `.codex/hooks.json` の両方が絶対パスで同じファイルを呼ぶ。
+- 1 本のスクリプトで両方の tool 語彙を扱う。Claude Code は `Read` / `Edit` / `Write` / `Grep` と `.tool_input.file_path`、Codex は `apply_patch` と patch 本文が入る `.tool_input.command`。
+- イベントの有無とペイロードのフィールドは推測せず一次情報で確認する。例: Claude Code の `Stop` に `is_error` はなく、エラーは `error_type` を持つ別イベント `StopFailure` で届く。
+- `herdr-agent-state.sh` は例外。herdr が integration ごとに `agent` 名をハードコードした別ファイルを配布するため共通化せず、Codex 用は `.codex/` に置く。
+
+### skill / hook を変更したあと
+
+1. hook を追加したら `.claude/settings.json` と `.codex/hooks.json` の両方に登録する
+2. `bash .claude/hooks/hooks_test.sh` を通す。分岐を足したらケースも足す
+3. `shellcheck -S warning .claude/hooks/*.sh` を通す
+4. `bash setup.sh --dry-run` が create / replace 0 件であることを確認する
 
 ## Available Skills
 
