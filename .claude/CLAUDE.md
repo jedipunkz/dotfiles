@@ -131,13 +131,12 @@ git switch -c <prefix>/<short-description>
 `main` / `master` 以外の branch にいる場合は既に作業用 branch とみなし、新しい branch を 作らずそのまま作業を続ける。最新化も不要。別 branch が必要かどうか迷ったらユーザーに確認する。
 例外は次節の `agx` 自動生成 branch で、この場合は作成ではなくリネームする。
 
-## Branch Renaming for `ax agent new`
+## Branch Renaming for `agx agent new`
 
-[`agx`](https://github.com/jedipunkz/agx)（自作ツール）の `ax agent new` は `agx/agx-NNNNNNNN-XNNN`
-形式（timestamp + random suffix）の自動生成ブランチを作る。
+[`agx`](https://github.com/jedipunkz/agx)（自作ツール）の `agx agent new` は `agx/agx-NNNNNNNN-XNNN` 形式（timestamp + random suffix）の自動生成ブランチを作る。
 
 
-現在のブランチが `ax/ax-[0-9]+-[a-z0-9]+` にマッチする場合、作業開始前にプロンプトに適した名前へ `<prefix>/<short-kebab>` 規約でリネームする。
+現在のブランチが `agx/agx-[0-9]+-[a-z0-9]+` にマッチする場合、作業開始前にプロンプトに適した名前へ `<prefix>/<short-kebab>` 規約でリネームする。
 
 ```bash
 git branch -m <prefix>/<short-description>
