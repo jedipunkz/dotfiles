@@ -9,6 +9,7 @@ format = """\
     $git_commit\
     $git_state\
     $git_status\
+    $git_metrics\
     $hg_branch\
     $env_var\
     $docker_context\
@@ -134,6 +135,9 @@ modified = "!"
 staged = "+"
 renamed = "»"
 deleted = "✘"
+
+[git_metrics]
+disabled = false
 
 [golang]
 #symbol = "🏎💨 "
