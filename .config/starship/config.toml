@@ -128,7 +128,7 @@ behind = ""
 diverged = "⇕"
 conflicted = "="
 untracked = "?"
-stashed = "$"
+stashed = '\$'
 modified = "!"
 staged = "+"
 renamed = "»"
