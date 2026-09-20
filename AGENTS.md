@@ -146,7 +146,8 @@ body は次の構造を使う:
 - ツールが書き戻す設定ファイルは git 管理しない。リポジトリにはテンプレートを置き、実ファイルは `.gitignore` に入れる。
 - 該当するのは `.codex/config.toml`。Codex が `[hooks.state.*]`（hook の trusted hash）、`[projects.*]`（信頼済みパス）、`[marketplaces.*]`、`[mcp_servers.node_repl]` を自動で書き込み、マシン固有の絶対パスとアプリのバージョンが混ざって際限なく増える。
 - テンプレートは `.codex/config.toml.example`。`setup.sh` の `copy_if_missing` が `~/.codex/config.toml` へコピーする（symlink ではないので Codex の書き込みはリポジトリに届かない）。
-- 設定を足すときはテンプレートと実ファイルの両方を編集する。自動生成される節をテンプレートに書き戻さない。
+- `copy_if_missing` はコピー先が無いときだけコピーする。テンプレートが効くのは新規端末の初回セットアップだけで、既存端末へは自動反映されない。設定を変えたらテンプレートと各端末の実ファイルを手で両方更新する。
+- 自動生成される節をテンプレートに書き戻さない。
 
 ### skill / hook を変更したあと
 

@@ -6,9 +6,11 @@
 # 意図的に含めていないもの（Codex / デスクトップアプリが自動生成する）:
 #   notify, [hooks.state.*], [projects.*], [marketplaces.*],
 #   [tui.model_availability_nux], [mcp_servers.node_repl|computer-use|cua_repl]
-# 設定を足すときはこのテンプレートと ~/.codex/config.toml の両方を編集する。
+# setup.sh はコピー先が存在しない場合しかコピーしない。つまりこのテンプレートが効くのは
+# 新規端末の初回セットアップだけで、既存端末へは自動反映されない。
+# 設定を変えたらこのテンプレートと各端末の ~/.codex/config.toml を手で両方更新する。
 
-model = "gpt-5.5"
+model = "gpt-5.6-terra"
 model_reasoning_effort = "medium"
 sandbox_mode = "workspace-write"
 default_permissions = "project-edit"
@@ -24,6 +26,7 @@ network_access = true
 hooks = true
 memories = true
 network_proxy = true
+js_repl = false
 
 [memories]
 generate_memories = true
@@ -105,3 +108,5 @@ enabled = true
 
 [desktop]
 followUpQueueMode = "queue"
+ambient-suggestions-enabled = true
+conversationDetailMode = "STEPS_PROSE"
