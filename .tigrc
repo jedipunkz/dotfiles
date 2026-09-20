@@ -126,62 +126,69 @@ bind stage 1 stage-update-line
 #######################################
 # Color Settings - High Contrast
 #######################################
+# Tokyo Night, muted. tig 2.6 takes no #rrggbb, so colors are xterm-256 indexes.
+# Each hue is one step down in saturation from the stock Tokyo Night value, and
+# the background is left to the terminal so wezterm's opacity still applies.
+#   fg 146  comment/dim 60  blue 110  cyan 109  green 108  magenta 140
+#   red 174  orange 173  yellow 180  cursor bg 60
 
-# General UI - CURSOR with maximum contrast
-color default           white   black
-color cursor            black   cyan     bold
-color cursor-blur       black   blue
-color title-focus       black   cyan     bold
-color title-blur        white   black
-color search-result     black   yellow
+# General UI
+color default           color146 default
+color cursor            color189 color60   bold
+color cursor-blur       color146 color236
+color title-focus       color189 color60   bold
+color title-blur        color60  color236
+color search-result     color0   color180
+color status            color109 default
+color header            color140 default
 
 # Line numbers and delimiters
-color line-number       yellow  default
-color delimiter         cyan    default
-color id                blue    default
+color line-number       color60  default
+color delimiter         color60  default
+color id                color140 default
 
 # Dates and authors
-color date              cyan    default
-color author            green   default
+color date              color109 default
+color author            color108 default
+color committer         color60  default
 
 # Diff colors
-color diff-header       yellow  default
-color diff-index        blue    default
-color diff-chunk        magenta default
-color diff-add          green   default
-color diff-del          red     default
-color diff-oldmode      yellow  default
-color diff-newmode      yellow  default
+color diff-header       color180 default
+color diff-index        color110 default
+color diff-chunk        color109 default
+color diff-add          color108 default
+color diff-del          color174 default
+color diff-oldmode      color180 default
+color diff-newmode      color180 default
 
 # Commit information
-color "Author: "        green   default
-color "Commit: "        cyan    default
-color "Date: "          yellow  default
-color "Merge: "         blue    default
-color "Reported-by: "   green   default
-color "Signed-off-by: " yellow  default
-color "Co-authored-by: " yellow default
+color "Author: "        color108 default
+color "Commit: "        color109 default
+color "Date: "          color180 default
+color "Merge: "         color110 default
+color "Reported-by: "   color108 default
+color "Signed-off-by: " color180 default
+color "Co-authored-by: " color180 default
 
 # Graph and references
-color graph-commit      cyan    default
-color main-head         cyan    default  bold
-color main-tag          yellow  default  bold
-color main-local-tag    yellow  default
-color main-remote       green   default
-color main-tracked      blue    default
-color main-ref          magenta default
+color graph-commit      color110 default
+color main-head         color174 default  bold
+color main-tag          color180 default
+color main-local-tag    color180 default
+color main-remote       color108 default
+color main-tracked      color109 default
+color main-ref          color140 default
 
 # Tree view
-color tree.header       yellow  default  bold
-color tree.directory    blue    default  bold
-color tree.file         white   default
+color tree.header       color180 default
+color tree.directory    color110 default
+color tree.file         color146 default
 
 # Status view
-color status            cyan    default
-color stat-staged       green   default
-color stat-unstaged     red     default
-color stat-untracked    magenta default
+color stat-staged       color108 default
+color stat-unstaged     color174 default
+color stat-untracked    color173 default
 
 # Help view
-color help-group        blue    default  bold
-color help-action       yellow  default
+color help-group        color140 default
+color help-action       color180 default
