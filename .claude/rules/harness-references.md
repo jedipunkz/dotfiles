@@ -92,7 +92,7 @@ denial を `tool_input` 付きで捕捉）、`PostToolUseFailure`、`StopFailure
 ### Skills（`.claude/skills/`）
 
 skill の実体はここ 1 箇所。Claude Code は `~/.claude/skills` を直接読み、Codex と Gemini は
-`~/.agents/skills`（setup.sh が張る symlink）経由で同じ実体を読む。3 つとも同じ 8 件を見る。
+`~/.agents/skills`（setup.sh が張る symlink）経由で同じ実体を読む。3 つとも同じ 7 件を見る。
 
 | スキル | 役割 |
 |---|---|
@@ -103,7 +103,6 @@ skill の実体はここ 1 箇所。Claude Code は `~/.claude/skills` を直接
 | `test-driven-development` | テストを先に書く実装手順 |
 | `verification-before-completion` | 完了報告前の検証チェック |
 | `web-research` | 一次情報を優先した web 調査手順 |
-| `zellij-swarm` | Zellij pane + git worktree で複数エージェントを並列オーケストレート |
 
 Claude Code は `~/.agents/skills` を読まないため、逆向き（`.agents/skills` を正とする）は成立しない。
 検証: `gemini skills list` と `codex debug prompt-input` の `Skill roots` で実体パスを確認できる。

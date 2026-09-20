@@ -132,7 +132,7 @@ body は次の構造を使う:
 
 - 実体は `.claude/skills/` の 1 箇所。Claude Code は `~/.claude/skills` を直接読み、Codex と Gemini は `~/.agents/skills`（setup.sh が同じ実体に張る別名）を読む。
 - Claude Code は `~/.agents/skills` を読まない。そのため `.agents/skills` を正とする逆向きは成立しない。検証は `gemini skills list` と `codex debug prompt-input` の `Skill roots`。
-- 3 エージェントが同じ `SKILL.md` を読むため、特定のエージェントに依存する書き方をしない。CLI 名が必要なときは実行中のエージェントで分岐させる（`zellij-swarm` が例）。
+- 3 エージェントが同じ `SKILL.md` を読むため、特定のエージェントに依存する書き方をしない。CLI 名が必要なときは実行中のエージェントで分岐させる（`codex-review` が例。Codex 自身で動いているときは組み込みの `/review` を優先する）。
 
 ### hook
 
@@ -150,7 +150,7 @@ body は次の構造を使う:
 
 ## skill 一覧
 
-8 件すべて `.claude/skills/` にあり、Claude Code / Codex / Gemini から見える。
+7 件すべて `.claude/skills/` にあり、Claude Code / Codex / Gemini から見える。
 呼び出しは Codex と Gemini が `$<name>`、Claude Code が `/<name>`。
 
 - `codex-review` - ネストした Codex CLI でレビューする。通常は Codex 組み込みの `/review` を優先する。
@@ -160,4 +160,3 @@ body は次の構造を使う:
 - `test-driven-development` - 挙動変更に対する red-green-refactor の手順。
 - `verification-before-completion` - 完了報告の前に通す検証チェック。
 - `web-research` - 一次情報を優先した web 調査の手順。
-- `zellij-swarm` - Zellij pane と git worktree による複数エージェントの並列実行。

@@ -160,7 +160,6 @@ skill を書くときは特定のエージェントに依存しない書き方�
 | `test-driven-development` | テストを先に書く実装手順 |
 | `verification-before-completion` | 完了報告前の検証チェック |
 | `web-research` | 一次情報を優先した web 調査手順 |
-| `zellij-swarm` | Zellij pane + git worktree で複数エージェントを並列実行 |
 
 ## Hooks
 
