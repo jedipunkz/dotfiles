@@ -110,6 +110,15 @@
         "hooks": [
           {
             "type": "command",
+            "command": "~/.claude/hooks/notify-permission.sh \"Claude Code\""
+          }
+        ]
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
             "command": "bash ~/.claude/hooks/herdr-agent-state.sh blocked",
             "timeout": 10
           }
@@ -213,7 +222,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/.claude/hooks/notify-done.sh"
+            "command": "~/.claude/hooks/notify-done.sh \"Claude Code\""
           }
         ]
       },
