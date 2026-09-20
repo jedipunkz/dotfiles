@@ -19,7 +19,7 @@ Codex は `~/.codex/AGENTS.md` として同じ実体を読む（`.codex/AGENTS.m
 
 ### 特性と対応
 
-以下 6 点がこのセクションのルールの根拠。ルールを適用するか迷ったら、この特性に照らして判断する。
+ルールを適用するか迷ったら、この特性に照らして判断する。
 
 | 特性 | 対応するルール |
 |---|---|
@@ -112,7 +112,7 @@ Codex は `~/.codex/AGENTS.md` として同じ実体を読む（`.codex/AGENTS.m
 
 ## Defaults
 
-- 応答言語: 日本語（明示指示がある場合を除く）。
+- 応答言語: 日本語。
 - コミットメッセージ: 英語、Conventional Commits prefix、imperative。`git commit -m` の 1 行形式を使い、heredoc は使わない。body は `-m` の追加で渡す。
 - ブランチ: `<prefix>/<short-kebab>`。
 - PR description: private リポジトリは日本語、public は英語。`Generated with Claude Code` / `Co-Authored-By` / `Summary` / `Test Plan` セクションは追加しない。
@@ -121,25 +121,21 @@ Codex は `~/.codex/AGENTS.md` として同じ実体を読む（`.codex/AGENTS.m
 
 作業開始前に必ず現在の branch を確認する（`git branch --show-current`）。
 
-現在 `main` / `master` にいる場合のみ、最新化してから新しい branch を作る。命名は
-`<prefix>/<short-kebab>` 規約に従う。
+現在 `main` / `master` にいる場合のみ、最新化してから新しい branch を作り作業を開始。命名は `<prefix>/<short-kebab>` 規約に従う。
 
 ```bash
 git pull --ff-only
 git switch -c <prefix>/<short-description>
 ```
 
-`main` / `master` 以外の branch にいる場合は既に作業用 branch とみなし、新しい branch を
-作らずそのまま作業を続ける。最新化も不要。別 branch が必要かどうか迷ったらユーザーに確認する。
-例外は次節の `ax` 自動生成 branch で、この場合は作成ではなくリネームする。
+`main` / `master` 以外の branch にいる場合は既に作業用 branch とみなし、新しい branch を 作らずそのまま作業を続ける。最新化も不要。別 branch が必要かどうか迷ったらユーザーに確認する。
+例外は次節の `agx` 自動生成 branch で、この場合は作成ではなくリネームする。
 
 ## Branch Renaming for `ax agent new`
 
-[`ax`](https://github.com/jedipunkz/ax)（自作ツール）の `ax agent new` は `ax/ax-NNNNNNNN-XNNN`
-形式（timestamp + random suffix）の自動生成ブランチを作る。
+[`ax`](https://github.com/jedipunkz/ax)（自作ツール）の `ax agent new` は `ax/ax-NNNNNNNN-XNNN` 形式（timestamp + random suffix）の自動生成ブランチを作る。
 
-現在のブランチが `ax/ax-[0-9]+-[a-z0-9]+` にマッチする場合、作業開始前にプロンプトに適した名前へ
-`<prefix>/<short-kebab>` 規約でリネームする。
+現在のブランチが `ax/ax-[0-9]+-[a-z0-9]+` にマッチする場合、作業開始前にプロンプトに適した名前へ `<prefix>/<short-kebab>` 規約でリネームする。
 
 ```bash
 git branch -m <prefix>/<short-description>
@@ -149,8 +145,7 @@ commit を作る前に proactive に実行する。既に意味のある名前�
 
 ## Skills
 
-呼び出しは Codex が `$<name>`、Claude Code が `/<name>`。定義の場所は Codex が `~/.agents/skills/`、
-Claude Code が `~/.claude/skills/`。
+呼び出しは Codex が `$<name>`、Claude Code が `/<name>`。定義の場所は Codex が `~/.agents/skills/`、 Claude Code が `~/.claude/skills/`。
 
 | skill | 内容 | Codex | Claude Code |
 |---|---|---|---|
