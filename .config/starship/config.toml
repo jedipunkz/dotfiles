@@ -46,6 +46,10 @@ format = """\
     $character\
 """
 
+[profiles]
+# transient prompt (fish): 過去のプロンプトを時刻と character だけに圧縮する
+transient = "$time$character"
+
 [character]
 success_symbol = "[ ::](#9ece6a)"
 error_symbol = "[ ERROR](#f7768e)"

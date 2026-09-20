@@ -134,7 +134,11 @@ set -Ux FZF_DEFAULT_OPTS "$FZF_NON_COLOR_OPTS"\
 
 set -x STARSHIP_CONFIG ~/.config/starship/config.toml
 set -x AWS_PROFILE default
+function starship_transient_prompt_func
+    starship prompt --profile transient
+end
 starship init fish | source
+enable_transience
 
 # pnpm
 set -gx PNPM_HOME "/Users/thirai/Library/pnpm"
