@@ -169,7 +169,8 @@ symbol = "🔺 "
 format = "via [$symbol$version]($style) "
 
 [mise]
-disabled = false
+# プロンプト描画の約 30ms を占めるため無効化（表示は health の ✔️/❌ のみ）
+disabled = true
 symbol = 'mise '
 style = 'orange'
 format = 'on [$symbol$health]($style) '
