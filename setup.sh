@@ -310,6 +310,9 @@ link_linux .config/regolith
 makedir .config/herdr 0700
 link .config/herdr/config.toml
 
+makedir .config/gm 0700
+link .config/gm/gm.toml
+
 link .claude/CLAUDE.md
 link .claude/settings.json
 link .claude/scripts
