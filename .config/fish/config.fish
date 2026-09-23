@@ -65,8 +65,16 @@ zoxide init fish | source
 # sponge: remove failed/matched commands before the next prompt.
 set -g sponge_delay 0
 
-if test ! -d "$HOME/ghq"
-    mkdir $HOME/ghq
+# if test ! -d "$HOME/ghq"
+#     mkdir $HOME/ghq
+# end
+if type -q gm
+    gm shell fish | source
+end
+
+# gm: Ctrl-G でリポジトリ検索。conf.d の fish-ghq の bind を後から上書きする
+if type -q gm
+    gm shell fish | source
 end
 
 # TokyoNight Night color palette

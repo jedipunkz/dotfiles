@@ -1,0 +1,112 @@
+# Codex 設定のテンプレート。
+#
+# setup.sh はこのファイルを ~/.codex/config.toml へコピーする（symlink ではない）。
+# 実ファイルは Codex 自身が書き換えるため git 管理しない（.gitignore 済み）。
+#
+# 意図的に含めていないもの（Codex / デスクトップアプリが自動生成する）:
+#   notify, [hooks.state.*], [projects.*], [marketplaces.*],
+#   [tui.model_availability_nux], [mcp_servers.node_repl|computer-use|cua_repl]
+# setup.sh はコピー先が存在しない場合しかコピーしない。つまりこのテンプレートが効くのは
+# 新規端末の初回セットアップだけで、既存端末へは自動反映されない。
+# 設定を変えたらこのテンプレートと各端末の ~/.codex/config.toml を手で両方更新する。
+
+model = "gpt-5.6-terra"
+model_reasoning_effort = "medium"
+sandbox_mode = "workspace-write"
+default_permissions = "project-edit"
+personality = "pragmatic"
+model_verbosity = "medium"
+plan_mode_reasoning_effort = "high"
+web_search = "cached"
+
+[sandbox_workspace_write]
+network_access = true
+
+[features]
+hooks = true
+memories = true
+network_proxy = true
+js_repl = false
+
+[memories]
+generate_memories = true
+use_memories = true
+disable_on_external_context = true
+
+[shell_environment_policy]
+inherit = "core"
+ignore_default_excludes = false
+exclude = ["AWS_*", "AZURE_*", "GITHUB_TOKEN", "*SECRET*", "*TOKEN*", "*KEY*"]
+
+[permissions.project-edit]
+extends = ":workspace"
+
+[permissions.project-edit.filesystem.":workspace_roots"]
+"**/*.env" = "deny"
+"**/.env.*" = "deny"
+
+[permissions.project-edit.network]
+enabled = true
+
+[permissions.project-edit.network.domains]
+"api.openai.com" = "allow"
+"registry.npmjs.org" = "allow"
+"github.com" = "allow"
+"*.github.com" = "allow"
+
+[mcp_servers.chrome-devtools]
+enabled = true
+required = false
+command = "npx"
+args = ["-y", "chrome-devtools-mcp@latest"]
+startup_timeout_sec = 20
+tool_timeout_sec = 120
+
+[tui]
+status_line = [
+    "model-with-reasoning",
+    "git-branch",
+    "context-remaining",
+    "used-tokens",
+    "five-hour-limit",
+    "weekly-limit",
+    "current-dir",
+]
+
+[tui.keymap.composer]
+submit = "ctrl-enter"
+
+[tui.keymap.editor]
+insert_newline = "enter"
+
+[plugins."vercel-plugin@plugins-cli"]
+enabled = true
+
+[plugins."codex-app-tools@openai-bundled"]
+enabled = true
+
+[plugins."browser@openai-bundled"]
+enabled = true
+
+[plugins."visualize@openai-bundled"]
+enabled = true
+
+[plugins."documents@openai-primary-runtime"]
+enabled = true
+
+[plugins."pdf@openai-primary-runtime"]
+enabled = true
+
+[plugins."spreadsheets@openai-primary-runtime"]
+enabled = true
+
+[plugins."presentations@openai-primary-runtime"]
+enabled = true
+
+[plugins."template-creator@openai-primary-runtime"]
+enabled = true
+
+[desktop]
+followUpQueueMode = "queue"
+ambient-suggestions-enabled = true
+conversationDetailMode = "STEPS_PROSE"
