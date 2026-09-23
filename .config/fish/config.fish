@@ -69,6 +69,11 @@ if test ! -d "$HOME/ghq"
     mkdir $HOME/ghq
 end
 
+# gm: Ctrl-G でリポジトリ検索。conf.d の fish-ghq の bind を後から上書きする
+if type -q gm
+    gm shell fish | source
+end
+
 # TokyoNight Night color palette
 set -l foreground a0d8f0
 set -l selection 283457

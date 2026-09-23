@@ -150,13 +150,22 @@ function link_linux() {
     fi
 }
 
+# copy_if_missing <repo-path> [dest-path]
+# dest-path defaults to repo-path. Use it for files the tool rewrites itself:
+# the repository keeps a template, and the live copy stays untracked.
 function copy_if_missing() {
     local rel="$1"
+    local dest_rel="${2:-$rel}"
     local src="$CONF_HOME/$rel"
-    local dest="$HOME/$rel"
+    local dest="$HOME/$dest_rel"
+
+    if [[ ! -e "$src" ]]; then
+        problem "$dest_rel" "source $rel missing in repository"
+        return 0
+    fi
 
     if [[ -L "$dest" ]]; then
-        report replace "$rel" "symlink replaced by a real copy"
+        report replace "$dest_rel" "symlink replaced by a real copy"
         if [[ $DRY_RUN -eq 0 ]]; then
             unlink "$dest"
             cp "$src" "$dest"
@@ -165,11 +174,11 @@ function copy_if_missing() {
     fi
 
     if [[ -e "$dest" ]]; then
-        report ok "$rel" "real file kept"
+        report ok "$dest_rel" "real file kept"
         return 0
     fi
 
-    report create "$rel" "copy, not symlink"
+    report create "$dest_rel" "copy, not symlink"
     if [[ $DRY_RUN -eq 0 ]]; then
         cp "$src" "$dest"
     fi
@@ -315,7 +324,7 @@ link .claude/hooks
 link .claude/skills .agents/skills
 
 link .codex/AGENTS.md
-copy_if_missing .codex/config.toml
+copy_if_missing .codex/config.toml.example .codex/config.toml
 link .codex/hooks.json
 link .codex/herdr-agent-state.sh
 link .codex/rules
