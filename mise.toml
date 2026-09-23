@@ -1,2 +1,5 @@
 [tools]
+bun = "latest"
+go = "latest"
 rust = "latest"
+terraform = "latest"

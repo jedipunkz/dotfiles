@@ -5,10 +5,15 @@
 ```sh
 git clone https://github.com/jedipunkz/dotfiles.git ~/dotfiles
 cd ~/dotfiles
+bash setup.sh --dry-run
 bash setup.sh
 ```
 
-Backs up existing configs to `~/dotfiles.backup` before linking.
+`--dry-run` reports every action without changing anything.
+
+Backs up existing configs to `<repo>/backup` (gitignored) before linking, once. A real file or
+directory already occupying a link destination is reported and left untouched.
+Platform-specific configs are linked only on macOS or Linux as appropriate.
 
 ## Contents
 
@@ -51,7 +56,8 @@ Tools
 ## Dependencies
 
 [`git`](https://git-scm.com/), [`curl`](https://curl.se/) — required before running setup.sh.
-[`rustup`](https://rustup.rs/) is installed automatically by setup.sh.
+Language toolchains are managed by [`mise`](https://mise.jdx.dev/) via `mise.toml`.
+Package installers live in `utils/`.
 
 ## License
 

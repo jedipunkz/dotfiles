@@ -17,7 +17,6 @@
       "Bash(gh pr diff:*)",
       "Bash(gh pr status:*)",
       "Bash(gh pr checks:*)",
-      "Bash(gh pr diff:*)",
       "Bash(gh pr comment list:*)",
       "Bash(gh issue list:*)",
       "Bash(gh issue view:*)",
@@ -35,7 +34,6 @@
       "Bash(gh search repos:*)",
       "Bash(gh search issues:*)",
       "Bash(gh search prs:*)",
-      "Bash(gh api:*)",
       "Bash(rg:*)",
       "Bash(type:*)",
       "Bash(date:*)",
@@ -43,7 +41,6 @@
       "Bash(file:*)",
       "Bash(df:*)",
       "Bash(ps:*)",
-      "Bash(env:*)",
       "Bash(git log:*)",
       "Bash(git diff:*)",
       "Bash(git status:*)",
@@ -94,7 +91,7 @@
       "~/ghq"
     ]
   },
-  "model": "claude-fable-5[1m]",
+  "model": "opus",
   "hooks": {
     "CwdChanged": [
       {
@@ -107,8 +104,16 @@
         ]
       }
     ],
-    "Notification": [],
     "PermissionRequest": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/notify-permission.sh \"Claude Code\""
+          }
+        ]
+      },
       {
         "matcher": "*",
         "hooks": [
@@ -217,7 +222,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/.claude/hooks/notify-done.sh"
+            "command": "~/.claude/hooks/notify-done.sh \"Claude Code\""
           }
         ]
       },
@@ -228,6 +233,16 @@
             "type": "command",
             "command": "bash ~/.claude/hooks/herdr-agent-state.sh idle",
             "timeout": 10
+          }
+        ]
+      }
+    ],
+    "StopFailure": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/notify-done.sh \"Claude Code\""
           }
         ]
       }
@@ -288,7 +303,8 @@
     "swift-lsp@claude-plugins-official": true,
     "typescript-lsp@claude-plugins-official": true,
     "vercel@claude-plugins-official": true,
-    "ponytail@ponytail": true
+    "ponytail@ponytail": true,
+    "i-have-adhd@i-have-adhd": true
   },
   "extraKnownMarketplaces": {
     "claude-plugins-official": {
@@ -301,6 +317,12 @@
       "source": {
         "source": "github",
         "repo": "DietrichGebert/ponytail"
+      }
+    },
+    "i-have-adhd": {
+      "source": {
+        "source": "github",
+        "repo": "ayghri/i-have-adhd"
       }
     }
   },
@@ -353,6 +375,7 @@
   "skipAutoPermissionPrompt": true,
   "autoMode": {
     "soft_deny": [
+      "$defaults",
       "Confirm before installing global packages (brew install, npm install -g, pip install --user, cargo install).",
       "Confirm before modifying files outside the current working directory tree or additional directories.",
       "Confirm before running long-lived background processes, daemons, or services.",
@@ -360,6 +383,7 @@
       "Confirm before rewriting git history (rebase, amend on pushed commits, force-with-lease)."
     ],
     "hard_deny": [
+      "$defaults",
       "Do not read, write, or modify any file under ~/.aws, ~/.ssh, ~/.gnupg, ~/.config/gh, ~/.netrc, ~/.npmrc, or ~/.pypirc.",
       "Do not push to remote branches named main, master, production, or release/*. Pushing to feature branches is allowed.",
       "Do not run terraform apply, terraform destroy, kubectl apply, kubectl delete, or any deploy command against production environments.",
@@ -367,9 +391,6 @@
       "Do not install, uninstall, or modify system-wide packages via sudo, brew uninstall, or pkg removal.",
       "Do not modify global git config or replace SSH config files."
     ]
-  },
-  "feedbackSurveyState": {
-    "lastShownTime": 1754085614062
   },
   "mcpServers": {
     "codex": {

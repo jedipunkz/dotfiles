@@ -4,7 +4,7 @@ end
 
 set -U fish_greeting ""
 
-set -x PATH $HOME/.bin $HOME/.local/share/aquaproj-aqua/bin /opt/homebrew/bin /opt/homebrew/opt/libpq/bin /opt/homebrew/opt/mysql-client/bin $HOME/.cargo/bin /usr/local/bin /usr/local/sbin /bin /usr/bin /sbin /usr/sbin /usr/local/sessionmanagerplugin/bin $HOME/google-cloud-sdk/bin $HOME/.local/bin $HOME/.lmstudio/bin
+set -x PATH $HOME/.bin /opt/homebrew/bin /opt/homebrew/opt/libpq/bin /opt/homebrew/opt/mysql-client/bin $HOME/.cargo/bin /usr/local/bin /usr/local/sbin /bin /usr/bin /sbin /usr/sbin /usr/local/sessionmanagerplugin/bin $HOME/google-cloud-sdk/bin $HOME/.local/bin $HOME/.lmstudio/bin
 
 if test (uname -s) = "Darwin"
     alias cat="bat"
@@ -134,7 +134,11 @@ set -Ux FZF_DEFAULT_OPTS "$FZF_NON_COLOR_OPTS"\
 
 set -x STARSHIP_CONFIG ~/.config/starship/config.toml
 set -x AWS_PROFILE default
+function starship_transient_prompt_func
+    starship prompt --profile transient
+end
 starship init fish | source
+enable_transience
 
 # pnpm
 set -gx PNPM_HOME "/Users/thirai/Library/pnpm"

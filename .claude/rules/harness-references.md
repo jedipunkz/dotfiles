@@ -37,16 +37,34 @@ Claude Code がセッション開始時に自動ロードし、設定改善・�
 
 ### Hooks（`.claude/hooks/`）
 
+hooks は `settings.json` の `hooks` キーにのみ定義する。専用の `hooks.json` は plugin 用であり、
+user / project スコープには存在しない（[Hooks reference](https://code.claude.com/docs/en/hooks)、2026-09 確認）。
+これは Claude Code の話で、Codex は `~/.codex/hooks.json` を使う。
+
+スクリプト本体は `.claude/hooks/` の 1 箇所に集約し、Claude Code の `settings.json` と
+Codex の `.codex/hooks.json` の両方が同じファイルを絶対パスで呼ぶ。各スクリプトは
+両エージェントの tool 語彙を和集合で扱う（Claude Code: `Read` / `Edit` / `Write` / `Grep`、
+Codex: `apply_patch`。patch 本文は `.tool_input.command` に入る）。
+`notify-done.sh` と `notify-permission.sh` はエージェント名を `$1` で受け取り通知タイトルに使う。
+編集後は `.claude/hooks/hooks_test.sh` で 22 ケースの回帰テストを実行する。
+
 | ファイル | Event | Matcher | 役割 |
 |---|---|---|---|
 | `block-force-push.sh` | PreToolUse | Bash | `git push --force/-f` をブロック |
-| `block-sensitive-access.sh` | PreToolUse | Read/Edit/Write/Bash/Grep | `.env`、秘密鍵、`.aws/.ssh` へのアクセスをブロック |
-| `check-secrets.sh` | PreToolUse | Write/Edit | ハードコードされた認証情報パターンを検出 |
+| `block-sensitive-access.sh` | PreToolUse | Read/Edit/Write/Grep/Bash/apply_patch | `.env`、秘密鍵、`.aws/.ssh` へのアクセスをブロック |
+| `check-secrets.sh` | PreToolUse | Write/Edit/Bash/apply_patch | ハードコードされた認証情報パターンを検出 |
 | `clean-git-lock.sh` | PreToolUse | Bash | stale な `.git/index.lock` を自動削除 |
 | `guard-rm.sh` | PreToolUse | Bash | `rm -rf/-f/--recursive/--force` をブロック |
-| `lint-check.sh` | PostToolUse | Write/Edit | `.sh/.bash` 修正後に `shellcheck` を自動実行 |
-| `notify-ask.sh` | PreToolUse | AskUserQuestion/Bash | 承認が必要な操作で macOS 通知 + 音声アラート |
-| `notify-done.sh` | Stop | — | タスク完了時に macOS 通知（成功: Glass / エラー: Basso） |
+| `lint-check.sh` | PostToolUse | Write/Edit/apply_patch | `.sh/.bash` 修正後に `shellcheck` を自動実行 |
+| `herdr-agent-state.sh` | SessionStart / SessionEnd / UserPromptSubmit / PreToolUse / PermissionRequest / Stop | `*` | herdr にエージェント状態（idle/working/blocked/release）を通知。herdr が integration ごとに別ファイルを配布し `agent` 名をハードコードするため共通化しない。Codex 用は `.codex/herdr-agent-state.sh` |
+| `log-event.sh` | CwdChanged / SubagentStart / WorktreeCreate / WorktreeRemove | `*` | イベントログ記録 |
+| `notify-done.sh` | Stop | — | タスク完了時に macOS 通知（成功: Glass / エラー: Basso）。エージェント名を `$1` で受ける |
+| `notify-permission.sh` | PermissionRequest | Claude=`*` / Codex=`Bash` | 承認要求時の macOS 通知。エージェント名を `$1` で受ける |
+| `hooks_test.sh` | — | — | hook ではなく回帰テスト。両エージェントの tool 語彙で 22 ケースを検証する |
+
+2026-09 時点で利用可能なイベントは 33 種。未使用で有用な候補: `PermissionDenied`（classifier の
+denial を `tool_input` 付きで捕捉）、`PostToolUseFailure`、`StopFailure`、`PreCompact` / `PostCompact`、
+`SubagentStop`、`TeammateIdle`。
 
 ### Agents（`.claude/agents/`）
 
@@ -73,12 +91,27 @@ Claude Code がセッション開始時に自動ロードし、設定改善・�
 
 ### Skills（`.claude/skills/`）
 
+skill の実体はここ 1 箇所。Claude Code は `~/.claude/skills` を直接読み、Codex と Gemini は
+`~/.agents/skills`（setup.sh が張る symlink）経由で同じ実体を読む。3 つとも同じ 7 件を見る。
+
 | スキル | 役割 |
 |---|---|
 | `codex-review` | OpenAI Codex CLI によるコード・設定ファイルレビュー |
-| `zellij-swarm` | Zellij pane + git worktree で複数 Claude を並列オーケストレート |
+| `finance-mcp` | 株価・為替・暗号資産・財務データを MCP 経由で取得・分析 |
+| `github-publish` | branch push と PR 作成の workflow |
+| `systematic-debugging` | 仮説検証を段階化した debug 手順 |
+| `test-driven-development` | テストを先に書く実装手順 |
+| `verification-before-completion` | 完了報告前の検証チェック |
+| `web-research` | 一次情報を優先した web 調査手順 |
+
+Claude Code は `~/.agents/skills` を読まないため、逆向き（`.agents/skills` を正とする）は成立しない。
+検証: `gemini skills list` と `codex debug prompt-input` の `Skill roots` で実体パスを確認できる。
 
 ### Rules（`.claude/rules/`）
+
+共通ルール本体は `.claude/CLAUDE.md` に単一ソースで置く。`.codex/AGENTS.md` はそのファイルへの
+symlink で、Claude Code と Codex が同じ実体を読む。`.claude/rules/` は Claude Code のみが読むため、
+Codex にも必要なルールは `.claude/CLAUDE.md` 側か `.claude/skills/` に置く。
 
 | ルール | 内容 |
 |---|---|
@@ -89,17 +122,50 @@ Claude Code がセッション開始時に自動ロードし、設定改善・�
 
 ### Settings（`.claude/settings.json`）
 
-- `permissions.defaultMode: "auto"` — デフォルト auto mode
+`~/.claude/settings.json` はこのファイルへの symlink。auto mode classifier は `autoMode` を
+user settings と managed settings からのみ読み、project settings からは読まない。
+
+- `permissions.defaultMode: "auto"` — auto mode。2026-08-14 以降 Pro/Max/Team の既定値
 - `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` — Agent Teams 有効化
-- `permissions.allow` — 安全な読み取り系 Bash コマンドを事前承認
-- `permissions.deny` — 危険な操作（rm -rf, git push --force 等）を明示拒否
+- `permissions.allow` — 事前承認。auto mode では narrow な Bash allow rule は classifier を
+  スキップするため、書き込み可能なコマンド（`gh api` 等）を入れると classifier の検査を素通りする
+- `permissions.deny` — classifier より前に評価される、上書き不可の最終防壁
+- `permissions.ask` — classifier より前に評価され必ずプロンプトを出す。push / PR 作成の
+  human checkpoint はここで作る
+- `autoMode.soft_deny` / `hard_deny` / `allow` / `environment` — classifier の追加ルール
 - `spinnerVerbs` — 攻殻機動隊ネタの日本語 spinner
 - `language: "japanese"` — 応答言語
-- LSP plugins: gopls / TypeScript / Rust Analyzer
+- LSP plugins: gopls / TypeScript / Rust Analyzer / Swift
+
+`autoMode` の落とし穴: `soft_deny` / `hard_deny` / `allow` / `environment` のいずれかを
+`"$defaults"` を含めずに設定すると、そのセクションの組み込みルールが全て消える。組み込みは
+soft_deny 69 件・hard_deny 1 件（データ持ち出し禁止）。自前ルールを足すときは必ず配列の先頭に
+`"$defaults"` を置く。
+
+検証コマンド:
+
+```bash
+claude auto-mode defaults   # 組み込みルール
+claude auto-mode config     # 実効ルール（設定適用後）
+claude auto-mode critique   # 自前ルールへの AI レビュー
+```
 
 ---
 
 ## 参照記事（2025〜2026、実在確認済み）
+
+### 公式ドキュメント（2026-09-19 に一次情報で再確認）
+
+- **Hooks reference** — イベント 33 種。hooks の定義場所は settings.json のみで、`hooks/hooks.json` は plugin 専用。
+  https://code.claude.com/docs/en/hooks
+- **Configure auto mode** — `autoMode` の `environment` / `allow` / `soft_deny` / `hard_deny`、`"$defaults"` の挙動、`claude auto-mode` サブコマンド。
+  https://code.claude.com/docs/en/auto-mode-config
+- **Choose a permission mode** — classifier の評価順、`permissions.ask` による human checkpoint。
+  https://code.claude.com/docs/en/permission-modes
+- **Create custom subagents** — frontmatter 全キー（`model` / `memory` / `disallowedTools` / `isolation` / `effort` / `maxTurns` / `skills` / `omitClaudeMd` ほか）。`omitClaudeMd` は v2.1.271 以降、`experimental.cacheTtl` は v2.1.248 以降。並行 20・深度 3、セッション総数の上限なし。
+  https://code.claude.com/docs/en/sub-agents
+- **All settings** — 廃止キー: `disableArtifact` / `includeCoAuthoredBy` / `keybindingFlavor` / `permissionExplainerEnabled`（v2.1.257 で削除）。
+  https://code.claude.com/docs/en/settings-reference
 
 ### 概念・設計理論
 
