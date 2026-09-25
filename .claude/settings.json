@@ -91,7 +91,6 @@
       "~/ghq"
     ]
   },
-  "model": "opus",
   "hooks": {
     "CwdChanged": [
       {
@@ -399,6 +398,11 @@
       ],
       "command": "codex",
       "type": "stdio"
+    }
+  },
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "high"
     }
   }
 }
