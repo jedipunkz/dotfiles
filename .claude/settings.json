@@ -71,6 +71,14 @@
       "Read(**/credentials.json)",
       "Read(**/secrets.json)",
       "Read(**/service-account*.json)",
+      "Read(**/*.tfstate)",
+      "Read(**/*.tfstate.*)",
+      "Edit(**/.terraform/**)",
+      "Edit(**/.terraform.lock.hcl)",
+      "Edit(**/go.sum)",
+      "Edit(**/package-lock.json)",
+      "Edit(**/pnpm-lock.yaml)",
+      "Edit(**/yarn.lock)",
       "Bash(rm -rf:*)",
       "Bash(rm -fr:*)",
       "Bash(rm -r:*)",
@@ -83,7 +91,25 @@
       "Bash(git reset --hard:*)",
       "Bash(git clean -f:*)",
       "Bash(chmod 777:*)",
-      "Bash(sudo rm:*)"
+      "Bash(sudo rm:*)",
+      "Bash(terraform destroy *)",
+      "Bash(terraform -chdir=* destroy *)",
+      "Bash(terraform state rm *)",
+      "Bash(terraform -chdir=* state rm *)",
+      "Bash(terraform force-unlock *)",
+      "Bash(terraform -chdir=* force-unlock *)",
+      "Bash(terraform apply *-destroy*)",
+      "Bash(terraform -chdir=* apply *-destroy*)",
+      "Bash(terraform state pull *)",
+      "Bash(terraform -chdir=* state pull *)"
+    ],
+    "ask": [
+      "Bash(terraform apply *)",
+      "Bash(terraform -chdir=* apply *)",
+      "Bash(terraform import *)",
+      "Bash(terraform -chdir=* import *)",
+      "Bash(terraform state mv *)",
+      "Bash(terraform -chdir=* state mv *)"
     ],
     "defaultMode": "auto",
     "additionalDirectories": [
@@ -91,7 +117,6 @@
       "~/ghq"
     ]
   },
-  "model": "opus",
   "hooks": {
     "CwdChanged": [
       {
@@ -131,7 +156,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/.claude/hooks/lint-check.sh"
+            "command": "~/.claude/hooks/quality-check.sh",
+            "timeout": 60
           }
         ]
       }
@@ -399,6 +425,11 @@
       ],
       "command": "codex",
       "type": "stdio"
+    }
+  },
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "high"
     }
   }
 }

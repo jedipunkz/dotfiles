@@ -25,8 +25,9 @@
       {
         "hooks": [
           {
-            "command": "bash ~/.claude/hooks/lint-check.sh",
-            "statusMessage": "Running shellcheck",
+            "command": "bash ~/.claude/hooks/quality-check.sh",
+            "statusMessage": "Running format and lint checks",
+            "timeout": 60,
             "type": "command"
           }
         ],

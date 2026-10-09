@@ -1,5 +1,16 @@
 root         = "~/gm"       # or ["~/ghq", "~/src"], searched in order
-theme        = "tokyonight"
+theme = "tokyonight"
+# theme = "catppuccin-mocha"
+# theme = "catppuccin-frappe"
+# theme = "catppuccin-macchiato"
+# theme = "dracula"
+# theme = "solarized-dark"
+# theme = "solarized-light"
+# theme = "kanagawa-wave"
+# theme = "rose-pine"
+
 launch_key   = "ctrl-g"        # the shell key that opens gm
 worktree_key = "ctrl-w"        # the finder key that lists worktrees
+branch_key   = "ctrl-l"        # the finder key that lists branches
+pr_key       = "ctrl-j"        # the finder key that lists pull requests
 remote_key   = "ctrl-alt-b"    # the finder key that opens the remote

@@ -40,5 +40,8 @@ auto-save-list
 # The repository tracks .codex/config.toml.example instead.
 /.codex/config.toml
 
+# Claude Code syncs claude.ai account skills here on startup.
+/.claude/skills/synced/
+
 # setup.sh backup destination
 /backup/

@@ -40,6 +40,11 @@ check "Read normal passes"      0 block-sensitive-access.sh '{"tool_name":"Read"
 check "patch .env blocked"      2 block-sensitive-access.sh '{"tool_name":"apply_patch","tool_input":{"command":"*** Begin Patch\n*** Add File: app/.env\n+X=1\n*** End Patch"}}'
 check "patch normal passes"     0 block-sensitive-access.sh '{"tool_name":"apply_patch","tool_input":{"command":"*** Begin Patch\n*** Add File: app/main.go\n+package main\n*** End Patch"}}'
 check "Bash read .env blocked"  2 block-sensitive-access.sh '{"tool_name":"Bash","tool_input":{"command":"cat /repo/.env"}}'
+check "Read tfstate blocked"     2 block-sensitive-access.sh '{"tool_name":"Read","tool_input":{"file_path":"/repo/terraform.tfstate"}}'
+check "Read tfstate backup blocked" 2 block-sensitive-access.sh '{"tool_name":"Read","tool_input":{"file_path":"/repo/terraform.tfstate.backup"}}'
+check "patch tfstate blocked"    2 block-sensitive-access.sh '{"tool_name":"apply_patch","tool_input":{"command":"*** Begin Patch\n*** Update File: infra/terraform.tfstate\n*** End Patch"}}'
+check "Bash cat tfstate blocked" 2 block-sensitive-access.sh '{"tool_name":"Bash","tool_input":{"command":"cat infra/terraform.tfstate"}}'
+check "Read .tf passes"          0 block-sensitive-access.sh '{"tool_name":"Read","tool_input":{"file_path":"/repo/main.tf"}}'
 
 echo "check-secrets"
 check "Write .env blocked"      2 check-secrets.sh '{"tool_name":"Write","tool_input":{"file_path":"/repo/.env","content":"X=1"}}'
@@ -49,9 +54,50 @@ check "patch .env blocked"      2 check-secrets.sh '{"tool_name":"apply_patch","
 check "patch secret blocked"    2 check-secrets.sh "{\"tool_name\":\"apply_patch\",\"tool_input\":{\"command\":\"*** Update File: a.go\n+$K2\"}}"
 check "patch normal passes"     0 check-secrets.sh '{"tool_name":"apply_patch","tool_input":{"command":"*** Update File: a.go\n+package main"}}'
 
-echo "lint-check (warn only, never blocks)"
-check "Write .sh passes"        0 lint-check.sh '{"tool_name":"Write","tool_input":{"file_path":"/nonexistent/a.sh"}}'
-check "patch passes"            0 lint-check.sh '{"tool_name":"apply_patch","cwd":"/tmp"}'
+echo "quality-check (always exit 0, findings as decision:block on stdout)"
+check "missing file passes"     0 quality-check.sh '{"tool_name":"Write","tool_input":{"file_path":"/nonexistent/a.sh"}}'
+check "empty patch passes"      0 quality-check.sh '{"tool_name":"apply_patch","cwd":"/tmp"}'
+
+# check_out <name> <want: block|none> <payload>
+check_out() {
+  local name="$1" want="$2" payload="$3" got
+  if printf '%s' "$payload" | bash "$H/quality-check.sh" 2>/dev/null | jq -e '.decision == "block"' >/dev/null 2>&1; then
+    got=block
+  else
+    got=none
+  fi
+  if [ "$got" = "$want" ]; then
+    printf '  ok    %-34s %s\n' "$name" "$got"
+  else
+    printf '  FAIL  %-34s %s want=%s\n' "$name" "$got" "$want"
+    FAIL=1
+  fi
+}
+
+T=$(mktemp -d)
+trap 'rm -rf "$T"' EXIT
+if command -v shellcheck >/dev/null 2>&1; then
+  printf '#!/bin/bash\nunused=1\n' > "$T/bad.sh"
+  printf '#!/bin/bash\necho ok\n' > "$T/good.sh"
+  check_out "Write bad .sh blocks"   block "{\"tool_name\":\"Write\",\"tool_input\":{\"file_path\":\"$T/bad.sh\"}}"
+  check_out "Write good .sh silent"  none  "{\"tool_name\":\"Write\",\"tool_input\":{\"file_path\":\"$T/good.sh\"}}"
+  check_out "patch relative .sh"     block "{\"tool_name\":\"apply_patch\",\"cwd\":\"$T\",\"tool_input\":{\"command\":\"*** Begin Patch\n*** Update File: bad.sh\n*** End Patch\"}}"
+fi
+if command -v terraform >/dev/null 2>&1; then
+  printf 'variable "a" {\ndefault=1\n}\n' > "$T/fmt.tf"
+  printf 'variable "a" {\n' > "$T/broken.tf"
+  check_out "Write unformatted .tf"  none  "{\"tool_name\":\"Write\",\"tool_input\":{\"file_path\":\"$T/fmt.tf\"}}"
+  if grep -q 'default = 1' "$T/fmt.tf"; then
+    printf '  ok    %-34s\n' ".tf formatted in place"
+  else
+    printf '  FAIL  %-34s\n' ".tf formatted in place"; FAIL=1
+  fi
+  check_out "Write broken .tf blocks" block "{\"tool_name\":\"Edit\",\"tool_input\":{\"file_path\":\"$T/broken.tf\"}}"
+fi
+if command -v gofmt >/dev/null 2>&1; then
+  printf 'package main\nfunc main( {\n' > "$T/broken.go"
+  check_out "Edit broken .go blocks" block "{\"tool_name\":\"Edit\",\"tool_input\":{\"file_path\":\"$T/broken.go\"}}"
+fi
 
 echo
 if [ "$FAIL" = 0 ]; then echo "all passed"; else echo "FAILURES present"; fi

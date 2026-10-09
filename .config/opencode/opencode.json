@@ -11,8 +11,9 @@
     "opencode-skills"
   ],
   "permission": {
+    "*": "allow",
     "webfetch": "allow",
-    "edit": "ask",
+    "edit": "allow",
     "read": {
       "*": "allow",
       "*.env": "deny",
@@ -20,7 +21,7 @@
       "*.env.example": "allow"
     },
     "bash": {
-      "*": "ask",
+      "*": "allow",
       "ls *": "allow",
       "cat *": "allow",
       "grep *": "allow",

@@ -90,7 +90,9 @@ git push origin <branch>
 ## PR
 
 - PR 作成前に repository の公開範囲を確認する。
-- private repository の PR 本文は日本語、public repository の PR 本文は英語で書く。
+- 本文の言語と入れない要素は `~/.claude/CLAUDE.md` の `Defaults` に従う（`isPrivate` が `true` なら日本語、`false` なら英語）。
+- 本文の文体は `~/.claude/CLAUDE.md` の `Writing Style` に従う。会話応答専用の項目（1 行目をアクションにする、15 行以内、「次:」）は適用しない。英語本文では日本語固有の項目（常体、「〜ため」）を除いて適用する。
+- 上の 2 項目のため、本文を書く前に `~/.claude/CLAUDE.md` を読む。このファイルを自動で読まないエージェント（Gemini）があるため、読み込みを省略しない。
 - PR body は project `AGENTS.md` の構造に従う。
 
 ```bash

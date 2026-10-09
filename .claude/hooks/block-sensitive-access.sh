@@ -29,6 +29,9 @@ is_sensitive_path() {
   # Key/cert files
   [[ "$base" =~ \.(pem|key|p12|pfx|cert|crt|cer)$ ]] && return 0
 
+  # Terraform state (stores resource attributes, including secrets, in plain text)
+  [[ "$base" =~ \.tfstate(\..+)?$ ]] && return 0
+
   # SSH private keys
   [[ "$base" =~ ^id_(rsa|ed25519|ecdsa|dsa|xmss|ecdsa_sk|ed25519_sk)$ ]] && return 0
 
@@ -76,7 +79,7 @@ case "$TOOL_NAME" in
 
   Bash)
     COMMAND=$(printf '%s' "$INPUT" | jq -r '.tool_input.command // ""')
-    if printf '%s' "$COMMAND" | grep -qE '(^|[[:space:];|&])(cat|head|tail|less|more|bat|view|nvim|vim|nano|emacs|open|xdg-open)[[:space:]]+[^|;&]*(\.env\b|\.env\.|\.aws/|\.ssh/id_|\.gnupg/|\.netrc|\.npmrc|\.pypirc|config/gh/|\.pem|\.key\b|credentials\.json|secrets\.json)'; then
+    if printf '%s' "$COMMAND" | grep -qE '(^|[[:space:];|&])(cat|head|tail|less|more|bat|view|nvim|vim|nano|emacs|open|xdg-open)[[:space:]]+[^|;&]*(\.env\b|\.env\.|\.aws/|\.ssh/id_|\.gnupg/|\.netrc|\.npmrc|\.pypirc|config/gh/|\.pem|\.key\b|credentials\.json|secrets\.json|\.tfstate)'; then
       block "command input"
     fi
     ;;
