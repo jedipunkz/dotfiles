@@ -17,6 +17,7 @@
       "Bash(gh pr diff:*)",
       "Bash(gh pr status:*)",
       "Bash(gh pr checks:*)",
+      "Bash(gh pr merge:*)",
       "Bash(gh pr comment list:*)",
       "Bash(gh issue list:*)",
       "Bash(gh issue view:*)",
