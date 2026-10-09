@@ -40,6 +40,11 @@ check "Read normal passes"      0 block-sensitive-access.sh '{"tool_name":"Read"
 check "patch .env blocked"      2 block-sensitive-access.sh '{"tool_name":"apply_patch","tool_input":{"command":"*** Begin Patch\n*** Add File: app/.env\n+X=1\n*** End Patch"}}'
 check "patch normal passes"     0 block-sensitive-access.sh '{"tool_name":"apply_patch","tool_input":{"command":"*** Begin Patch\n*** Add File: app/main.go\n+package main\n*** End Patch"}}'
 check "Bash read .env blocked"  2 block-sensitive-access.sh '{"tool_name":"Bash","tool_input":{"command":"cat /repo/.env"}}'
+check "Read tfstate blocked"     2 block-sensitive-access.sh '{"tool_name":"Read","tool_input":{"file_path":"/repo/terraform.tfstate"}}'
+check "Read tfstate backup blocked" 2 block-sensitive-access.sh '{"tool_name":"Read","tool_input":{"file_path":"/repo/terraform.tfstate.backup"}}'
+check "patch tfstate blocked"    2 block-sensitive-access.sh '{"tool_name":"apply_patch","tool_input":{"command":"*** Begin Patch\n*** Update File: infra/terraform.tfstate\n*** End Patch"}}'
+check "Bash cat tfstate blocked" 2 block-sensitive-access.sh '{"tool_name":"Bash","tool_input":{"command":"cat infra/terraform.tfstate"}}'
+check "Read .tf passes"          0 block-sensitive-access.sh '{"tool_name":"Read","tool_input":{"file_path":"/repo/main.tf"}}'
 
 echo "check-secrets"
 check "Write .env blocked"      2 check-secrets.sh '{"tool_name":"Write","tool_input":{"file_path":"/repo/.env","content":"X=1"}}'
