@@ -130,7 +130,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/.claude/hooks/lint-check.sh"
+            "command": "~/.claude/hooks/quality-check.sh",
+            "timeout": 60
           }
         ]
       }

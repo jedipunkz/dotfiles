@@ -46,7 +46,7 @@ Codex の `.codex/hooks.json` の両方が同じファイルを絶対パスで�
 両エージェントの tool 語彙を和集合で扱う（Claude Code: `Read` / `Edit` / `Write` / `Grep`、
 Codex: `apply_patch`。patch 本文は `.tool_input.command` に入る）。
 `notify-done.sh` と `notify-permission.sh` はエージェント名を `$1` で受け取り通知タイトルに使う。
-編集後は `.claude/hooks/hooks_test.sh` で 22 ケースの回帰テストを実行する。
+編集後は `.claude/hooks/hooks_test.sh` で 29 ケースの回帰テストを実行する。
 
 | ファイル | Event | Matcher | 役割 |
 |---|---|---|---|
@@ -55,12 +55,12 @@ Codex: `apply_patch`。patch 本文は `.tool_input.command` に入る）。
 | `check-secrets.sh` | PreToolUse | Write/Edit/Bash/apply_patch | ハードコードされた認証情報パターンを検出 |
 | `clean-git-lock.sh` | PreToolUse | Bash | stale な `.git/index.lock` を自動削除 |
 | `guard-rm.sh` | PreToolUse | Bash | `rm -rf/-f/--recursive/--force` をブロック |
-| `lint-check.sh` | PostToolUse | Write/Edit/apply_patch | `.sh/.bash` 修正後に `shellcheck` を自動実行 |
+| `quality-check.sh` | PostToolUse | Write/Edit/apply_patch | 編集したファイルを拡張子別に検査する。`.tf` は `terraform fmt`、`.go` は `gofmt -w` で自動整形。`.sh` は shellcheck、`.py` は ruff、`.ts` はプロジェクトの biome / eslint で lint。失敗は `decision: block` で agent に返す。ツールや設定が無ければ skip |
 | `herdr-agent-state.sh` | SessionStart / SessionEnd / UserPromptSubmit / PreToolUse / PermissionRequest / Stop | `*` | herdr にエージェント状態（idle/working/blocked/release）を通知。herdr が integration ごとに別ファイルを配布し `agent` 名をハードコードするため共通化しない。Codex 用は `.codex/herdr-agent-state.sh` |
 | `log-event.sh` | CwdChanged / SubagentStart / WorktreeCreate / WorktreeRemove | `*` | イベントログ記録 |
 | `notify-done.sh` | Stop | — | タスク完了時に macOS 通知（成功: Glass / エラー: Basso）。エージェント名を `$1` で受ける |
 | `notify-permission.sh` | PermissionRequest | Claude=`*` / Codex=`Bash` | 承認要求時の macOS 通知。エージェント名を `$1` で受ける |
-| `hooks_test.sh` | — | — | hook ではなく回帰テスト。両エージェントの tool 語彙で 22 ケースを検証する |
+| `hooks_test.sh` | — | — | hook ではなく回帰テスト。両エージェントの tool 語彙で 29 ケースを検証する |
 
 2026-09 時点で利用可能なイベントは 33 種。未使用で有用な候補: `PermissionDenied`（classifier の
 denial を `tool_input` 付きで捕捉）、`PostToolUseFailure`、`StopFailure`、`PreCompact` / `PostCompact`、
