@@ -83,7 +83,21 @@
       "Bash(git reset --hard:*)",
       "Bash(git clean -f:*)",
       "Bash(chmod 777:*)",
-      "Bash(sudo rm:*)"
+      "Bash(sudo rm:*)",
+      "Bash(terraform destroy *)",
+      "Bash(terraform -chdir=* destroy *)",
+      "Bash(terraform state rm *)",
+      "Bash(terraform -chdir=* state rm *)",
+      "Bash(terraform force-unlock *)",
+      "Bash(terraform -chdir=* force-unlock *)"
+    ],
+    "ask": [
+      "Bash(terraform apply *)",
+      "Bash(terraform -chdir=* apply *)",
+      "Bash(terraform import *)",
+      "Bash(terraform -chdir=* import *)",
+      "Bash(terraform state mv *)",
+      "Bash(terraform -chdir=* state mv *)"
     ],
     "defaultMode": "auto",
     "additionalDirectories": [

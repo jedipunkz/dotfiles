@@ -66,6 +66,49 @@ prefix_rule(
         "chmod 777 file",
     ],
 )
+
+# Terraform: destroy-type commands are blocked, state-changing ones need approval.
+# Only "terraform <subcommand>" is matched; "terraform -chdir=DIR <subcommand>" is not.
+prefix_rule(
+    pattern = ["terraform", ["destroy", "force-unlock"]],
+    decision = "forbidden",
+    justification = "Destroying infrastructure or force-unlocking state must be run by the user.",
+    match = [
+        "terraform destroy",
+        "terraform force-unlock 1234",
+    ],
+)
+
+prefix_rule(
+    pattern = ["terraform", "state", "rm"],
+    decision = "forbidden",
+    justification = "Removing resources from Terraform state must be run by the user.",
+    match = [
+        "terraform state rm aws_instance.a",
+    ],
+)
+
+prefix_rule(
+    pattern = ["terraform", ["apply", "import"]],
+    decision = "prompt",
+    justification = "terraform apply/import changes real infrastructure. Run terraform plan first.",
+    match = [
+        "terraform apply",
+        "terraform import aws_instance.a i-123",
+    ],
+    not_match = [
+        "terraform plan",
+    ],
+)
+
+prefix_rule(
+    pattern = ["terraform", "state", "mv"],
+    decision = "prompt",
+    justification = "Moving resources in Terraform state needs user approval.",
+    match = [
+        "terraform state mv a b",
+    ],
+)
 prefix_rule(pattern=["ls"], decision="allow")
 prefix_rule(pattern=["find"], decision="allow")
 prefix_rule(pattern=["cat"], decision="allow")
