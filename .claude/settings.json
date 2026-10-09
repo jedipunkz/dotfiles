@@ -97,7 +97,11 @@
       "Bash(terraform state rm *)",
       "Bash(terraform -chdir=* state rm *)",
       "Bash(terraform force-unlock *)",
-      "Bash(terraform -chdir=* force-unlock *)"
+      "Bash(terraform -chdir=* force-unlock *)",
+      "Bash(terraform apply *-destroy*)",
+      "Bash(terraform -chdir=* apply *-destroy*)",
+      "Bash(terraform state pull *)",
+      "Bash(terraform -chdir=* state pull *)"
     ],
     "ask": [
       "Bash(terraform apply *)",

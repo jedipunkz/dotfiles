@@ -80,6 +80,24 @@ prefix_rule(
 )
 
 prefix_rule(
+    pattern = ["terraform", "apply", "-destroy"],
+    decision = "forbidden",
+    justification = "terraform apply -destroy destroys infrastructure and must be run by the user.",
+    match = [
+        "terraform apply -destroy -auto-approve",
+    ],
+)
+
+prefix_rule(
+    pattern = ["terraform", "state", "pull"],
+    decision = "forbidden",
+    justification = "terraform state pull prints the raw state, which contains secrets in plain text.",
+    match = [
+        "terraform state pull",
+    ],
+)
+
+prefix_rule(
     pattern = ["terraform", "state", "rm"],
     decision = "forbidden",
     justification = "Removing resources from Terraform state must be run by the user.",
