@@ -7,6 +7,8 @@
     "auto": true,
     "prune": true
   },
+  "share": "disabled",
+  "small_model": "anthropic/claude-haiku-4-5",
   "plugin": [
     "opencode-skills"
   ],
@@ -82,7 +84,8 @@
     "chrome-devtools": {
       "type": "local",
       "command": ["npx", "-y", "chrome-devtools-mcp@latest"],
-      "enabled": true
+      "enabled": true,
+      "timeout": 60000
     }
   },
   "agent": {
@@ -91,11 +94,7 @@
       "mode": "subagent",
       "model": "anthropic/claude-sonnet-4-5",
       "prompt": "You are a code reviewer specialized in analyzing code quality, best practices, security vulnerabilities, and potential bugs. You can read files, search code patterns using glob and grep, and provide detailed feedback. You cannot modify files.",
-      "tools": {
-        "write": false,
-        "edit": false,
-        "bash": false
-      },
+      "steps": 25,
       "permission": {
         "edit": "deny",
         "bash": "deny"
