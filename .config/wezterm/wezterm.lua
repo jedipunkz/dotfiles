@@ -1,98 +1,87 @@
 local wezterm = require 'wezterm'
+local act = wezterm.action
+local config = wezterm.config_builder()
 
-local font_size = 14 -- デフォルトのフォントサイズ
+local is_linux = wezterm.target_triple:find('linux') ~= nil
+local is_mac = wezterm.target_triple:find('darwin') ~= nil
 
-if wezterm.target_triple:find("linux") then
-  font_size = 12 -- Linux用のフォントサイズ
-  window_background_opacity = 0.8 -- 透明化
-elseif wezterm.target_triple:find("darwin") then
-  if wezterm.hostname() == "bob-san.local" then
-    font_size = 15.4
-  else
-    font_size = 14.2
-  end
-  window_background_opacity = 1.0 -- 透明化せず
+-- IME / キーボード
+config.use_ime = true
+config.macos_forward_to_ime_modifier_mask = 'SHIFT|CTRL'
+-- herdr 0.9.0 が WezTerm の kitty CSI-u 報告を取りこぼし Enter/BS/Ctrl 系が
+-- 死ぬため無効化 (herdrdev/herdr#3589)。修正リリース後に true へ戻す
+config.enable_kitty_keyboard = false
+-- config.disable_default_key_bindings = true
+
+-- フォント
+config.font = wezterm.font_with_fallback {
+  -- 'JetBrains Mono',
+  'Consolas',
+  'Hiragino Sans',
+  'Monaco',
+  'FuraMono Nerd Font Mono',
+}
+config.font_size = 14
+if is_linux then
+  config.font_size = 12
+elseif is_mac then
+  config.font_size = wezterm.hostname() == 'bob-san.local' and 15.4 or 14.2
 end
 
-return {
-  use_ime = true,
-  macos_forward_to_ime_modifier_mask = "SHIFT|CTRL",
-  -- herdr 0.9.0 が WezTerm の kitty CSI-u 報告を取りこぼし Enter/BS/Ctrl 系が
-  -- 死ぬため無効化 (herdrdev/herdr#3589)。修正リリース後に true へ戻す
-  enable_kitty_keyboard = false,
+-- ウィンドウ
+config.window_decorations = 'RESIZE'
+config.window_padding = { left = 0, right = 0, top = 0, bottom = 0 }
+config.window_background_opacity = is_linux and 0.8 or 1.0
+config.enable_tab_bar = false
+config.scrollback_lines = 1000000
 
-  font = wezterm.font_with_fallback {
-    -- 'JetBrains Mono',
-    'Consolas',
-    'Hiragino Sans',
-    'Monaco',
-    'FuraMono Nerd Font Mono',
-  },
-
-  font_size = font_size,
-
-  window_padding = {
-    left = 0,
-    right = 0,
-    top = 0,
-    bottom = 0
-  },
-
-  window_decorations = "RESIZE",
-
-  -- color_scheme = "Dracula (Gogh)",
-  -- color_scheme = "Dracula (base16)",
-  -- color_scheme = "Dracula (Official)",
-  -- color_scheme = "Catppuccin Macchiato",
-  color_scheme = "Tokyo Night",
-  -- color_scheme = "Sakura",
-  -- color_scheme = "Solarized Dark Higher Contrast",
-  -- color_scheme = "terafox",
-  -- color_scheme = "Gruvbox Dark (Gogh)",
-  -- color_scheme = "GruvboxDark",
-  -- color_scheme = "Gruvbox dark, hard (base16)",
-  -- color_scheme = "GruvboxDarkHard",
-  -- color_scheme = "Gruvbox Material (Gogh)",
-  -- color_scheme = "VSCodeDark+ (Gogh)",
-
-  colors = {
-    cursor_bg = '#ffffff',
-    cursor_fg = 'black',
-    selection_fg = 'white',
-    selection_bg = '#C2185B',
-  },
-
-  window_background_opacity = window_background_opacity,
-
-  scrollback_lines = 1000000,
-  enable_tab_bar = false,
-
-  mouse_bindings = {
-    -- 右クリックでペースト
-    {
-      event = { Up = { streak = 1, button = 'Right' } },
-      mods = 'NONE',
-      action = wezterm.action.PasteFrom("PrimarySelection"),
-    },
-    -- マウス選択時に直接クリップボードにコピーする (workarround)
-    {
-      event = { Up = { streak = 1, button = 'Left' } },
-      mods = 'NONE',
-      action = wezterm.action.CompleteSelectionOrOpenLinkAtMouseCursor("Clipboard"),
-    },
-    {
-      event = { Down = { streak = 1, button = { WheelUp = 1 } } },
-      mods = 'CTRL',
-      action = wezterm.action.IncreaseFontSize,
-    },
-
-    {
-      event = { Down = { streak = 1, button = { WheelDown = 1 } } },
-      mods = 'CTRL',
-      action = wezterm.action.DecreaseFontSize,
-    },
-  },
-
-  -- disable_default_key_bindings = true
+-- 配色
+-- config.color_scheme = 'Dracula (Gogh)'
+-- config.color_scheme = 'Dracula (base16)'
+-- config.color_scheme = 'Dracula (Official)'
+-- config.color_scheme = 'Catppuccin Macchiato'
+config.color_scheme = 'Tokyo Night'
+-- config.color_scheme = 'Sakura'
+-- config.color_scheme = 'Solarized Dark Higher Contrast'
+-- config.color_scheme = 'terafox'
+-- config.color_scheme = 'Gruvbox Dark (Gogh)'
+-- config.color_scheme = 'GruvboxDark'
+-- config.color_scheme = 'Gruvbox dark, hard (base16)'
+-- config.color_scheme = 'GruvboxDarkHard'
+-- config.color_scheme = 'Gruvbox Material (Gogh)'
+-- config.color_scheme = 'VSCodeDark+ (Gogh)'
+config.colors = {
+  cursor_bg = '#ffffff',
+  cursor_fg = 'black',
+  selection_fg = 'white',
+  selection_bg = '#C2185B',
 }
 
+-- マウス
+config.mouse_bindings = {
+  -- 右クリックでペースト
+  {
+    event = { Up = { streak = 1, button = 'Right' } },
+    mods = 'NONE',
+    action = act.PasteFrom 'PrimarySelection',
+  },
+  -- マウス選択時に直接クリップボードにコピーする (workaround)
+  {
+    event = { Up = { streak = 1, button = 'Left' } },
+    mods = 'NONE',
+    action = act.CompleteSelectionOrOpenLinkAtMouseCursor 'Clipboard',
+  },
+  -- Ctrl + ホイールでフォントサイズ変更
+  {
+    event = { Down = { streak = 1, button = { WheelUp = 1 } } },
+    mods = 'CTRL',
+    action = act.IncreaseFontSize,
+  },
+  {
+    event = { Down = { streak = 1, button = { WheelDown = 1 } } },
+    mods = 'CTRL',
+    action = act.DecreaseFontSize,
+  },
+}
+
+return config

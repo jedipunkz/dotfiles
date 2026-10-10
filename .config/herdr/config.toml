@@ -1,25 +1,11 @@
+# herdr 設定
+# キー一覧と既定値: `herdr --default-config`
+# 検証: `herdr config check`
+
+# 初回起動時の通知設定画面を出さない
 onboarding = false
 
-[terminal]
-new_cwd = "follow"
-
-[ui.toast]
-delivery = "terminal"
-
-[ui.sound]
-enabled = false
-
-[ui]
-tab_bar_right = [{ type = "datetime", format = "%H:%M" }]
-pane_scrollbars = false
-show_agent_labels_on_pane_borders = true
-sidebar_width = 18
-sidebar_min_width = 18
-sidebar_start_collapsed = true
-sidebar_collapsed_mode = "compact"
-#accent = "#A78BFA"
-accent = "#9D7CFF"
-
+# テーマ
 [theme]
 name = "tokyo-night"
 
@@ -31,12 +17,11 @@ surface1 = "#5a5680"
 # overlay0 は非フォーカスのペイン枠にも使われるため上書きしない
 overlay1 = "#ffffff"
 
-[worktrees]
-directory = "~/.ax/worktrees"
+# ペイン
+[terminal]
+new_cwd = "follow"
 
-[advanced]
-scrollback_limit_bytes = 524288000
-
+# キーバインド
 [keys]
 prefix = "ctrl+t"
 split_vertical = "prefix+|"
@@ -45,3 +30,30 @@ previous_workspace = "prefix+comma"
 next_workspace = "prefix+m"
 detach = "prefix+d"
 toggle_sidebar = "prefix+b"
+
+# git worktree
+[worktrees]
+directory = "~/gm/.worktrees"
+
+# UI
+[ui]
+# accent = "#A78BFA"
+accent = "#9D7CFF"
+tab_bar_right = [{ type = "datetime", format = "%H:%M" }]
+pane_scrollbars = false
+show_agent_labels_on_pane_borders = true
+sidebar_width = 18
+sidebar_min_width = 18
+sidebar_start_collapsed = true
+sidebar_collapsed_mode = "compact"
+
+# 通知
+[ui.toast]
+delivery = "terminal"
+
+[ui.sound]
+enabled = false
+
+[advanced]
+# ペインあたりの scrollback 上限 (500 MiB)
+scrollback_limit_bytes = 524288000

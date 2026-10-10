@@ -1,83 +1,111 @@
-if status is-interactive
-    # Commands to run in interactive sessions can go here
+set -g fish_greeting ""
+
+# ============================================================
+# PATH
+# ============================================================
+# ベース。mise / ~/.bin / pnpm などの優先パスは各セクションで先頭に追加する
+set -gx PATH \
+    /opt/homebrew/bin \
+    /opt/homebrew/opt/libpq/bin \
+    /opt/homebrew/opt/mysql-client/bin \
+    $HOME/.cargo/bin \
+    /usr/local/bin \
+    /usr/local/sbin \
+    /bin \
+    /usr/bin \
+    /sbin \
+    /usr/sbin \
+    /usr/local/sessionmanagerplugin/bin \
+    $HOME/google-cloud-sdk/bin \
+    $HOME/.local/bin \
+    $HOME/.lmstudio/bin
+
+# ============================================================
+# OS 別
+# ============================================================
+switch (uname -s)
+    case Darwin
+        set -gx EDITOR nvim
+        alias code="/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code"
+        /opt/homebrew/bin/mise activate fish | source
+    case Linux
+        # WSL 上の VS Code
+        alias code="/mnt/c/Users/tomok/AppData/Local/Programs/Microsoft\ VS\ Code/bin/code"
+
+        set -gx GTK_IM_MODULE fcitx
+        set -gx QT_IM_MODULE fcitx
+        set -gx XMODIFIERS "@im=fcitx"
+
+        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+        # win32yank: Windows クリップボード連携
+        if test -f "$HOME/.local/bin/win32yank.exe"
+            set -gx CLIPBOARD "$HOME/.local/bin/win32yank.exe"
+        end
+
+        /home/linuxbrew/.linuxbrew/bin/mise activate fish | source
 end
 
-set -U fish_greeting ""
+# ============================================================
+# 優先パス（mise activate の後に置き、shims と ~/.bin を brew より優先する）
+# ============================================================
+set -gx PATH $HOME/.local/share/mise/shims $PATH
+set -gx PATH $HOME/.bin $PATH
 
-set -x PATH $HOME/.bin /opt/homebrew/bin /opt/homebrew/opt/libpq/bin /opt/homebrew/opt/mysql-client/bin $HOME/.cargo/bin /usr/local/bin /usr/local/sbin /bin /usr/bin /sbin /usr/sbin /usr/local/sessionmanagerplugin/bin $HOME/google-cloud-sdk/bin $HOME/.local/bin $HOME/.lmstudio/bin
-
-if test (uname -s) = "Darwin"
-    alias cat="bat"
-    alias code="/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code"
-    set -x EDITOR nvim
-    alias vim="nvim"
-else
-    if type -q bat
-        alias cat="bat"
-    else if type -q batcat
-        alias cat="batcat"
-    end
-    alias vim="nvim"
-    alias code="/mnt/c/Users/tomok/AppData/Local/Programs/Microsoft\ VS\ Code/bin/code"
-end
-
-if test (uname -s) = "Linux"
-    # xset r rate 190 35
-    set -gx GTK_IM_MODULE fcitx
-    set -gx QT_IM_MODULE fcitx
-    set -gx XMODIFIERS "@im=fcitx"
-    # linux homebrew
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
-    # win32yank for Windows clipboard integration
-    if test -f "$HOME/.local/bin/win32yank.exe"
-        set -gx CLIPBOARD "$HOME/.local/bin/win32yank.exe"
-    end
-end
-
+# ============================================================
+# 環境変数
+# ============================================================
+set -gx AWS_PROFILE default
 set -gx EZA_CONFIG_DIR "$HOME/.config/eza"
+set -gx STARSHIP_CONFIG ~/.config/starship/config.toml
+
+# ============================================================
+# alias
+# ============================================================
+alias vim="nvim"
+if type -q bat
+    alias cat="bat"
+else if type -q batcat
+    alias cat="batcat"
+end
+
 alias ls="eza"
-alias lt='eza -T -L 3 -a -I "node_modules|.git|.cache" --icons'
 alias la="ls -a"
 alias l="ls -alF"
-alias ssh="ssh -o UserKnownHostsFile=/dev/null -o 'StrictHostKeyChecking no'"
+alias lt='eza -T -L 3 -a -I "node_modules|.git|.cache" --icons'
+
 alias grep="grep --color"
+alias ssh="ssh -o UserKnownHostsFile=/dev/null -o 'StrictHostKeyChecking no'"
 alias zz="bunx ccgwz"
+
 alias gs="git switch"
 alias gsc="git switch -c"
 alias pm="echo 'pull main' && git pull origin main"
 alias pms="echo 'pull master' && git pull origin master"
 
-# mise
-if test (uname -s) = "Linux"
-    /home/linuxbrew/.linuxbrew/bin/mise activate fish | source
-else if test (uname -s) = "Darwin"
-    /opt/homebrew/bin/mise activate fish | source
-end
-# mise shims を PATH の先頭に追加（brew より優先）
-set -x PATH $HOME/.local/share/mise/shims $PATH
-# ~/.bin を最優先に（brew/mise より後に宣言して上書き）
-set -x PATH $HOME/.bin $PATH
-
-# zoxide
+# ============================================================
+# ツール初期化
+# ============================================================
 zoxide init fish | source
 
-# sponge: remove failed/matched commands before the next prompt.
+# sponge: 失敗・マッチしたコマンドを次のプロンプト前に履歴から消す
 set -g sponge_delay 0
-
-# if test ! -d "$HOME/ghq"
-#     mkdir $HOME/ghq
-# end
-if type -q gm
-    gm shell fish | source
-end
 
 # gm: Ctrl-G でリポジトリ検索。conf.d の fish-ghq の bind を後から上書きする
 if type -q gm
     gm shell fish | source
 end
 
-# TokyoNight Night color palette
+function starship_transient_prompt_func
+    starship prompt --profile transient
+end
+starship init fish | source
+enable_transience
+
+# ============================================================
+# テーマ: TokyoNight Night
+# ============================================================
+set -l background 1a1b26
 set -l foreground a0d8f0
 set -l selection 283457
 set -l comment 565f89
@@ -89,80 +117,62 @@ set -l purple bb9af7
 set -l cyan 7dcfff
 set -l blue 7aa2f7
 
-# Fish color settings (TokyoNight Night theme)
-set -U fish_color_normal $foreground
-set -U fish_color_command $blue
-set -U fish_color_keyword $purple
-set -U fish_color_quote $yellow
-set -U fish_color_redirection $foreground
-set -U fish_color_end $orange
-set -U fish_color_option $purple
-set -U fish_color_error $red
-set -U fish_color_param $cyan
-set -U fish_color_comment $comment
-set -U fish_color_selection --background=$selection
-set -U fish_color_search_match --background=$selection
-set -U fish_color_operator $green
-set -U fish_color_escape $purple
-set -U fish_color_autosuggestion $comment
+# conf.d/fish_frozen_theme.fish の global 値を上書きするため -g で設定する
+set -g fish_color_normal $foreground
+set -g fish_color_command $blue
+set -g fish_color_keyword $purple
+set -g fish_color_quote $yellow
+set -g fish_color_redirection $foreground
+set -g fish_color_end $orange
+set -g fish_color_option $purple
+set -g fish_color_error $red
+set -g fish_color_param $cyan
+set -g fish_color_comment $comment
+set -g fish_color_selection --background=$selection
+set -g fish_color_search_match --background=$selection
+set -g fish_color_operator $green
+set -g fish_color_escape $purple
+set -g fish_color_autosuggestion $comment
 
-# Pager colors
-set -U fish_pager_color_progress $comment
-set -U fish_pager_color_prefix $blue
-set -U fish_pager_color_completion $foreground
-set -U fish_pager_color_description $comment
-set -U fish_pager_color_selected_background --background=$selection
+set -g fish_pager_color_progress $comment
+set -g fish_pager_color_prefix $blue
+set -g fish_pager_color_completion $foreground
+set -g fish_pager_color_description $comment
+set -g fish_pager_color_selected_background --background=$selection
 
-# Clear FZF_DEFAULT_OPTS to remove any old incompatible options
-set -e FZF_DEFAULT_OPTS
+# fish は list を空白区切りで export する
+set -gx FZF_DEFAULT_OPTS \
+    --info=inline-right \
+    --ansi \
+    --border=none \
+    --color=bg+:#$selection \
+    --color=bg:#$background \
+    --color=border:#$cyan \
+    --color=fg:#$foreground \
+    --color=gutter:#$background \
+    --color=header:#$orange \
+    --color=hl+:#$cyan \
+    --color=hl:#$blue \
+    --color=info:#$comment \
+    --color=marker:#$purple \
+    --color=pointer:#$purple \
+    --color=prompt:#$blue \
+    --color=query:#$foreground:regular \
+    --color=scrollbar:#$cyan \
+    --color=separator:#$orange \
+    --color=spinner:#$purple
 
-set -l FZF_NON_COLOR_OPTS
-
-# FZF TokyoNight Night color scheme
-set -Ux FZF_DEFAULT_OPTS "$FZF_NON_COLOR_OPTS"\
-" --info=inline-right"\
-" --ansi"\
-" --border=none"\
-" --color=bg+:#283457"\
-" --color=bg:#1a1b26"\
-" --color=border:#7dcfff"\
-" --color=fg:#a0d8f0"\
-" --color=gutter:#1a1b26"\
-" --color=header:#ff9e64"\
-" --color=hl+:#7dcfff"\
-" --color=hl:#7aa2f7"\
-" --color=info:#565f89"\
-" --color=marker:#bb9af7"\
-" --color=pointer:#bb9af7"\
-" --color=prompt:#7aa2f7"\
-" --color=query:#a0d8f0:regular"\
-" --color=scrollbar:#7dcfff"\
-" --color=separator:#ff9e64"\
-" --color=spinner:#bb9af7"
-
-set -x STARSHIP_CONFIG ~/.config/starship/config.toml
-set -x AWS_PROFILE default
-function starship_transient_prompt_func
-    starship prompt --profile transient
-end
-starship init fish | source
-enable_transience
-
+# ============================================================
+# インストーラが追記するブロック
+# ============================================================
 # pnpm
-set -gx PNPM_HOME "/Users/thirai/Library/pnpm"
-if not string match -q -- $PNPM_HOME $PATH
-  set -gx PATH "$PNPM_HOME" $PATH
+set -gx PNPM_HOME "$HOME/Library/pnpm"
+if not contains -- $PNPM_HOME $PATH
+    set -gx PATH $PNPM_HOME $PATH
 end
-
-# git
-# set -x GIT_OPTIONAL_LOCKS 0
-
-# if type -q kiro
-#     string match -q "$TERM_PROGRAM" "kiro" and . (kiro --locate-shell-integration-path fish)
-# end
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/thirai/google-cloud-sdk/path.fish.inc' ]; . '/Users/thirai/google-cloud-sdk/path.fish.inc'; end
+if [ -f "$HOME/google-cloud-sdk/path.fish.inc" ]; . "$HOME/google-cloud-sdk/path.fish.inc"; end
 
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 set --export --prepend PATH "/Users/thirai/.rd/bin"
