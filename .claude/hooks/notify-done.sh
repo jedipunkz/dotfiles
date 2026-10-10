@@ -25,6 +25,9 @@ else
   TITLE="$AGENT - 完了"
   MSG="タスクが完了しました"
   SOUND_FILE="/System/Library/Sounds/Glass.aiff"
+  if [ "$AGENT" = "Claude Code" ]; then
+    SOUND_FILE="$HOME/dotfiles/sounds/freesound_community-flashlight-switch-102792.mp3"
+  fi
 fi
 
 afplay "$SOUND_FILE" >/dev/null 2>&1 &
