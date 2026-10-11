@@ -3,7 +3,8 @@
 Claude Code と Codex が全プロジェクト共通で従う最上位ルール。プロジェクト固有の `CLAUDE.md` / `AGENTS.md` はこれを補完する。
 
 このファイル（dotfiles の `.claude/CLAUDE.md`）が共通ルールの単一ソース。Claude Code は `~/.claude/CLAUDE.md`、
-Codex は `~/.codex/AGENTS.md` として同じ実体を読む（`.codex/AGENTS.md` はこのファイルへの symlink）。
+Codex は `~/.codex/AGENTS.md`、opencode は `~/.config/opencode/AGENTS.md` として同じ実体を読む
+（`.codex/AGENTS.md` と `.config/opencode/AGENTS.md` はこのファイルへの symlink）。
 ルールを変更するときはこのファイルだけを編集する。
 
 ## Core Principles
