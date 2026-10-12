@@ -10,7 +10,8 @@
   "share": "disabled",
   "small_model": "anthropic/claude-haiku-4-5",
   "plugin": [
-    "opencode-skills"
+    "opencode-skills",
+    "./plugin/notify-done.ts"
   ],
   "permission": {
     "*": "allow",
