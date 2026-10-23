@@ -324,6 +324,10 @@
     "type": "command",
     "command": "~/.claude/scripts/statusline.sh"
   },
+  "subagentStatusLine": {
+    "type": "command",
+    "command": "~/.claude/scripts/subagent-statusline.sh"
+  },
   "enabledPlugins": {
     "gopls-lsp@claude-plugins-official": true,
     "rust-analyzer-lsp@claude-plugins-official": true,
