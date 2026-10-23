@@ -10,6 +10,7 @@ description: |
   - Running shell commands that only read state (git log, ls, cat, grep, etc.)
   This agent CANNOT write or edit files. It reports findings back to the orchestrator.
 model: claude-haiku-4-5-20251001
+autoCompactWindow: 150000
 disallowedTools:
   - Write
   - Edit
