@@ -96,6 +96,11 @@ if type -q gm
     gm shell fish | source
 end
 
+# holo: Ctrl-q で Claude でリポジトリ検索
+if type -q holo
+    holo shell fish | source
+end
+
 function starship_transient_prompt_func
     starship prompt --profile transient
 end
