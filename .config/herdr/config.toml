@@ -9,6 +9,7 @@ onboarding = false
 [theme]
 name = "tokyo-night"
 
+auto_switch = false
 [theme.custom]
 # 非アクティブタブの背景を薄いグレー紫にして視認できるようにする
 surface0 = "#4c4869"
