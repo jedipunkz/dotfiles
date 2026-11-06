@@ -118,6 +118,7 @@
       "~/ghq"
     ]
   },
+  "model": "opus",
   "hooks": {
     "CwdChanged": [
       {
@@ -331,7 +332,8 @@
     "typescript-lsp@claude-plugins-official": true,
     "vercel@claude-plugins-official": true,
     "ponytail@ponytail": true,
-    "i-have-adhd@i-have-adhd": true
+    "i-have-adhd@i-have-adhd": true,
+    "project-s@kwdp": true
   },
   "extraKnownMarketplaces": {
     "claude-plugins-official": {
@@ -350,6 +352,12 @@
       "source": {
         "source": "github",
         "repo": "ayghri/i-have-adhd"
+      }
+    },
+    "kwdp": {
+      "source": {
+        "source": "github",
+        "repo": "knowledge-work/kwdp"
       }
     }
   },
@@ -396,6 +404,11 @@
   },
   "alwaysThinkingEnabled": true,
   "effortLevel": "high",
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "high"
+    }
+  },
   "showThinkingSummaries": true,
   "skipDangerousModePermissionPrompt": true,
   "agentPushNotifEnabled": true,
@@ -426,11 +439,6 @@
       ],
       "command": "codex",
       "type": "stdio"
-    }
-  },
-  "modelSettings": {
-    "claude-opus-5-5": {
-      "effortLevel": "high"
     }
   }
 }
