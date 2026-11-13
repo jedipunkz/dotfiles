@@ -83,6 +83,7 @@ alias gsc="git switch -c"
 alias pm="echo 'pull main' && git pull origin main"
 alias pms="echo 'pull master' && git pull origin master"
 alias tf="terraform"
+alias hdr="herdr"
 
 # ============================================================
 # ツール初期化
