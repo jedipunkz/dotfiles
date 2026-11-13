@@ -30,6 +30,9 @@ previous_workspace = "prefix+comma"
 next_workspace = "prefix+m"
 detach = "prefix+d"
 toggle_sidebar = "prefix+b"
+# prefix+1..9 は sidebar の workspace 切替に使う。既定の switch_tab と衝突するため tab 側は無効化
+switch_workspace = "prefix+1..9"
+switch_tab = ""
 
 # git worktree
 [worktrees]
