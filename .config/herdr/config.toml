@@ -34,6 +34,14 @@ toggle_sidebar = "prefix+b"
 switch_workspace = "prefix+1..9"
 switch_tab = ""
 
+# holo をフローティングで開き、選んだセッションは元のペインで再開する
+[[keys.command]]
+key = "prefix+i"
+type = "popup"
+command = "~/.config/herdr/holo-popup.sh"
+width = "80%"
+height = "80%"
+
 # git worktree
 [worktrees]
 directory = "~/gm/.worktrees"
