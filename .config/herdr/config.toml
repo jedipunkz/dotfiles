@@ -33,22 +33,20 @@ toggle_sidebar = "prefix+b"
 # prefix+1..9 は sidebar の workspace 切替に使う。既定の switch_tab と衝突するため tab 側は無効化
 switch_workspace = "prefix+1..9"
 switch_tab = ""
-# prefix+o は holo に使う
+# prefix+o は pane-picker に使う
 open_notification_target = ""
-# prefix+p は pane-picker に使う
-previous_tab = ""
 
 # holo をフローティングで開き、選んだセッションは元のペインで再開する
 [[keys.command]]
-key = "prefix+o"
+key = "prefix+i"
 type = "popup"
 command = "~/.config/herdr/holo-popup.sh"
 width = "80%"
 height = "80%"
 
-# 全ペインを fzf で選んで移動する。prefix+p は既定で previous_tab のため外す
+# 全ペインを fzf で選んで移動する。prefix+o は既定で open_notification_target のため外す
 [[keys.command]]
-key = "prefix+p"
+key = "prefix+o"
 type = "popup"
 command = "~/.config/herdr/pane-picker.sh"
 width = "80%"
