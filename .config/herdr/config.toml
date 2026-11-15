@@ -14,8 +14,10 @@ name = "tokyo-night"
 surface0 = "#4c4869"
 surface1 = "#5a5680"
 # 非アクティブタブの文字色を白にする (overlay1=通常タブ文字)
-# overlay0 は非フォーカスのペイン枠にも使われるため上書きしない
 overlay1 = "#ffffff"
+# 非フォーカスのペイン枠を tokyo-night 既定 (#565f89) より少し暗くする
+# overlay0 はサイドバー等の淡い文字にも使われるため、そちらも少し暗くなる
+overlay0 = "#404665"
 
 # ペイン
 [terminal]
@@ -59,7 +61,7 @@ directory = "~/gm/.worktrees"
 # UI
 [ui]
 # accent = "#A78BFA"
-accent = "#9D7CFF"
+accent = "#A066FF"
 tab_bar_right = [{ type = "datetime", format = "%H:%M" }]
 pane_scrollbars = false
 show_agent_labels_on_pane_borders = true
