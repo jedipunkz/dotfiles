@@ -1,62 +1,37 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "instructions": [
-    "rules/*.md"
-  ],
+  "instructions": ["rules/*.md"],
   "compaction": {
-    "auto": true,
-    "prune": true
+    "auto": true
   },
   "share": "disabled",
-  "small_model": "anthropic/claude-haiku-4-5",
-  "plugin": [
-    "opencode-skills",
-    "./plugin/notify-done.ts"
+  "permissions": [
+    { "action": "*", "resource": "*", "effect": "allow" },
+    { "action": "read", "resource": "*.env", "effect": "deny" },
+    { "action": "read", "resource": "*.env.*", "effect": "deny" },
+    { "action": "read", "resource": "*.env.example", "effect": "allow" },
+    { "action": "external_directory", "resource": "*", "effect": "ask" },
+    { "action": "shell", "resource": "ls *", "effect": "allow" },
+    { "action": "shell", "resource": "cat *", "effect": "allow" },
+    { "action": "shell", "resource": "grep *", "effect": "allow" },
+    { "action": "shell", "resource": "curl *", "effect": "allow" },
+    { "action": "shell", "resource": "jq *", "effect": "allow" },
+    { "action": "shell", "resource": "head *", "effect": "allow" },
+    { "action": "shell", "resource": "tail *", "effect": "allow" },
+    { "action": "shell", "resource": "wc *", "effect": "allow" },
+    { "action": "shell", "resource": "file *", "effect": "allow" },
+    { "action": "shell", "resource": "which *", "effect": "allow" },
+    { "action": "shell", "resource": "pwd", "effect": "allow" },
+    { "action": "shell", "resource": "echo *", "effect": "allow" },
+    { "action": "shell", "resource": "find *", "effect": "allow" },
+    { "action": "shell", "resource": "tree *", "effect": "allow" },
+    { "action": "shell", "resource": "rg *", "effect": "allow" },
+    { "action": "shell", "resource": "sort *", "effect": "allow" }
   ],
-  "permission": {
-    "*": "allow",
-    "webfetch": "allow",
-    "edit": "allow",
-    "read": {
-      "*": "allow",
-      "*.env": "deny",
-      "*.env.*": "deny",
-      "*.env.example": "allow"
-    },
-    "bash": {
-      "*": "allow",
-      "ls *": "allow",
-      "cat *": "allow",
-      "grep *": "allow",
-      "curl *": "allow",
-      "jq *": "allow",
-      "head *": "allow",
-      "tail *": "allow",
-      "wc *": "allow",
-      "file *": "allow",
-      "which *": "allow",
-      "pwd": "allow",
-      "echo *": "allow",
-      "find *": "allow",
-      "tree *": "allow",
-      "rg *": "allow",
-      "sort *": "allow"
-    }
-  },
   "formatter": {
     "gofmt": {
       "command": ["gofmt", "-w", "$FILE"],
       "extensions": [".go"]
-    }
-  },
-  "lsp": {
-    "gopls": {
-      "command": ["gopls"],
-      "extensions": [".go"]
-    },
-    "typescript-language-server": {
-      "command": ["typescript-language-server", "--stdio"],
-      "extensions": [".ts", ".tsx", ".js", ".jsx"]
     }
   },
   "watcher": {
@@ -82,24 +57,34 @@
     ]
   },
   "mcp": {
-    "chrome-devtools": {
-      "type": "local",
-      "command": ["npx", "-y", "chrome-devtools-mcp@latest"],
-      "enabled": true,
-      "timeout": 60000
+    "servers": {
+      "chrome-devtools": {
+        "type": "local",
+        "command": ["npx", "-y", "chrome-devtools-mcp@latest"],
+        "timeout": {
+          "catalog": 60000,
+          "execution": 60000
+        }
+      }
     }
   },
-  "agent": {
+  "agents": {
+    "title": {
+      "model": "anthropic/claude-haiku-4-5"
+    },
     "reviewer": {
       "description": "Code review agent with read-only permissions for analyzing code quality",
       "mode": "subagent",
       "model": "anthropic/claude-sonnet-4-5",
-      "prompt": "You are a code reviewer specialized in analyzing code quality, best practices, security vulnerabilities, and potential bugs. You can read files, search code patterns using glob and grep, and provide detailed feedback. You cannot modify files.",
+      "system": "You are a code reviewer specialized in analyzing code quality, best practices, security vulnerabilities, and potential bugs. You can read files, search code patterns using glob and grep, and provide detailed feedback. You cannot modify files.",
       "steps": 25,
-      "permission": {
-        "edit": "deny",
-        "bash": "deny"
-      }
+      "permissions": [
+        { "action": "edit", "resource": "*", "effect": "deny" },
+        { "action": "shell", "resource": "*", "effect": "deny" }
+      ]
     }
+  },
+  "experimental": {
+    "todo": true
   }
 }

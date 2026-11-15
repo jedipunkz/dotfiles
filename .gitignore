@@ -45,3 +45,10 @@ auto-save-list
 
 # setup.sh backup destination
 /backup/
+
+# OpenCode TUI rewrites these runtime files (theme, keybinds, service registration).
+/.config/opencode/cli.json
+/.config/opencode/service.json
+
+# OpenCode plugin debug output
+/.config/opencode/notify-debug.log

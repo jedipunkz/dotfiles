@@ -77,11 +77,13 @@ alias lt='eza -T -L 3 -a -I "node_modules|.git|.cache" --icons'
 alias grep="grep --color"
 alias ssh="ssh -o UserKnownHostsFile=/dev/null -o 'StrictHostKeyChecking no'"
 alias zz="bunx ccgwz"
-
+alias g="git"
 alias gs="git switch"
 alias gsc="git switch -c"
 alias pm="echo 'pull main' && git pull origin main"
 alias pms="echo 'pull master' && git pull origin master"
+alias tf="terraform"
+alias hdr="herdr"
 
 # ============================================================
 # ツール初期化
@@ -94,6 +96,11 @@ set -g sponge_delay 0
 # gm: Ctrl-G でリポジトリ検索。conf.d の fish-ghq の bind を後から上書きする
 if type -q gm
     gm shell fish | source
+end
+
+# holo: Ctrl-q で Claude でリポジトリ検索
+if type -q holo
+    holo shell fish | source
 end
 
 function starship_transient_prompt_func
