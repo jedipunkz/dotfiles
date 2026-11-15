@@ -19,3 +19,8 @@ copy-on-select = clipboard
 right-click-action = paste
 
 keybind = ctrl+shift+r=reload_config
+
+# コマンドパレットの既定項目に無い操作を追加する
+command-palette-entry = title:"Toggle Quick Terminal",action:"toggle_quick_terminal"
+command-palette-entry = title:"Jump to Previous Prompt",action:"jump_to_prompt:-1"
+command-palette-entry = title:"Jump to Next Prompt",action:"jump_to_prompt:1"
