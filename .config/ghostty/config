@@ -1,4 +1,5 @@
 theme = TokyoNight
+palette-generate = true
 
 font-family = Consolas
 font-size = 14
@@ -8,6 +9,7 @@ scrollback-limit = 10000
 
 background-opacity = 1
 background-blur = false
+window-padding-balance = true
 macos-titlebar-style = transparent
 macos-titlebar-proxy-icon = hidden
 macos-non-native-fullscreen = true
