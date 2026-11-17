@@ -11,7 +11,7 @@ return {
   -- LSP
   {
     "neovim/nvim-lspconfig",
-    dependencies = { "saghen/blink.cmp", "williamboman/mason.nvim" },
+    dependencies = { "saghen/blink.cmp", "mason-org/mason.nvim" },
     event = { "BufReadPre", "BufNewFile" },
     config = function()
       -- Disable default virtual text to use tiny-inline-diagnostic instead
@@ -84,7 +84,7 @@ return {
     end,
   },
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     cmd = "Mason",
     config = function()
       require("mason").setup()
