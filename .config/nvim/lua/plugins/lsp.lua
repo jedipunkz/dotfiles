@@ -86,9 +86,4 @@ return {
       require("mason").setup()
     end,
   },
-  -- Formatter
-  {
-    "MunifTanjim/prettier.nvim",
-    ft = { "javascript", "typescript", "javascriptreact", "typescriptreact", "css", "html", "json", "yaml", "markdown" },
-  },
 }
