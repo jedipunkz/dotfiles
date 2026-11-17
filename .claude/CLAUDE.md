@@ -157,10 +157,13 @@ skill を書くときは特定のエージェントに依存しない書き方�
 | `codex-review` | Codex CLI によるコード・設定レビュー |
 | `finance-mcp` | 株価・為替・財務データを MCP 経由で取得（MCP サーバ登録が前提） |
 | `github-publish` | branch push と PR 作成の workflow |
-| `systematic-debugging` | 仮説検証を段階化した debug 手順 |
-| `test-driven-development` | テストを先に書く実装手順 |
-| `verification-before-completion` | 完了報告前の検証チェック |
+| `systematic-debugging` | pstack の bug-fix playbook と root-cause 系 principle へ誘導 |
+| `test-driven-development` | pstack の `tdd` とテスト系 principle へ誘導 |
+| `verification-before-completion` | pstack の `principle-prove-it-works` と verify スキルへ誘導 |
 | `web-research` | 一次情報を優先した web 調査手順 |
+| `tachikoma` | pstack の `poteto-mode` を移植したルーター。`/tachikoma <task>` で使う |
+| `go-best-practices` / `terraform-best-practices` / `typescript-best-practices` | 言語別の型・境界・検証ルール |
+| pstack 由来の残り | `principle-*` と workflow スキル。一覧は `.claude/skills/PSTACK_NOTICE.md` |
 
 ## Hooks
 

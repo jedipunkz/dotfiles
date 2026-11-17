@@ -11,6 +11,7 @@ require("modules.window-layouts")      -- ウィンドウレイアウト保存/�
 require("modules.clipboard")           -- クリップボード履歴
 require("modules.audio-devices")       -- オーディオデバイス選択
 require("modules.resize-mode")         -- リサイズモード
+require("modules.drag-move")           -- cmd+ctrl+ドラッグでウィンドウ移動
 -- japanese-space: macOS IME 設定 (JIMPrefCharactersForSpace=0) で半角化済みのため不要
 
 -- 自動リロード
