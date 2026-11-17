@@ -88,21 +88,26 @@ denial を `tool_input` 付きで捕捉）、`PostToolUseFailure`、`StopFailure
 | `terraform-writer` | Terraform コードの作成・修正 | `.tf/.tfvars/.hcl` の新規作成・リソース追加時 |
 | `terraform-reviewer` | Terraform コードのレビュー（IAM・network・secrets 重点） | `.tf/.tfvars/.hcl` ファイル修正時 |
 | `test-runner` | 変更に対する最小限のテスト実行・検証 | コード/スクリプト変更後の検証が必要なとき |
+| `tachikoma-agent` | `/tachikoma` 実行中の委譲先（pstack 由来） | `tachikoma` が起動する |
+| `comment-sicko` | コメント削除の判定（pstack 由来） | `no-comments` が起動する |
 
 ### Skills（`.claude/skills/`）
 
 skill の実体はここ 1 箇所。Claude Code は `~/.claude/skills` を直接読み、Codex と Gemini は
-`~/.agents/skills`（setup.sh が張る symlink）経由で同じ実体を読む。3 つとも同じ 7 件を見る。
+`~/.agents/skills`（setup.sh が張る symlink）経由で同じ実体を読む。3 つとも同じ 59 件を見る。
 
 | スキル | 役割 |
 |---|---|
 | `codex-review` | OpenAI Codex CLI によるコード・設定ファイルレビュー |
 | `finance-mcp` | 株価・為替・暗号資産・財務データを MCP 経由で取得・分析 |
 | `github-publish` | branch push と PR 作成の workflow |
-| `systematic-debugging` | 仮説検証を段階化した debug 手順 |
-| `test-driven-development` | テストを先に書く実装手順 |
-| `verification-before-completion` | 完了報告前の検証チェック |
+| `systematic-debugging` | pstack の bug-fix playbook と root-cause 系 principle へ誘導 |
+| `test-driven-development` | pstack の `tdd` とテスト系 principle へ誘導 |
+| `verification-before-completion` | pstack の `principle-prove-it-works` と verify スキルへ誘導 |
 | `web-research` | 一次情報を優先した web 調査手順 |
+| `tachikoma` | pstack の `poteto-mode` を移植したルーター。`/tachikoma <task>` |
+| `go-best-practices` / `terraform-best-practices` | `typescript-best-practices` と同形式の言語別ルール |
+| pstack 由来 49 件 | `principle-*` と workflow スキル。一覧と出典は `.claude/skills/PSTACK_NOTICE.md` |
 
 Claude Code は `~/.agents/skills` を読まないため、逆向き（`.agents/skills` を正とする）は成立しない。
 検証: `gemini skills list` と `codex debug prompt-input` の `Skill roots` で実体パスを確認できる。

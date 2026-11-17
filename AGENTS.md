@@ -158,13 +158,16 @@ body は次の構造を使う:
 
 ## skill 一覧
 
-7 件すべて `.claude/skills/` にあり、Claude Code / Codex / Gemini から見える。
+59 件すべて `.claude/skills/` にあり、Claude Code / Codex / Gemini から見える。
 呼び出しは Codex と Gemini が `$<name>`、Claude Code が `/<name>`。
 
 - `codex-review` - ネストした Codex CLI でレビューする。通常は Codex 組み込みの `/review` を優先する。
 - `finance-mcp` - 株価・為替・財務データを alphavantage / twelvedata / edinetdb の MCP サーバ経由で取得する。
 - `github-publish` - `gh` による branch push と PR 作成の workflow。
-- `systematic-debugging` - 証拠を先に集める root-cause 分析の手順。
-- `test-driven-development` - 挙動変更に対する red-green-refactor の手順。
-- `verification-before-completion` - 完了報告の前に通す検証チェック。
+- `systematic-debugging` - pstack の bug-fix playbook と root-cause 系 principle へ誘導する。
+- `test-driven-development` - pstack の `tdd` とテスト系 principle へ誘導する。
+- `verification-before-completion` - pstack の `principle-prove-it-works` と verify スキルへ誘導する。
 - `web-research` - 一次情報を優先した web 調査の手順。
+- `go-best-practices` / `terraform-best-practices` - `typescript-best-practices` と同じ形式の Go / Terraform 版。
+- `tachikoma` - pstack の `poteto-mode` を移植したルーター。`/tachikoma <task>` で playbook を選び、principle を適用し、検証まで進める。
+- pstack 由来 49 件 - `principle-*` 24 件と workflow スキル。出典・ライセンス・一覧は `.claude/skills/PSTACK_NOTICE.md`。ほぼ全件 `disable-model-invocation: true` で、`/<name>` で直接呼ぶか `tachikoma` 経由で読まれる。
