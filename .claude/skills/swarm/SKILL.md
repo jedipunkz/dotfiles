@@ -6,6 +6,8 @@ disable-model-invocation: true
 
 # Swarm
 
+In Claude Code, first read `../tachikoma/references/claude-code.md` and map Cursor names with it.
+
 ## Start
 
 Open a todolist with one entry per phase before launching anything.

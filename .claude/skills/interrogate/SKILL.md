@@ -6,6 +6,8 @@ disable-model-invocation: true
 
 # Interrogate
 
+In Claude Code, first read `../tachikoma/references/claude-code.md` and map Cursor names with it.
+
 Adversaries try to break a change or a design. A finding survives only when a run proves it. Report the findings. Do not apply fixes.
 
 ## Frame

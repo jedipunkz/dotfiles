@@ -6,6 +6,8 @@ disable-model-invocation: true
 
 # How
 
+In Claude Code, first read `../tachikoma/references/claude-code.md` and map Cursor names with it.
+
 Explore the codebase to answer "how does X work?" questions.
 
 If the scope is ambiguous, state your interpretation and explore. The user can redirect.

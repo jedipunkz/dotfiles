@@ -5,6 +5,8 @@ description: Apply a focused red-green-refactor workflow for behavior changes an
 
 # Test Driven Development
 
+In Claude Code, first read `../tachikoma/references/claude-code.md` and map Cursor names with it.
+
 Read and follow these skills from this skill's parent folder:
 
 1. `../tdd/SKILL.md`: the failing-test-first workflow, and when to skip a new test.

@@ -6,6 +6,8 @@ disable-model-invocation: true
 
 # No comments
 
+In Claude Code, first read `../tachikoma/references/claude-code.md` and map Cursor names with it.
+
 Spawn Comment Sicko. Act on accepted findings.
 
 Defer to Comment Sicko's fresh perspective.

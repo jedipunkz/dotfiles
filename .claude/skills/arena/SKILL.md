@@ -6,6 +6,8 @@ disable-model-invocation: true
 
 # Arena
 
+In Claude Code, first read `../tachikoma/references/claude-code.md` and map Cursor names with it.
+
 Open a todolist with one entry per phase (Frame, Fan out, Cross-judge, Pick, Graft, Verify) before launching anything.
 
 ## Phase A: Frame

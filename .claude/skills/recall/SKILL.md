@@ -6,6 +6,8 @@ disable-model-invocation: true
 
 # Recall
 
+In Claude Code, first read `../tachikoma/references/claude-code.md` and map Cursor names with it.
+
 **Before you start or resume work, you rebuild the user's recent working context and hand back a tight capsule of where things stand now and what to do next.**
 
 Keep it tight and on-topic. Read only what the in-scope threads need, then stop.

@@ -6,6 +6,8 @@ disable-model-invocation: true
 
 # Show me your work
 
+In Claude Code, first read `../tachikoma/references/claude-code.md` and map Cursor names with it.
+
 Keep one canonical log.
 
 ## The format

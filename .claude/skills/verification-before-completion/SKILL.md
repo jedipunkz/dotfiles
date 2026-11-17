@@ -5,6 +5,8 @@ description: Verify completed work before reporting it as done. Use after making
 
 # Verification Before Completion
 
+In Claude Code, first read `../tachikoma/references/claude-code.md` and map Cursor names with it.
+
 Read and follow these skills from this skill's parent folder:
 
 1. `../principle-prove-it-works/SKILL.md`: verify against the real artifact, not a proxy.

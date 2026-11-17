@@ -5,6 +5,8 @@ description: Reproduce and debug failures through an evidence-first root-cause w
 
 # Systematic Debugging
 
+In Claude Code, first read `../tachikoma/references/claude-code.md` and map Cursor names with it.
+
 Read and follow these skills from this skill's parent folder, in order:
 
 1. `../in-your-own-words/SKILL.md`: restate the bug and the goal before touching code.
