@@ -3,3 +3,4 @@
 *.sock
 session.json
 sessions/
+__pycache__/
