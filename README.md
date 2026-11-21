@@ -55,7 +55,7 @@ Tools
 
 ## Dependencies
 
-[`git`](https://git-scm.com/), [`curl`](https://curl.se/) — required before running setup.sh.
+[`git`](https://git-scm.com/) — required before running setup.sh.
 Language toolchains are managed by [`mise`](https://mise.jdx.dev/) via `mise.toml`.
 Package installers live in `utils/`.
 

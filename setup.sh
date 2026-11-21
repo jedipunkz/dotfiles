@@ -89,15 +89,6 @@ function problem() {
     printf '  %-8s %s (%s)\n' "blocked" "$1" "$2"
 }
 
-function chkcommand() {
-    if hash "$1" 2>/dev/null; then
-        return 0
-    else
-        echo "you need $1 command" >&2
-        exit 1
-    fi
-}
-
 # link <repo-path> [dest-path]
 # dest-path defaults to repo-path. Pass it when one file in the repository has
 # to appear under a second name in $HOME, e.g. the shared skills directory that
@@ -238,8 +229,10 @@ function backup() {
     fi
 }
 
-chkcommand curl
-chkcommand git
+if ! hash git 2>/dev/null; then
+    echo "you need git command" >&2
+    exit 1
+fi
 
 if [[ $DRY_RUN -eq 1 ]]; then
     echo "dry run on $OS: nothing will be changed"
