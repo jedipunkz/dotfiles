@@ -286,7 +286,7 @@ link_linux .config/regolith
 makedir .config/herdr 0700
 link .config/herdr/config.toml
 link .config/herdr/holo-popup.sh
-link .config/herdr/pane-picker.sh
+link .config/herdr/pane-picker.py
 
 makedir .config/gm 0700
 link .config/gm/gm.toml
