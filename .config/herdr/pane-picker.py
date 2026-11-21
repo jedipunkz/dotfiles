@@ -13,7 +13,7 @@ YELLOW, RED, ORANGE, COMMENT = "224;175;104", "247;118;142", "255;158;100", "86;
 STATUS_COLORS = {"working": (YELLOW, False), "blocked": (RED, True), "idle": (GREEN, False), "done": (GREEN, False)}
 
 FZF_COLORS = (
-    "fg:#c0caf5,bg:-1,hl:#2ac3de,fg+:#c0caf5,bg+:#283457,hl+:#2ac3de,gutter:-1,info:#545c7e,"
+    "fg:#c0caf5,bg:#1a1b26,hl:#f7768e,fg+:#c0caf5,bg+:#283457,hl+:#f7768e,gutter:#1a1b26,info:#545c7e,"
     "prompt:#2ac3de,pointer:#ff007c,marker:#ff007c,spinner:#ff007c,header:#ff9e64,border:#27a1b9,"
     "separator:#ff9e64,scrollbar:#27a1b9,query:#c0caf5:regular"
 )
@@ -66,12 +66,12 @@ def paint(rgb, text, bold=False):
 COLUMNS = [
     ("ID", None),
     ("", lambda v: (ORANGE, True)),
-    ("WORKSPACE", lambda v: (BLUE, False)),
-    ("TAB", None),
-    ("COMMAND", lambda v: (COMMENT if v == IDLE_SHELL else MAGENTA, False)),
-    ("STATUS", lambda v: STATUS_COLORS.get(v, (COMMENT, False))),
-    ("DIR", lambda v: (CYAN, False)),
-    ("TITLE", None),
+    ("Workspace", lambda v: (BLUE, False)),
+    ("Tab", None),
+    ("Command", lambda v: (COMMENT if v == IDLE_SHELL else MAGENTA, False)),
+    ("Status", lambda v: STATUS_COLORS.get(v, (COMMENT, False))),
+    ("Dir", lambda v: (CYAN, False)),
+    ("Title", None),
 ]
 
 
