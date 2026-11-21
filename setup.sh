@@ -89,19 +89,12 @@ function problem() {
     printf '  %-8s %s (%s)\n' "blocked" "$1" "$2"
 }
 
-function chkcommand() {
-    if hash "$1" 2>/dev/null; then
-        return 0
-    else
-        echo "you need $1 command" >&2
-        exit 1
+function run() {
+    if [[ $DRY_RUN -eq 0 ]]; then
+        "$@"
     fi
 }
 
-# link <repo-path> [dest-path]
-# dest-path defaults to repo-path. Pass it when one file in the repository has
-# to appear under a second name in $HOME, e.g. the shared skills directory that
-# Codex and Gemini look for at ~/.agents/skills.
 function link() {
     local rel="$1"
     local dest_rel="${2:-$rel}"
@@ -129,9 +122,7 @@ function link() {
         report create "$dest_rel"
     fi
 
-    if [[ $DRY_RUN -eq 0 ]]; then
-        ln -sfn "$src" "$dest"
-    fi
+    run ln -sfn "$src" "$dest"
 }
 
 function link_macos() {
@@ -150,10 +141,7 @@ function link_linux() {
     fi
 }
 
-# copy_if_missing <repo-path> [dest-path]
-# dest-path defaults to repo-path. Use it for files the tool rewrites itself:
-# the repository keeps a template, and the live copy stays untracked.
-function copy_if_missing() {
+function copy_unless_real() {
     local rel="$1"
     local dest_rel="${2:-$rel}"
     local src="$CONF_HOME/$rel"
@@ -166,10 +154,8 @@ function copy_if_missing() {
 
     if [[ -L "$dest" ]]; then
         report replace "$dest_rel" "symlink replaced by a real copy"
-        if [[ $DRY_RUN -eq 0 ]]; then
-            unlink "$dest"
-            cp "$src" "$dest"
-        fi
+        run unlink "$dest"
+        run cp "$src" "$dest"
         return 0
     fi
 
@@ -179,9 +165,7 @@ function copy_if_missing() {
     fi
 
     report create "$dest_rel" "copy, not symlink"
-    if [[ $DRY_RUN -eq 0 ]]; then
-        cp "$src" "$dest"
-    fi
+    run cp "$src" "$dest"
 }
 
 function gitclone() {
@@ -195,9 +179,7 @@ function gitclone() {
     fi
 
     report create "$rel" "git clone"
-    if [[ $DRY_RUN -eq 0 ]]; then
-        git clone "$url" "$dest"
-    fi
+    run git clone "$url" "$dest"
 }
 
 function makedir() {
@@ -211,10 +193,8 @@ function makedir() {
     fi
 
     report create "$rel/" "mkdir $mode"
-    if [[ $DRY_RUN -eq 0 ]]; then
-        mkdir -p "$dir"
-        chmod "$mode" "$dir"
-    fi
+    run mkdir -p "$dir"
+    run chmod "$mode" "$dir"
 }
 
 function backup() {
@@ -233,13 +213,13 @@ function backup() {
     fi
 
     report backup "$rel" "moved to $dest"
-    if [[ $DRY_RUN -eq 0 ]]; then
-        mv "$src" "$dest"
-    fi
+    run mv "$src" "$dest"
 }
 
-chkcommand curl
-chkcommand git
+if ! hash git 2>/dev/null; then
+    echo "you need git command" >&2
+    exit 1
+fi
 
 if [[ $DRY_RUN -eq 1 ]]; then
     echo "dry run on $OS: nothing will be changed"
@@ -248,9 +228,7 @@ else
 fi
 echo
 
-if [[ $DRY_RUN -eq 0 ]]; then
-    mkdir -p "$BACKUP_DIR"
-fi
+run mkdir -p "$BACKUP_DIR"
 backup .config
 backup .emacs.d
 backup .claude/scripts
@@ -265,9 +243,7 @@ backup .gemini/settings.json gemini_settings.json
 backup .hammerspoon
 backup .karabiner
 
-if [[ $DRY_RUN -eq 0 ]]; then
-    touch "$BACKUP_MARKER"
-fi
+run touch "$BACKUP_MARKER"
 
 makedir .config 0700
 makedir .agents 0700
@@ -310,7 +286,7 @@ link_linux .config/regolith
 makedir .config/herdr 0700
 link .config/herdr/config.toml
 link .config/herdr/holo-popup.sh
-link .config/herdr/pane-picker.sh
+link .config/herdr/pane-picker.py
 
 makedir .config/gm 0700
 link .config/gm/gm.toml
@@ -324,12 +300,11 @@ link .claude/agents
 link .claude/keybindings.json
 link .claude/hooks
 
-# Codex and Gemini discover personal skills at ~/.agents/skills; Claude Code
-# reads ~/.claude/skills. One directory, two names.
+# Codex discovers personal skills at ~/.agents/skills.
 link .claude/skills .agents/skills
 
 link .codex/AGENTS.md
-copy_if_missing .codex/config.toml.example .codex/config.toml
+copy_unless_real .codex/config.toml.example .codex/config.toml
 link .codex/hooks.json
 link .codex/herdr-agent-state.sh
 link .codex/rules

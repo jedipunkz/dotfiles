@@ -52,3 +52,6 @@ auto-save-list
 
 # OpenCode plugin debug output
 /.config/opencode/notify-debug.log
+
+# Karabiner-Elements writes timestamped backups here on every config change.
+/.config/karabiner/automatic_backups/

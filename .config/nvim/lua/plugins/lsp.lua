@@ -11,23 +11,27 @@ return {
   -- LSP
   {
     "neovim/nvim-lspconfig",
-    dependencies = { "saghen/blink.cmp", "williamboman/mason.nvim" },
+    dependencies = { "saghen/blink.cmp", "mason-org/mason.nvim" },
     event = { "BufReadPre", "BufNewFile" },
     config = function()
       -- Disable default virtual text to use tiny-inline-diagnostic instead
-      vim.diagnostic.config({ virtual_text = false })
+      -- Built-in [d / ]d open the float on jump, as goto_prev/goto_next did
+      vim.diagnostic.config({
+        virtual_text = false,
+        jump = {
+          on_jump = function(_, bufnr)
+            vim.diagnostic.open_float({ bufnr = bufnr, scope = 'cursor', focus = false })
+          end,
+        },
+      })
 
       -- Mappings
       local opts = { noremap=true, silent=true }
       vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
-      vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-      vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
       vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
-      -- on_attach function
+      -- on_attach function (omnifunc is set by Neovim on LspAttach)
       local on_attach = function(client, bufnr)
-        vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
         local bufopts = { noremap=true, silent=true, buffer=bufnr }
         vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
         vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
@@ -80,15 +84,10 @@ return {
     end,
   },
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     cmd = "Mason",
     config = function()
       require("mason").setup()
     end,
-  },
-  -- Formatter
-  {
-    "MunifTanjim/prettier.nvim",
-    ft = { "javascript", "typescript", "javascriptreact", "typescriptreact", "css", "html", "json", "yaml", "markdown" },
   },
 }

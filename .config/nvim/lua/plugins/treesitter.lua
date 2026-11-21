@@ -1,17 +1,17 @@
 return {
-  -- Treesitter for syntax highlighting and parsing
+  -- Treesitter parsers. The main branch does not support lazy-loading and no
+  -- longer reads a `highlight` option, so highlighting is started per buffer.
   {
     "nvim-treesitter/nvim-treesitter",
-    event = { "BufReadPost", "BufNewFile" },
-    opts = {
-      ensure_installed = {},
-      sync_install = false,
-      auto_install = false,
-      highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = { "markdown" },
-      },
-    },
+    lazy = false,
+    build = ":TSUpdate",
+    init = function()
+      vim.api.nvim_create_autocmd("FileType", {
+        callback = function()
+          pcall(vim.treesitter.start)
+        end,
+      })
+    end,
   },
 
   -- TreeSJ for split/join syntax tree nodes
