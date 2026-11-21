@@ -84,8 +84,8 @@ macOS と Linux 用の個人 dotfiles。`setup.sh` が `uname` で OS を判定�
 
 - ツールが書き戻す設定ファイルは git 管理しない。リポジトリにはテンプレートを置き、実ファイルは `.gitignore` に入れる。
 - 該当するのは `.codex/config.toml`。Codex が `[hooks.state.*]`（hook の trusted hash）、`[projects.*]`（信頼済みパス）、`[marketplaces.*]`、`[mcp_servers.node_repl]` を自動で書き込み、マシン固有の絶対パスとアプリのバージョンが混ざって際限なく増える。
-- テンプレートは `.codex/config.toml.example`。`setup.sh` の `copy_if_missing` が `~/.codex/config.toml` へコピーする（symlink ではないので Codex の書き込みはリポジトリに届かない）。
-- `copy_if_missing` はコピー先が無いときだけコピーする。テンプレートが効くのは新規端末の初回セットアップだけで、既存端末へは自動反映されない。設定を変えたらテンプレートと各端末の実ファイルを手で両方更新する。
+- テンプレートは `.codex/config.toml.example`。`setup.sh` の `copy_unless_real` が `~/.codex/config.toml` へコピーする（symlink ではないので Codex の書き込みはリポジトリに届かない）。
+- `copy_unless_real` はコピー先が無いときにコピーし、symlink のときは実ファイルに置き換える。実ファイルがあれば何もしない。テンプレートが効くのは新規端末の初回セットアップだけで、既存端末へは自動反映されない。設定を変えたらテンプレートと各端末の実ファイルを手で両方更新する。
 - 自動生成される節をテンプレートに書き戻さない。
 
 ### skill / hook を変更したあと

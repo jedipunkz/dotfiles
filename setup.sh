@@ -141,7 +141,7 @@ function link_linux() {
     fi
 }
 
-function copy_if_missing() {
+function copy_unless_real() {
     local rel="$1"
     local dest_rel="${2:-$rel}"
     local src="$CONF_HOME/$rel"
@@ -304,7 +304,7 @@ link .claude/hooks
 link .claude/skills .agents/skills
 
 link .codex/AGENTS.md
-copy_if_missing .codex/config.toml.example .codex/config.toml
+copy_unless_real .codex/config.toml.example .codex/config.toml
 link .codex/hooks.json
 link .codex/herdr-agent-state.sh
 link .codex/rules
