@@ -14,7 +14,7 @@ STATUS_COLORS = {"working": (YELLOW, False), "blocked": (RED, True), "idle": (GR
 
 FZF_COLORS = (
     "fg:#c0caf5,bg:#1a1b26,hl:#f7768e,fg+:#c0caf5,bg+:#283457,hl+:#f7768e,gutter:#1a1b26,info:#545c7e,"
-    "prompt:#2ac3de,pointer:#ff007c,marker:#ff007c,spinner:#ff007c,header:#ff9e64,border:#27a1b9,"
+    "prompt:#2ac3de,pointer:#ff007c,marker:#ff007c,spinner:#ff007c,header:#565f89,border:#27a1b9,"
     "separator:#ff9e64,scrollbar:#27a1b9,query:#c0caf5:regular"
 )
 
