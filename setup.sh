@@ -89,18 +89,12 @@ function problem() {
     printf '  %-8s %s (%s)\n' "blocked" "$1" "$2"
 }
 
-# run <command...>
-# The only place that decides whether a change to disk happens: --dry-run skips it.
 function run() {
     if [[ $DRY_RUN -eq 0 ]]; then
         "$@"
     fi
 }
 
-# link <repo-path> [dest-path]
-# dest-path defaults to repo-path. Pass it when one file in the repository has
-# to appear under a second name in $HOME, e.g. the shared skills directory that
-# Codex and Gemini look for at ~/.agents/skills.
 function link() {
     local rel="$1"
     local dest_rel="${2:-$rel}"
@@ -147,9 +141,6 @@ function link_linux() {
     fi
 }
 
-# copy_if_missing <repo-path> [dest-path]
-# dest-path defaults to repo-path. Use it for files the tool rewrites itself:
-# the repository keeps a template, and the live copy stays untracked.
 function copy_if_missing() {
     local rel="$1"
     local dest_rel="${2:-$rel}"
@@ -309,8 +300,7 @@ link .claude/agents
 link .claude/keybindings.json
 link .claude/hooks
 
-# Codex and Gemini discover personal skills at ~/.agents/skills; Claude Code
-# reads ~/.claude/skills. One directory, two names.
+# Codex discovers personal skills at ~/.agents/skills.
 link .claude/skills .agents/skills
 
 link .codex/AGENTS.md
