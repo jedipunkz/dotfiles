@@ -89,6 +89,14 @@ function problem() {
     printf '  %-8s %s (%s)\n' "blocked" "$1" "$2"
 }
 
+# run <command...>
+# The only place that decides whether a change to disk happens: --dry-run skips it.
+function run() {
+    if [[ $DRY_RUN -eq 0 ]]; then
+        "$@"
+    fi
+}
+
 # link <repo-path> [dest-path]
 # dest-path defaults to repo-path. Pass it when one file in the repository has
 # to appear under a second name in $HOME, e.g. the shared skills directory that
@@ -120,9 +128,7 @@ function link() {
         report create "$dest_rel"
     fi
 
-    if [[ $DRY_RUN -eq 0 ]]; then
-        ln -sfn "$src" "$dest"
-    fi
+    run ln -sfn "$src" "$dest"
 }
 
 function link_macos() {
@@ -157,10 +163,8 @@ function copy_if_missing() {
 
     if [[ -L "$dest" ]]; then
         report replace "$dest_rel" "symlink replaced by a real copy"
-        if [[ $DRY_RUN -eq 0 ]]; then
-            unlink "$dest"
-            cp "$src" "$dest"
-        fi
+        run unlink "$dest"
+        run cp "$src" "$dest"
         return 0
     fi
 
@@ -170,9 +174,7 @@ function copy_if_missing() {
     fi
 
     report create "$dest_rel" "copy, not symlink"
-    if [[ $DRY_RUN -eq 0 ]]; then
-        cp "$src" "$dest"
-    fi
+    run cp "$src" "$dest"
 }
 
 function gitclone() {
@@ -186,9 +188,7 @@ function gitclone() {
     fi
 
     report create "$rel" "git clone"
-    if [[ $DRY_RUN -eq 0 ]]; then
-        git clone "$url" "$dest"
-    fi
+    run git clone "$url" "$dest"
 }
 
 function makedir() {
@@ -202,10 +202,8 @@ function makedir() {
     fi
 
     report create "$rel/" "mkdir $mode"
-    if [[ $DRY_RUN -eq 0 ]]; then
-        mkdir -p "$dir"
-        chmod "$mode" "$dir"
-    fi
+    run mkdir -p "$dir"
+    run chmod "$mode" "$dir"
 }
 
 function backup() {
@@ -224,9 +222,7 @@ function backup() {
     fi
 
     report backup "$rel" "moved to $dest"
-    if [[ $DRY_RUN -eq 0 ]]; then
-        mv "$src" "$dest"
-    fi
+    run mv "$src" "$dest"
 }
 
 if ! hash git 2>/dev/null; then
@@ -241,9 +237,7 @@ else
 fi
 echo
 
-if [[ $DRY_RUN -eq 0 ]]; then
-    mkdir -p "$BACKUP_DIR"
-fi
+run mkdir -p "$BACKUP_DIR"
 backup .config
 backup .emacs.d
 backup .claude/scripts
@@ -258,9 +252,7 @@ backup .gemini/settings.json gemini_settings.json
 backup .hammerspoon
 backup .karabiner
 
-if [[ $DRY_RUN -eq 0 ]]; then
-    touch "$BACKUP_MARKER"
-fi
+run touch "$BACKUP_MARKER"
 
 makedir .config 0700
 makedir .agents 0700
