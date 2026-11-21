@@ -3,28 +3,53 @@
 # CLI の `herdr pane focus` は隣接移動だけのため、socket API の pane.focus を直接呼ぶ。
 set -euo pipefail
 
-ws=$(herdr workspace list | jq -c '[.result.workspaces[] | {key: .workspace_id, value: "\(.number) \(.label)"}] | from_entries')
-tabs=$(herdr tab list | jq -c '[.result.tabs[] | {key: .tab_id, value: .label}] | from_entries')
-
-# 1 行 1 ペインの TSV。1 列目の pane_id は fzf で非表示にし、選択後の移動にだけ使う
+# 1 行 1 ペインの TSV。1 列目の pane_id は fzf で非表示にし、選択後の移動にだけ使う。
+# ペインごとに herdr CLI + jq を spawn すると 19 ペインで 300ms 超かかるため、
+# socket API を python で直接呼ぶ（全リクエスト合計で数 ms）
 rows() {
-  printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' ID '' WORKSPACE TAB COMMAND STATUS DIR TITLE
-  herdr pane list | jq -c '.result.panes[]' | while read -r pane; do
-    id=$(jq -r .pane_id <<<"$pane")
-    # agent が無いペインは前面プロセス名（fish なら shell が待機中）を出す
-    proc=$(herdr pane process-info --pane "$id" | jq -r '.result.process_info.foreground_processes[0].name // ""')
-    jq -r --argjson ws "$ws" --argjson tabs "$tabs" --arg active "${HERDR_ACTIVE_PANE_ID:-}" --arg proc "$proc" '
-      [ .pane_id,
-        (if .pane_id == $active then "*" else "" end),
-        $ws[.workspace_id],
-        $tabs[.tab_id],
-        (.agent // $proc),
-        (if .agent then .agent_status else "-" end),
-        (.foreground_cwd // .cwd | sub("^" + env.HOME; "~")),
+  python3 - <<'PY'
+import json, os, socket
+
+SOCKET_PATH = os.environ["HERDR_SOCKET_PATH"]
+
+def rpc(method, params):
+    # herdr の socket は 1 接続 1 リクエストで切断するため都度接続する
+    with socket.socket(socket.AF_UNIX) as s:
+        s.connect(SOCKET_PATH)
+        s.sendall((json.dumps({"id": "pane-picker", "method": method, "params": params}) + "\n").encode())
+        return json.loads(s.makefile().readline())["result"]
+
+home = os.environ["HOME"]
+active = os.environ.get("HERDR_ACTIVE_PANE_ID", "")
+ws = {w["workspace_id"]: f'{w["number"]} {w["label"]}' for w in rpc("workspace.list", {})["workspaces"]}
+tabs = {t["tab_id"]: t["label"] for t in rpc("tab.list", {})["tabs"]}
+
+print("ID\t\tWORKSPACE\tTAB\tCOMMAND\tSTATUS\tDIR\tTITLE")
+for p in rpc("pane.list", {})["panes"]:
+    agent = p.get("agent")
+    if agent:
+        cmd = agent
+    else:
+        # agent が無いペインは前面プロセス名（fish なら shell が待機中）を出す
+        info = rpc("pane.process_info", {"pane_id": p["pane_id"]})["process_info"]
+        fg = info.get("foreground_processes") or [{}]
+        cmd = fg[0].get("name") or ""
+    cwd = p.get("foreground_cwd") or p.get("cwd") or ""
+    if cwd == home or cwd.startswith(home + "/"):
+        cwd = "~" + cwd[len(home):]
+    row = [
+        p["pane_id"],
+        "*" if p["pane_id"] == active else "",
+        ws.get(p["workspace_id"], ""),
+        tabs.get(p["tab_id"], ""),
+        cmd,
+        (p.get("agent_status") or "") if agent else "-",
+        cwd,
         # shell の title は cwd と重複するため agent のときだけ出す（claude は会話の題名になる）
-        (if .agent then .terminal_title_stripped // "" else "" end) ]
-      | @tsv' <<<"$pane"
-  done
+        (p.get("terminal_title_stripped") or "") if agent else "",
+    ]
+    print("\t".join(f.replace("\t", " ") for f in row))
+PY
 }
 
 # 2 列目以降を列幅を揃えた 1 つの表示列にまとめ、列と状態ごとに Tokyo Night の色を付ける（truecolor）。
