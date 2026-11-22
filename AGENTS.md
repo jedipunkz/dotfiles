@@ -57,7 +57,7 @@ macOS と Linux 用の個人 dotfiles。`setup.sh` が `uname` で OS を判定�
 |---|---|---|---|
 | skill | `.claude/skills/<name>/SKILL.md` | Claude Code / Codex / Gemini | 不要 |
 | hook | `.claude/hooks/<name>.sh` | Claude Code / Codex | 不要。ただし両方の設定への登録は必要 |
-| subagent | `.claude/agents/<name>.md` | Claude Code（他エージェントは未確認） | 不要 |
+| subagent | Claude Code は `.claude/agents/<name>.md`。OpenCode は `.config/opencode/agents/<name>.md` | Claude Code / OpenCode | 不要 |
 | 詳細ルール | `.claude/rules/<name>.md` | Claude Code のみ | 不要 |
 | コマンド権限ポリシー | `.codex/rules/` | Codex のみ | 不要 |
 
@@ -97,7 +97,7 @@ macOS と Linux 用の個人 dotfiles。`setup.sh` が `uname` で OS を判定�
 
 ### Claude Code 固有の要素
 
-- `.claude/agents/`: subagent 定義。Claude Code が読む（Codex / Gemini が読むかは未確認）。
+- `.claude/agents/`: Claude Code 用 subagent。OpenCode は形式が違うため同じファイルを読まない。OpenCode 用は `.config/opencode/agents/`。Codex / Gemini が `.claude/agents/` を読むかは未確認。
 - `.claude/rules/`: Claude Code のみが読む詳細ルール。Codex にも効かせたいルールは `.claude/CLAUDE.md` か `.claude/skills/` に置く。
   - `conventional-commits.md` - commit prefix と branch 命名の詳細。
   - `git-commit.md` - commit の粒度、コマンド形式、メッセージのルール。
